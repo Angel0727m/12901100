@@ -1,137 +1,95 @@
-<!-- ==================== TABLAS ==================== -->
+<!-- ==================== DICCIONARIO COMPLETO ==================== -->
 
-<section id="tablas" class="pagina">
-
-    <button class="volver" onclick="volverInicio()">
-        ← Volver al inicio
-    </button>
-
-    <p class="breadcrumb">Inicio &gt; Tablas</p>
-
-    <h2>Tablas</h2>
-
-    <p>
-        Las tablas permiten guardar varios valores dentro
-        de una misma estructura.
-    </p>
-
-    <h3>Crear una tabla</h3>
-
-    <p>
-        Se utilizan llaves <code>{ }</code> para crear una tabla.
-    </p>
-
-    <pre><code>frutas = {
-    "Manzana",
-    "Banano",
-    "Naranja"
-}</code></pre>
-
-    <h3>Índices</h3>
-
-    <p>
-        Los elementos de una tabla pueden accederse mediante
-        su posición. En Lua, los índices normalmente comienzan en 1.
-    </p>
-
-    <pre><code>frutas = {
-    "Manzana",
-    "Banano",
-    "Naranja"
-}
-print(frutas[1])</code></pre>
-
-    <h3>Agregar valores</h3>
-
-    <p>
-        Puedes agregar un nuevo valor indicando su posición.
-    </p>
-
-    <pre><code>frutas = {}
-frutas[1] = "Manzana"
-frutas[2] = "Banano"</code></pre>
-
-    <h3>Tablas con claves</h3>
-
-    <p>
-        Una tabla también puede guardar valores utilizando nombres
-        como claves.
-    </p>
-
-    <pre><code>persona = {
-    nombre = "Angel",
-    edad = 13
-}
-print(persona.nombre)</code></pre>
-
-</section>
-
-
-<!-- ==================== STRINGS ==================== -->
-
-<section id="strings" class="pagina">
+<section id="completo" class="pagina">
 
     <button class="volver" onclick="volverInicio()">
         ← Volver al inicio
     </button>
 
-    <p class="breadcrumb">Inicio &gt; Strings</p>
+    <p class="breadcrumb">Inicio &gt; Diccionario completo</p>
 
-    <h2>Strings</h2>
-
-    <p>
-        Los strings son textos. En Lua normalmente se escriben
-        entre comillas.
-    </p>
-
-    <h3>Crear un string</h3>
+    <h2>Diccionario completo</h2>
 
     <p>
-        Puedes guardar texto dentro de una variable utilizando
-        comillas.
+        Aquí están reunidos todos los conceptos de LuaLex.
     </p>
 
-    <pre><code>nombre = "Angel"
-print(nombre)</code></pre>
 
-    <h3>Concatenar</h3>
+    <h3>Condicionales</h3>
 
-    <p>
-        El operador <code>..</code> permite unir dos strings.
-    </p>
+    <ul>
+        <li><code>if</code> — si. Comprueba si una condición se cumple.</li>
+        <li><code>then</code> — entonces. Indica qué código se ejecuta si la condición es verdadera.</li>
+        <li><code>else</code> — sino. Se ejecuta cuando la condición anterior es falsa.</li>
+        <li><code>elseif</code> — sino, si. Comprueba otra condición cuando la anterior es falsa.</li>
+        <li><code>and</code> — y. Todos los resultados deben cumplirse para que sea verdadero.</li>
+        <li><code>or</code> — o. Al menos uno de los resultados debe cumplirse para que sea verdadero.</li>
+        <li><code>not</code> — no / negar. Invierte el resultado de una condición.</li>
+        <li><code>==</code> — es igual a. Comprueba si dos valores son iguales.</li>
+        <li><code>~=</code> — no es igual a. Comprueba si dos valores son diferentes.</li>
+        <li><code>&gt;</code> — es mayor que. Comprueba si el primer valor es mayor que el segundo.</li>
+        <li><code>&lt;</code> — es menor que. Comprueba si el primer valor es menor que el segundo.</li>
+        <li><code>&gt;=</code> — es mayor o igual que. Comprueba si el primer valor es mayor o igual al segundo.</li>
+        <li><code>&lt;=</code> — es menor o igual que. Comprueba si el primer valor es menor o igual al segundo.</li>
+    </ul>
 
-    <pre><code>nombre = "Angel"
-saludo = "Hola " .. nombre
-print(saludo)</code></pre>
 
-    <h3>Longitud</h3>
+    <h3>Booleanos</h3>
 
-    <p>
-        El operador <code>#</code> permite obtener la cantidad
-        de caracteres de un string.
-    </p>
+    <ul>
+        <li><code>true</code> — verdadero. Representa una condición verdadera.</li>
+        <li><code>false</code> — falso. Representa una condición falsa.</li>
+    </ul>
 
-    <pre><code>texto = "Hola"
-print(#texto)</code></pre>
 
-    <h3>Mayúsculas y minúsculas</h3>
+    <h3>Bucles</h3>
 
-    <p>
-        Lua tiene funciones para convertir un texto a mayúsculas
-        o minúsculas.
-    </p>
+    <ul>
+        <li><code>for</code> — repetir. Repite un bloque de código siguiendo un rango o una colección.</li>
+        <li><code>while</code> — mientras. Repite el código mientras la condición sea verdadera.</li>
+        <li><code>repeat</code> — repetir. Ejecuta el código y luego comprueba la condición.</li>
+        <li><code>until</code> — hasta que. Detiene un bloque <code>repeat</code> cuando la condición se vuelve verdadera.</li>
+        <li><code>do</code> — hacer / iniciar esto. Indica el comienzo del bloque de código de ciertos bucles.</li>
+        <li><code>break</code> — detener. Detiene inmediatamente el bucle en el que se encuentra.</li>
+        <li><code>in</code> — en / dentro de. Se utiliza para recorrer elementos de una colección con ciertos tipos de <code>for</code>.</li>
+    </ul>
 
-    <pre><code>texto = "Hola Mundo"
-print(string.upper(texto))
-print(string.lower(texto))</code></pre>
 
-    <h3>Buscar texto</h3>
+    <h3>Funciones</h3>
 
-    <p>
-        <code>string.find</code> permite buscar una parte de un string.
-    </p>
+    <ul>
+        <li><code>function</code> — crear función. Define un bloque de código reutilizable.</li>
+        <li><code>return</code> — devolver. Devuelve un valor desde una función y termina su ejecución.</li>
+    </ul>
 
-    <pre><code>texto = "Hola Mundo"
-print(string.find(texto, "Mundo"))</code></pre>
+
+    <h3>Tablas</h3>
+
+    <ul>
+        <li><code>{ }</code> — crear una tabla. Las llaves contienen los valores de una tabla.</li>
+        <li><code>[ ]</code> — acceder a un elemento. Se utiliza para acceder a un valor mediante su índice o clave.</li>
+        <li>Claves — identificar valores. Permiten guardar y acceder a valores mediante un nombre.</li>
+    </ul>
+
+
+    <h3>Strings</h3>
+
+    <ul>
+        <li><code>..</code> — concatenar textos. Une dos o más strings.</li>
+        <li><code>#</code> — obtener longitud. Devuelve la cantidad de caracteres de un string.</li>
+        <li><code>string.upper()</code> — convertir a mayúsculas. Convierte las letras de un string a mayúsculas.</li>
+        <li><code>string.lower()</code> — convertir a minúsculas. Convierte las letras de un string a minúsculas.</li>
+        <li><code>string.find()</code> — buscar texto. Busca una parte específica dentro de un string.</li>
+    </ul>
+
+
+    <h3>Otros conceptos</h3>
+
+    <ul>
+        <li><code>end</code> — terminar / fin. Indica el final de un bloque de código.</li>
+        <li><code>nil</code> — nada / sin valor. Representa la ausencia de un valor.</li>
+        <li><code>local</code> — solo aquí. Crea una variable con alcance local.</li>
+        <li><code>goto</code> — ir a. Salta la ejecución hacia una etiqueta determinada.</li>
+    </ul>
 
 </section>
