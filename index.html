@@ -32,42 +32,63 @@
                 <button class="tarjeta" onclick="mostrarTema('condicionales')">
                     <span class="tarjeta-icono">🔀</span>
                     <span class="tarjeta-titulo">Condicionales</span>
+                    <span class="tarjeta-descripcion">
+                        Decisiones con if, then y else
+                    </span>
                 </button>
 
 
                 <button class="tarjeta" onclick="mostrarTema('booleanos')">
                     <span class="tarjeta-icono">🔘</span>
                     <span class="tarjeta-titulo">Booleanos</span>
+                    <span class="tarjeta-descripcion">
+                        Valores true y false
+                    </span>
                 </button>
 
 
                 <button class="tarjeta" onclick="mostrarTema('bucles')">
                     <span class="tarjeta-icono">🔁</span>
                     <span class="tarjeta-titulo">Bucles</span>
+                    <span class="tarjeta-descripcion">
+                        Repetir código con while y for
+                    </span>
                 </button>
 
 
                 <button class="tarjeta" onclick="mostrarTema('funciones')">
                     <span class="tarjeta-icono">🧩</span>
                     <span class="tarjeta-titulo">Funciones</span>
+                    <span class="tarjeta-descripcion">
+                        Bloques de código reutilizables
+                    </span>
                 </button>
 
 
                 <button class="tarjeta" onclick="mostrarTema('tablas')">
                     <span class="tarjeta-icono">🗂️</span>
                     <span class="tarjeta-titulo">Tablas</span>
+                    <span class="tarjeta-descripcion">
+                        Guardar varios valores juntos
+                    </span>
                 </button>
 
 
                 <button class="tarjeta" onclick="mostrarTema('strings')">
                     <span class="tarjeta-icono">🔤</span>
                     <span class="tarjeta-titulo">Strings</span>
+                    <span class="tarjeta-descripcion">
+                        Trabajar con texto
+                    </span>
                 </button>
 
 
                 <button class="tarjeta" onclick="mostrarTema('completo')">
                     <span class="tarjeta-icono">📖</span>
                     <span class="tarjeta-titulo">Diccionario completo</span>
+                    <span class="tarjeta-descripcion">
+                        Todos los conceptos de LuaLex
+                    </span>
                 </button>
 
             </div>
@@ -258,11 +279,54 @@ saludar()</code></pre>
                 de una misma estructura.
             </p>
 
+            <h3>Crear una tabla</h3>
+
+            <p>
+                Se utilizan llaves <code>{ }</code> para crear una tabla.
+            </p>
+
             <pre><code>frutas = {
     "Manzana",
     "Banano",
     "Naranja"
 }</code></pre>
+
+            <h3>Índices</h3>
+
+            <p>
+                Los elementos de una tabla pueden accederse mediante
+                su posición. En Lua, los índices normalmente comienzan en 1.
+            </p>
+
+            <pre><code>frutas = {
+    "Manzana",
+    "Banano",
+    "Naranja"
+}
+print(frutas[1])</code></pre>
+
+            <h3>Agregar valores</h3>
+
+            <p>
+                Puedes agregar un nuevo valor indicando su posición.
+            </p>
+
+            <pre><code>frutas = {}
+frutas[1] = "Manzana"
+frutas[2] = "Banano"</code></pre>
+
+            <h3>Tablas con claves</h3>
+
+            <p>
+                Una tabla también puede guardar valores utilizando nombres
+                como claves.
+            </p>
+
+            <pre><code>persona = {
+    nombre = "Angel",
+    edad = 13
+}
+print(persona.nombre)</code></pre>
 
         </section>
 
@@ -284,9 +348,55 @@ saludar()</code></pre>
                 entre comillas.
             </p>
 
-            <pre><code>nombre = "Angel"
+            <h3>Crear un string</h3>
 
+            <p>
+                Puedes guardar texto dentro de una variable utilizando
+                comillas.
+            </p>
+
+            <pre><code>nombre = "Angel"
 print(nombre)</code></pre>
+
+            <h3>Concatenar</h3>
+
+            <p>
+                El operador <code>..</code> permite unir dos strings.
+            </p>
+
+            <pre><code>nombre = "Angel"
+saludo = "Hola " .. nombre
+print(saludo)</code></pre>
+
+            <h3>Longitud</h3>
+
+            <p>
+                El operador <code>#</code> permite obtener la cantidad
+                de caracteres de un string.
+            </p>
+
+            <pre><code>texto = "Hola"
+print(#texto)</code></pre>
+
+            <h3>Mayúsculas y minúsculas</h3>
+
+            <p>
+                Lua tiene funciones para convertir un texto a mayúsculas
+                o minúsculas.
+            </p>
+
+            <pre><code>texto = "Hola Mundo"
+print(string.upper(texto))
+print(string.lower(texto))</code></pre>
+
+            <h3>Buscar texto</h3>
+
+            <p>
+                <code>string.find</code> permite buscar una parte de un string.
+            </p>
+
+            <pre><code>texto = "Hola Mundo"
+print(string.find(texto, "Mundo"))</code></pre>
 
         </section>
 
