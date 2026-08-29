@@ -20,7 +20,7 @@
 
     <main>
 
-        <!-- INICIO -->
+        <!-- ==================== INICIO ==================== -->
 
         <section id="inicio">
 
@@ -28,32 +28,66 @@
 
             <div class="menu">
 
-                <button onclick="mostrarTema('condicionales')">
-                    Condicionales
+                <button class="tarjeta" onclick="mostrarTema('condicionales')">
+                    <span class="tarjeta-icono">🔀</span>
+                    <span class="tarjeta-titulo">Condicionales</span>
+                    <span class="tarjeta-descripcion">
+                        Decisiones con if, then y else
+                    </span>
                 </button>
 
-                <button onclick="mostrarTema('booleanos')">
-                    Booleanos
+
+                <button class="tarjeta" onclick="mostrarTema('booleanos')">
+                    <span class="tarjeta-icono">🔘</span>
+                    <span class="tarjeta-titulo">Booleanos</span>
+                    <span class="tarjeta-descripcion">
+                        Valores true y false
+                    </span>
                 </button>
 
-                <button onclick="mostrarTema('bucles')">
-                    Bucles
+
+                <button class="tarjeta" onclick="mostrarTema('bucles')">
+                    <span class="tarjeta-icono">🔁</span>
+                    <span class="tarjeta-titulo">Bucles</span>
+                    <span class="tarjeta-descripcion">
+                        Repetir código con while y for
+                    </span>
                 </button>
 
-                <button onclick="mostrarTema('funciones')">
-                    Funciones
+
+                <button class="tarjeta" onclick="mostrarTema('funciones')">
+                    <span class="tarjeta-icono">🧩</span>
+                    <span class="tarjeta-titulo">Funciones</span>
+                    <span class="tarjeta-descripcion">
+                        Bloques de código reutilizables
+                    </span>
                 </button>
 
-                <button onclick="mostrarTema('tablas')">
-                    Tablas
+
+                <button class="tarjeta" onclick="mostrarTema('tablas')">
+                    <span class="tarjeta-icono">🗂️</span>
+                    <span class="tarjeta-titulo">Tablas</span>
+                    <span class="tarjeta-descripcion">
+                        Guardar varios valores juntos
+                    </span>
                 </button>
 
-                <button onclick="mostrarTema('strings')">
-                    Strings
+
+                <button class="tarjeta" onclick="mostrarTema('strings')">
+                    <span class="tarjeta-icono">🔤</span>
+                    <span class="tarjeta-titulo">Strings</span>
+                    <span class="tarjeta-descripcion">
+                        Trabajar con texto
+                    </span>
                 </button>
 
-                <button onclick="mostrarTema('completo')">
-                    Diccionario completo
+
+                <button class="tarjeta" onclick="mostrarTema('completo')">
+                    <span class="tarjeta-icono">📖</span>
+                    <span class="tarjeta-titulo">Diccionario completo</span>
+                    <span class="tarjeta-descripcion">
+                        Todos los conceptos de LuaLex
+                    </span>
                 </button>
 
             </div>
@@ -61,13 +95,15 @@
         </section>
 
 
-        <!-- CONDICIONALES -->
+        <!-- ==================== CONDICIONALES ==================== -->
 
         <section id="condicionales" class="pagina">
 
             <button class="volver" onclick="volverInicio()">
                 ← Volver al inicio
             </button>
+
+            <p class="breadcrumb">Inicio &gt; Condicionales</p>
 
             <h2>Condicionales</h2>
 
@@ -132,13 +168,15 @@ end</code></pre>
         </section>
 
 
-        <!-- BOOLEANOS -->
+        <!-- ==================== BOOLEANOS ==================== -->
 
         <section id="booleanos" class="pagina">
 
             <button class="volver" onclick="volverInicio()">
                 ← Volver al inicio
             </button>
+
+            <p class="breadcrumb">Inicio &gt; Booleanos</p>
 
             <h2>Booleanos</h2>
 
@@ -165,13 +203,15 @@ muerto = false</code></pre>
         </section>
 
 
-        <!-- BUCLES -->
+        <!-- ==================== BUCLES ==================== -->
 
         <section id="bucles" class="pagina">
 
             <button class="volver" onclick="volverInicio()">
                 ← Volver al inicio
             </button>
+
+            <p class="breadcrumb">Inicio &gt; Bucles</p>
 
             <h2>Bucles</h2>
 
@@ -195,13 +235,15 @@ end</code></pre>
         </section>
 
 
-        <!-- FUNCIONES -->
+        <!-- ==================== FUNCIONES ==================== -->
 
         <section id="funciones" class="pagina">
 
             <button class="volver" onclick="volverInicio()">
                 ← Volver al inicio
             </button>
+
+            <p class="breadcrumb">Inicio &gt; Funciones</p>
 
             <h2>Funciones</h2>
 
@@ -219,13 +261,15 @@ saludar()</code></pre>
         </section>
 
 
-        <!-- TABLAS -->
+        <!-- ==================== TABLAS ==================== -->
 
         <section id="tablas" class="pagina">
 
             <button class="volver" onclick="volverInicio()">
                 ← Volver al inicio
             </button>
+
+            <p class="breadcrumb">Inicio &gt; Tablas</p>
 
             <h2>Tablas</h2>
 
@@ -243,13 +287,15 @@ saludar()</code></pre>
         </section>
 
 
-        <!-- STRINGS -->
+        <!-- ==================== STRINGS ==================== -->
 
         <section id="strings" class="pagina">
 
             <button class="volver" onclick="volverInicio()">
                 ← Volver al inicio
             </button>
+
+            <p class="breadcrumb">Inicio &gt; Strings</p>
 
             <h2>Strings</h2>
 
@@ -265,13 +311,15 @@ print(nombre)</code></pre>
         </section>
 
 
-        <!-- DICCIONARIO COMPLETO -->
+        <!-- ==================== DICCIONARIO COMPLETO ==================== -->
 
         <section id="completo" class="pagina">
 
             <button class="volver" onclick="volverInicio()">
                 ← Volver al inicio
             </button>
+
+            <p class="breadcrumb">Inicio &gt; Diccionario completo</p>
 
             <h2>Diccionario completo</h2>
 
