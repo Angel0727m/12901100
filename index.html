@@ -32,36 +32,75 @@
                 <button class="tarjeta" onclick="mostrarTema('condicionales')">
                     <span class="tarjeta-icono">🔀</span>
                     <span class="tarjeta-titulo">Condicionales</span>
+                    <span class="tarjeta-descripcion">Decisiones con if, then y else</span>
                 </button>
 
                 <button class="tarjeta" onclick="mostrarTema('booleanos')">
                     <span class="tarjeta-icono">🔘</span>
                     <span class="tarjeta-titulo">Booleanos</span>
+                    <span class="tarjeta-descripcion">Valores true y false</span>
                 </button>
 
                 <button class="tarjeta" onclick="mostrarTema('bucles')">
                     <span class="tarjeta-icono">🔁</span>
                     <span class="tarjeta-titulo">Bucles</span>
+                    <span class="tarjeta-descripcion">Repetir código con while y for</span>
                 </button>
 
                 <button class="tarjeta" onclick="mostrarTema('funciones')">
                     <span class="tarjeta-icono">🧩</span>
                     <span class="tarjeta-titulo">Funciones</span>
+                    <span class="tarjeta-descripcion">Bloques de código reutilizables</span>
                 </button>
 
                 <button class="tarjeta" onclick="mostrarTema('tablas')">
                     <span class="tarjeta-icono">🗂️</span>
                     <span class="tarjeta-titulo">Tablas</span>
+                    <span class="tarjeta-descripcion">Guardar varios valores juntos</span>
                 </button>
 
                 <button class="tarjeta" onclick="mostrarTema('strings')">
                     <span class="tarjeta-icono">🔤</span>
                     <span class="tarjeta-titulo">Strings</span>
+                    <span class="tarjeta-descripcion">Trabajar con texto</span>
+                </button>
+
+                <!-- NUEVOS CUADROS -->
+
+                <button class="tarjeta" onclick="mostrarTema('operadores')">
+                    <span class="tarjeta-icono">🧮</span>
+                    <span class="tarjeta-titulo">Operadores</span>
+                    <span class="tarjeta-descripcion">Realizar operaciones y cálculos</span>
+                </button>
+
+                <button class="tarjeta" onclick="mostrarTema('variables')">
+                    <span class="tarjeta-icono">📦</span>
+                    <span class="tarjeta-titulo">Variables</span>
+                    <span class="tarjeta-descripcion">Guardar y modificar valores</span>
+                </button>
+
+                <button class="tarjeta" onclick="mostrarTema('tipos')">
+                    <span class="tarjeta-icono">🔢</span>
+                    <span class="tarjeta-titulo">Tipos de datos</span>
+                    <span class="tarjeta-descripcion">Los diferentes tipos de valores</span>
+                </button>
+
+                <button class="tarjeta" onclick="mostrarTema('funcionesbasicas')">
+                    <span class="tarjeta-icono">🛠️</span>
+                    <span class="tarjeta-titulo">Funciones básicas</span>
+                    <span class="tarjeta-descripcion">Funciones útiles de Lua</span>
+                </button>
+
+                <button class="tarjeta" onclick="mostrarTema('funcionesextras')">
+                    <span class="tarjeta-icono">🔤</span>
+                    <span class="tarjeta-titulo">Strings y tablas</span>
+                    <span class="tarjeta-descripcion">Funciones para trabajar con datos</span>
                 </button>
 
                 <button class="tarjeta" onclick="mostrarTema('completo')">
                     <span class="tarjeta-icono">📖</span>
                     <span class="tarjeta-titulo">Diccionario completo</span>
+                    <span class="tarjeta-descripcion">Todos los conceptos de LuaLex</span>
                 </button>
 
             </div>
@@ -73,49 +112,26 @@
 
         <section id="condicionales" class="pagina">
 
-            <button class="volver" onclick="volverInicio()">
-                ← Volver al inicio
-            </button>
+            <button class="volver" onclick="volverInicio()">← Volver al inicio</button>
 
             <p class="breadcrumb">Inicio &gt; Condicionales</p>
 
             <h2>Condicionales</h2>
 
-            <p>
-                Los condicionales permiten que un programa tome
-                decisiones dependiendo de una condición.
-            </p>
+            <p>Los condicionales permiten que un programa tome decisiones dependiendo de una condición.</p>
 
             <h3>if</h3>
-
-            <p>
-                <code>if</code> significa "si". Comprueba si una condición
-                es verdadera.
-            </p>
+            <p><code>if</code> significa "si" y comprueba una condición.</p>
 
             <pre><code>if edad >= 18 then
     print("Eres mayor de edad")
 end</code></pre>
 
-
             <h3>then</h3>
-
-            <p>
-                <code>then</code> indica qué código debe ejecutarse
-                si la condición es verdadera.
-            </p>
-
-            <pre><code>if dinero > 0 then
-    print("Tienes dinero")
-end</code></pre>
-
+            <p><code>then</code> indica el código que se ejecutará si la condición es verdadera.</p>
 
             <h3>else</h3>
-
-            <p>
-                <code>else</code> permite ejecutar otro código cuando
-                la condición no es verdadera.
-            </p>
+            <p><code>else</code> ejecuta otro bloque cuando la condición es falsa.</p>
 
             <pre><code>if dinero > 0 then
     print("Puedes comprarlo")
@@ -123,13 +139,8 @@ else
     print("No tienes dinero")
 end</code></pre>
 
-
             <h3>elseif</h3>
-
-            <p>
-                <code>elseif</code> permite comprobar otra condición
-                si la anterior no se cumplió.
-            </p>
+            <p><code>elseif</code> permite comprobar otra condición.</p>
 
             <pre><code>if nota >= 5 then
     print("Excelente")
@@ -139,55 +150,28 @@ else
     print("No aprobaste")
 end</code></pre>
 
-
             <h3>and</h3>
+            <p><code>and</code> requiere que las condiciones necesarias sean verdaderas.</p>
 
-            <p>
-                <code>and</code> significa "y". Todas las condiciones
-                deben cumplirse para que el resultado sea verdadero.
-            </p>
-
-            <pre><code>if edad >= 18 and dinero > 0 then
-    print("Puedes comprarlo")
+            <pre><code>if edad >= 18 and tieneDocumento then
+    print("Puede entrar")
 end</code></pre>
-
 
             <h3>or</h3>
+            <p><code>or</code> permite que se cumpla al menos una de las condiciones.</p>
 
-            <p>
-                <code>or</code> significa "o". Al menos una de las
-                condiciones debe cumplirse para que el resultado sea verdadero.
-            </p>
-
-            <pre><code>if edad >= 18 or tienePermiso then
-    print("Puedes entrar")
+            <pre><code>if dia == "sabado" or dia == "domingo" then
+    print("Fin de semana")
 end</code></pre>
-
 
             <h3>not</h3>
+            <p><code>not</code> invierte un valor booleano.</p>
 
-            <p>
-                <code>not</code> niega una condición e invierte su resultado.
-            </p>
+            <pre><code>jugando = true
+print(not jugando)</code></pre>
 
-            <pre><code>if not jugando then
-    print("El juego terminó")
-end</code></pre>
-
-
-            <h3>Operadores de comparación</h3>
-
-            <p>
-                Se utilizan para comparar valores y obtener un resultado
-                verdadero o falso.
-            </p>
-
-            <pre><code>x == 5
-x ~= 5
-x > 5
-x < 5
-x >= 5
-x <= 5</code></pre>
+            <h3>Comparadores</h3>
+            <p><code>==</code> igual, <code>~=</code> diferente, <code>&gt;</code> mayor, <code>&lt;</code> menor, <code>&gt;=</code> mayor o igual y <code>&lt;=</code> menor o igual.</p>
 
         </section>
 
@@ -196,33 +180,22 @@ x <= 5</code></pre>
 
         <section id="booleanos" class="pagina">
 
-            <button class="volver" onclick="volverInicio()">
-                ← Volver al inicio
-            </button>
+            <button class="volver" onclick="volverInicio()">← Volver al inicio</button>
 
             <p class="breadcrumb">Inicio &gt; Booleanos</p>
 
             <h2>Booleanos</h2>
 
-            <p>
-                Los booleanos son valores que solamente pueden ser
-                <code>true</code> o <code>false</code>.
-            </p>
+            <p>Los booleanos solamente pueden tener los valores <code>true</code> o <code>false</code>.</p>
 
             <pre><code>jugando = true
 muerto = false</code></pre>
 
             <h3>true</h3>
-
-            <p>
-                Significa que algo es verdadero.
-            </p>
+            <p>Representa un valor verdadero.</p>
 
             <h3>false</h3>
-
-            <p>
-                Significa que algo es falso.
-            </p>
+            <p>Representa un valor falso.</p>
 
         </section>
 
@@ -231,73 +204,53 @@ muerto = false</code></pre>
 
         <section id="bucles" class="pagina">
 
-            <button class="volver" onclick="volverInicio()">
-                ← Volver al inicio
-            </button>
+            <button class="volver" onclick="volverInicio()">← Volver al inicio</button>
 
             <p class="breadcrumb">Inicio &gt; Bucles</p>
 
             <h2>Bucles</h2>
 
-            <p>
-                Los bucles permiten repetir código varias veces.
-            </p>
+            <p>Los bucles permiten repetir código varias veces.</p>
 
             <h3>while</h3>
-
-            <p>
-                Repite el código mientras la condición sea verdadera.
-            </p>
+            <p><code>while</code> repite mientras una condición sea verdadera.</p>
 
             <pre><code>while x &lt; 10 do
     print(x)
     x = x + 1
 end</code></pre>
 
-
             <h3>for</h3>
-
-            <p>
-                Repite un bloque de código siguiendo un rango determinado.
-            </p>
+            <p><code>for</code> permite repetir utilizando un contador o recorrido.</p>
 
             <pre><code>for i = 1, 5 do
     print(i)
 end</code></pre>
 
-
             <h3>repeat</h3>
-
-            <p>
-                Ejecuta un bloque de código y después comprueba una condición.
-            </p>
+            <p><code>repeat</code> ejecuta el bloque y después comprueba la condición.</p>
 
             <pre><code>repeat
     x = x + 1
-until x >= 10</code></pre>
+until x >= 5</code></pre>
 
+            <h3>until</h3>
+            <p><code>until</code> indica hasta qué condición debe repetirse un bloque.</p>
 
             <h3>break</h3>
+            <p><code>break</code> detiene el bucle actual.</p>
 
-            <p>
-                Detiene inmediatamente el bucle en el que se encuentra.
-            </p>
-
-            <pre><code>while true do
-    break
+            <pre><code>for i = 1, 10 do
+    if i == 5 then
+        break
+    end
 end</code></pre>
 
+            <h3>do</h3>
+            <p><code>do</code> inicia un bloque de código.</p>
 
             <h3>in</h3>
-
-            <p>
-                Se utiliza en ciertos tipos de <code>for</code> para
-                recorrer elementos de una colección.
-            </p>
-
-            <pre><code>for k, v in pairs(persona) do
-    print(k, v)
-end</code></pre>
+            <p><code>in</code> se utiliza principalmente para recorrer elementos con ciertos tipos de bucles.</p>
 
         </section>
 
@@ -306,24 +259,15 @@ end</code></pre>
 
         <section id="funciones" class="pagina">
 
-            <button class="volver" onclick="volverInicio()">
-                ← Volver al inicio
-            </button>
+            <button class="volver" onclick="volverInicio()">← Volver al inicio</button>
 
             <p class="breadcrumb">Inicio &gt; Funciones</p>
 
             <h2>Funciones</h2>
 
-            <p>
-                Las funciones son bloques de código que podemos
-                reutilizar cuando los necesitemos.
-            </p>
+            <p>Las funciones son bloques de código reutilizables.</p>
 
             <h3>function</h3>
-
-            <p>
-                <code>function</code> se utiliza para crear una función.
-            </p>
 
             <pre><code>function saludar()
     print("Hola")
@@ -331,20 +275,15 @@ end
 
 saludar()</code></pre>
 
-
             <h3>return</h3>
 
-            <p>
-                <code>return</code> devuelve un valor desde una función
-                y termina su ejecución.
-            </p>
+            <p><code>return</code> devuelve un valor desde una función.</p>
 
             <pre><code>function sumar(a, b)
     return a + b
 end
 
-resultado = sumar(5, 3)
-print(resultado)</code></pre>
+resultado = sumar(3, 2)</code></pre>
 
         </section>
 
@@ -353,24 +292,15 @@ print(resultado)</code></pre>
 
         <section id="tablas" class="pagina">
 
-            <button class="volver" onclick="volverInicio()">
-                ← Volver al inicio
-            </button>
+            <button class="volver" onclick="volverInicio()">← Volver al inicio</button>
 
             <p class="breadcrumb">Inicio &gt; Tablas</p>
 
             <h2>Tablas</h2>
 
-            <p>
-                Las tablas permiten guardar varios valores dentro
-                de una misma estructura.
-            </p>
+            <p>Las tablas permiten guardar varios valores dentro de una misma estructura.</p>
 
             <h3>Crear una tabla</h3>
-
-            <p>
-                Se utilizan llaves <code>{ }</code> para crear una tabla.
-            </p>
 
             <pre><code>frutas = {
     "Manzana",
@@ -378,41 +308,13 @@ print(resultado)</code></pre>
     "Naranja"
 }</code></pre>
 
-
             <h3>Índices</h3>
 
-            <p>
-                Los elementos de una tabla pueden accederse mediante
-                su posición. En Lua, los índices normalmente comienzan en 1.
-            </p>
+            <p>En las tablas tipo lista, Lua normalmente comienza los índices en 1.</p>
 
-            <pre><code>frutas = {
-    "Manzana",
-    "Banano",
-    "Naranja"
-}
+            <pre><code>print(frutas[1])</code></pre>
 
-print(frutas[1])</code></pre>
-
-
-            <h3>Agregar valores</h3>
-
-            <p>
-                Puedes agregar un nuevo valor indicando su posición.
-            </p>
-
-            <pre><code>frutas = {}
-
-frutas[1] = "Manzana"
-frutas[2] = "Banano"</code></pre>
-
-
-            <h3>Tablas con claves</h3>
-
-            <p>
-                Una tabla también puede guardar valores utilizando
-                nombres como claves.
-            </p>
+            <h3>Claves</h3>
 
             <pre><code>persona = {
     nombre = "Angel",
@@ -428,75 +330,298 @@ print(persona.nombre)</code></pre>
 
         <section id="strings" class="pagina">
 
-            <button class="volver" onclick="volverInicio()">
-                ← Volver al inicio
-            </button>
+            <button class="volver" onclick="volverInicio()">← Volver al inicio</button>
 
             <p class="breadcrumb">Inicio &gt; Strings</p>
 
             <h2>Strings</h2>
 
-            <p>
-                Los strings son textos. En Lua normalmente se escriben
-                entre comillas.
-            </p>
+            <p>Los strings representan texto.</p>
 
             <h3>Crear un string</h3>
-
-            <p>
-                Puedes guardar texto dentro de una variable utilizando
-                comillas.
-            </p>
 
             <pre><code>nombre = "Angel"
 print(nombre)</code></pre>
 
-
             <h3>Concatenar</h3>
 
-            <p>
-                El operador <code>..</code> permite unir dos strings.
-            </p>
+            <p><code>..</code> une dos strings.</p>
 
             <pre><code>nombre = "Angel"
 saludo = "Hola " .. nombre
 print(saludo)</code></pre>
 
-
             <h3>Longitud</h3>
 
-            <p>
-                El operador <code>#</code> permite obtener la cantidad
-                de caracteres de un string.
-            </p>
+            <p><code>#</code> obtiene la cantidad de caracteres.</p>
 
             <pre><code>texto = "Hola"
 print(#texto)</code></pre>
 
-
-            <h3>Mayúsculas y minúsculas</h3>
-
-            <p>
-                Lua tiene funciones para convertir un texto a mayúsculas
-                o minúsculas.
-            </p>
-
-            <pre><code>texto = "Hola Mundo"
-
-print(string.upper(texto))
-print(string.lower(texto))</code></pre>
+        </section>
 
 
-            <h3>Buscar texto</h3>
+        <!-- ==================== OPERADORES ==================== -->
 
-            <p>
-                <code>string.find</code> permite buscar una parte
-                de un string.
-            </p>
+        <section id="operadores" class="pagina">
 
-            <pre><code>texto = "Hola Mundo"
+            <button class="volver" onclick="volverInicio()">← Volver al inicio</button>
 
-print(string.find(texto, "Mundo"))</code></pre>
+            <p class="breadcrumb">Inicio &gt; Operadores</p>
+
+            <h2>Operadores</h2>
+
+            <p>Los operadores permiten realizar operaciones con valores.</p>
+
+            <h3>+</h3>
+            <p><code>+</code> suma dos valores.</p>
+            <pre><code>resultado = 5 + 3</code></pre>
+
+            <h3>-</h3>
+            <p><code>-</code> resta un valor de otro.</p>
+            <pre><code>resultado = 5 - 3</code></pre>
+
+            <h3>*</h3>
+            <p><code>*</code> multiplica.</p>
+            <pre><code>resultado = 5 * 3</code></pre>
+
+            <h3>/</h3>
+            <p><code>/</code> realiza una división.</p>
+            <pre><code>resultado = 10 / 2</code></pre>
+
+            <h3>//</h3>
+            <p><code>//</code> realiza una división entera.</p>
+            <pre><code>resultado = 10 // 3</code></pre>
+
+            <h3>%</h3>
+            <p><code>%</code> obtiene el resto de una división.</p>
+            <pre><code>resto = 10 % 3</code></pre>
+
+            <h3>^</h3>
+            <p><code>^</code> eleva un número a una potencia.</p>
+            <pre><code>resultado = 2 ^ 3</code></pre>
+
+            <h3>..</h3>
+            <p><code>..</code> concatena strings.</p>
+            <pre><code>nombre = "Angel"
+mensaje = "Hola " .. nombre</code></pre>
+
+            <h3>#</h3>
+            <p><code>#</code> obtiene la longitud de un string o la cantidad de elementos de una secuencia.</p>
+
+            <h3>=</h3>
+            <p><code>=</code> asigna un valor a una variable.</p>
+            <pre><code>x = 10</code></pre>
+
+        </section>
+
+
+        <!-- ==================== VARIABLES ==================== -->
+
+        <section id="variables" class="pagina">
+
+            <button class="volver" onclick="volverInicio()">← Volver al inicio</button>
+
+            <p class="breadcrumb">Inicio &gt; Variables</p>
+
+            <h2>Variables</h2>
+
+            <p>Las variables permiten guardar valores para utilizarlos después.</p>
+
+            <h3>local</h3>
+            <p><code>local</code> crea una variable local.</p>
+            <pre><code>local edad = 13</code></pre>
+
+            <h3>Asignación</h3>
+            <p>El operador <code>=</code> asigna un valor.</p>
+            <pre><code>nombre = "Angel"</code></pre>
+
+            <h3>Cambiar un valor</h3>
+            <p>Una variable puede recibir un nuevo valor.</p>
+            <pre><code>x = 5
+x = 10</code></pre>
+
+            <h3>Múltiples variables</h3>
+            <p>Lua permite asignar varios valores al mismo tiempo.</p>
+            <pre><code>a, b = 10, 20</code></pre>
+
+            <h3>Intercambiar valores</h3>
+            <p>Puedes intercambiar dos variables directamente.</p>
+            <pre><code>a, b = b, a</code></pre>
+
+            <h3>Variable global</h3>
+            <p>Una variable creada sin <code>local</code> puede ser global.</p>
+
+            <h3>nil</h3>
+            <p><code>nil</code> representa la ausencia de un valor.</p>
+            <pre><code>x = nil</code></pre>
+
+            <h3>Constantes por convención</h3>
+            <p>Lua no tiene constantes simples obligatorias; normalmente se usan nombres en mayúsculas para indicar que no deberían cambiar.</p>
+
+            <h3>Alcance</h3>
+            <p>El alcance determina en qué partes del programa puede utilizarse una variable.</p>
+
+            <h3>Inicialización</h3>
+            <p>Inicializar una variable significa darle un valor al crearla.</p>
+            <pre><code>local vidas = 3</code></pre>
+
+        </section>
+
+
+        <!-- ==================== TIPOS ==================== -->
+
+        <section id="tipos" class="pagina">
+
+            <button class="volver" onclick="volverInicio()">← Volver al inicio</button>
+
+            <p class="breadcrumb">Inicio &gt; Tipos de datos</p>
+
+            <h2>Tipos de datos</h2>
+
+            <p>Lua tiene diferentes tipos de valores que pueden almacenarse en variables.</p>
+
+            <h3>nil</h3>
+            <p><code>nil</code> representa ausencia de valor.</p>
+
+            <h3>boolean</h3>
+            <p><code>boolean</code> representa <code>true</code> o <code>false</code>.</p>
+
+            <h3>number</h3>
+            <p><code>number</code> representa números.</p>
+
+            <pre><code>edad = 13
+precio = 5.5</code></pre>
+
+            <h3>string</h3>
+            <p><code>string</code> representa texto.</p>
+
+            <h3>table</h3>
+            <p><code>table</code> representa tablas.</p>
+
+            <h3>function</h3>
+            <p><code>function</code> representa una función.</p>
+
+            <h3>userdata</h3>
+            <p><code>userdata</code> permite representar datos proporcionados por el programa anfitrión.</p>
+
+            <h3>thread</h3>
+            <p><code>thread</code> representa un hilo de ejecución de Lua.</p>
+
+            <h3>type()</h3>
+            <p><code>type()</code> permite conocer el tipo de un valor.</p>
+
+            <pre><code>print(type(25))
+print(type("Hola"))</code></pre>
+
+            <h3>Valores dinámicos</h3>
+            <p>Lua permite que una variable reciba valores de diferentes tipos durante la ejecución.</p>
+
+            <pre><code>x = 10
+x = "Hola"</code></pre>
+
+        </section>
+
+
+        <!-- ==================== FUNCIONES BÁSICAS ==================== -->
+
+        <section id="funcionesbasicas" class="pagina">
+
+            <button class="volver" onclick="volverInicio()">← Volver al inicio</button>
+
+            <p class="breadcrumb">Inicio &gt; Funciones básicas</p>
+
+            <h2>Funciones básicas</h2>
+
+            <h3>print()</h3>
+            <p><code>print()</code> muestra información en la salida.</p>
+            <pre><code>print("Hola")</code></pre>
+
+            <h3>type()</h3>
+            <p><code>type()</code> indica el tipo de un valor.</p>
+            <pre><code>print(type(10))</code></pre>
+
+            <h3>tostring()</h3>
+            <p><code>tostring()</code> convierte un valor a string.</p>
+            <pre><code>texto = tostring(123)</code></pre>
+
+            <h3>tonumber()</h3>
+            <p><code>tonumber()</code> intenta convertir un valor a número.</p>
+            <pre><code>numero = tonumber("25")</code></pre>
+
+            <h3>assert()</h3>
+            <p><code>assert()</code> comprueba que un valor sea verdadero.</p>
+            <pre><code>assert(edad >= 0)</code></pre>
+
+            <h3>error()</h3>
+            <p><code>error()</code> genera un error en el programa.</p>
+            <pre><code>error("Ocurrió un problema")</code></pre>
+
+            <h3>pairs()</h3>
+            <p><code>pairs()</code> permite recorrer claves y valores de una tabla.</p>
+            <pre><code>for clave, valor in pairs(persona) do
+    print(clave, valor)
+end</code></pre>
+
+            <h3>ipairs()</h3>
+            <p><code>ipairs()</code> recorre los elementos de una secuencia numérica.</p>
+            <pre><code>for i, fruta in ipairs(frutas) do
+    print(i, fruta)
+end</code></pre>
+
+            <h3>next()</h3>
+            <p><code>next()</code> permite obtener el siguiente par clave-valor de una tabla.</p>
+
+            <h3>select()</h3>
+            <p><code>select()</code> permite trabajar con argumentos variables de una función.</p>
+
+        </section>
+
+
+        <!-- ==================== STRINGS Y TABLAS ==================== -->
+
+        <section id="funcionesextras" class="pagina">
+
+            <button class="volver" onclick="volverInicio()">← Volver al inicio</button>
+
+            <p class="breadcrumb">Inicio &gt; Strings y tablas</p>
+
+            <h2>Strings y tablas</h2>
+
+            <h3>string.len()</h3>
+            <p><code>string.len()</code> obtiene la longitud de un string.</p>
+            <pre><code>print(string.len("Hola"))</code></pre>
+
+            <h3>string.sub()</h3>
+            <p><code>string.sub()</code> obtiene una parte de un string.</p>
+            <pre><code>print(string.sub("Hola Mundo", 1, 4))</code></pre>
+
+            <h3>string.upper()</h3>
+            <p><code>string.upper()</code> convierte un string a mayúsculas.</p>
+
+            <h3>string.lower()</h3>
+            <p><code>string.lower()</code> convierte un string a minúsculas.</p>
+
+            <h3>string.find()</h3>
+            <p><code>string.find()</code> busca un texto dentro de otro.</p>
+
+            <h3>string.match()</h3>
+            <p><code>string.match()</code> busca una coincidencia utilizando patrones.</p>
+
+            <h3>string.gsub()</h3>
+            <p><code>string.gsub()</code> reemplaza partes de un string.</p>
+
+            <h3>string.format()</h3>
+            <p><code>string.format()</code> crea un string usando un formato.</p>
+
+            <h3>table.insert()</h3>
+            <p><code>table.insert()</code> agrega un elemento a una tabla.</p>
+            <pre><code>frutas = {"Manzana"}
+table.insert(frutas, "Banano")</code></pre>
+
+            <h3>table.remove()</h3>
+            <p><code>table.remove()</code> elimina un elemento de una tabla.</p>
+            <pre><code>table.remove(frutas, 1)</code></pre>
 
         </section>
 
@@ -505,96 +630,48 @@ print(string.find(texto, "Mundo"))</code></pre>
 
         <section id="completo" class="pagina">
 
-            <button class="volver" onclick="volverInicio()">
-                ← Volver al inicio
-            </button>
+            <button class="volver" onclick="volverInicio()">← Volver al inicio</button>
 
             <p class="breadcrumb">Inicio &gt; Diccionario completo</p>
 
             <h2>Diccionario completo</h2>
 
             <p>
-                Aquí están reunidos todos los conceptos de LuaLex
-                con su significado y regla de uso.
+                Aquí están reunidos todos los conceptos de LuaLex.
             </p>
 
-
             <h3>Condicionales</h3>
-
-            <ul>
-                <li><code>if</code> — si. Comprueba si una condición se cumple.</li>
-                <li><code>then</code> — entonces. Indica qué código se ejecuta si la condición es verdadera.</li>
-                <li><code>else</code> — sino. Se ejecuta cuando la condición anterior es falsa.</li>
-                <li><code>elseif</code> — sino, si. Comprueba otra condición cuando la anterior es falsa.</li>
-                <li><code>and</code> — y. Todos los resultados deben cumplirse para que sea verdadero.</li>
-                <li><code>or</code> — o. Al menos uno de los resultados debe cumplirse para que sea verdadero.</li>
-                <li><code>not</code> — no / negar. Invierte el resultado de una condición.</li>
-                <li><code>==</code> — es igual a. Comprueba si dos valores son iguales.</li>
-                <li><code>~=</code> — no es igual a. Comprueba si dos valores son diferentes.</li>
-                <li><code>&gt;</code> — es mayor que. Comprueba si el primer valor es mayor que el segundo.</li>
-                <li><code>&lt;</code> — es menor que. Comprueba si el primer valor es menor que el segundo.</li>
-                <li><code>&gt;=</code> — es mayor o igual que. Comprueba si el primer valor es mayor o igual al segundo.</li>
-                <li><code>&lt;=</code> — es menor o igual que. Comprueba si el primer valor es menor o igual al segundo.</li>
-            </ul>
-
+            <p><code>if</code>, <code>then</code>, <code>else</code>, <code>elseif</code>, <code>and</code>, <code>or</code>, <code>not</code>, <code>==</code>, <code>~=</code>, <code>&gt;</code>, <code>&lt;</code>, <code>&gt;=</code>, <code>&lt;=</code></p>
 
             <h3>Booleanos</h3>
-
-            <ul>
-                <li><code>true</code> — verdadero. Representa una condición verdadera.</li>
-                <li><code>false</code> — falso. Representa una condición falsa.</li>
-            </ul>
-
+            <p><code>true</code>, <code>false</code></p>
 
             <h3>Bucles</h3>
-
-            <ul>
-                <li><code>for</code> — repetir. Repite un bloque de código siguiendo un rango o una colección.</li>
-                <li><code>while</code> — mientras. Repite el código mientras la condición sea verdadera.</li>
-                <li><code>repeat</code> — repetir. Ejecuta el código y después comprueba la condición.</li>
-                <li><code>until</code> — hasta que. Detiene un bloque <code>repeat</code> cuando la condición se vuelve verdadera.</li>
-                <li><code>do</code> — hacer / iniciar esto. Indica el comienzo del bloque de código de ciertos bucles.</li>
-                <li><code>break</code> — detener. Detiene inmediatamente el bucle.</li>
-                <li><code>in</code> — en / dentro de. Se utiliza para recorrer elementos de una colección con ciertos tipos de <code>for</code>.</li>
-            </ul>
-
+            <p><code>for</code>, <code>while</code>, <code>repeat</code>, <code>until</code>, <code>do</code>, <code>break</code>, <code>in</code></p>
 
             <h3>Funciones</h3>
-
-            <ul>
-                <li><code>function</code> — crear función. Define un bloque de código reutilizable.</li>
-                <li><code>return</code> — devolver. Devuelve un valor desde una función y termina su ejecución.</li>
-            </ul>
-
+            <p><code>function</code>, <code>return</code></p>
 
             <h3>Tablas</h3>
-
-            <ul>
-                <li><code>{ }</code> — crear una tabla. Las llaves contienen los valores de una tabla.</li>
-                <li><code>[ ]</code> — acceder a un elemento. Se utiliza para acceder a un valor mediante su índice o clave.</li>
-                <li>Claves — identificar valores. Permiten guardar y acceder a valores mediante un nombre.</li>
-            </ul>
-
+            <p>Índices, claves, <code>table.insert()</code>, <code>table.remove()</code></p>
 
             <h3>Strings</h3>
+            <p><code>..</code>, <code>#</code>, <code>string.len()</code>, <code>string.sub()</code>, <code>string.upper()</code>, <code>string.lower()</code>, <code>string.find()</code>, <code>string.match()</code>, <code>string.gsub()</code>, <code>string.format()</code></p>
 
-            <ul>
-                <li><code>..</code> — concatenar textos. Une dos o más strings.</li>
-                <li><code>#</code> — obtener longitud. Devuelve la cantidad de caracteres de un string.</li>
-                <li><code>string.upper()</code> — convertir a mayúsculas. Convierte las letras de un string a mayúsculas.</li>
-                <li><code>string.lower()</code> — convertir a minúsculas. Convierte las letras de un string a minúsculas.</li>
-                <li><code>string.find()</code> — buscar texto. Busca una parte específica dentro de un string.</li>
-            </ul>
+            <h3>Operadores</h3>
+            <p><code>+</code>, <code>-</code>, <code>*</code>, <code>/</code>, <code>//</code>, <code>%</code>, <code>^</code>, <code>..</code>, <code>#</code>, <code>=</code></p>
 
+            <h3>Variables</h3>
+            <p><code>local</code>, asignación, múltiples variables, alcance, inicialización, <code>nil</code></p>
+
+            <h3>Tipos de datos</h3>
+            <p><code>nil</code>, <code>boolean</code>, <code>number</code>, <code>string</code>, <code>table</code>, <code>function</code>, <code>userdata</code>, <code>thread</code></p>
+
+            <h3>Funciones básicas</h3>
+            <p><code>print()</code>, <code>type()</code>, <code>tostring()</code>, <code>tonumber()</code>, <code>assert()</code>, <code>error()</code>, <code>pairs()</code>, <code>ipairs()</code>, <code>next()</code>, <code>select()</code></p>
 
             <h3>Otros conceptos</h3>
-
-            <ul>
-                <li><code>end</code> — terminar / fin. Indica el final de un bloque de código.</li>
-                <li><code>nil</code> — nada / sin valor. Representa la ausencia de un valor.</li>
-                <li><code>local</code> — solo aquí. Crea una variable con alcance local.</li>
-                <li><code>goto</code> — ir a. Salta la ejecución hacia una etiqueta determinada.</li>
-            </ul>
+            <p><code>end</code>, <code>goto</code></p>
 
         </section>
 
