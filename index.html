@@ -17,43 +17,286 @@
         <p>Diccionario de Lua explicado en lenguaje humano.</p>
     </header>
 
+
     <main>
 
-        <h2>¿Qué quieres aprender?</h2>
+        <!-- INICIO -->
 
-        <div class="menu">
+        <section id="inicio">
 
-            <button onclick="mostrarTema('Condicionales')">
-                Condicionales
+            <h2>¿Qué quieres aprender?</h2>
+
+            <div class="menu">
+
+                <button onclick="mostrarTema('condicionales')">
+                    Condicionales
+                </button>
+
+                <button onclick="mostrarTema('booleanos')">
+                    Booleanos
+                </button>
+
+                <button onclick="mostrarTema('bucles')">
+                    Bucles
+                </button>
+
+                <button onclick="mostrarTema('funciones')">
+                    Funciones
+                </button>
+
+                <button onclick="mostrarTema('tablas')">
+                    Tablas
+                </button>
+
+                <button onclick="mostrarTema('strings')">
+                    Strings
+                </button>
+
+                <button onclick="mostrarTema('completo')">
+                    Diccionario completo
+                </button>
+
+            </div>
+
+        </section>
+
+
+        <!-- CONDICIONALES -->
+
+        <section id="condicionales" class="pagina">
+
+            <button class="volver" onclick="volverInicio()">
+                ← Volver al inicio
             </button>
 
-            <button onclick="mostrarTema('Booleanos')">
-                Booleanos
+            <h2>Condicionales</h2>
+
+            <p>
+                Los condicionales permiten que un programa tome
+                decisiones dependiendo de una condición.
+            </p>
+
+            <h3>if</h3>
+
+            <p>
+                <code>if</code> significa "si". Se utiliza para
+                comprobar si una condición es verdadera.
+            </p>
+
+            <pre><code>if edad >= 18 then
+    print("Eres mayor de edad")
+end</code></pre>
+
+
+            <h3>then</h3>
+
+            <p>
+                <code>then</code> indica qué código debe ejecutarse
+                si la condición es verdadera.
+            </p>
+
+            <pre><code>if dinero > 0 then
+    print("Tienes dinero")
+end</code></pre>
+
+
+            <h3>else</h3>
+
+            <p>
+                <code>else</code> permite ejecutar otra cosa cuando
+                la condición no es verdadera.
+            </p>
+
+            <pre><code>if dinero > 0 then
+    print("Puedes comprarlo")
+else
+    print("No tienes dinero")
+end</code></pre>
+
+
+            <h3>elseif</h3>
+
+            <p>
+                <code>elseif</code> permite comprobar otra condición
+                si la anterior no se cumplió.
+            </p>
+
+            <pre><code>if nota >= 5 then
+    print("Excelente")
+elseif nota >= 3 then
+    print("Aprobaste")
+else
+    print("No aprobaste")
+end</code></pre>
+
+        </section>
+
+
+        <!-- BOOLEANOS -->
+
+        <section id="booleanos" class="pagina">
+
+            <button class="volver" onclick="volverInicio()">
+                ← Volver al inicio
             </button>
 
-            <button onclick="mostrarTema('Bucles')">
-                Bucles
+            <h2>Booleanos</h2>
+
+            <p>
+                Los booleanos son valores que solamente pueden ser
+                <code>true</code> o <code>false</code>.
+            </p>
+
+            <pre><code>jugando = true
+muerto = false</code></pre>
+
+            <h3>true</h3>
+
+            <p>
+                Significa que algo es verdadero.
+            </p>
+
+            <h3>false</h3>
+
+            <p>
+                Significa que algo es falso.
+            </p>
+
+        </section>
+
+
+        <!-- BUCLES -->
+
+        <section id="bucles" class="pagina">
+
+            <button class="volver" onclick="volverInicio()">
+                ← Volver al inicio
             </button>
 
-            <button onclick="mostrarTema('Funciones')">
-                Funciones
+            <h2>Bucles</h2>
+
+            <p>
+                Los bucles permiten repetir código varias veces.
+            </p>
+
+            <h3>while</h3>
+
+            <pre><code>while x &lt; 10 do
+    print(x)
+    x = x + 1
+end</code></pre>
+
+            <h3>for</h3>
+
+            <pre><code>for i = 1, 5 do
+    print(i)
+end</code></pre>
+
+        </section>
+
+
+        <!-- FUNCIONES -->
+
+        <section id="funciones" class="pagina">
+
+            <button class="volver" onclick="volverInicio()">
+                ← Volver al inicio
             </button>
 
-            <button onclick="mostrarTema('Tablas')">
-                Tablas
+            <h2>Funciones</h2>
+
+            <p>
+                Las funciones son bloques de código que podemos
+                reutilizar cuando los necesitemos.
+            </p>
+
+            <pre><code>function saludar()
+    print("Hola")
+end
+
+saludar()</code></pre>
+
+        </section>
+
+
+        <!-- TABLAS -->
+
+        <section id="tablas" class="pagina">
+
+            <button class="volver" onclick="volverInicio()">
+                ← Volver al inicio
             </button>
 
-            <button onclick="mostrarTema('Strings')">
-                Strings
+            <h2>Tablas</h2>
+
+            <p>
+                Las tablas permiten guardar varios valores dentro
+                de una misma estructura.
+            </p>
+
+            <pre><code>frutas = {
+    "Manzana",
+    "Banano",
+    "Naranja"
+}</code></pre>
+
+        </section>
+
+
+        <!-- STRINGS -->
+
+        <section id="strings" class="pagina">
+
+            <button class="volver" onclick="volverInicio()">
+                ← Volver al inicio
             </button>
 
-            <button onclick="mostrarTema('Diccionario completo')">
-                Diccionario completo
+            <h2>Strings</h2>
+
+            <p>
+                Los strings son textos. En Lua normalmente se escriben
+                entre comillas.
+            </p>
+
+            <pre><code>nombre = "Angel"
+
+print(nombre)</code></pre>
+
+        </section>
+
+
+        <!-- DICCIONARIO COMPLETO -->
+
+        <section id="completo" class="pagina">
+
+            <button class="volver" onclick="volverInicio()">
+                ← Volver al inicio
             </button>
 
-        </div>
+            <h2>Diccionario completo</h2>
+
+            <p>
+                Aquí estarán reunidos todos los conceptos de LuaLex.
+            </p>
+
+            <ul>
+                <li>Condicionales</li>
+                <li>Booleanos</li>
+                <li>Bucles</li>
+                <li>Funciones</li>
+                <li>Tablas</li>
+                <li>Strings</li>
+            </ul>
+
+        </section>
 
     </main>
+
+
+    <footer>
+        <p>LuaLex — Aprende Lua de forma sencilla.</p>
+    </footer>
+
 
     <script src="script.js"></script>
 
