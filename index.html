@@ -1,443 +1,95 @@
-<!DOCTYPE html>
-<html lang="es">
+<!-- ==================== DICCIONARIO COMPLETO ==================== -->
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<section id="completo" class="pagina">
 
-    <title>LuaLex</title>
+    <button class="volver" onclick="volverInicio()">
+        ← Volver al inicio
+    </button>
 
-    <link rel="stylesheet" href="style.css">
-</head>
+    <p class="breadcrumb">Inicio &gt; Diccionario completo</p>
 
-<body>
+    <h2>Diccionario completo</h2>
 
-    <header>
-        <p class="header-etiqueta">Documentación de Lua</p>
-        <h1>LuaLex</h1>
-        <p>Diccionario de Lua explicado en lenguaje humano.</p>
-    </header>
+    <p>
+        Aquí están reunidos todos los conceptos de LuaLex.
+    </p>
 
 
-    <main>
+    <h3>Condicionales</h3>
 
-        <!-- ==================== INICIO ==================== -->
+    <ul>
+        <li><code>if</code> — si</li>
+        <li><code>then</code> — entonces</li>
+        <li><code>else</code> — sino</li>
+        <li><code>elseif</code> — sino, si</li>
+        <li><code>and</code> — y</li>
+        <li><code>or</code> — o</li>
+        <li><code>not</code> — no / negar</li>
+        <li><code>==</code> — es igual a</li>
+        <li><code>~=</code> — no es igual a</li>
+        <li><code>&gt;</code> — es mayor que</li>
+        <li><code>&lt;</code> — es menor que</li>
+        <li><code>&gt;=</code> — es mayor o igual que</li>
+        <li><code>&lt;=</code> — es menor o igual que</li>
+    </ul>
 
-        <section id="inicio">
 
-            <h2>¿Qué quieres aprender?</h2>
+    <h3>Booleanos</h3>
 
-            <div class="menu">
+    <ul>
+        <li><code>true</code> — verdadero</li>
+        <li><code>false</code> — falso</li>
+    </ul>
 
-                <button class="tarjeta" onclick="mostrarTema('condicionales')">
-                    <span class="tarjeta-icono">🔀</span>
-                    <span class="tarjeta-titulo">Condicionales</span>
-                    <span class="tarjeta-descripcion">
-                        Decisiones con if, then y else
-                    </span>
-                </button>
 
+    <h3>Bucles</h3>
 
-                <button class="tarjeta" onclick="mostrarTema('booleanos')">
-                    <span class="tarjeta-icono">🔘</span>
-                    <span class="tarjeta-titulo">Booleanos</span>
-                    <span class="tarjeta-descripcion">
-                        Valores true y false
-                    </span>
-                </button>
+    <ul>
+        <li><code>for</code> — repetir</li>
+        <li><code>while</code> — mientras</li>
+        <li><code>repeat</code> — repetir</li>
+        <li><code>until</code> — hasta que</li>
+        <li><code>do</code> — hacer / iniciar esto</li>
+        <li><code>break</code> — detener</li>
+        <li><code>in</code> — en / dentro de</li>
+    </ul>
 
 
-                <button class="tarjeta" onclick="mostrarTema('bucles')">
-                    <span class="tarjeta-icono">🔁</span>
-                    <span class="tarjeta-titulo">Bucles</span>
-                    <span class="tarjeta-descripcion">
-                        Repetir código con while y for
-                    </span>
-                </button>
+    <h3>Funciones</h3>
 
+    <ul>
+        <li><code>function</code> — crear función</li>
+        <li><code>return</code> — devolver</li>
+    </ul>
 
-                <button class="tarjeta" onclick="mostrarTema('funciones')">
-                    <span class="tarjeta-icono">🧩</span>
-                    <span class="tarjeta-titulo">Funciones</span>
-                    <span class="tarjeta-descripcion">
-                        Bloques de código reutilizables
-                    </span>
-                </button>
 
+    <h3>Tablas</h3>
 
-                <button class="tarjeta" onclick="mostrarTema('tablas')">
-                    <span class="tarjeta-icono">🗂️</span>
-                    <span class="tarjeta-titulo">Tablas</span>
-                    <span class="tarjeta-descripcion">
-                        Guardar varios valores juntos
-                    </span>
-                </button>
+    <ul>
+        <li><code>{ }</code> — crear una tabla</li>
+        <li><code>[ ]</code> — acceder a un elemento mediante su índice</li>
+        <li>Claves — identificar valores dentro de una tabla</li>
+    </ul>
 
 
-                <button class="tarjeta" onclick="mostrarTema('strings')">
-                    <span class="tarjeta-icono">🔤</span>
-                    <span class="tarjeta-titulo">Strings</span>
-                    <span class="tarjeta-descripcion">
-                        Trabajar con texto
-                    </span>
-                </button>
+    <h3>Strings</h3>
 
+    <ul>
+        <li><code>..</code> — concatenar textos</li>
+        <li><code>#</code> — obtener la longitud de un string</li>
+        <li><code>string.upper()</code> — convertir a mayúsculas</li>
+        <li><code>string.lower()</code> — convertir a minúsculas</li>
+        <li><code>string.find()</code> — buscar texto</li>
+    </ul>
 
-                <button class="tarjeta" onclick="mostrarTema('completo')">
-                    <span class="tarjeta-icono">📖</span>
-                    <span class="tarjeta-titulo">Diccionario completo</span>
-                    <span class="tarjeta-descripcion">
-                        Todos los conceptos de LuaLex
-                    </span>
-                </button>
 
-            </div>
+    <h3>Otros conceptos</h3>
 
-        </section>
+    <ul>
+        <li><code>end</code> — terminar / fin</li>
+        <li><code>nil</code> — nada / sin valor</li>
+        <li><code>local</code> — solo aquí</li>
+        <li><code>goto</code> — ir a</li>
+    </ul>
 
-
-        <!-- ==================== CONDICIONALES ==================== -->
-
-        <section id="condicionales" class="pagina">
-
-            <button class="volver" onclick="volverInicio()">
-                ← Volver al inicio
-            </button>
-
-            <p class="breadcrumb">Inicio &gt; Condicionales</p>
-
-            <h2>Condicionales</h2>
-
-            <p>
-                Los condicionales permiten que un programa tome
-                decisiones dependiendo de una condición.
-            </p>
-
-            <h3>if</h3>
-
-            <p>
-                <code>if</code> significa "si". Se utiliza para
-                comprobar si una condición es verdadera.
-            </p>
-
-            <pre><code>if edad >= 18 then
-    print("Eres mayor de edad")
-end</code></pre>
-
-
-            <h3>then</h3>
-
-            <p>
-                <code>then</code> indica qué código debe ejecutarse
-                si la condición es verdadera.
-            </p>
-
-            <pre><code>if dinero > 0 then
-    print("Tienes dinero")
-end</code></pre>
-
-
-            <h3>else</h3>
-
-            <p>
-                <code>else</code> permite ejecutar otra cosa cuando
-                la condición no es verdadera.
-            </p>
-
-            <pre><code>if dinero > 0 then
-    print("Puedes comprarlo")
-else
-    print("No tienes dinero")
-end</code></pre>
-
-
-            <h3>elseif</h3>
-
-            <p>
-                <code>elseif</code> permite comprobar otra condición
-                si la anterior no se cumplió.
-            </p>
-
-            <pre><code>if nota >= 5 then
-    print("Excelente")
-elseif nota >= 3 then
-    print("Aprobaste")
-else
-    print("No aprobaste")
-end</code></pre>
-
-        </section>
-
-
-        <!-- ==================== BOOLEANOS ==================== -->
-
-        <section id="booleanos" class="pagina">
-
-            <button class="volver" onclick="volverInicio()">
-                ← Volver al inicio
-            </button>
-
-            <p class="breadcrumb">Inicio &gt; Booleanos</p>
-
-            <h2>Booleanos</h2>
-
-            <p>
-                Los booleanos son valores que solamente pueden ser
-                <code>true</code> o <code>false</code>.
-            </p>
-
-            <pre><code>jugando = true
-muerto = false</code></pre>
-
-            <h3>true</h3>
-
-            <p>
-                Significa que algo es verdadero.
-            </p>
-
-            <h3>false</h3>
-
-            <p>
-                Significa que algo es falso.
-            </p>
-
-        </section>
-
-
-        <!-- ==================== BUCLES ==================== -->
-
-        <section id="bucles" class="pagina">
-
-            <button class="volver" onclick="volverInicio()">
-                ← Volver al inicio
-            </button>
-
-            <p class="breadcrumb">Inicio &gt; Bucles</p>
-
-            <h2>Bucles</h2>
-
-            <p>
-                Los bucles permiten repetir código varias veces.
-            </p>
-
-            <h3>while</h3>
-
-            <pre><code>while x &lt; 10 do
-    print(x)
-    x = x + 1
-end</code></pre>
-
-            <h3>for</h3>
-
-            <pre><code>for i = 1, 5 do
-    print(i)
-end</code></pre>
-
-        </section>
-
-
-        <!-- ==================== FUNCIONES ==================== -->
-
-        <section id="funciones" class="pagina">
-
-            <button class="volver" onclick="volverInicio()">
-                ← Volver al inicio
-            </button>
-
-            <p class="breadcrumb">Inicio &gt; Funciones</p>
-
-            <h2>Funciones</h2>
-
-            <p>
-                Las funciones son bloques de código que podemos
-                reutilizar cuando los necesitemos.
-            </p>
-
-            <pre><code>function saludar()
-    print("Hola")
-end
-
-saludar()</code></pre>
-
-        </section>
-
-
-        <!-- ==================== TABLAS ==================== -->
-
-        <section id="tablas" class="pagina">
-
-            <button class="volver" onclick="volverInicio()">
-                ← Volver al inicio
-            </button>
-
-            <p class="breadcrumb">Inicio &gt; Tablas</p>
-
-            <h2>Tablas</h2>
-
-            <p>
-                Las tablas permiten guardar varios valores dentro
-                de una misma estructura.
-            </p>
-
-            <h3>Crear una tabla</h3>
-
-            <p>
-                Se utilizan llaves <code>{ }</code> para crear una tabla.
-            </p>
-
-            <pre><code>frutas = {
-    "Manzana",
-    "Banano",
-    "Naranja"
-}</code></pre>
-
-            <h3>Índices</h3>
-
-            <p>
-                Los elementos de una tabla pueden accederse mediante
-                su posición. En Lua, los índices normalmente comienzan en 1.
-            </p>
-
-            <pre><code>frutas = {
-    "Manzana",
-    "Banano",
-    "Naranja"
-}
-print(frutas[1])</code></pre>
-
-            <h3>Agregar valores</h3>
-
-            <p>
-                Puedes agregar un nuevo valor indicando su posición.
-            </p>
-
-            <pre><code>frutas = {}
-frutas[1] = "Manzana"
-frutas[2] = "Banano"</code></pre>
-
-            <h3>Tablas con claves</h3>
-
-            <p>
-                Una tabla también puede guardar valores utilizando nombres
-                como claves.
-            </p>
-
-            <pre><code>persona = {
-    nombre = "Angel",
-    edad = 13
-}
-print(persona.nombre)</code></pre>
-
-        </section>
-
-
-        <!-- ==================== STRINGS ==================== -->
-
-        <section id="strings" class="pagina">
-
-            <button class="volver" onclick="volverInicio()">
-                ← Volver al inicio
-            </button>
-
-            <p class="breadcrumb">Inicio &gt; Strings</p>
-
-            <h2>Strings</h2>
-
-            <p>
-                Los strings son textos. En Lua normalmente se escriben
-                entre comillas.
-            </p>
-
-            <h3>Crear un string</h3>
-
-            <p>
-                Puedes guardar texto dentro de una variable utilizando
-                comillas.
-            </p>
-
-            <pre><code>nombre = "Angel"
-print(nombre)</code></pre>
-
-            <h3>Concatenar</h3>
-
-            <p>
-                El operador <code>..</code> permite unir dos strings.
-            </p>
-
-            <pre><code>nombre = "Angel"
-saludo = "Hola " .. nombre
-print(saludo)</code></pre>
-
-            <h3>Longitud</h3>
-
-            <p>
-                El operador <code>#</code> permite obtener la cantidad
-                de caracteres de un string.
-            </p>
-
-            <pre><code>texto = "Hola"
-print(#texto)</code></pre>
-
-            <h3>Mayúsculas y minúsculas</h3>
-
-            <p>
-                Lua tiene funciones para convertir un texto a mayúsculas
-                o minúsculas.
-            </p>
-
-            <pre><code>texto = "Hola Mundo"
-print(string.upper(texto))
-print(string.lower(texto))</code></pre>
-
-            <h3>Buscar texto</h3>
-
-            <p>
-                <code>string.find</code> permite buscar una parte de un string.
-            </p>
-
-            <pre><code>texto = "Hola Mundo"
-print(string.find(texto, "Mundo"))</code></pre>
-
-        </section>
-
-
-        <!-- ==================== DICCIONARIO COMPLETO ==================== -->
-
-        <section id="completo" class="pagina">
-
-            <button class="volver" onclick="volverInicio()">
-                ← Volver al inicio
-            </button>
-
-            <p class="breadcrumb">Inicio &gt; Diccionario completo</p>
-
-            <h2>Diccionario completo</h2>
-
-            <p>
-                Aquí estarán reunidos todos los conceptos de LuaLex.
-            </p>
-
-            <ul>
-                <li>Condicionales</li>
-                <li>Booleanos</li>
-                <li>Bucles</li>
-                <li>Funciones</li>
-                <li>Tablas</li>
-                <li>Strings</li>
-            </ul>
-
-        </section>
-
-    </main>
-
-
-    <footer>
-        <p>LuaLex — Aprende Lua de forma sencilla.</p>
-    </footer>
-
-
-    <script src="script.js"></script>
-
-</body>
-
-</html>
+</section>
