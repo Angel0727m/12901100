@@ -1,3 +1,25 @@
 function mostrarTema(tema) {
-    alert("Elegiste: " + tema);
+
+    // Ocultar el inicio
+    document.getElementById("inicio").style.display = "none";
+
+    // Ocultar todas las páginas
+    document.querySelectorAll(".pagina").forEach(function(pagina) {
+        pagina.style.display = "none";
+    });
+
+    // Mostrar la página elegida
+    document.getElementById(tema).style.display = "block";
+}
+
+
+function volverInicio() {
+
+    // Ocultar todas las páginas
+    document.querySelectorAll(".pagina").forEach(function(pagina) {
+        pagina.style.display = "none";
+    });
+
+    // Mostrar el inicio
+    document.getElementById("inicio").style.display = "block";
 }
