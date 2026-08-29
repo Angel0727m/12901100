@@ -1,27 +1,50 @@
 body {
     font-family: Arial, sans-serif;
-    background-color: #f2f2f2;
-    color: #222;
-    max-width: 900px;
-    margin: auto;
-    padding: 30px;
+    background-color: #eeeeee;
+    margin: 0;
 }
 
-h1 {
+header {
+    background-color: white;
+    padding: 30px;
     text-align: center;
-    font-size: 45px;
+    border-bottom: 1px solid #cccccc;
+}
+
+header h1 {
+    margin: 0;
+    font-size: 40px;
+}
+
+header p {
+    color: #666666;
+}
+
+main {
+    max-width: 900px;
+    margin: 40px auto;
+    background-color: white;
+    padding: 30px;
+    border: 1px solid #cccccc;
 }
 
 h2 {
-    margin-top: 40px;
+    text-align: center;
 }
 
-h3 {
-    background-color: white;
-    padding: 15px;
-    border-radius: 10px;
+.menu {
+    display: grid;
+    gap: 15px;
 }
 
-p {
+.menu button {
+    padding: 18px;
     font-size: 18px;
+    background-color: white;
+    border: 1px solid #bbbbbb;
+    cursor: pointer;
+}
+
+.menu button:hover {
+    background-color: #eeeeee;
 }
