@@ -1,3 +1,5 @@
-# 12901100
+# LuaLex
+
 LuaLex — Aprende Lua traduciendo código a lenguaje humano.
-acceso: https://angel0727m.github.io/12901100/
+
+**Acceso:** https://angel0727m.github.io/12901100/
