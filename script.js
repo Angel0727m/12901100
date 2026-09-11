@@ -1,14 +1,203 @@
+```javascript
+/* ==================== DATOS DEL DICCIONARIO ==================== */
+
+const conceptos = [
+    {
+        nombre: "Condicionales",
+        id: "condicionales",
+        descripcion: "if, then, else, elseif y comparaciones."
+    },
+    {
+        nombre: "Booleanos",
+        id: "booleanos",
+        descripcion: "true, false, and, or y not."
+    },
+    {
+        nombre: "Bucles",
+        id: "bucles",
+        descripcion: "while, repeat, for, break y goto."
+    },
+    {
+        nombre: "Funciones",
+        id: "funciones",
+        descripcion: "Parámetros, return, closures y varargs."
+    },
+    {
+        nombre: "Tablas",
+        id: "tablas",
+        descripcion: "Listas, claves, campos e iteración."
+    },
+    {
+        nombre: "Strings",
+        id: "strings",
+        descripcion: "Texto, patrones, búsqueda y UTF-8."
+    },
+    {
+        nombre: "Operadores",
+        id: "operadores",
+        descripcion: "Aritméticos, lógicos, comparación y bits."
+    },
+    {
+        nombre: "Variables y alcance",
+        id: "variables",
+        descripcion: "local, global, const, close y _ENV."
+    },
+    {
+        nombre: "Tipos de datos",
+        id: "tipos",
+        descripcion: "Los tipos de valores de Lua."
+    },
+    {
+        nombre: "Funciones básicas",
+        id: "funcionesbasicas",
+        descripcion: "print, type, tonumber, pcall y más."
+    },
+    {
+        nombre: "Librerías estándar",
+        id: "funcionesextras",
+        descripcion: "string, table, math, io, os, package y más."
+    },
+    {
+        nombre: "Metatables",
+        id: "metatables",
+        descripcion: "Metamethods y comportamiento personalizado."
+    },
+    {
+        nombre: "Coroutines",
+        id: "coroutines",
+        descripcion: "Suspender y reanudar código."
+    },
+    {
+        nombre: "Errores y protección",
+        id: "errores",
+        descripcion: "error, assert, pcall, xpcall y warn."
+    },
+    {
+        nombre: "Módulos",
+        id: "modulos",
+        descripcion: "require, package y organización del código."
+    },
+    {
+        nombre: "Conceptos avanzados",
+        id: "avanzado",
+        descripcion: "GC, weak tables, load, debug, _G y más."
+    },
+    {
+        nombre: "Diccionario completo",
+        id: "completo",
+        descripcion: "Todos los conceptos de LuaLex."
+    },
+    {
+        nombre: "Quiz de Lua",
+        id: "quiz",
+        descripcion: "Pon a prueba lo que aprendiste."
+    },
+    {
+        nombre: "Ejercicios",
+        id: "ejercicios",
+        descripcion: "Practica lo aprendido."
+    },
+    {
+        nombre: "Laboratorio",
+        id: "interactivo",
+        descripcion: "Prueba conceptos básicos."
+    }
+];
+
+
+/* ==================== FUNCIONES AUXILIARES ==================== */
+
+function escapeHTML(texto) {
+    return String(texto)
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#039;");
+}
+
+
+/* ==================== NAVEGACIÓN ==================== */
+
+function mostrarTema(tema) {
+
+    const paginas = document.querySelectorAll(".pagina");
+
+    paginas.forEach(function(pagina) {
+        pagina.style.display = "none";
+    });
+
+    const inicio = document.getElementById("inicio");
+
+    if (inicio) {
+        inicio.style.display = "none";
+    }
+
+    const pagina = document.getElementById(tema);
+
+    if (!pagina) {
+        console.warn("No existe la página:", tema);
+        return;
+    }
+
+    pagina.style.display = "block";
+
+    window.scrollTo({
+        top: 0,
+        behavior: "smooth"
+    });
+
+    if (tema === "quiz") {
+        iniciarQuiz();
+    }
+
+    if (tema === "completo") {
+        generarDiccionario();
+    }
+}
+
+
+function volverInicio() {
+
+    document.querySelectorAll(".pagina").forEach(
+        function(pagina) {
+            pagina.style.display = "none";
+        }
+    );
+
+    const inicio = document.getElementById("inicio");
+
+    if (inicio) {
+        inicio.style.display = "block";
+    }
+
+    window.scrollTo({
+        top: 0,
+        behavior: "smooth"
+    });
+}
+
+
 /* ==================== PROGRESO ==================== */
 
 function obtenerProgreso() {
-    const guardado = localStorage.getItem("luAlexProgreso");
+
+    const guardado =
+        localStorage.getItem("luAlexProgreso");
 
     if (!guardado) {
         return [];
     }
 
     try {
-        return JSON.parse(guardado);
+        const progreso = JSON.parse(guardado);
+
+        if (!Array.isArray(progreso)) {
+            return [];
+        }
+
+        return progreso;
+
     } catch (error) {
         return [];
     }
@@ -16,6 +205,7 @@ function obtenerProgreso() {
 
 
 function guardarProgreso(progreso) {
+
     localStorage.setItem(
         "luAlexProgreso",
         JSON.stringify(progreso)
@@ -24,6 +214,7 @@ function guardarProgreso(progreso) {
 
 
 function marcarAprendido(nombre) {
+
     let progreso = obtenerProgreso();
 
     if (!progreso.includes(nombre)) {
@@ -36,17 +227,28 @@ function marcarAprendido(nombre) {
 
 
 function actualizarProgreso() {
+
     const progreso = obtenerProgreso();
 
-    const texto = document.getElementById("textoProgreso");
-    const barra = document.getElementById("barraProgreso");
+    const texto =
+        document.getElementById("textoProgreso");
+
+    const barra =
+        document.getElementById("barraProgreso");
 
     const total = conceptos.length;
-    const aprendidos = progreso.length;
 
-    const porcentaje = total === 0
-        ? 0
-        : Math.round((aprendidos / total) * 100);
+    const aprendidos =
+        progreso.filter(function(nombre) {
+            return conceptos.some(function(concepto) {
+                return concepto.id === nombre;
+            });
+        }).length;
+
+    const porcentaje =
+        total === 0
+            ? 0
+            : Math.round((aprendidos / total) * 100);
 
     if (texto) {
         texto.textContent =
@@ -54,8 +256,13 @@ function actualizarProgreso() {
     }
 
     if (barra) {
-        barra.style.width = `${porcentaje}%`;
-        barra.setAttribute("aria-valuenow", porcentaje);
+        barra.style.width =
+            `${porcentaje}%`;
+
+        barra.setAttribute(
+            "aria-valuenow",
+            porcentaje
+        );
     }
 }
 
@@ -63,6 +270,7 @@ function actualizarProgreso() {
 /* ==================== MODO OSCURO ==================== */
 
 function alternarModo() {
+
     const activado =
         document.body.classList.toggle("oscuro");
 
@@ -76,7 +284,9 @@ function alternarModo() {
 
 
 function actualizarBotonModo() {
-    const boton = document.getElementById("modoOscuro");
+
+    const boton =
+        document.getElementById("modoOscuro");
 
     if (!boton) {
         return;
@@ -85,13 +295,15 @@ function actualizarBotonModo() {
     const activado =
         document.body.classList.contains("oscuro");
 
-    boton.textContent = activado
-        ? "☀️ Modo claro"
-        : "🌙 Modo oscuro";
+    boton.textContent =
+        activado
+            ? "☀️ Modo claro"
+            : "🌙 Modo oscuro";
 }
 
 
 function cargarModoOscuro() {
+
     const guardado =
         localStorage.getItem("luAlexModoOscuro");
 
@@ -100,6 +312,122 @@ function cargarModoOscuro() {
     }
 
     actualizarBotonModo();
+}
+
+
+/* ==================== BUSCADOR ==================== */
+
+function buscarConcepto() {
+
+    const input =
+        document.getElementById("busqueda");
+
+    const resultados =
+        document.getElementById("resultadosBusqueda");
+
+    if (!input || !resultados) {
+        return;
+    }
+
+    const texto =
+        input.value
+            .trim()
+            .toLowerCase();
+
+    if (texto === "") {
+        resultados.innerHTML = "";
+        resultados.style.display = "none";
+        return;
+    }
+
+    const encontrados =
+        conceptos.filter(function(concepto) {
+
+            return (
+                concepto.nombre
+                    .toLowerCase()
+                    .includes(texto) ||
+
+                concepto.descripcion
+                    .toLowerCase()
+                    .includes(texto)
+            );
+
+        });
+
+    resultados.style.display = "block";
+
+    if (encontrados.length === 0) {
+
+        resultados.innerHTML =
+            "<p>No se encontró ningún concepto.</p>";
+
+        return;
+    }
+
+    let html = "";
+
+    encontrados.forEach(function(concepto) {
+
+        html += `
+            <button
+                class="resultado-busqueda"
+                onclick="mostrarTema('${escapeHTML(concepto.id)}')"
+            >
+                <strong>
+                    ${escapeHTML(concepto.nombre)}
+                </strong>
+
+                <span>
+                    ${escapeHTML(concepto.descripcion)}
+                </span>
+            </button>
+        `;
+
+    });
+
+    resultados.innerHTML = html;
+}
+
+
+/* ==================== DICCIONARIO COMPLETO ==================== */
+
+function generarDiccionario() {
+
+    const contenedor =
+        document.getElementById("diccionarioCompleto");
+
+    if (!contenedor) {
+        return;
+    }
+
+    let html = "";
+
+    conceptos.forEach(function(concepto) {
+
+        html += `
+            <div class="concepto-diccionario">
+
+                <h3>
+                    ${escapeHTML(concepto.nombre)}
+                </h3>
+
+                <p>
+                    ${escapeHTML(concepto.descripcion)}
+                </p>
+
+                <button
+                    onclick="mostrarTema('${escapeHTML(concepto.id)}')"
+                >
+                    Ver tema
+                </button>
+
+            </div>
+        `;
+
+    });
+
+    contenedor.innerHTML = html;
 }
 
 
@@ -167,25 +495,39 @@ print(frutas[1])`,
 
 
 function mostrarRespuesta(id) {
-    const datos = respuestasEjercicios[id];
+
+    const datos =
+        respuestasEjercicios[id];
 
     if (!datos) {
-        console.warn("No existe una respuesta para:", id);
+        console.warn(
+            "No existe una respuesta para:",
+            id
+        );
         return;
     }
 
-    const contenedor = document.getElementById(id);
+    const contenedor =
+        document.getElementById(id);
 
     if (!contenedor) {
-        console.warn("No existe el elemento:", id);
+        console.warn(
+            "No existe el elemento:",
+            id
+        );
         return;
     }
 
     const visible =
-        contenedor.style.display === "block";
+        contenedor.dataset.mostrando === "true";
 
     if (visible) {
-        contenedor.style.display = "none";
+
+        contenedor.innerHTML =
+            "Pista: usa el ejercicio como guía.";
+
+        contenedor.dataset.mostrando = "false";
+
         return;
     }
 
@@ -200,13 +542,14 @@ function mostrarRespuesta(id) {
         </p>
     `;
 
-    contenedor.style.display = "block";
+    contenedor.dataset.mostrando = "true";
 }
 
 
 /* ==================== LABORATORIO ==================== */
 
 function ejecutarLaboratorio() {
+
     const valorA =
         document.getElementById("valorA");
 
@@ -227,17 +570,27 @@ function ejecutarLaboratorio() {
         valorA.value.trim() === "" ||
         valorB.value.trim() === ""
     ) {
+
         salida.textContent =
             "Escribe los dos valores primero.";
+
         return;
     }
 
-    const a = Number(valorA.value);
-    const b = Number(valorB.value);
+    const a =
+        Number(valorA.value);
 
-    if (Number.isNaN(a) || Number.isNaN(b)) {
+    const b =
+        Number(valorB.value);
+
+    if (
+        Number.isNaN(a) ||
+        Number.isNaN(b)
+    ) {
+
         salida.textContent =
             "Los valores deben ser números.";
+
         return;
     }
 
@@ -246,43 +599,281 @@ function ejecutarLaboratorio() {
     switch (operacion.value) {
 
         case "suma":
-            resultado = a + b;
+
+            resultado =
+                a + b;
+
             break;
 
         case "resta":
-            resultado = a - b;
+
+            resultado =
+                a - b;
+
             break;
 
         case "multiplicacion":
-            resultado = a * b;
+
+            resultado =
+                a * b;
+
             break;
 
         case "division":
+
             if (b === 0) {
+
                 salida.textContent =
                     "No se puede dividir entre cero.";
+
                 return;
             }
 
-            resultado = a / b;
+            resultado =
+                a / b;
+
             break;
 
         case "mayor":
-            resultado = a > b
-                ? `${a} es mayor que ${b}`
-                : a < b
-                    ? `${b} es mayor que ${a}`
-                    : "Los dos valores son iguales.";
+
+            resultado =
+                a > b
+                    ? `${a} es mayor que ${b}`
+                    : a < b
+                        ? `${b} es mayor que ${a}`
+                        : "Los dos valores son iguales.";
+
             break;
 
         default:
+
             salida.textContent =
                 "Operación no reconocida.";
+
             return;
     }
 
     salida.textContent =
         `Resultado: ${resultado}`;
+}
+
+
+/* ==================== LIBRERÍAS ==================== */
+
+const bibliotecas = {
+
+    basic: {
+        nombre: "Basic",
+        funciones: [
+            "print()",
+            "type()",
+            "tonumber()",
+            "tostring()",
+            "pairs()",
+            "ipairs()",
+            "next()",
+            "select()",
+            "pcall()",
+            "xpcall()",
+            "error()",
+            "assert()",
+            "warn()",
+            "load()",
+            "loadfile()",
+            "dofile()",
+            "require()"
+        ]
+    },
+
+    coroutine: {
+        nombre: "Coroutine",
+        funciones: [
+            "coroutine.create()",
+            "coroutine.resume()",
+            "coroutine.yield()",
+            "coroutine.status()",
+            "coroutine.running()",
+            "coroutine.wrap()",
+            "coroutine.isyieldable()",
+            "coroutine.close()"
+        ]
+    },
+
+    package: {
+        nombre: "Package",
+        funciones: [
+            "package.path",
+            "package.cpath",
+            "package.loaded",
+            "package.preload",
+            "package.searchers",
+            "package.config"
+        ]
+    },
+
+    string: {
+        nombre: "String",
+        funciones: [
+            "string.byte()",
+            "string.char()",
+            "string.dump()",
+            "string.find()",
+            "string.format()",
+            "string.gmatch()",
+            "string.gsub()",
+            "string.len()",
+            "string.lower()",
+            "string.match()",
+            "string.rep()",
+            "string.reverse()",
+            "string.sub()",
+            "string.upper()"
+        ]
+    },
+
+    utf8: {
+        nombre: "UTF-8",
+        funciones: [
+            "utf8.char()",
+            "utf8.charpattern",
+            "utf8.codes()",
+            "utf8.codepoint()",
+            "utf8.len()",
+            "utf8.offset()"
+        ]
+    },
+
+    table: {
+        nombre: "Table",
+        funciones: [
+            "table.concat()",
+            "table.create()",
+            "table.insert()",
+            "table.move()",
+            "table.pack()",
+            "table.remove()",
+            "table.sort()",
+            "table.unpack()"
+        ]
+    },
+
+    math: {
+        nombre: "Math",
+        funciones: [
+            "math.abs()",
+            "math.ceil()",
+            "math.floor()",
+            "math.max()",
+            "math.min()",
+            "math.random()",
+            "math.randomseed()",
+            "math.sqrt()",
+            "math.sin()",
+            "math.cos()",
+            "math.tan()",
+            "math.pi"
+        ]
+    },
+
+    io: {
+        nombre: "IO",
+        funciones: [
+            "io.close()",
+            "io.flush()",
+            "io.input()",
+            "io.lines()",
+            "io.open()",
+            "io.output()",
+            "io.popen()",
+            "io.read()",
+            "io.tmpfile()",
+            "io.type()",
+            "io.write()"
+        ]
+    },
+
+    os: {
+        nombre: "OS",
+        funciones: [
+            "os.clock()",
+            "os.date()",
+            "os.difftime()",
+            "os.execute()",
+            "os.exit()",
+            "os.getenv()",
+            "os.remove()",
+            "os.rename()",
+            "os.setlocale()",
+            "os.time()",
+            "os.tmpname()"
+        ]
+    },
+
+    debug: {
+        nombre: "Debug",
+        funciones: [
+            "debug.debug()",
+            "debug.gethook()",
+            "debug.getinfo()",
+            "debug.getlocal()",
+            "debug.getmetatable()",
+            "debug.getregistry()",
+            "debug.getupvalue()",
+            "debug.sethook()",
+            "debug.setlocal()",
+            "debug.setmetatable()",
+            "debug.setupvalue()",
+            "debug.traceback()",
+            "debug.upvalueid()",
+            "debug.upvaluejoin()"
+        ]
+    }
+};
+
+
+function filtrarBiblioteca(nombre) {
+
+    const contenedor =
+        document.getElementById("bibliotecaResultado");
+
+    if (!contenedor) {
+        return;
+    }
+
+    const biblioteca =
+        bibliotecas[nombre];
+
+    if (!biblioteca) {
+
+        contenedor.innerHTML =
+            "No se encontró esa librería.";
+
+        return;
+    }
+
+    let html = `
+        <h3>
+            ${escapeHTML(biblioteca.nombre)}
+        </h3>
+
+        <div class="lista-conceptos grande">
+    `;
+
+    biblioteca.funciones.forEach(function(funcion) {
+
+        html += `
+            <span>
+                ${escapeHTML(funcion)}
+            </span>
+        `;
+
+    });
+
+    html += `
+        </div>
+    `;
+
+    contenedor.innerHTML = html;
 }
 
 
@@ -502,6 +1093,7 @@ let quizTerminado = false;
 
 
 function iniciarQuiz() {
+
     preguntaActual = 0;
     respuestasQuiz = [];
     quizTerminado = false;
@@ -511,6 +1103,7 @@ function iniciarQuiz() {
 
 
 function mostrarPreguntaQuiz() {
+
     const contenedor =
         document.getElementById("quizContenedor");
 
@@ -532,22 +1125,27 @@ function mostrarPreguntaQuiz() {
             de ${preguntasQuiz.length}
         </div>
 
-        <h3>${escapeHTML(pregunta.pregunta)}</h3>
+        <h3>
+            ${escapeHTML(pregunta.pregunta)}
+        </h3>
 
         <div class="quiz-opciones">
     `;
 
-    pregunta.opciones.forEach(function(opcion, indice) {
+    pregunta.opciones.forEach(
+        function(opcion, indice) {
 
-        html += `
-            <button
-                class="opcion-quiz"
-                onclick="responderQuiz(${indice})"
-            >
-                ${escapeHTML(opcion)}
-            </button>
-        `;
-    });
+            html += `
+                <button
+                    class="opcion-quiz"
+                    onclick="responderQuiz(${indice})"
+                >
+                    ${escapeHTML(opcion)}
+                </button>
+            `;
+
+        }
+    );
 
     html += `
         </div>
@@ -558,6 +1156,7 @@ function mostrarPreguntaQuiz() {
 
 
 function responderQuiz(indice) {
+
     if (quizTerminado) {
         return;
     }
@@ -591,24 +1190,31 @@ function responderQuiz(indice) {
         boton.disabled = true;
     });
 
-    botones.forEach(function(boton, posicion) {
+    botones.forEach(
+        function(boton, posicion) {
 
-        if (posicion === pregunta.correcta) {
-            boton.classList.add("respuesta-correcta");
-        }
+            if (posicion === pregunta.correcta) {
+                boton.classList.add(
+                    "respuesta-correcta"
+                );
+            }
 
-        if (
-            posicion === indice &&
-            posicion !== pregunta.correcta
-        ) {
-            boton.classList.add("respuesta-incorrecta");
+            if (
+                posicion === indice &&
+                posicion !== pregunta.correcta
+            ) {
+                boton.classList.add(
+                    "respuesta-incorrecta"
+                );
+            }
         }
-    });
+    );
 
     const explicacion =
         document.createElement("div");
 
-    explicacion.className = "explicacion-quiz";
+    explicacion.className =
+        "explicacion-quiz";
 
     explicacion.innerHTML = `
         <p>
@@ -638,12 +1244,15 @@ function responderQuiz(indice) {
 
 
 function siguientePreguntaQuiz() {
+
     preguntaActual++;
+
     mostrarPreguntaQuiz();
 }
 
 
 function mostrarResultadoQuiz() {
+
     const contenedor =
         document.getElementById("quizContenedor");
 
@@ -655,31 +1264,45 @@ function mostrarResultadoQuiz() {
 
     let puntos = 0;
 
-    respuestasQuiz.forEach(function(respuesta) {
-        if (respuesta.correcta) {
-            puntos++;
-        }
-    });
+    respuestasQuiz.forEach(
+        function(respuesta) {
 
-    const total = preguntasQuiz.length;
+            if (respuesta.correcta) {
+                puntos++;
+            }
+
+        }
+    );
+
+    const total =
+        preguntasQuiz.length;
 
     const porcentaje =
         total === 0
             ? 0
-            : Math.round((puntos / total) * 100);
+            : Math.round(
+                (puntos / total) * 100
+            );
 
     let mensaje;
 
     if (porcentaje === 100) {
+
         mensaje =
             "Perfecto. Dominaste este quiz.";
+
     } else if (porcentaje >= 80) {
+
         mensaje =
             "Muy buen resultado. Ya tienes una buena base.";
+
     } else if (porcentaje >= 60) {
+
         mensaje =
             "Vas bien. Un repaso de algunos conceptos te vendría bien.";
+
     } else {
+
         mensaje =
             "Todavía hay cosas por reforzar, pero para eso está LuaLex.";
     }
@@ -687,7 +1310,9 @@ function mostrarResultadoQuiz() {
     contenedor.innerHTML = `
         <div class="resultado-quiz">
 
-            <h2>Resultado</h2>
+            <h2>
+                Resultado
+            </h2>
 
             <div class="puntuacion-quiz">
                 ${puntos} / ${total}
@@ -715,25 +1340,29 @@ function mostrarResultadoQuiz() {
 
 /* ==================== INICIO ==================== */
 
-document.addEventListener("DOMContentLoaded", function() {
+document.addEventListener(
+    "DOMContentLoaded",
+    function() {
 
-    cargarModoOscuro();
+        cargarModoOscuro();
 
-    generarDiccionario();
+        generarDiccionario();
 
-    actualizarProgreso();
+        actualizarProgreso();
 
-    const inicio =
-        document.getElementById("inicio");
+        const inicio =
+            document.getElementById("inicio");
 
-    if (inicio) {
-        inicio.style.display = "block";
-    }
-
-    document.querySelectorAll(".pagina").forEach(
-        function(pagina) {
-            pagina.style.display = "none";
+        if (inicio) {
+            inicio.style.display = "block";
         }
-    );
 
-});
+        document.querySelectorAll(".pagina").forEach(
+            function(pagina) {
+                pagina.style.display = "none";
+            }
+        );
+
+    }
+);
+```
