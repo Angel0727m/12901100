@@ -1,5 +1,4 @@
-```javascript
-/* ==================== DATOS DEL DICCIONARIO ==================== */
+/* ==================== DATOS DE LUADRIX ==================== */
 
 const conceptos = [
     {
@@ -85,7 +84,7 @@ const conceptos = [
     {
         nombre: "Diccionario completo",
         id: "completo",
-        descripcion: "Todos los conceptos de LuaLex."
+        descripcion: "Todos los conceptos de LuaDrix."
     },
     {
         nombre: "Quiz de Lua",
@@ -183,7 +182,7 @@ function volverInicio() {
 function obtenerProgreso() {
 
     const guardado =
-        localStorage.getItem("luAlexProgreso");
+        localStorage.getItem("luaDrixProgreso");
 
     if (!guardado) {
         return [];
@@ -207,7 +206,7 @@ function obtenerProgreso() {
 function guardarProgreso(progreso) {
 
     localStorage.setItem(
-        "luAlexProgreso",
+        "luaDrixProgreso",
         JSON.stringify(progreso)
     );
 }
@@ -220,6 +219,15 @@ function marcarAprendido(nombre) {
     if (!progreso.includes(nombre)) {
         progreso.push(nombre);
         guardarProgreso(progreso);
+    }
+
+    const boton = document.querySelector(
+        `.aprendido[onclick="marcarAprendido('${nombre}')"]`
+    );
+
+    if (boton) {
+        boton.classList.add("aprendido-activo");
+        boton.textContent = "✓ Aprendido";
     }
 
     actualizarProgreso();
@@ -264,6 +272,34 @@ function actualizarProgreso() {
             porcentaje
         );
     }
+
+    document.querySelectorAll(".aprendido").forEach(
+        function(boton) {
+
+            const coincidencia =
+                boton.getAttribute("onclick");
+
+            if (!coincidencia) {
+                return;
+            }
+
+            const resultado =
+                coincidencia.match(
+                    /marcarAprendido\('([^']+)'\)/
+                );
+
+            if (!resultado) {
+                return;
+            }
+
+            const id = resultado[1];
+
+            if (progreso.includes(id)) {
+                boton.classList.add("aprendido-activo");
+                boton.textContent = "✓ Aprendido";
+            }
+        }
+    );
 }
 
 
@@ -275,7 +311,7 @@ function alternarModo() {
         document.body.classList.toggle("oscuro");
 
     localStorage.setItem(
-        "luAlexModoOscuro",
+        "luaDrixModoOscuro",
         activado ? "true" : "false"
     );
 
@@ -305,7 +341,7 @@ function actualizarBotonModo() {
 function cargarModoOscuro() {
 
     const guardado =
-        localStorage.getItem("luAlexModoOscuro");
+        localStorage.getItem("luaDrixModoOscuro");
 
     if (guardado === "true") {
         document.body.classList.add("oscuro");
@@ -360,7 +396,7 @@ function buscarConcepto() {
     if (encontrados.length === 0) {
 
         resultados.innerHTML =
-            "<p>No se encontró ningún concepto.</p>";
+            '<p class="sin-resultados">No se encontró ningún concepto.</p>';
 
         return;
     }
@@ -374,11 +410,11 @@ function buscarConcepto() {
                 class="resultado-busqueda"
                 onclick="mostrarTema('${escapeHTML(concepto.id)}')"
             >
-                <strong>
+                <strong class="resultado-titulo">
                     ${escapeHTML(concepto.nombre)}
                 </strong>
 
-                <span>
+                <span class="resultado-descripcion">
                     ${escapeHTML(concepto.descripcion)}
                 </span>
             </button>
@@ -406,7 +442,7 @@ function generarDiccionario() {
     conceptos.forEach(function(concepto) {
 
         html += `
-            <div class="concepto-diccionario">
+            <div class="concepto-card">
 
                 <h3>
                     ${escapeHTML(concepto.nombre)}
@@ -527,6 +563,7 @@ function mostrarRespuesta(id) {
             "Pista: usa el ejercicio como guía.";
 
         contenedor.dataset.mostrando = "false";
+        contenedor.style.display = "none";
 
         return;
     }
@@ -543,6 +580,7 @@ function mostrarRespuesta(id) {
     `;
 
     contenedor.dataset.mostrando = "true";
+    contenedor.style.display = "block";
 }
 
 
@@ -1120,14 +1158,14 @@ function mostrarPreguntaQuiz() {
         preguntasQuiz[preguntaActual];
 
     let html = `
-        <div class="quiz-progreso">
+        <div class="quiz-numero">
             Pregunta ${preguntaActual + 1}
             de ${preguntasQuiz.length}
         </div>
 
-        <h3>
+        <div class="quiz-pregunta">
             ${escapeHTML(pregunta.pregunta)}
-        </h3>
+        </div>
 
         <div class="quiz-opciones">
     `;
@@ -1137,7 +1175,7 @@ function mostrarPreguntaQuiz() {
 
             html += `
                 <button
-                    class="opcion-quiz"
+                    class="quiz-opcion"
                     onclick="responderQuiz(${indice})"
                 >
                     ${escapeHTML(opcion)}
@@ -1184,7 +1222,7 @@ function responderQuiz(indice) {
     }
 
     const botones =
-        contenedor.querySelectorAll(".opcion-quiz");
+        contenedor.querySelectorAll(".quiz-opcion");
 
     botones.forEach(function(boton) {
         boton.disabled = true;
@@ -1194,18 +1232,14 @@ function responderQuiz(indice) {
         function(boton, posicion) {
 
             if (posicion === pregunta.correcta) {
-                boton.classList.add(
-                    "respuesta-correcta"
-                );
+                boton.classList.add("correcta");
             }
 
             if (
                 posicion === indice &&
                 posicion !== pregunta.correcta
             ) {
-                boton.classList.add(
-                    "respuesta-incorrecta"
-                );
+                boton.classList.add("incorrecta");
             }
         }
     );
@@ -1214,7 +1248,7 @@ function responderQuiz(indice) {
         document.createElement("div");
 
     explicacion.className =
-        "explicacion-quiz";
+        "quiz-explicacion";
 
     explicacion.innerHTML = `
         <p>
@@ -1228,7 +1262,7 @@ function responderQuiz(indice) {
         </p>
 
         <button
-            class="boton-quiz-siguiente"
+            class="quiz-siguiente"
             onclick="siguientePreguntaQuiz()"
         >
             ${
@@ -1304,17 +1338,17 @@ function mostrarResultadoQuiz() {
     } else {
 
         mensaje =
-            "Todavía hay cosas por reforzar, pero para eso está LuaLex.";
+            "Todavía hay cosas por reforzar, pero para eso está LuaDrix.";
     }
 
     contenedor.innerHTML = `
-        <div class="resultado-quiz">
+        <div class="quiz-resultado">
 
             <h2>
                 Resultado
             </h2>
 
-            <div class="puntuacion-quiz">
+            <div class="quiz-puntuacion">
                 ${puntos} / ${total}
             </div>
 
@@ -1327,7 +1361,7 @@ function mostrarResultadoQuiz() {
             </p>
 
             <button
-                class="boton-quiz-reiniciar"
+                class="quiz-reiniciar"
                 onclick="iniciarQuiz()"
             >
                 Repetir quiz
@@ -1365,4 +1399,3 @@ document.addEventListener(
 
     }
 );
-```
