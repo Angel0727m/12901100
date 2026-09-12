@@ -1,3 +1,4 @@
+```html
 <!DOCTYPE html>
 <html lang="es">
 
@@ -5,19 +6,19 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>LuaLex — Diccionario de Lua 5.5</title>
+    <title>LuaDrix — Aprende Lua 5.5</title>
 
     <meta
         name="description"
-        content="LuaLex: diccionario de Lua 5.5 explicado en lenguaje humano."
+        content="LuaDrix: aprende Lua 5.5 de forma sencilla, práctica y progresiva."
     >
 
     <meta
         name="keywords"
-        content="Lua, Lua 5.5, programación, aprender Lua, diccionario Lua"
+        content="Lua, Lua 5.5, programación, aprender Lua, curso Lua"
     >
 
-    <meta name="author" content="LuaLex">
+    <meta name="author" content="LuaDrix">
 
     <link rel="stylesheet" href="style.css">
 </head>
@@ -27,25 +28,39 @@
 
 <header>
 
-    <p class="header-etiqueta">
-        DOCUMENTACIÓN DE LUA 5.5
-    </p>
+    <div class="header-superior">
 
-    <h1>LuaLex</h1>
+        <div>
+            <p class="header-etiqueta">
+                CURSO INTERACTIVO DE LUA 5.5
+            </p>
 
-    <p>
-        Diccionario de Lua explicado en lenguaje humano.
-    </p>
+            <h1>LuaDrix</h1>
 
-    <div class="controles-header">
+            <p>
+                Aprende Lua paso a paso, practica y mejora tu código.
+            </p>
+        </div>
 
-        <button
-            class="boton-header"
-            onclick="alternarModo()"
-            id="modoOscuro"
-        >
-            🌙 Modo oscuro
-        </button>
+        <div class="controles-header">
+
+            <button
+                class="boton-header"
+                onclick="alternarModo()"
+                id="modoOscuro"
+            >
+                🌙 Modo oscuro
+            </button>
+
+            <button
+                class="boton-cuenta"
+                onclick="abrirCuenta()"
+                id="botonCuenta"
+            >
+                👤 Cuenta
+            </button>
+
+        </div>
 
     </div>
 
@@ -64,7 +79,7 @@
             <input
                 id="busqueda"
                 type="search"
-                placeholder="🔎 Buscar cualquier concepto de Lua..."
+                placeholder="🔎 Buscar un concepto de Lua..."
                 oninput="buscarConcepto()"
             >
 
@@ -86,7 +101,7 @@
                 </strong>
 
                 <span id="textoProgreso">
-                    0 temas aprendidos
+                    0 conceptos aprendidos
                 </span>
 
             </div>
@@ -108,7 +123,85 @@
 
     <section id="inicio">
 
-        <h2>
+        <div class="bienvenida">
+
+            <div>
+
+                <p class="etiqueta-seccion">
+                    TU CURSO DE LUA
+                </p>
+
+                <h2>
+                    Aprende Lua haciendo.
+                </h2>
+
+                <p>
+                    Empieza desde las bases y avanza poco a poco.
+                    Cada lección te permite practicar lo que acabas de aprender.
+                </p>
+
+            </div>
+
+            <button
+                class="boton-principal"
+                onclick="mostrarTema('variables')"
+            >
+                Empezar a aprender →
+            </button>
+
+        </div>
+
+
+        <div class="estadisticas">
+
+            <div class="estadistica">
+
+                <span class="estadistica-icono">⭐</span>
+
+                <strong id="xpInicio">
+                    0 XP
+                </strong>
+
+                <span>
+                    Experiencia
+                </span>
+
+            </div>
+
+
+            <div class="estadistica">
+
+                <span class="estadistica-icono">🔥</span>
+
+                <strong id="rachaInicio">
+                    0 días
+                </strong>
+
+                <span>
+                    Racha
+                </span>
+
+            </div>
+
+
+            <div class="estadistica">
+
+                <span class="estadistica-icono">📚</span>
+
+                <strong id="leccionesInicio">
+                    0
+                </strong>
+
+                <span>
+                    Lecciones
+                </span>
+
+            </div>
+
+        </div>
+
+
+        <h2 class="titulo-menu">
             ¿Qué quieres aprender?
         </h2>
 
@@ -118,423 +211,401 @@
 
             <button
                 class="tarjeta"
-                onclick="mostrarTema('condicionales')"
-            >
-
-                <span class="tarjeta-icono">
-                    🔀
-                </span>
-
-                <span class="tarjeta-titulo">
-                    Condicionales
-                </span>
-
-                <span class="tarjeta-descripcion">
-                    if, then, else, elseif y comparaciones
-                </span>
-
-            </button>
-
-
-
-            <button
-                class="tarjeta"
-                onclick="mostrarTema('booleanos')"
-            >
-
-                <span class="tarjeta-icono">
-                    🔘
-                </span>
-
-                <span class="tarjeta-titulo">
-                    Booleanos
-                </span>
-
-                <span class="tarjeta-descripcion">
-                    true, false, and, or y not
-                </span>
-
-            </button>
-
-
-
-            <button
-                class="tarjeta"
-                onclick="mostrarTema('bucles')"
-            >
-
-                <span class="tarjeta-icono">
-                    🔁
-                </span>
-
-                <span class="tarjeta-titulo">
-                    Bucles
-                </span>
-
-                <span class="tarjeta-descripcion">
-                    while, repeat, for, break y goto
-                </span>
-
-            </button>
-
-
-
-            <button
-                class="tarjeta"
-                onclick="mostrarTema('funciones')"
-            >
-
-                <span class="tarjeta-icono">
-                    🧩
-                </span>
-
-                <span class="tarjeta-titulo">
-                    Funciones
-                </span>
-
-                <span class="tarjeta-descripcion">
-                    Parámetros, return, closures y varargs
-                </span>
-
-            </button>
-
-
-
-            <button
-                class="tarjeta"
-                onclick="mostrarTema('tablas')"
-            >
-
-                <span class="tarjeta-icono">
-                    🗂️
-                </span>
-
-                <span class="tarjeta-titulo">
-                    Tablas
-                </span>
-
-                <span class="tarjeta-descripcion">
-                    Listas, claves, campos e iteración
-                </span>
-
-            </button>
-
-
-
-            <button
-                class="tarjeta"
-                onclick="mostrarTema('strings')"
-            >
-
-                <span class="tarjeta-icono">
-                    🔤
-                </span>
-
-                <span class="tarjeta-titulo">
-                    Strings
-                </span>
-
-                <span class="tarjeta-descripcion">
-                    Texto, patrones, búsqueda y UTF-8
-                </span>
-
-            </button>
-
-
-
-            <button
-                class="tarjeta"
-                onclick="mostrarTema('operadores')"
-            >
-
-                <span class="tarjeta-icono">
-                    🧮
-                </span>
-
-                <span class="tarjeta-titulo">
-                    Operadores
-                </span>
-
-                <span class="tarjeta-descripcion">
-                    Aritméticos, lógicos, comparación y bits
-                </span>
-
-            </button>
-
-
-
-            <button
-                class="tarjeta"
                 onclick="mostrarTema('variables')"
             >
-
-                <span class="tarjeta-icono">
-                    📦
-                </span>
+                <span class="tarjeta-icono">📦</span>
 
                 <span class="tarjeta-titulo">
                     Variables y alcance
                 </span>
 
                 <span class="tarjeta-descripcion">
-                    local, global, const, close y _ENV
+                    Aprende a guardar datos y controlar su alcance.
                 </span>
 
+                <span class="tarjeta-nivel">
+                    NIVEL 1 · FUNDAMENTOS
+                </span>
             </button>
-
 
 
             <button
                 class="tarjeta"
                 onclick="mostrarTema('tipos')"
             >
-
-                <span class="tarjeta-icono">
-                    🔢
-                </span>
+                <span class="tarjeta-icono">🔢</span>
 
                 <span class="tarjeta-titulo">
                     Tipos de datos
                 </span>
 
                 <span class="tarjeta-descripcion">
-                    Los tipos de valores de Lua
+                    Conoce los diferentes tipos de valores de Lua.
                 </span>
 
+                <span class="tarjeta-nivel">
+                    NIVEL 1 · FUNDAMENTOS
+                </span>
             </button>
 
+
+            <button
+                class="tarjeta"
+                onclick="mostrarTema('booleanos')"
+            >
+                <span class="tarjeta-icono">🔘</span>
+
+                <span class="tarjeta-titulo">
+                    Booleanos
+                </span>
+
+                <span class="tarjeta-descripcion">
+                    true, false, and, or y not.
+                </span>
+
+                <span class="tarjeta-nivel">
+                    NIVEL 1 · FUNDAMENTOS
+                </span>
+            </button>
+
+
+            <button
+                class="tarjeta"
+                onclick="mostrarTema('operadores')"
+            >
+                <span class="tarjeta-icono">🧮</span>
+
+                <span class="tarjeta-titulo">
+                    Operadores
+                </span>
+
+                <span class="tarjeta-descripcion">
+                    Aritmética, comparación, lógica y bits.
+                </span>
+
+                <span class="tarjeta-nivel">
+                    NIVEL 1 · FUNDAMENTOS
+                </span>
+            </button>
+
+
+            <button
+                class="tarjeta"
+                onclick="mostrarTema('condicionales')"
+            >
+                <span class="tarjeta-icono">🔀</span>
+
+                <span class="tarjeta-titulo">
+                    Condicionales
+                </span>
+
+                <span class="tarjeta-descripcion">
+                    if, then, elseif, else y comparaciones.
+                </span>
+
+                <span class="tarjeta-nivel">
+                    NIVEL 2 · CONTROL
+                </span>
+            </button>
+
+
+            <button
+                class="tarjeta"
+                onclick="mostrarTema('bucles')"
+            >
+                <span class="tarjeta-icono">🔁</span>
+
+                <span class="tarjeta-titulo">
+                    Bucles
+                </span>
+
+                <span class="tarjeta-descripcion">
+                    while, repeat, for y break.
+                </span>
+
+                <span class="tarjeta-nivel">
+                    NIVEL 2 · CONTROL
+                </span>
+            </button>
+
+
+            <button
+                class="tarjeta"
+                onclick="mostrarTema('funciones')"
+            >
+                <span class="tarjeta-icono">🧩</span>
+
+                <span class="tarjeta-titulo">
+                    Funciones
+                </span>
+
+                <span class="tarjeta-descripcion">
+                    Parámetros, return, closures y varargs.
+                </span>
+
+                <span class="tarjeta-nivel">
+                    NIVEL 3 · PROGRAMACIÓN
+                </span>
+            </button>
+
+
+            <button
+                class="tarjeta"
+                onclick="mostrarTema('tablas')"
+            >
+                <span class="tarjeta-icono">🗂️</span>
+
+                <span class="tarjeta-titulo">
+                    Tablas
+                </span>
+
+                <span class="tarjeta-descripcion">
+                    Listas, claves, campos e iteración.
+                </span>
+
+                <span class="tarjeta-nivel">
+                    NIVEL 3 · PROGRAMACIÓN
+                </span>
+            </button>
+
+
+            <button
+                class="tarjeta"
+                onclick="mostrarTema('strings')"
+            >
+                <span class="tarjeta-icono">🔤</span>
+
+                <span class="tarjeta-titulo">
+                    Strings
+                </span>
+
+                <span class="tarjeta-descripcion">
+                    Texto, búsqueda, patrones y UTF-8.
+                </span>
+
+                <span class="tarjeta-nivel">
+                    NIVEL 3 · PROGRAMACIÓN
+                </span>
+            </button>
 
 
             <button
                 class="tarjeta"
                 onclick="mostrarTema('funcionesbasicas')"
             >
-
-                <span class="tarjeta-icono">
-                    🛠️
-                </span>
+                <span class="tarjeta-icono">🛠️</span>
 
                 <span class="tarjeta-titulo">
                     Funciones básicas
                 </span>
 
                 <span class="tarjeta-descripcion">
-                    print, type, tonumber, pcall y más
+                    print, type, tonumber, pcall y más.
                 </span>
 
+                <span class="tarjeta-nivel">
+                    NIVEL 4 · HERRAMIENTAS
+                </span>
             </button>
-
 
 
             <button
                 class="tarjeta"
                 onclick="mostrarTema('funcionesextras')"
             >
-
-                <span class="tarjeta-icono">
-                    📚
-                </span>
+                <span class="tarjeta-icono">📚</span>
 
                 <span class="tarjeta-titulo">
                     Librerías estándar
                 </span>
 
                 <span class="tarjeta-descripcion">
-                    string, table, math, io, os, package...
+                    string, table, math, io, os y package.
                 </span>
 
+                <span class="tarjeta-nivel">
+                    NIVEL 4 · HERRAMIENTAS
+                </span>
             </button>
-
-
-
-            <button
-                class="tarjeta"
-                onclick="mostrarTema('metatables')"
-            >
-
-                <span class="tarjeta-icono">
-                    ⚙️
-                </span>
-
-                <span class="tarjeta-titulo">
-                    Metatables
-                </span>
-
-                <span class="tarjeta-descripcion">
-                    Metamethods y comportamiento personalizado
-                </span>
-
-            </button>
-
-
-
-            <button
-                class="tarjeta"
-                onclick="mostrarTema('coroutines')"
-            >
-
-                <span class="tarjeta-icono">
-                    🔄
-                </span>
-
-                <span class="tarjeta-titulo">
-                    Coroutines
-                </span>
-
-                <span class="tarjeta-descripcion">
-                    Suspender y reanudar código
-                </span>
-
-            </button>
-
 
 
             <button
                 class="tarjeta"
                 onclick="mostrarTema('errores')"
             >
-
-                <span class="tarjeta-icono">
-                    🚨
-                </span>
+                <span class="tarjeta-icono">🚨</span>
 
                 <span class="tarjeta-titulo">
                     Errores y protección
                 </span>
 
                 <span class="tarjeta-descripcion">
-                    error, assert, pcall, xpcall y warn
+                    error, assert, pcall, xpcall y warn.
                 </span>
 
+                <span class="tarjeta-nivel">
+                    NIVEL 4 · HERRAMIENTAS
+                </span>
             </button>
-
 
 
             <button
                 class="tarjeta"
                 onclick="mostrarTema('modulos')"
             >
-
-                <span class="tarjeta-icono">
-                    📦
-                </span>
+                <span class="tarjeta-icono">📦</span>
 
                 <span class="tarjeta-titulo">
                     Módulos
                 </span>
 
                 <span class="tarjeta-descripcion">
-                    require, package y organización del código
+                    require, package y organización.
                 </span>
 
+                <span class="tarjeta-nivel">
+                    NIVEL 5 · PROYECTOS
+                </span>
             </button>
 
+
+            <button
+                class="tarjeta"
+                onclick="mostrarTema('metatables')"
+            >
+                <span class="tarjeta-icono">⚙️</span>
+
+                <span class="tarjeta-titulo">
+                    Metatables
+                </span>
+
+                <span class="tarjeta-descripcion">
+                    Metamethods y comportamientos personalizados.
+                </span>
+
+                <span class="tarjeta-nivel">
+                    NIVEL 5 · AVANZADO
+                </span>
+            </button>
+
+
+            <button
+                class="tarjeta"
+                onclick="mostrarTema('coroutines')"
+            >
+                <span class="tarjeta-icono">🔄</span>
+
+                <span class="tarjeta-titulo">
+                    Coroutines
+                </span>
+
+                <span class="tarjeta-descripcion">
+                    Suspender y reanudar código.
+                </span>
+
+                <span class="tarjeta-nivel">
+                    NIVEL 5 · AVANZADO
+                </span>
+            </button>
 
 
             <button
                 class="tarjeta"
                 onclick="mostrarTema('avanzado')"
             >
-
-                <span class="tarjeta-icono">
-                    🧠
-                </span>
+                <span class="tarjeta-icono">🧠</span>
 
                 <span class="tarjeta-titulo">
                     Conceptos avanzados
                 </span>
 
                 <span class="tarjeta-descripcion">
-                    GC, weak tables, load, debug, _G y más
+                    GC, weak tables, _ENV, debug y más.
                 </span>
 
+                <span class="tarjeta-nivel">
+                    NIVEL 6 · EXPERTO
+                </span>
             </button>
-
-
-
-            <!-- ==================== ESPECIALES ==================== -->
-
-
-            <button
-                class="tarjeta especial"
-                onclick="mostrarTema('completo')"
-            >
-
-                <span class="tarjeta-icono">
-                    📖
-                </span>
-
-                <span class="tarjeta-titulo">
-                    Diccionario completo
-                </span>
-
-                <span class="tarjeta-descripcion">
-                    Todos los conceptos de LuaLex
-                </span>
-
-            </button>
-
-
-
-            <button
-                class="tarjeta especial"
-                onclick="mostrarTema('quiz')"
-            >
-
-                <span class="tarjeta-icono">
-                    🧠
-                </span>
-
-                <span class="tarjeta-titulo">
-                    Quiz de Lua
-                </span>
-
-                <span class="tarjeta-descripcion">
-                    Pon a prueba lo que aprendiste
-                </span>
-
-            </button>
-
 
 
             <button
                 class="tarjeta especial"
                 onclick="mostrarTema('ejercicios')"
             >
-
-                <span class="tarjeta-icono">
-                    ✏️
-                </span>
+                <span class="tarjeta-icono">✏️</span>
 
                 <span class="tarjeta-titulo">
-                    Ejercicios
+                    Práctica
                 </span>
 
                 <span class="tarjeta-descripcion">
-                    Practica lo aprendido
+                    Resuelve ejercicios para reforzar lo aprendido.
                 </span>
 
+                <span class="tarjeta-nivel">
+                    PRACTICA
+                </span>
             </button>
 
+
+            <button
+                class="tarjeta especial"
+                onclick="mostrarTema('quiz')"
+            >
+                <span class="tarjeta-icono">🧠</span>
+
+                <span class="tarjeta-titulo">
+                    Quiz de Lua
+                </span>
+
+                <span class="tarjeta-descripcion">
+                    Comprueba cuánto recuerdas.
+                </span>
+
+                <span class="tarjeta-nivel">
+                    DESAFÍO
+                </span>
+            </button>
 
 
             <button
                 class="tarjeta especial"
                 onclick="mostrarTema('interactivo')"
             >
-
-                <span class="tarjeta-icono">
-                    ▶️
-                </span>
+                <span class="tarjeta-icono">▶️</span>
 
                 <span class="tarjeta-titulo">
                     Laboratorio
                 </span>
 
                 <span class="tarjeta-descripcion">
-                    Prueba conceptos básicos
+                    Experimenta con operaciones de Lua.
                 </span>
 
+                <span class="tarjeta-nivel">
+                    EXPERIMENTA
+                </span>
+            </button>
+
+
+            <button
+                class="tarjeta especial"
+                onclick="mostrarTema('completo')"
+            >
+                <span class="tarjeta-icono">📖</span>
+
+                <span class="tarjeta-titulo">
+                    Diccionario completo
+                </span>
+
+                <span class="tarjeta-descripcion">
+                    Consulta todos los conceptos.
+                </span>
+
+                <span class="tarjeta-nivel">
+                    REFERENCIA
+                </span>
             </button>
 
         </div>
@@ -543,86 +614,86 @@
 
 
 
-    <!-- ==================== CONDICIONALES ==================== -->
+    <!-- ==================== LECCIONES ==================== -->
 
-    <section
-        id="condicionales"
-        class="pagina"
-    >
+    <section id="variables" class="pagina">
 
-        <button
-            class="volver"
-            onclick="volverInicio()"
-        >
+        <button class="volver" onclick="volverInicio()">
             ← Volver al inicio
         </button>
 
-        <p class="breadcrumb">
-            Inicio > Condicionales
-        </p>
+        <p class="breadcrumb">Inicio > Variables y alcance</p>
 
-        <h2>
-            Condicionales
-        </h2>
+        <div class="leccion-cabecera">
 
-        <p>
-            Permiten ejecutar código dependiendo de una condición.
-        </p>
+            <span class="leccion-nivel">
+                NIVEL 1
+            </span>
 
+            <h2>Variables y alcance</h2>
 
-        <h3>
-            if / then
-        </h3>
-
-        <pre><code>local edad = 16
-
-if edad >= 18 then
-    print("Mayor de edad")
-end</code></pre>
-
-
-        <h3>
-            elseif
-        </h3>
-
-        <pre><code>if edad >= 18 then
-    print("Adulto")
-elseif edad >= 13 then
-    print("Adolescente")
-else
-    print("Niño")
-end</code></pre>
-
-
-        <h3>
-            Comparaciones
-        </h3>
-
-        <p>
-            <code>==</code> igual
-            <code>~=</code> diferente
-            <code>&gt;</code> mayor
-            <code>&lt;</code> menor
-            <code>&gt;=</code> mayor o igual
-            <code>&lt;=</code> menor o igual
-        </p>
-
-
-        <div class="regla">
-
-            <strong>
-                Regla:
-            </strong>
-
-            <code>if</code> termina con
-            <code>end</code>.
+            <p>
+                Las variables permiten guardar valores para utilizarlos después.
+            </p>
 
         </div>
 
+        <h3>local</h3>
+
+        <pre><code>local vidas = 3
+
+print(vidas)</code></pre>
+
+        <p>
+            Usar <code>local</code> crea una variable con alcance local.
+            Es la forma habitual de declarar variables.
+        </p>
+
+        <h3>Variables globales</h3>
+
+        <p>
+            Lua 5.5 también incluye una declaración explícita
+            para variables globales.
+        </p>
+
+        <pre><code>global nombre
+
+nombre = "Lua"</code></pre>
+
+        <h3>const</h3>
+
+        <pre><code>local &lt;const&gt; PI = 3.14159</code></pre>
+
+        <p>
+            <code>&lt;const&gt;</code> indica que la variable local no puede
+            ser reasignada.
+        </p>
+
+        <h3>close</h3>
+
+        <pre><code>local &lt;close&gt; recurso = obtenerRecurso()</code></pre>
+
+        <p>
+            Los valores marcados con <code>&lt;close&gt;</code> pueden ejecutar
+            su comportamiento de cierre al salir de su alcance.
+        </p>
+
+        <h3>_ENV y _G</h3>
+
+        <p>
+            <code>_ENV</code> representa el entorno utilizado para resolver
+            nombres globales. <code>_G</code> es la referencia convencional
+            al entorno global.
+        </p>
+
+        <div class="regla">
+            <strong>Consejo:</strong>
+            cuando estés empezando, usa <code>local</code> casi siempre.
+        </div>
 
         <button
             class="aprendido"
-            onclick="marcarAprendido('condicionales')"
+            onclick="marcarAprendido('variables')"
         >
             ✓ Marcar como aprendido
         </button>
@@ -630,62 +701,79 @@ end</code></pre>
     </section>
 
 
+    <section id="tipos" class="pagina">
 
-    <!-- ==================== BOOLEANOS ==================== -->
-
-    <section
-        id="booleanos"
-        class="pagina"
-    >
-
-        <button
-            class="volver"
-            onclick="volverInicio()"
-        >
+        <button class="volver" onclick="volverInicio()">
             ← Volver al inicio
         </button>
 
-        <p class="breadcrumb">
-            Inicio > Booleanos
+        <p class="breadcrumb">Inicio > Tipos de datos</p>
+
+        <h2>Tipos de datos</h2>
+
+        <p>
+            Lua utiliza tipado dinámico: las variables no tienen un tipo fijo;
+            los valores sí.
         </p>
 
-        <h2>
-            Booleanos
-        </h2>
+        <div class="lista-conceptos grande">
+            <span>nil</span>
+            <span>boolean</span>
+            <span>number</span>
+            <span>string</span>
+            <span>function</span>
+            <span>userdata</span>
+            <span>thread</span>
+            <span>table</span>
+        </div>
+
+        <pre><code>print(type(nil))
+print(type(true))
+print(type(10))
+print(type("Lua"))
+print(type({}))
+print(type(function() end))</code></pre>
+
+        <button
+            class="aprendido"
+            onclick="marcarAprendido('tipos')"
+        >
+            ✓ Marcar como aprendido
+        </button>
+
+    </section>
+
+
+    <section id="booleanos" class="pagina">
+
+        <button class="volver" onclick="volverInicio()">
+            ← Volver al inicio
+        </button>
+
+        <p class="breadcrumb">Inicio > Booleanos</p>
+
+        <h2>Booleanos</h2>
 
         <p>
             Lua tiene dos valores booleanos:
             <code>true</code> y <code>false</code>.
         </p>
 
-
         <pre><code>local jugando = true
 local terminado = false</code></pre>
 
-
         <div class="regla">
 
-            <strong>
-                MUY IMPORTANTE:
-            </strong>
+            <strong>Muy importante:</strong>
 
-            En Lua solamente
-            <code>false</code>
-            y
-            <code>nil</code>
+            en Lua solamente <code>false</code> y <code>nil</code>
             son falsos en una condición.
 
-            <code>0</code>
-            y
-            <code>""</code>
-            son verdaderos.
+            <code>0</code> y <code>""</code> son verdaderos.
 
         </div>
 
-
-        <h3>
-            Operadores lógicos
-        </h3>
+        <h3>Operadores lógicos</h3>
 
         <pre><code>if edad >= 13 and edad <= 17 then
     print("Adolescente")
@@ -697,7 +785,6 @@ end
 
 print(not true)</code></pre>
 
-
         <button
             class="aprendido"
             onclick="marcarAprendido('booleanos')"
@@ -708,77 +795,177 @@ print(not true)</code></pre>
     </section>
 
 
+    <section id="operadores" class="pagina">
 
-    <!-- ==================== BUCLES ==================== -->
-
-    <section
-        id="bucles"
-        class="pagina"
-    >
-
-        <button
-            class="volver"
-            onclick="volverInicio()"
-        >
+        <button class="volver" onclick="volverInicio()">
             ← Volver al inicio
         </button>
 
-        <p class="breadcrumb">
-            Inicio > Bucles
+        <p class="breadcrumb">Inicio > Operadores</p>
+
+        <h2>Operadores</h2>
+
+        <h3>Aritméticos</h3>
+
+        <p>
+            <code>+</code>
+            <code>-</code>
+            <code>*</code>
+            <code>/</code>
+            <code>//</code>
+            <code>%</code>
+            <code>^</code>
         </p>
 
-        <h2>
-            Bucles
-        </h2>
+        <h3>Comparación</h3>
+
+        <p>
+            <code>==</code>
+            <code>~=</code>
+            <code>&lt;</code>
+            <code>&gt;</code>
+            <code>&lt;=</code>
+            <code>&gt;=</code>
+        </p>
+
+        <h3>Lógicos</h3>
+
+        <p>
+            <code>and</code>
+            <code>or</code>
+            <code>not</code>
+        </p>
+
+        <h3>Bits</h3>
+
+        <p>
+            <code>&amp;</code>
+            <code>|</code>
+            <code>~</code>
+            <code>&lt;&lt;</code>
+            <code>&gt;&gt;</code>
+        </p>
+
+        <h3>Otros</h3>
+
+        <p>
+            <code>..</code> concatenación
+        </p>
+
+        <p>
+            <code>#</code> longitud
+        </p>
+
+        <p>
+            <code>=</code> asignación
+        </p>
+
+        <button
+            class="aprendido"
+            onclick="marcarAprendido('operadores')"
+        >
+            ✓ Marcar como aprendido
+        </button>
+
+    </section>
 
 
-        <h3>
-            while
-        </h3>
+    <section id="condicionales" class="pagina">
+
+        <button class="volver" onclick="volverInicio()">
+            ← Volver al inicio
+        </button>
+
+        <p class="breadcrumb">Inicio > Condicionales</p>
+
+        <h2>Condicionales</h2>
+
+        <p>
+            Permiten ejecutar código dependiendo de una condición.
+        </p>
+
+        <h3>if / then</h3>
+
+        <pre><code>local edad = 16
+
+if edad >= 18 then
+    print("Mayor de edad")
+end</code></pre>
+
+        <h3>elseif y else</h3>
+
+        <pre><code>if edad >= 18 then
+    print("Adulto")
+elseif edad >= 13 then
+    print("Adolescente")
+else
+    print("Niño")
+end</code></pre>
+
+        <h3>Comparaciones</h3>
+
+        <p>
+            <code>==</code> igual
+            <code>~=</code> diferente
+            <code>&gt;</code> mayor
+            <code>&lt;</code> menor
+            <code>&gt;=</code> mayor o igual
+            <code>&lt;=</code> menor o igual
+        </p>
+
+        <div class="regla">
+            <strong>Regla:</strong>
+            todo bloque iniciado con <code>if</code> termina con <code>end</code>.
+        </div>
+
+        <button
+            class="aprendido"
+            onclick="marcarAprendido('condicionales')"
+        >
+            ✓ Marcar como aprendido
+        </button>
+
+    </section>
+
+
+    <section id="bucles" class="pagina">
+
+        <button class="volver" onclick="volverInicio()">
+            ← Volver al inicio
+        </button>
+
+        <p class="breadcrumb">Inicio > Bucles</p>
+
+        <h2>Bucles</h2>
+
+        <h3>while</h3>
 
         <pre><code>local i = 1
 
 while i <= 5 do
-
     print(i)
-
     i = i + 1
-
 end</code></pre>
 
-
-        <h3>
-            repeat ... until
-        </h3>
+        <h3>repeat ... until</h3>
 
         <pre><code>repeat
-
     i = i + 1
-
 until i >= 5</code></pre>
 
-
-        <h3>
-            for numérico
-        </h3>
+        <h3>for numérico</h3>
 
         <pre><code>for i = 1, 10, 2 do
     print(i)
 end</code></pre>
 
-
-        <h3>
-            for genérico
-        </h3>
+        <h3>for genérico</h3>
 
         <pre><code>for clave, valor in pairs(persona) do
     print(clave, valor)
 end</code></pre>
 
-
-        <h3>
-            break
-        </h3>
+        <h3>break</h3>
 
         <pre><code>for i = 1, 10 do
 
@@ -787,7 +974,6 @@ end</code></pre>
     end
 
 end</code></pre>
-
 
         <button
             class="aprendido"
@@ -799,85 +985,49 @@ end</code></pre>
     </section>
 
 
+    <section id="funciones" class="pagina">
 
-    <!-- ==================== FUNCIONES ==================== -->
-
-    <section
-        id="funciones"
-        class="pagina"
-    >
-
-        <button
-            class="volver"
-            onclick="volverInicio()"
-        >
+        <button class="volver" onclick="volverInicio()">
             ← Volver al inicio
         </button>
 
-        <p class="breadcrumb">
-            Inicio > Funciones
-        </p>
+        <p class="breadcrumb">Inicio > Funciones</p>
 
-        <h2>
-            Funciones
-        </h2>
+        <h2>Funciones</h2>
 
-
-        <h3>
-            Crear una función
-        </h3>
+        <h3>Crear una función</h3>
 
         <pre><code>local function saludar(nombre)
-
     print("Hola " .. nombre)
-
 end
 
 saludar("Lua")</code></pre>
 
-
-        <h3>
-            Parámetros y return
-        </h3>
+        <h3>Parámetros y return</h3>
 
         <pre><code>local function sumar(a, b)
-
     return a + b
-
 end
 
 local resultado = sumar(3, 4)
 
 print(resultado)</code></pre>
 
-
-        <h3>
-            Funciones anónimas
-        </h3>
+        <h3>Funciones anónimas</h3>
 
         <pre><code>local doble = function(numero)
-
     return numero * 2
-
 end
 
 print(doble(5))</code></pre>
 
-
-        <h3>
-            Varargs
-        </h3>
+        <h3>Varargs</h3>
 
         <pre><code>local function contar(...)
-
     return select("#", ...)
-
 end</code></pre>
 
-
-        <h3>
-            Closures
-        </h3>
+        <h3>Closures</h3>
 
         <pre><code>local function crearContador()
 
@@ -893,16 +1043,11 @@ end</code></pre>
 
 end</code></pre>
 
-
         <div class="regla">
-
             Las funciones son valores de primera clase:
-            puedes guardarlas en variables,
-            pasarlas a otras funciones
+            puedes guardarlas en variables, pasarlas a otras funciones
             y devolverlas.
-
         </div>
-
 
         <button
             class="aprendido"
@@ -914,102 +1059,59 @@ end</code></pre>
     </section>
 
 
+    <section id="tablas" class="pagina">
 
-    <!-- ==================== TABLAS ==================== -->
-
-    <section
-        id="tablas"
-        class="pagina"
-    >
-
-        <button
-            class="volver"
-            onclick="volverInicio()"
-        >
+        <button class="volver" onclick="volverInicio()">
             ← Volver al inicio
         </button>
 
-        <p class="breadcrumb">
-            Inicio > Tablas
-        </p>
+        <p class="breadcrumb">Inicio > Tablas</p>
 
-        <h2>
-            Tablas
-        </h2>
+        <h2>Tablas</h2>
 
-
-        <h3>
-            Crear una tabla
-        </h3>
+        <h3>Crear una tabla</h3>
 
         <pre><code>local frutas = {
-
     "Manzana",
     "Banano",
     "Naranja"
-
 }</code></pre>
 
-
-        <h3>
-            Acceder a elementos
-        </h3>
+        <h3>Acceder a elementos</h3>
 
         <pre><code>print(frutas[1])
-
 print(frutas[2])</code></pre>
 
-
-        <h3>
-            Tablas con claves
-        </h3>
+        <h3>Tablas con claves</h3>
 
         <pre><code>local persona = {
-
     nombre = "Lua",
     edad = 10
-
 }
 
 print(persona.nombre)
-
 print(persona["edad"])</code></pre>
 
-
-        <h3>
-            Insertar y eliminar
-        </h3>
+        <h3>Insertar y eliminar</h3>
 
         <pre><code>table.insert(frutas, "Pera")
 
 table.remove(frutas, 1)</code></pre>
 
-
-        <h3>
-            Recorrer
-        </h3>
+        <h3>Recorrer</h3>
 
         <pre><code>for i, fruta in ipairs(frutas) do
-
     print(i, fruta)
-
 end
 
-
 for clave, valor in pairs(persona) do
-
     print(clave, valor)
-
 end</code></pre>
 
-
         <div class="regla">
-
             Una tabla puede tener distintas claves.
             Las secuencias normalmente comienzan en el índice 1.
-
         </div>
-
 
         <button
             class="aprendido"
@@ -1021,29 +1123,15 @@ end</code></pre>
     </section>
 
 
+    <section id="strings" class="pagina">
 
-    <!-- ==================== STRINGS ==================== -->
-
-    <section
-        id="strings"
-        class="pagina"
-    >
-
-        <button
-            class="volver"
-            onclick="volverInicio()"
-        >
+        <button class="volver" onclick="volverInicio()">
             ← Volver al inicio
         </button>
 
-        <p class="breadcrumb">
-            Inicio > Strings
-        </p>
+        <p class="breadcrumb">Inicio > Strings</p>
 
-        <h2>
-            Strings
-        </h2>
-
+        <h2>Strings</h2>
 
         <pre><code>local nombre = "Lua"
 
@@ -1051,43 +1139,29 @@ local saludo = "Hola " .. nombre
 
 print(saludo)</code></pre>
 
+        <h3>Longitud</h3>
 
-        <h3>
-            Longitud
-        </h3>
+        <pre><code>print(#"LuaDrix")</code></pre>
 
-        <pre><code>print(#"LuaLex")</code></pre>
-
-
-        <h3>
-            Buscar
-        </h3>
+        <h3>Buscar</h3>
 
         <pre><code>local inicio, fin =
     string.find("Hola Lua", "Lua")
 
 print(inicio, fin)</code></pre>
 
-
-        <h3>
-            Patrones
-        </h3>
+        <h3>Patrones</h3>
 
         <pre><code>local numero =
     string.match("Tengo 15 años", "%d+")
 
 print(numero)</code></pre>
 
-
         <div class="regla">
-
             Los strings de Lua son inmutables.
-            Las funciones de la librería
-            <code>string</code>
+            Las funciones de la librería <code>string</code>
             devuelven nuevos valores.
-
         </div>
-
 
         <button
             class="aprendido"
@@ -1099,305 +1173,17 @@ print(numero)</code></pre>
     </section>
 
 
+    <section id="funcionesbasicas" class="pagina">
 
-    <!-- ==================== OPERADORES ==================== -->
-
-    <section
-        id="operadores"
-        class="pagina"
-    >
-
-        <button
-            class="volver"
-            onclick="volverInicio()"
-        >
+        <button class="volver" onclick="volverInicio()">
             ← Volver al inicio
         </button>
 
-        <p class="breadcrumb">
-            Inicio > Operadores
-        </p>
+        <p class="breadcrumb">Inicio > Funciones básicas</p>
 
-        <h2>
-            Operadores
-        </h2>
-
-
-        <h3>
-            Aritméticos
-        </h3>
-
-        <p>
-            <code>+</code>
-            <code>-</code>
-            <code>*</code>
-            <code>/</code>
-            <code>//</code>
-            <code>%</code>
-            <code>^</code>
-        </p>
-
-
-        <h3>
-            Comparación
-        </h3>
-
-        <p>
-            <code>==</code>
-            <code>~=</code>
-            <code>&lt;</code>
-            <code>&gt;</code>
-            <code>&lt;=</code>
-            <code>&gt;=</code>
-        </p>
-
-
-        <h3>
-            Lógicos
-        </h3>
-
-        <p>
-            <code>and</code>
-            <code>or</code>
-            <code>not</code>
-        </p>
-
-
-        <h3>
-            Bits
-        </h3>
-
-        <p>
-            <code>&amp;</code>
-            <code>|</code>
-            <code>~</code>
-            <code>&lt;&lt;</code>
-            <code>&gt;&gt;</code>
-        </p>
-
-
-        <h3>
-            Otros
-        </h3>
-
-        <p>
-            <code>..</code>
-            concatenación
-        </p>
-
-        <p>
-            <code>#</code>
-            longitud
-        </p>
-
-        <p>
-            <code>=</code>
-            asignación
-        </p>
-
-
-        <button
-            class="aprendido"
-            onclick="marcarAprendido('operadores')"
-        >
-            ✓ Marcar como aprendido
-        </button>
-
-    </section>
-
-
-
-    <!-- ==================== VARIABLES ==================== -->
-
-    <section
-        id="variables"
-        class="pagina"
-    >
-
-        <button
-            class="volver"
-            onclick="volverInicio()"
-        >
-            ← Volver al inicio
-        </button>
-
-        <p class="breadcrumb">
-            Inicio > Variables y alcance
-        </p>
-
-        <h2>
-            Variables y alcance
-        </h2>
-
-
-        <h3>
-            local
-        </h3>
-
-        <pre><code>local vidas = 3</code></pre>
-
-
-        <h3>
-            global
-        </h3>
-
-        <p>
-            Lua 5.5 añade una declaración explícita
-            para variables globales.
-        </p>
-
-        <pre><code>global nombre
-
-nombre = "Lua"</code></pre>
-
-
-        <h3>
-            const
-        </h3>
-
-        <pre><code>local &lt;const&gt; PI = 3.14159</code></pre>
-
-
-        <h3>
-            close
-        </h3>
-
-        <pre><code>local &lt;close&gt; recurso =
-    obtenerRecurso()</code></pre>
-
-
-        <h3>
-            _ENV
-        </h3>
-
-        <p>
-            <code>_ENV</code>
-            representa el entorno utilizado
-            para resolver nombres globales.
-        </p>
-
-
-        <h3>
-            _G
-        </h3>
-
-        <p>
-            <code>_G</code>
-            es la referencia convencional
-            al entorno global.
-        </p>
-
-
-        <button
-            class="aprendido"
-            onclick="marcarAprendido('variables')"
-        >
-            ✓ Marcar como aprendido
-        </button>
-
-    </section>
-
-
-
-    <!-- ==================== TIPOS ==================== -->
-
-    <section
-        id="tipos"
-        class="pagina"
-    >
-
-        <button
-            class="volver"
-            onclick="volverInicio()"
-        >
-            ← Volver al inicio
-        </button>
-
-        <p class="breadcrumb">
-            Inicio > Tipos
-        </p>
-
-        <h2>
-            Tipos de datos
-        </h2>
-
-        <p>
-            Los valores de Lua pertenecen a distintos tipos.
-        </p>
-
-
-        <div class="lista-conceptos">
-
-            <span>nil</span>
-            <span>boolean</span>
-            <span>number</span>
-            <span>string</span>
-            <span>function</span>
-            <span>userdata</span>
-            <span>thread</span>
-            <span>table</span>
-
-        </div>
-
-
-        <pre><code>print(type(nil))
-
-print(type(true))
-
-print(type(10))
-
-print(type("Lua"))
-
-print(type({}))
-
-print(type(function() end))</code></pre>
-
-
-        <div class="regla">
-
-            Lua utiliza tipado dinámico:
-            las variables no tienen un tipo fijo;
-            los valores sí.
-
-        </div>
-
-
-        <button
-            class="aprendido"
-            onclick="marcarAprendido('tipos')"
-        >
-            ✓ Marcar como aprendido
-        </button>
-
-    </section>
-
-
-
-    <!-- ==================== FUNCIONES BÁSICAS ==================== -->
-
-    <section
-        id="funcionesbasicas"
-        class="pagina"
-    >
-
-        <button
-            class="volver"
-            onclick="volverInicio()"
-        >
-            ← Volver al inicio
-        </button>
-
-        <p class="breadcrumb">
-            Inicio > Funciones básicas
-        </p>
-
-        <h2>
-            Funciones básicas
-        </h2>
-
+        <h2>Funciones básicas</h2>
 
         <div class="lista-conceptos grande">
-
             <span>print()</span>
             <span>type()</span>
             <span>tostring()</span>
@@ -1423,9 +1209,7 @@ print(type(function() end))</code></pre>
             <span>rawlen()</span>
             <span>warn()</span>
             <span>_VERSION</span>
-
         </div>
-
 
         <button
             class="aprendido"
@@ -1437,81 +1221,36 @@ print(type(function() end))</code></pre>
     </section>
 
 
+    <section id="funcionesextras" class="pagina">
 
-    <!-- ==================== LIBRERÍAS ==================== -->
-
-    <section
-        id="funcionesextras"
-        class="pagina"
-    >
-
-        <button
-            class="volver"
-            onclick="volverInicio()"
-        >
+        <button class="volver" onclick="volverInicio()">
             ← Volver al inicio
         </button>
 
-        <p class="breadcrumb">
-            Inicio > Librerías estándar
-        </p>
+        <p class="breadcrumb">Inicio > Librerías estándar</p>
 
-        <h2>
-            Librerías estándar
-        </h2>
-
+        <h2>Librerías estándar</h2>
 
         <p>
             Lua incluye librerías para tareas comunes:
-            strings, tablas, matemáticas, archivos,
-            sistema, paquetes, coroutines, UTF-8 y debug.
+            strings, tablas, matemáticas, archivos, sistema,
+            paquetes, coroutines, UTF-8 y debug.
         </p>
-
 
         <div class="bibliotecas-grid">
 
-            <button onclick="filtrarBiblioteca('basic')">
-                Basic
-            </button>
-
-            <button onclick="filtrarBiblioteca('coroutine')">
-                Coroutine
-            </button>
-
-            <button onclick="filtrarBiblioteca('package')">
-                Package
-            </button>
-
-            <button onclick="filtrarBiblioteca('string')">
-                String
-            </button>
-
-            <button onclick="filtrarBiblioteca('utf8')">
-                UTF-8
-            </button>
-
-            <button onclick="filtrarBiblioteca('table')">
-                Table
-            </button>
-
-            <button onclick="filtrarBiblioteca('math')">
-                Math
-            </button>
-
-            <button onclick="filtrarBiblioteca('io')">
-                IO
-            </button>
-
-            <button onclick="filtrarBiblioteca('os')">
-                OS
-            </button>
-
-            <button onclick="filtrarBiblioteca('debug')">
-                Debug
-            </button>
+            <button onclick="filtrarBiblioteca('basic')">Basic</button>
+            <button onclick="filtrarBiblioteca('coroutine')">Coroutine</button>
+            <button onclick="filtrarBiblioteca('package')">Package</button>
+            <button onclick="filtrarBiblioteca('string')">String</button>
+            <button onclick="filtrarBiblioteca('utf8')">UTF-8</button>
+            <button onclick="filtrarBiblioteca('table')">Table</button>
+            <button onclick="filtrarBiblioteca('math')">Math</button>
+            <button onclick="filtrarBiblioteca('io')">IO</button>
+            <button onclick="filtrarBiblioteca('os')">OS</button>
+            <button onclick="filtrarBiblioteca('debug')">Debug</button>
 
         </div>
-
 
         <div
             id="bibliotecaResultado"
@@ -1519,7 +1258,6 @@ print(type(function() end))</code></pre>
         >
             Selecciona una librería para ver sus funciones.
         </div>
-
 
         <button
             class="aprendido"
@@ -1531,35 +1269,20 @@ print(type(function() end))</code></pre>
     </section>
 
 
+    <section id="metatables" class="pagina">
 
-    <!-- ==================== METATABLES ==================== -->
-
-    <section
-        id="metatables"
-        class="pagina"
-    >
-
-        <button
-            class="volver"
-            onclick="volverInicio()"
-        >
+        <button class="volver" onclick="volverInicio()">
             ← Volver al inicio
         </button>
 
-        <p class="breadcrumb">
-            Inicio > Metatables
-        </p>
+        <p class="breadcrumb">Inicio > Metatables</p>
 
-        <h2>
-            Metatables
-        </h2>
-
+        <h2>Metatables</h2>
 
         <p>
-            Las metatables permiten personalizar
-            determinados comportamientos de valores.
+            Las metatables permiten personalizar determinados comportamientos
+            de valores.
         </p>
-
 
         <pre><code>local persona = {
     nombre = "Angel"
@@ -1568,10 +1291,7 @@ print(type(function() end))</code></pre>
 local meta = {
 
     __tostring = function(tabla)
-
-        return "Persona: "
-            .. tabla.nombre
-
+        return "Persona: " .. tabla.nombre
     end
 
 }
@@ -1580,13 +1300,9 @@ setmetatable(persona, meta)
 
 print(persona)</code></pre>
 
-
-        <h3>
-            Metamethods
-        </h3>
+        <h3>Metamethods</h3>
 
         <div class="lista-conceptos grande">
-
             <span>__index</span>
             <span>__newindex</span>
             <span>__call</span>
@@ -1614,9 +1330,7 @@ print(persona)</code></pre>
             <span>__close</span>
             <span>__mode</span>
             <span>__name</span>
-
         </div>
-
 
         <button
             class="aprendido"
@@ -1628,35 +1342,20 @@ print(persona)</code></pre>
     </section>
 
 
+    <section id="coroutines" class="pagina">
 
-    <!-- ==================== COROUTINES ==================== -->
-
-    <section
-        id="coroutines"
-        class="pagina"
-    >
-
-        <button
-            class="volver"
-            onclick="volverInicio()"
-        >
+        <button class="volver" onclick="volverInicio()">
             ← Volver al inicio
         </button>
 
-        <p class="breadcrumb">
-            Inicio > Coroutines
-        </p>
+        <p class="breadcrumb">Inicio > Coroutines</p>
 
-        <h2>
-            Coroutines
-        </h2>
-
+        <h2>Coroutines</h2>
 
         <p>
             Permiten suspender y reanudar una ejecución de Lua
             de forma cooperativa.
         </p>
-
 
         <pre><code>local co = coroutine.create(function()
 
@@ -1668,11 +1367,9 @@ print(persona)</code></pre>
 
 end)
 
-
 coroutine.resume(co)
 
 coroutine.resume(co)</code></pre>
-
 
         <p>
             Conceptos:
@@ -1687,7 +1384,6 @@ coroutine.resume(co)</code></pre>
             <code>close</code>.
         </p>
 
-
         <button
             class="aprendido"
             onclick="marcarAprendido('coroutines')"
@@ -1698,50 +1394,28 @@ coroutine.resume(co)</code></pre>
     </section>
 
 
+    <section id="errores" class="pagina">
 
-    <!-- ==================== ERRORES ==================== -->
-
-    <section
-        id="errores"
-        class="pagina"
-    >
-
-        <button
-            class="volver"
-            onclick="volverInicio()"
-        >
+        <button class="volver" onclick="volverInicio()">
             ← Volver al inicio
         </button>
 
-        <p class="breadcrumb">
-            Inicio > Errores
-        </p>
+        <p class="breadcrumb">Inicio > Errores</p>
 
-        <h2>
-            Errores y protección
-        </h2>
+        <h2>Errores y protección</h2>
 
-
-        <h3>
-            error()
-        </h3>
+        <h3>error()</h3>
 
         <pre><code>error("Algo salió mal")</code></pre>
 
-
-        <h3>
-            assert()
-        </h3>
+        <h3>assert()</h3>
 
         <pre><code>assert(
     edad >= 0,
     "Edad inválida"
 )</code></pre>
 
-
-        <h3>
-            pcall()
-        </h3>
+        <h3>pcall()</h3>
 
         <pre><code>local ok, resultado =
     pcall(function()
@@ -1752,25 +1426,18 @@ coroutine.resume(co)</code></pre>
 
 print(ok, resultado)</code></pre>
 
-
-        <h3>
-            xpcall()
-        </h3>
+        <h3>xpcall()</h3>
 
         <p>
-            Ejecuta una función protegida y permite
-            especificar un manejador de errores.
+            Ejecuta una función protegida y permite especificar
+            un manejador de errores.
         </p>
 
-
-        <h3>
-            warn()
-        </h3>
+        <h3>warn()</h3>
 
         <p>
             Produce una advertencia.
         </p>
-
 
         <button
             class="aprendido"
@@ -1782,62 +1449,36 @@ print(ok, resultado)</code></pre>
     </section>
 
 
+    <section id="modulos" class="pagina">
 
-    <!-- ==================== MÓDULOS ==================== -->
-
-    <section
-        id="modulos"
-        class="pagina"
-    >
-
-        <button
-            class="volver"
-            onclick="volverInicio()"
-        >
+        <button class="volver" onclick="volverInicio()">
             ← Volver al inicio
         </button>
 
-        <p class="breadcrumb">
-            Inicio > Módulos
-        </p>
+        <p class="breadcrumb">Inicio > Módulos</p>
 
-        <h2>
-            Módulos
-        </h2>
+        <h2>Módulos</h2>
 
-
-        <h3>
-            require()
-        </h3>
+        <h3>require()</h3>
 
         <pre><code>local miModulo =
     require("miModulo")</code></pre>
 
-
-        <h3>
-            package
-        </h3>
+        <h3>package</h3>
 
         <div class="lista-conceptos grande">
-
             <span>package.path</span>
             <span>package.cpath</span>
             <span>package.loaded</span>
             <span>package.preload</span>
             <span>package.searchers</span>
             <span>package.config</span>
-
         </div>
-
 
         <div class="regla">
-
-            Normalmente un módulo devuelve
-            una tabla u otro valor que luego
-            guardas en una variable.
-
+            Normalmente un módulo devuelve una tabla u otro valor
+            que luego guardas en una variable.
         </div>
-
 
         <button
             class="aprendido"
@@ -1849,32 +1490,17 @@ print(ok, resultado)</code></pre>
     </section>
 
 
+    <section id="avanzado" class="pagina">
 
-    <!-- ==================== AVANZADO ==================== -->
-
-    <section
-        id="avanzado"
-        class="pagina"
-    >
-
-        <button
-            class="volver"
-            onclick="volverInicio()"
-        >
+        <button class="volver" onclick="volverInicio()">
             ← Volver al inicio
         </button>
 
-        <p class="breadcrumb">
-            Inicio > Avanzado
-        </p>
+        <p class="breadcrumb">Inicio > Avanzado</p>
 
-        <h2>
-            Conceptos avanzados
-        </h2>
-
+        <h2>Conceptos avanzados</h2>
 
         <div class="lista-conceptos grande">
-
             <span>Garbage Collector</span>
             <span>GC incremental</span>
             <span>GC generacional</span>
@@ -1902,9 +1528,7 @@ print(ok, resultado)</code></pre>
             <span>debug library</span>
             <span>hooks</span>
             <span>environments</span>
-
         </div>
-
 
         <button
             class="aprendido"
@@ -1919,33 +1543,19 @@ print(ok, resultado)</code></pre>
 
     <!-- ==================== DICCIONARIO ==================== -->
 
-    <section
-        id="completo"
-        class="pagina"
-    >
+    <section id="completo" class="pagina">
 
-        <button
-            class="volver"
-            onclick="volverInicio()"
-        >
+        <button class="volver" onclick="volverInicio()">
             ← Volver al inicio
         </button>
 
-        <p class="breadcrumb">
-            Inicio > Diccionario completo
-        </p>
+        <p class="breadcrumb">Inicio > Diccionario completo</p>
 
-        <h2>
-            Diccionario completo
-        </h2>
-
+        <h2>Diccionario completo</h2>
 
         <p>
-            Aquí aparecerán todos los conceptos registrados
-            en LuaLex. También puedes encontrarlos usando
-            el buscador.
+            Consulta todos los conceptos registrados en LuaDrix.
         </p>
-
 
         <div id="diccionarioCompleto"></div>
 
@@ -1955,32 +1565,19 @@ print(ok, resultado)</code></pre>
 
     <!-- ==================== QUIZ ==================== -->
 
-    <section
-        id="quiz"
-        class="pagina"
-    >
+    <section id="quiz" class="pagina">
 
-        <button
-            class="volver"
-            onclick="volverInicio()"
-        >
+        <button class="volver" onclick="volverInicio()">
             ← Volver al inicio
         </button>
 
-        <p class="breadcrumb">
-            Inicio > Quiz
-        </p>
+        <p class="breadcrumb">Inicio > Quiz</p>
 
-        <h2>
-            Quiz de Lua
-        </h2>
-
+        <h2>Quiz de Lua</h2>
 
         <p>
-            Responde las preguntas y descubre cuánto
-            recuerdas de Lua.
+            Responde las preguntas y descubre cuánto recuerdas de Lua.
         </p>
-
 
         <div id="quizContenedor"></div>
 
@@ -1990,32 +1587,23 @@ print(ok, resultado)</code></pre>
 
     <!-- ==================== EJERCICIOS ==================== -->
 
-    <section
-        id="ejercicios"
-        class="pagina"
-    >
+    <section id="ejercicios" class="pagina">
 
-        <button
-            class="volver"
-            onclick="volverInicio()"
-        >
+        <button class="volver" onclick="volverInicio()">
             ← Volver al inicio
         </button>
 
-        <p class="breadcrumb">
-            Inicio > Ejercicios
+        <p class="breadcrumb">Inicio > Práctica</p>
+
+        <h2>Práctica</h2>
+
+        <p>
+            Intenta resolver cada ejercicio antes de mirar la respuesta.
         </p>
-
-        <h2>
-            Ejercicios
-        </h2>
-
 
         <div class="ejercicio">
 
-            <h3>
-                Ejercicio 1 — Variables
-            </h3>
+            <h3>Ejercicio 1 — Variables</h3>
 
             <p>
                 Crea una variable llamada
@@ -2025,27 +1613,17 @@ print(ok, resultado)</code></pre>
             </p>
 
             <button onclick="mostrarRespuesta('respuesta1')">
-                Ver pista
+                Ver respuesta
             </button>
 
-            <p
-                id="respuesta1"
-                class="respuesta"
-            >
-                Pista:
-                usa <code>local</code>
-                y <code>=</code>.
-            </p>
+            <div id="respuesta1" class="respuesta"></div>
 
         </div>
 
 
-
         <div class="ejercicio">
 
-            <h3>
-                Ejercicio 2 — Condicionales
-            </h3>
+            <h3>Ejercicio 2 — Condicionales</h3>
 
             <p>
                 Haz que Lua imprima
@@ -2055,103 +1633,62 @@ print(ok, resultado)</code></pre>
             </p>
 
             <button onclick="mostrarRespuesta('respuesta2')">
-                Ver pista
+                Ver respuesta
             </button>
 
-            <p
-                id="respuesta2"
-                class="respuesta"
-            >
-                Pista:
-                necesitas
-                <code>if</code>,
-                una comparación
-                y <code>then</code>.
-            </p>
+            <div id="respuesta2" class="respuesta"></div>
 
         </div>
 
 
-
         <div class="ejercicio">
 
-            <h3>
-                Ejercicio 3 — Bucles
-            </h3>
+            <h3>Ejercicio 3 — Bucles</h3>
 
             <p>
                 Haz un <code>for</code>
-                que imprima los números
-                del 1 al 5.
+                que imprima los números del 1 al 5.
             </p>
 
             <button onclick="mostrarRespuesta('respuesta3')">
-                Ver pista
+                Ver respuesta
             </button>
 
-            <p
-                id="respuesta3"
-                class="respuesta"
-            >
-                Pista:
-                <code>for i = 1, 5 do</code>
-            </p>
+            <div id="respuesta3" class="respuesta"></div>
 
         </div>
 
 
-
         <div class="ejercicio">
 
-            <h3>
-                Ejercicio 4 — Funciones
-            </h3>
+            <h3>Ejercicio 4 — Funciones</h3>
 
             <p>
-                Crea una función que reciba
-                dos números y devuelva su suma.
+                Crea una función que reciba dos números y devuelva su suma.
             </p>
 
             <button onclick="mostrarRespuesta('respuesta4')">
-                Ver pista
+                Ver respuesta
             </button>
 
-            <p
-                id="respuesta4"
-                class="respuesta"
-            >
-                Pista:
-                usa parámetros y
-                <code>return</code>.
-            </p>
+            <div id="respuesta4" class="respuesta"></div>
 
         </div>
 
 
-
         <div class="ejercicio">
 
-            <h3>
-                Ejercicio 5 — Tablas
-            </h3>
+            <h3>Ejercicio 5 — Tablas</h3>
 
             <p>
-                Crea una tabla con tres frutas
-                y muestra la primera.
+                Crea una tabla con tres frutas y muestra la primera.
             </p>
 
             <button onclick="mostrarRespuesta('respuesta5')">
-                Ver pista
+                Ver respuesta
             </button>
 
-            <p
-                id="respuesta5"
-                class="respuesta"
-            >
-                Pista:
-                las secuencias normales
-                empiezan en el índice 1.
-            </p>
+            <div id="respuesta5" class="respuesta"></div>
 
         </div>
 
@@ -2161,34 +1698,20 @@ print(ok, resultado)</code></pre>
 
     <!-- ==================== LABORATORIO ==================== -->
 
-    <section
-        id="interactivo"
-        class="pagina"
-    >
+    <section id="interactivo" class="pagina">
 
-        <button
-            class="volver"
-            onclick="volverInicio()"
-        >
+        <button class="volver" onclick="volverInicio()">
             ← Volver al inicio
         </button>
 
-        <p class="breadcrumb">
-            Inicio > Laboratorio
-        </p>
+        <p class="breadcrumb">Inicio > Laboratorio</p>
 
-        <h2>
-            Laboratorio de Lua
-        </h2>
-
+        <h2>Laboratorio de Lua</h2>
 
         <p>
             Experimenta con operaciones básicas.
-            Este laboratorio es educativo:
-            no ejecuta código Lua arbitrario dentro
-            del navegador.
+            Este laboratorio no ejecuta código Lua arbitrario dentro del navegador.
         </p>
-
 
         <div class="laboratorio">
 
@@ -2202,7 +1725,6 @@ print(ok, resultado)</code></pre>
                 value="10"
             >
 
-
             <label for="valorB">
                 Valor B:
             </label>
@@ -2212,7 +1734,6 @@ print(ok, resultado)</code></pre>
                 type="number"
                 value="5"
             >
-
 
             <label for="operacion">
                 Operación:
@@ -2242,11 +1763,9 @@ print(ok, resultado)</code></pre>
 
             </select>
 
-
             <button onclick="ejecutarLaboratorio()">
                 ▶ Ejecutar
             </button>
-
 
             <pre id="salidaLaboratorio"><code>Resultado aparecerá aquí...</code></pre>
 
@@ -2259,10 +1778,36 @@ print(ok, resultado)</code></pre>
 
 
 
+<!-- ==================== MODAL DE CUENTA ==================== -->
+
+<div
+    id="modalCuenta"
+    class="modal"
+    aria-hidden="true"
+>
+
+    <div class="modal-contenido">
+
+        <button
+            class="modal-cerrar"
+            onclick="cerrarCuenta()"
+            aria-label="Cerrar"
+        >
+            ×
+        </button>
+
+        <div id="cuentaContenido"></div>
+
+    </div>
+
+</div>
+
+
+
 <footer>
 
     <p>
-        LuaLex — Aprende Lua de forma sencilla.
+        LuaDrix — Aprende Lua de forma sencilla.
     </p>
 
     <p>
@@ -2272,8 +1817,10 @@ print(ok, resultado)</code></pre>
 </footer>
 
 
+
 <script src="script.js"></script>
 
 </body>
 
 </html>
+```
