@@ -1,118 +1,167 @@
-/* ==================== DATOS DE LUADRIX ==================== */
+```javascript
+/* =========================================================
+   LUADRIX — JAVASCRIPT
+   Aprende Lua 5.5
+   ========================================================= */
+
+
+/* ==================== CONFIGURACIÓN ==================== */
+
+/*
+    IMPORTANTE:
+
+    LuaDrix puede funcionar sin configurar Supabase.
+
+    Cuando queramos activar cuentas reales, pondremos aquí:
+
+    const SUPABASE_URL = "https://...";
+    const SUPABASE_ANON_KEY = "...";
+
+    NO pongas aquí una service_role key.
+*/
+
+const SUPABASE_URL = "";
+const SUPABASE_ANON_KEY = "";
+
+
+/* ==================== DATOS ==================== */
 
 const conceptos = [
+
     {
-        nombre: "Condicionales",
-        id: "condicionales",
-        descripcion: "if, then, else, elseif y comparaciones."
+        nombre: "Variables y alcance",
+        id: "variables",
+        descripcion: "local, global, const, close, _ENV y _G."
     },
+
+    {
+        nombre: "Tipos de datos",
+        id: "tipos",
+        descripcion: "nil, boolean, number, string, function, table y más."
+    },
+
     {
         nombre: "Booleanos",
         id: "booleanos",
         descripcion: "true, false, and, or y not."
     },
-    {
-        nombre: "Bucles",
-        id: "bucles",
-        descripcion: "while, repeat, for, break y goto."
-    },
-    {
-        nombre: "Funciones",
-        id: "funciones",
-        descripcion: "Parámetros, return, closures y varargs."
-    },
-    {
-        nombre: "Tablas",
-        id: "tablas",
-        descripcion: "Listas, claves, campos e iteración."
-    },
-    {
-        nombre: "Strings",
-        id: "strings",
-        descripcion: "Texto, patrones, búsqueda y UTF-8."
-    },
+
     {
         nombre: "Operadores",
         id: "operadores",
         descripcion: "Aritméticos, lógicos, comparación y bits."
     },
+
     {
-        nombre: "Variables y alcance",
-        id: "variables",
-        descripcion: "local, global, const, close y _ENV."
+        nombre: "Condicionales",
+        id: "condicionales",
+        descripcion: "if, then, else, elseif y comparaciones."
     },
+
     {
-        nombre: "Tipos de datos",
-        id: "tipos",
-        descripcion: "Los tipos de valores de Lua."
+        nombre: "Bucles",
+        id: "bucles",
+        descripcion: "while, repeat, for y break."
     },
+
+    {
+        nombre: "Funciones",
+        id: "funciones",
+        descripcion: "Parámetros, return, closures y varargs."
+    },
+
+    {
+        nombre: "Tablas",
+        id: "tablas",
+        descripcion: "Listas, claves, campos e iteración."
+    },
+
+    {
+        nombre: "Strings",
+        id: "strings",
+        descripcion: "Texto, patrones, búsqueda y UTF-8."
+    },
+
     {
         nombre: "Funciones básicas",
         id: "funcionesbasicas",
         descripcion: "print, type, tonumber, pcall y más."
     },
+
     {
         nombre: "Librerías estándar",
         id: "funcionesextras",
         descripcion: "string, table, math, io, os, package y más."
     },
+
     {
         nombre: "Metatables",
         id: "metatables",
         descripcion: "Metamethods y comportamiento personalizado."
     },
+
     {
         nombre: "Coroutines",
         id: "coroutines",
         descripcion: "Suspender y reanudar código."
     },
+
     {
         nombre: "Errores y protección",
         id: "errores",
         descripcion: "error, assert, pcall, xpcall y warn."
     },
+
     {
         nombre: "Módulos",
         id: "modulos",
         descripcion: "require, package y organización del código."
     },
+
     {
         nombre: "Conceptos avanzados",
         id: "avanzado",
         descripcion: "GC, weak tables, load, debug, _G y más."
     },
+
     {
         nombre: "Diccionario completo",
         id: "completo",
         descripcion: "Todos los conceptos de LuaDrix."
     },
+
     {
         nombre: "Quiz de Lua",
         id: "quiz",
         descripcion: "Pon a prueba lo que aprendiste."
     },
+
     {
-        nombre: "Ejercicios",
+        nombre: "Práctica",
         id: "ejercicios",
         descripcion: "Practica lo aprendido."
     },
+
     {
         nombre: "Laboratorio",
         id: "interactivo",
         descripcion: "Prueba conceptos básicos."
     }
+
 ];
 
 
-/* ==================== FUNCIONES AUXILIARES ==================== */
+/* ==================== AUXILIARES ==================== */
 
 function escapeHTML(texto) {
+
     return String(texto)
         .replace(/&/g, "&amp;")
         .replace(/</g, "&lt;")
         .replace(/>/g, "&gt;")
         .replace(/"/g, "&quot;")
         .replace(/'/g, "&#039;");
+
 }
 
 
@@ -120,39 +169,54 @@ function escapeHTML(texto) {
 
 function mostrarTema(tema) {
 
-    const paginas = document.querySelectorAll(".pagina");
+    const paginas =
+        document.querySelectorAll(".pagina");
 
     paginas.forEach(function(pagina) {
         pagina.style.display = "none";
     });
 
-    const inicio = document.getElementById("inicio");
+
+    const inicio =
+        document.getElementById("inicio");
 
     if (inicio) {
         inicio.style.display = "none";
     }
 
-    const pagina = document.getElementById(tema);
+
+    const pagina =
+        document.getElementById(tema);
 
     if (!pagina) {
-        console.warn("No existe la página:", tema);
+
+        console.warn(
+            "No existe la página:",
+            tema
+        );
+
         return;
     }
 
+
     pagina.style.display = "block";
+
 
     window.scrollTo({
         top: 0,
         behavior: "smooth"
     });
 
+
     if (tema === "quiz") {
         iniciarQuiz();
     }
 
+
     if (tema === "completo") {
         generarDiccionario();
     }
+
 }
 
 
@@ -164,16 +228,20 @@ function volverInicio() {
         }
     );
 
-    const inicio = document.getElementById("inicio");
+
+    const inicio =
+        document.getElementById("inicio");
 
     if (inicio) {
         inicio.style.display = "block";
     }
 
+
     window.scrollTo({
         top: 0,
         behavior: "smooth"
     });
+
 }
 
 
@@ -188,8 +256,11 @@ function obtenerProgreso() {
         return [];
     }
 
+
     try {
-        const progreso = JSON.parse(guardado);
+
+        const progreso =
+            JSON.parse(guardado);
 
         if (!Array.isArray(progreso)) {
             return [];
@@ -198,8 +269,11 @@ function obtenerProgreso() {
         return progreso;
 
     } catch (error) {
+
         return [];
+
     }
+
 }
 
 
@@ -209,61 +283,265 @@ function guardarProgreso(progreso) {
         "luaDrixProgreso",
         JSON.stringify(progreso)
     );
+
+}
+
+
+function obtenerXP() {
+
+    const xp =
+        Number(
+            localStorage.getItem("luaDrixXP")
+        );
+
+    return Number.isFinite(xp)
+        ? xp
+        : 0;
+
+}
+
+
+function guardarXP(xp) {
+
+    localStorage.setItem(
+        "luaDrixXP",
+        String(xp)
+    );
+
+}
+
+
+function sumarXP(cantidad) {
+
+    const xp =
+        obtenerXP() + cantidad;
+
+    guardarXP(xp);
+
+    actualizarEstadisticas();
+
+}
+
+
+function obtenerRacha() {
+
+    const racha =
+        Number(
+            localStorage.getItem("luaDrixRacha")
+        );
+
+    return Number.isFinite(racha)
+        ? racha
+        : 0;
+
+}
+
+
+function actualizarRacha() {
+
+    const hoy =
+        new Date()
+            .toISOString()
+            .slice(0, 10);
+
+    const ultimoDia =
+        localStorage.getItem("luaDrixUltimoDia");
+
+
+    if (!ultimoDia) {
+
+        localStorage.setItem(
+            "luaDrixUltimoDia",
+            hoy
+        );
+
+        localStorage.setItem(
+            "luaDrixRacha",
+            "1"
+        );
+
+        return;
+
+    }
+
+
+    if (ultimoDia === hoy) {
+        return;
+    }
+
+
+    const fechaAnterior =
+        new Date(ultimoDia + "T00:00:00");
+
+    const fechaActual =
+        new Date(hoy + "T00:00:00");
+
+
+    const diferencia =
+        Math.round(
+            (
+                fechaActual -
+                fechaAnterior
+            ) / 86400000
+        );
+
+
+    let racha =
+        obtenerRacha();
+
+
+    if (diferencia === 1) {
+
+        racha++;
+
+    } else if (diferencia > 1) {
+
+        racha = 1;
+
+    }
+
+
+    localStorage.setItem(
+        "luaDrixRacha",
+        String(racha)
+    );
+
+    localStorage.setItem(
+        "luaDrixUltimoDia",
+        hoy
+    );
+
 }
 
 
 function marcarAprendido(nombre) {
 
-    let progreso = obtenerProgreso();
+    let progreso =
+        obtenerProgreso();
+
 
     if (!progreso.includes(nombre)) {
+
         progreso.push(nombre);
+
         guardarProgreso(progreso);
+
+        sumarXP(20);
+
     }
 
-    const boton = document.querySelector(
-        `.aprendido[onclick="marcarAprendido('${nombre}')"]`
-    );
+
+    const boton =
+        document.querySelector(
+            `.aprendido[onclick="marcarAprendido('${nombre}')"]`
+        );
+
 
     if (boton) {
-        boton.classList.add("aprendido-activo");
-        boton.textContent = "✓ Aprendido";
+
+        boton.classList.add(
+            "aprendido-activo"
+        );
+
+        boton.textContent =
+            "✓ Aprendido";
+
     }
 
+
+    actualizarRacha();
     actualizarProgreso();
+    actualizarEstadisticas();
+
 }
 
 
 function actualizarProgreso() {
 
-    const progreso = obtenerProgreso();
+    const progreso =
+        obtenerProgreso();
+
 
     const texto =
-        document.getElementById("textoProgreso");
+        document.getElementById(
+            "textoProgreso"
+        );
+
 
     const barra =
-        document.getElementById("barraProgreso");
+        document.getElementById(
+            "barraProgreso"
+        );
 
-    const total = conceptos.length;
+
+    const total =
+        conceptos.filter(function(concepto) {
+
+            return [
+                "variables",
+                "tipos",
+                "booleanos",
+                "operadores",
+                "condicionales",
+                "bucles",
+                "funciones",
+                "tablas",
+                "strings",
+                "funcionesbasicas",
+                "funcionesextras",
+                "metatables",
+                "coroutines",
+                "errores",
+                "modulos",
+                "avanzado"
+            ].includes(concepto.id);
+
+        }).length;
+
 
     const aprendidos =
         progreso.filter(function(nombre) {
-            return conceptos.some(function(concepto) {
-                return concepto.id === nombre;
-            });
+
+            return [
+                "variables",
+                "tipos",
+                "booleanos",
+                "operadores",
+                "condicionales",
+                "bucles",
+                "funciones",
+                "tablas",
+                "strings",
+                "funcionesbasicas",
+                "funcionesextras",
+                "metatables",
+                "coroutines",
+                "errores",
+                "modulos",
+                "avanzado"
+            ].includes(nombre);
+
         }).length;
+
 
     const porcentaje =
         total === 0
             ? 0
-            : Math.round((aprendidos / total) * 100);
+            : Math.round(
+                (aprendidos / total) * 100
+            );
+
 
     if (texto) {
+
         texto.textContent =
-            `${aprendidos} de ${total} conceptos aprendidos (${porcentaje}%)`;
+            `${aprendidos} de ${total} lecciones aprendidas (${porcentaje}%)`;
+
     }
 
+
     if (barra) {
+
         barra.style.width =
             `${porcentaje}%`;
 
@@ -271,35 +549,125 @@ function actualizarProgreso() {
             "aria-valuenow",
             porcentaje
         );
+
     }
 
-    document.querySelectorAll(".aprendido").forEach(
-        function(boton) {
 
-            const coincidencia =
-                boton.getAttribute("onclick");
+    document.querySelectorAll(
+        ".aprendido"
+    ).forEach(function(boton) {
 
-            if (!coincidencia) {
-                return;
-            }
+        const coincidencia =
+            boton.getAttribute("onclick");
 
-            const resultado =
-                coincidencia.match(
-                    /marcarAprendido\('([^']+)'\)/
-                );
 
-            if (!resultado) {
-                return;
-            }
-
-            const id = resultado[1];
-
-            if (progreso.includes(id)) {
-                boton.classList.add("aprendido-activo");
-                boton.textContent = "✓ Aprendido";
-            }
+        if (!coincidencia) {
+            return;
         }
-    );
+
+
+        const resultado =
+            coincidencia.match(
+                /marcarAprendido\('([^']+)'\)/
+            );
+
+
+        if (!resultado) {
+            return;
+        }
+
+
+        const id =
+            resultado[1];
+
+
+        if (progreso.includes(id)) {
+
+            boton.classList.add(
+                "aprendido-activo"
+            );
+
+            boton.textContent =
+                "✓ Aprendido";
+
+        }
+
+    });
+
+}
+
+
+function actualizarEstadisticas() {
+
+    const xp =
+        obtenerXP();
+
+    const racha =
+        obtenerRacha();
+
+    const progreso =
+        obtenerProgreso();
+
+
+    const xpInicio =
+        document.getElementById(
+            "xpInicio"
+        );
+
+    const rachaInicio =
+        document.getElementById(
+            "rachaInicio"
+        );
+
+    const leccionesInicio =
+        document.getElementById(
+            "leccionesInicio"
+        );
+
+
+    if (xpInicio) {
+        xpInicio.textContent =
+            `${xp} XP`;
+    }
+
+
+    if (rachaInicio) {
+        rachaInicio.textContent =
+            `${racha} días`;
+    }
+
+
+    if (leccionesInicio) {
+
+        const lecciones =
+            progreso.filter(function(id) {
+
+                return [
+                    "variables",
+                    "tipos",
+                    "booleanos",
+                    "operadores",
+                    "condicionales",
+                    "bucles",
+                    "funciones",
+                    "tablas",
+                    "strings",
+                    "funcionesbasicas",
+                    "funcionesextras",
+                    "metatables",
+                    "coroutines",
+                    "errores",
+                    "modulos",
+                    "avanzado"
+                ].includes(id);
+
+            }).length;
+
+        leccionesInicio.textContent =
+            lecciones;
+
+    }
+
 }
 
 
@@ -308,46 +676,70 @@ function actualizarProgreso() {
 function alternarModo() {
 
     const activado =
-        document.body.classList.toggle("oscuro");
+        document.body.classList.toggle(
+            "oscuro"
+        );
+
 
     localStorage.setItem(
         "luaDrixModoOscuro",
-        activado ? "true" : "false"
+        activado
+            ? "true"
+            : "false"
     );
 
+
     actualizarBotonModo();
+
 }
 
 
 function actualizarBotonModo() {
 
     const boton =
-        document.getElementById("modoOscuro");
+        document.getElementById(
+            "modoOscuro"
+        );
+
 
     if (!boton) {
         return;
     }
 
+
     const activado =
-        document.body.classList.contains("oscuro");
+        document.body.classList.contains(
+            "oscuro"
+        );
+
 
     boton.textContent =
         activado
             ? "☀️ Modo claro"
             : "🌙 Modo oscuro";
+
 }
 
 
 function cargarModoOscuro() {
 
     const guardado =
-        localStorage.getItem("luaDrixModoOscuro");
+        localStorage.getItem(
+            "luaDrixModoOscuro"
+        );
+
 
     if (guardado === "true") {
-        document.body.classList.add("oscuro");
+
+        document.body.classList.add(
+            "oscuro"
+        );
+
     }
 
+
     actualizarBotonModo();
+
 }
 
 
@@ -356,42 +748,61 @@ function cargarModoOscuro() {
 function buscarConcepto() {
 
     const input =
-        document.getElementById("busqueda");
+        document.getElementById(
+            "busqueda"
+        );
+
 
     const resultados =
-        document.getElementById("resultadosBusqueda");
+        document.getElementById(
+            "resultadosBusqueda"
+        );
+
 
     if (!input || !resultados) {
         return;
     }
+
 
     const texto =
         input.value
             .trim()
             .toLowerCase();
 
+
     if (texto === "") {
-        resultados.innerHTML = "";
-        resultados.style.display = "none";
+
+        resultados.innerHTML =
+            "";
+
+        resultados.style.display =
+            "none";
+
         return;
     }
 
+
     const encontrados =
-        conceptos.filter(function(concepto) {
+        conceptos.filter(
+            function(concepto) {
 
-            return (
-                concepto.nombre
-                    .toLowerCase()
-                    .includes(texto) ||
+                return (
+                    concepto.nombre
+                        .toLowerCase()
+                        .includes(texto) ||
 
-                concepto.descripcion
-                    .toLowerCase()
-                    .includes(texto)
-            );
+                    concepto.descripcion
+                        .toLowerCase()
+                        .includes(texto)
+                );
 
-        });
+            }
+        );
 
-    resultados.style.display = "block";
+
+    resultados.style.display =
+        "block";
+
 
     if (encontrados.length === 0) {
 
@@ -401,69 +812,88 @@ function buscarConcepto() {
         return;
     }
 
+
     let html = "";
 
-    encontrados.forEach(function(concepto) {
 
-        html += `
-            <button
-                class="resultado-busqueda"
-                onclick="mostrarTema('${escapeHTML(concepto.id)}')"
-            >
-                <strong class="resultado-titulo">
-                    ${escapeHTML(concepto.nombre)}
-                </strong>
+    encontrados.forEach(
+        function(concepto) {
 
-                <span class="resultado-descripcion">
-                    ${escapeHTML(concepto.descripcion)}
-                </span>
-            </button>
-        `;
+            html += `
+                <button
+                    class="resultado-busqueda"
+                    onclick="mostrarTema('${escapeHTML(concepto.id)}')"
+                >
 
-    });
+                    <strong class="resultado-titulo">
+                        ${escapeHTML(concepto.nombre)}
+                    </strong>
 
-    resultados.innerHTML = html;
+                    <span class="resultado-descripcion">
+                        ${escapeHTML(concepto.descripcion)}
+                    </span>
+
+                </button>
+            `;
+
+        }
+    );
+
+
+    resultados.innerHTML =
+        html;
+
 }
 
 
-/* ==================== DICCIONARIO COMPLETO ==================== */
+/* ==================== DICCIONARIO ==================== */
 
 function generarDiccionario() {
 
     const contenedor =
-        document.getElementById("diccionarioCompleto");
+        document.getElementById(
+            "diccionarioCompleto"
+        );
+
 
     if (!contenedor) {
         return;
     }
 
+
     let html = "";
 
-    conceptos.forEach(function(concepto) {
 
-        html += `
-            <div class="concepto-card">
+    conceptos.forEach(
+        function(concepto) {
 
-                <h3>
-                    ${escapeHTML(concepto.nombre)}
-                </h3>
+            html += `
+                <div class="concepto-card">
 
-                <p>
-                    ${escapeHTML(concepto.descripcion)}
-                </p>
+                    <h3>
+                        ${escapeHTML(concepto.nombre)}
+                    </h3>
 
-                <button
-                    onclick="mostrarTema('${escapeHTML(concepto.id)}')"
-                >
-                    Ver tema
-                </button>
+                    <p>
+                        ${escapeHTML(concepto.descripcion)}
+                    </p>
 
-            </div>
-        `;
+                    <button
+                        onclick="mostrarTema('${escapeHTML(concepto.id)}')"
+                    >
+                        Ver tema
+                    </button>
 
-    });
+                </div>
+            `;
 
-    contenedor.innerHTML = html;
+        }
+    );
+
+
+    contenedor.innerHTML =
+        html;
+
 }
 
 
@@ -472,50 +902,63 @@ function generarDiccionario() {
 const respuestasEjercicios = {
 
     respuesta1: {
-        respuesta:
-`local nombre = "Angel"
-local edad = 15
 
-print(nombre)
-print(edad)`,
+        respuesta:
+`local vidas = 3
+
+print(vidas)`,
+
         explicacion:
-            "local crea variables locales. En este ejemplo nombre guarda un string y edad guarda un número."
+            "local crea una variable local llamada vidas y el número 3 es su valor."
+
     },
+
 
     respuesta2: {
-        respuesta:
-`local edad = 15
 
-if edad >= 18 then
-    print("Adulto")
-else
-    print("Menor")
+        respuesta:
+`local puntos = 100
+
+if puntos >= 100 then
+    print("Ganaste")
 end`,
+
         explicacion:
-            "if comprueba la condición. Como 15 no es mayor o igual a 18, se ejecuta el bloque else."
+            "if comprueba si puntos es mayor o igual a 100."
+
     },
 
+
     respuesta3: {
+
         respuesta:
 `for i = 1, 5 do
     print(i)
 end`,
+
         explicacion:
-            "El for numérico comienza en 1 y continúa hasta 5. La variable i cambia en cada vuelta."
+            "El for comienza en 1 y continúa hasta 5."
+
     },
 
+
     respuesta4: {
+
         respuesta:
 `local function sumar(a, b)
     return a + b
 end
 
 print(sumar(5, 3))`,
+
         explicacion:
-            "La función recibe dos parámetros y devuelve su suma mediante return."
+            "La función recibe dos parámetros y devuelve su suma con return."
+
     },
 
+
     respuesta5: {
+
         respuesta:
 `local frutas = {
     "manzana",
@@ -524,9 +967,12 @@ print(sumar(5, 3))`,
 }
 
 print(frutas[1])`,
+
         explicacion:
-            "Las tablas usadas como secuencias comienzan normalmente en el índice 1. Por eso frutas[1] contiene manzana."
+            "Las secuencias normales de Lua comienzan en el índice 1."
+
     }
+
 };
 
 
@@ -535,40 +981,34 @@ function mostrarRespuesta(id) {
     const datos =
         respuestasEjercicios[id];
 
-    if (!datos) {
-        console.warn(
-            "No existe una respuesta para:",
-            id
-        );
-        return;
-    }
 
     const contenedor =
         document.getElementById(id);
 
-    if (!contenedor) {
-        console.warn(
-            "No existe el elemento:",
-            id
-        );
+
+    if (!datos || !contenedor) {
         return;
     }
 
+
     const visible =
-        contenedor.dataset.mostrando === "true";
+        contenedor.style.display === "block";
+
 
     if (visible) {
 
-        contenedor.innerHTML =
-            "Pista: usa el ejercicio como guía.";
+        contenedor.style.display =
+            "none";
 
-        contenedor.dataset.mostrando = "false";
-        contenedor.style.display = "none";
+        contenedor.innerHTML =
+            "";
 
         return;
     }
 
+
     contenedor.innerHTML = `
+
         <h4>Respuesta</h4>
 
         <pre><code>${escapeHTML(datos.respuesta)}</code></pre>
@@ -577,10 +1017,13 @@ function mostrarRespuesta(id) {
             <strong>¿Por qué?</strong>
             ${escapeHTML(datos.explicacion)}
         </p>
+
     `;
 
-    contenedor.dataset.mostrando = "true";
-    contenedor.style.display = "block";
+
+    contenedor.style.display =
+        "block";
+
 }
 
 
@@ -589,20 +1032,38 @@ function mostrarRespuesta(id) {
 function ejecutarLaboratorio() {
 
     const valorA =
-        document.getElementById("valorA");
+        document.getElementById(
+            "valorA"
+        );
+
 
     const valorB =
-        document.getElementById("valorB");
+        document.getElementById(
+            "valorB"
+        );
+
 
     const operacion =
-        document.getElementById("operacion");
+        document.getElementById(
+            "operacion"
+        );
+
 
     const salida =
-        document.getElementById("salidaLaboratorio");
+        document.getElementById(
+            "salidaLaboratorio"
+        );
 
-    if (!valorA || !valorB || !operacion || !salida) {
+
+    if (
+        !valorA ||
+        !valorB ||
+        !operacion ||
+        !salida
+    ) {
         return;
     }
+
 
     if (
         valorA.value.trim() === "" ||
@@ -615,11 +1076,14 @@ function ejecutarLaboratorio() {
         return;
     }
 
+
     const a =
         Number(valorA.value);
 
+
     const b =
         Number(valorB.value);
+
 
     if (
         Number.isNaN(a) ||
@@ -632,7 +1096,9 @@ function ejecutarLaboratorio() {
         return;
     }
 
+
     let resultado;
+
 
     switch (operacion.value) {
 
@@ -643,6 +1109,7 @@ function ejecutarLaboratorio() {
 
             break;
 
+
         case "resta":
 
             resultado =
@@ -650,12 +1117,14 @@ function ejecutarLaboratorio() {
 
             break;
 
+
         case "multiplicacion":
 
             resultado =
                 a * b;
 
             break;
+
 
         case "division":
 
@@ -667,10 +1136,12 @@ function ejecutarLaboratorio() {
                 return;
             }
 
+
             resultado =
                 a / b;
 
             break;
+
 
         case "mayor":
 
@@ -683,16 +1154,24 @@ function ejecutarLaboratorio() {
 
             break;
 
+
         default:
 
             salida.textContent =
                 "Operación no reconocida.";
 
             return;
+
     }
+
 
     salida.textContent =
         `Resultado: ${resultado}`;
+
+
+    sumarXP(2);
+    actualizarRacha();
+
 }
 
 
@@ -701,7 +1180,9 @@ function ejecutarLaboratorio() {
 const bibliotecas = {
 
     basic: {
+
         nombre: "Basic",
+
         funciones: [
             "print()",
             "type()",
@@ -721,10 +1202,14 @@ const bibliotecas = {
             "dofile()",
             "require()"
         ]
+
     },
 
+
     coroutine: {
+
         nombre: "Coroutine",
+
         funciones: [
             "coroutine.create()",
             "coroutine.resume()",
@@ -735,10 +1220,14 @@ const bibliotecas = {
             "coroutine.isyieldable()",
             "coroutine.close()"
         ]
+
     },
 
+
     package: {
+
         nombre: "Package",
+
         funciones: [
             "package.path",
             "package.cpath",
@@ -747,10 +1236,14 @@ const bibliotecas = {
             "package.searchers",
             "package.config"
         ]
+
     },
 
+
     string: {
+
         nombre: "String",
+
         funciones: [
             "string.byte()",
             "string.char()",
@@ -767,10 +1260,14 @@ const bibliotecas = {
             "string.sub()",
             "string.upper()"
         ]
+
     },
 
+
     utf8: {
+
         nombre: "UTF-8",
+
         funciones: [
             "utf8.char()",
             "utf8.charpattern",
@@ -779,10 +1276,14 @@ const bibliotecas = {
             "utf8.len()",
             "utf8.offset()"
         ]
+
     },
 
+
     table: {
+
         nombre: "Table",
+
         funciones: [
             "table.concat()",
             "table.create()",
@@ -793,10 +1294,14 @@ const bibliotecas = {
             "table.sort()",
             "table.unpack()"
         ]
+
     },
 
+
     math: {
+
         nombre: "Math",
+
         funciones: [
             "math.abs()",
             "math.ceil()",
@@ -811,10 +1316,14 @@ const bibliotecas = {
             "math.tan()",
             "math.pi"
         ]
+
     },
 
+
     io: {
+
         nombre: "IO",
+
         funciones: [
             "io.close()",
             "io.flush()",
@@ -828,10 +1337,14 @@ const bibliotecas = {
             "io.type()",
             "io.write()"
         ]
+
     },
 
+
     os: {
+
         nombre: "OS",
+
         funciones: [
             "os.clock()",
             "os.date()",
@@ -845,10 +1358,14 @@ const bibliotecas = {
             "os.time()",
             "os.tmpname()"
         ]
+
     },
 
+
     debug: {
+
         nombre: "Debug",
+
         funciones: [
             "debug.debug()",
             "debug.gethook()",
@@ -865,21 +1382,28 @@ const bibliotecas = {
             "debug.upvalueid()",
             "debug.upvaluejoin()"
         ]
+
     }
+
 };
 
 
 function filtrarBiblioteca(nombre) {
 
     const contenedor =
-        document.getElementById("bibliotecaResultado");
+        document.getElementById(
+            "bibliotecaResultado"
+        );
+
 
     if (!contenedor) {
         return;
     }
 
+
     const biblioteca =
         bibliotecas[nombre];
+
 
     if (!biblioteca) {
 
@@ -889,29 +1413,41 @@ function filtrarBiblioteca(nombre) {
         return;
     }
 
+
     let html = `
+
         <h3>
             ${escapeHTML(biblioteca.nombre)}
         </h3>
 
         <div class="lista-conceptos grande">
+
     `;
 
-    biblioteca.funciones.forEach(function(funcion) {
 
-        html += `
-            <span>
-                ${escapeHTML(funcion)}
-            </span>
-        `;
+    biblioteca.funciones.forEach(
+        function(funcion) {
 
-    });
+            html += `
+
+                <span>
+                    ${escapeHTML(funcion)}
+                </span>
+
+            `;
+
+        }
+    );
+
 
     html += `
         </div>
     `;
 
-    contenedor.innerHTML = html;
+
+    contenedor.innerHTML =
+        html;
+
 }
 
 
@@ -920,6 +1456,7 @@ function filtrarBiblioteca(nombre) {
 const preguntasQuiz = [
 
     {
+
         pregunta:
             "¿Cuál de estos valores es falso en una condición de Lua?",
 
@@ -933,10 +1470,13 @@ const preguntasQuiz = [
         correcta: 2,
 
         explicacion:
-            "En Lua, solamente nil y false son valores falsos en condiciones. Incluso 0 y strings vacíos cuentan como verdaderos."
+            "En Lua solamente nil y false son falsos en condiciones."
+
     },
 
+
     {
+
         pregunta:
             "¿Qué palabra se utiliza para declarar una variable local?",
 
@@ -950,10 +1490,13 @@ const preguntasQuiz = [
         correcta: 1,
 
         explicacion:
-            "local declara una variable con alcance léxico local."
+            "local declara una variable con alcance local."
+
     },
 
+
     {
+
         pregunta:
             "¿Qué operador se utiliza para concatenar strings?",
 
@@ -968,9 +1511,12 @@ const preguntasQuiz = [
 
         explicacion:
             "Lua utiliza .. para concatenar strings."
+
     },
 
+
     {
+
         pregunta:
             "¿Qué estructura permite repetir código mientras una condición sea verdadera?",
 
@@ -985,9 +1531,12 @@ const preguntasQuiz = [
 
         explicacion:
             "while ejecuta su bloque mientras la condición sea verdadera."
+
     },
 
+
     {
+
         pregunta:
             "¿Cuál es el índice inicial habitual de una secuencia en una tabla Lua?",
 
@@ -1002,9 +1551,12 @@ const preguntasQuiz = [
 
         explicacion:
             "Las secuencias convencionales de Lua empiezan en 1."
+
     },
 
+
     {
+
         pregunta:
             "¿Qué función devuelve el tipo de un valor?",
 
@@ -1019,9 +1571,12 @@ const preguntasQuiz = [
 
         explicacion:
             "type(valor) devuelve información sobre el tipo del valor."
+
     },
 
+
     {
+
         pregunta:
             "¿Qué palabra permite devolver valores desde una función?",
 
@@ -1036,9 +1591,12 @@ const preguntasQuiz = [
 
         explicacion:
             "return devuelve uno o varios valores desde una función."
+
     },
 
+
     {
+
         pregunta:
             "¿Qué función se utiliza normalmente para recorrer pares clave-valor de una tabla?",
 
@@ -1052,10 +1610,13 @@ const preguntasQuiz = [
         correcta: 0,
 
         explicacion:
-            "pairs(tabla) proporciona un iterador para recorrer sus pares clave-valor."
+            "pairs(tabla) proporciona un iterador para recorrer pares clave-valor."
+
     },
 
+
     {
+
         pregunta:
             "¿Qué función busca un patrón dentro de un string?",
 
@@ -1070,9 +1631,12 @@ const preguntasQuiz = [
 
         explicacion:
             "string.find busca una coincidencia y puede devolver sus posiciones."
+
     },
 
+
     {
+
         pregunta:
             "¿Qué función permite ejecutar otra función de forma protegida?",
 
@@ -1086,10 +1650,13 @@ const preguntasQuiz = [
         correcta: 2,
 
         explicacion:
-            "pcall ejecuta una función en modo protegido y devuelve si tuvo éxito junto con sus resultados."
+            "pcall ejecuta una función en modo protegido."
+
     },
 
+
     {
+
         pregunta:
             "¿Qué estructura de Lua se utiliza como su principal estructura de datos?",
 
@@ -1103,10 +1670,13 @@ const preguntasQuiz = [
         correcta: 0,
 
         explicacion:
-            "table es la estructura de datos principal de Lua y puede representar secuencias, diccionarios y estructuras más complejas."
+            "table es la estructura de datos principal de Lua."
+
     },
 
+
     {
+
         pregunta:
             "¿Qué característica de Lua 5.5 permite marcar una variable local para que no pueda reasignarse?",
 
@@ -1121,7 +1691,9 @@ const preguntasQuiz = [
 
         explicacion:
             "Lua 5.5 incorpora el atributo <const> para variables locales constantes."
+
     }
+
 ];
 
 
@@ -1137,59 +1709,88 @@ function iniciarQuiz() {
     quizTerminado = false;
 
     mostrarPreguntaQuiz();
+
 }
 
 
 function mostrarPreguntaQuiz() {
 
     const contenedor =
-        document.getElementById("quizContenedor");
+        document.getElementById(
+            "quizContenedor"
+        );
+
 
     if (!contenedor) {
         return;
     }
 
-    if (preguntaActual >= preguntasQuiz.length) {
+
+    if (
+        preguntaActual >=
+        preguntasQuiz.length
+    ) {
+
         mostrarResultadoQuiz();
+
         return;
     }
 
+
     const pregunta =
-        preguntasQuiz[preguntaActual];
+        preguntasQuiz[
+            preguntaActual
+        ];
+
 
     let html = `
-        <div class="quiz-numero">
-            Pregunta ${preguntaActual + 1}
-            de ${preguntasQuiz.length}
-        </div>
 
-        <div class="quiz-pregunta">
-            ${escapeHTML(pregunta.pregunta)}
-        </div>
+        <div class="quiz-caja">
 
-        <div class="quiz-opciones">
+            <div class="quiz-numero">
+                Pregunta ${preguntaActual + 1}
+                de ${preguntasQuiz.length}
+            </div>
+
+            <div class="quiz-pregunta">
+                ${escapeHTML(pregunta.pregunta)}
+            </div>
+
+            <div class="quiz-opciones">
+
     `;
+
 
     pregunta.opciones.forEach(
         function(opcion, indice) {
 
             html += `
+
                 <button
                     class="quiz-opcion"
                     onclick="responderQuiz(${indice})"
                 >
                     ${escapeHTML(opcion)}
                 </button>
+
             `;
 
         }
     );
 
+
     html += `
+
+            </div>
+
         </div>
+
     `;
 
-    contenedor.innerHTML = html;
+
+    contenedor.innerHTML =
+        html;
+
 }
 
 
@@ -1199,58 +1800,98 @@ function responderQuiz(indice) {
         return;
     }
 
+
     const pregunta =
-        preguntasQuiz[preguntaActual];
+        preguntasQuiz[
+            preguntaActual
+        ];
+
 
     if (!pregunta) {
         return;
     }
 
+
     const correcta =
-        indice === pregunta.correcta;
+        indice ===
+        pregunta.correcta;
+
 
     respuestasQuiz.push({
         correcta: correcta,
         respuestaUsuario: indice
     });
 
+
     const contenedor =
-        document.getElementById("quizContenedor");
+        document.getElementById(
+            "quizContenedor"
+        );
+
 
     if (!contenedor) {
         return;
     }
 
-    const botones =
-        contenedor.querySelectorAll(".quiz-opcion");
 
-    botones.forEach(function(boton) {
-        boton.disabled = true;
-    });
+    const botones =
+        contenedor.querySelectorAll(
+            ".quiz-opcion"
+        );
+
+
+    botones.forEach(
+        function(boton) {
+
+            boton.disabled =
+                true;
+
+        }
+    );
+
 
     botones.forEach(
         function(boton, posicion) {
 
-            if (posicion === pregunta.correcta) {
-                boton.classList.add("correcta");
+            if (
+                posicion ===
+                pregunta.correcta
+            ) {
+
+                boton.classList.add(
+                    "correcta"
+                );
+
             }
+
 
             if (
                 posicion === indice &&
                 posicion !== pregunta.correcta
             ) {
-                boton.classList.add("incorrecta");
+
+                boton.classList.add(
+                    "incorrecta"
+                );
+
             }
+
         }
     );
 
+
     const explicacion =
-        document.createElement("div");
+        document.createElement(
+            "div"
+        );
+
 
     explicacion.className =
         "quiz-explicacion";
 
+
     explicacion.innerHTML = `
+
         <p>
             <strong>
                 ${correcta ? "Correcto." : "Incorrecto."}
@@ -1258,7 +1899,9 @@ function responderQuiz(indice) {
         </p>
 
         <p>
-            ${escapeHTML(pregunta.explicacion)}
+            ${escapeHTML(
+                pregunta.explicacion
+            )}
         </p>
 
         <button
@@ -1266,14 +1909,30 @@ function responderQuiz(indice) {
             onclick="siguientePreguntaQuiz()"
         >
             ${
-                preguntaActual === preguntasQuiz.length - 1
+                preguntaActual ===
+                preguntasQuiz.length - 1
                     ? "Ver resultado"
                     : "Siguiente pregunta"
             }
         </button>
+
     `;
 
-    contenedor.appendChild(explicacion);
+
+    contenedor
+        .querySelector(".quiz-caja")
+        .appendChild(
+            explicacion
+        );
+
+
+    if (correcta) {
+        sumarXP(10);
+    }
+
+
+    actualizarRacha();
+
 }
 
 
@@ -1282,21 +1941,28 @@ function siguientePreguntaQuiz() {
     preguntaActual++;
 
     mostrarPreguntaQuiz();
+
 }
 
 
 function mostrarResultadoQuiz() {
 
     const contenedor =
-        document.getElementById("quizContenedor");
+        document.getElementById(
+            "quizContenedor"
+        );
+
 
     if (!contenedor) {
         return;
     }
 
+
     quizTerminado = true;
 
+
     let puntos = 0;
+
 
     respuestasQuiz.forEach(
         function(respuesta) {
@@ -1308,8 +1974,10 @@ function mostrarResultadoQuiz() {
         }
     );
 
+
     const total =
         preguntasQuiz.length;
+
 
     const porcentaje =
         total === 0
@@ -1318,7 +1986,9 @@ function mostrarResultadoQuiz() {
                 (puntos / total) * 100
             );
 
+
     let mensaje;
+
 
     if (porcentaje === 100) {
 
@@ -1339,9 +2009,12 @@ function mostrarResultadoQuiz() {
 
         mensaje =
             "Todavía hay cosas por reforzar, pero para eso está LuaDrix.";
+
     }
 
+
     contenedor.innerHTML = `
+
         <div class="quiz-resultado">
 
             <h2>
@@ -1368,8 +2041,525 @@ function mostrarResultadoQuiz() {
             </button>
 
         </div>
+
     `;
+
 }
+
+
+/* =========================================================
+   CUENTAS
+   ========================================================= */
+
+
+/*
+    Por ahora existe un perfil local para que la interfaz
+    de LuaDrix pueda funcionar incluso sin backend.
+
+    Esto NO pretende ser un sistema de cuentas seguro.
+    Para cuentas reales conectaremos Supabase.
+*/
+
+
+function obtenerPerfilLocal() {
+
+    const guardado =
+        localStorage.getItem(
+            "luaDrixPerfil"
+        );
+
+
+    if (!guardado) {
+        return null;
+    }
+
+
+    try {
+
+        const perfil =
+            JSON.parse(guardado);
+
+        return perfil;
+
+    } catch (error) {
+
+        return null;
+
+    }
+
+}
+
+
+function guardarPerfilLocal(perfil) {
+
+    localStorage.setItem(
+        "luaDrixPerfil",
+        JSON.stringify(perfil)
+    );
+
+}
+
+
+function abrirCuenta() {
+
+    const modal =
+        document.getElementById(
+            "modalCuenta"
+        );
+
+
+    if (!modal) {
+        return;
+    }
+
+
+    modal.classList.add(
+        "activo"
+    );
+
+
+    modal.setAttribute(
+        "aria-hidden",
+        "false"
+    );
+
+
+    mostrarPantallaCuenta();
+
+}
+
+
+function cerrarCuenta() {
+
+    const modal =
+        document.getElementById(
+            "modalCuenta"
+        );
+
+
+    if (!modal) {
+        return;
+    }
+
+
+    modal.classList.remove(
+        "activo"
+    );
+
+
+    modal.setAttribute(
+        "aria-hidden",
+        "true"
+    );
+
+}
+
+
+function mostrarPantallaCuenta() {
+
+    const contenedor =
+        document.getElementById(
+            "cuentaContenido"
+        );
+
+
+    if (!contenedor) {
+        return;
+    }
+
+
+    const perfil =
+        obtenerPerfilLocal();
+
+
+    if (perfil) {
+
+        contenedor.innerHTML = `
+
+            <h2 class="cuenta-titulo">
+                Tu cuenta
+            </h2>
+
+            <p class="cuenta-subtitulo">
+                Tu progreso local de LuaDrix.
+            </p>
+
+            <div class="perfil-caja">
+
+                <div class="perfil-nombre">
+                    👤 ${escapeHTML(perfil.nombre)}
+                </div>
+
+                <div class="perfil-correo">
+                    ${escapeHTML(perfil.correo)}
+                </div>
+
+                <div class="perfil-estadisticas">
+
+                    <div class="perfil-estadistica">
+                        <strong>${obtenerXP()}</strong>
+                        <span>XP</span>
+                    </div>
+
+                    <div class="perfil-estadistica">
+                        <strong>${obtenerRacha()}</strong>
+                        <span>Racha</span>
+                    </div>
+
+                    <div class="perfil-estadistica">
+                        <strong>${obtenerProgreso().length}</strong>
+                        <span>Aprendidas</span>
+                    </div>
+
+                </div>
+
+            </div>
+
+            <div class="cuenta-form">
+
+                <button
+                    class="cuenta-boton-secundario"
+                    onclick="cerrarSesionLocal()"
+                >
+                    Cerrar sesión local
+                </button>
+
+            </div>
+
+            <div class="cuenta-mensaje">
+                Esta cuenta todavía funciona solamente en este navegador.
+                La conexión de cuentas reales será el siguiente paso.
+            </div>
+
+        `;
+
+        return;
+    }
+
+
+    contenedor.innerHTML = `
+
+        <h2 class="cuenta-titulo">
+            Crear cuenta
+        </h2>
+
+        <p class="cuenta-subtitulo">
+            Guarda tu perfil y prepárate para sincronizar tu progreso.
+        </p>
+
+        <div class="oauth-grid">
+
+            <button
+                class="oauth-boton"
+                onclick="iniciarOAuth('google')"
+            >
+                Continuar con Google
+            </button>
+
+            <button
+                class="oauth-boton"
+                onclick="iniciarOAuth('apple')"
+            >
+                Continuar con Apple
+            </button>
+
+            <button
+                class="oauth-boton"
+                onclick="iniciarOAuth('github')"
+            >
+                Continuar con GitHub
+            </button>
+
+            <button
+                class="oauth-boton"
+                onclick="iniciarOAuth('azure')"
+            >
+                Continuar con Microsoft
+            </button>
+
+            <button
+                class="oauth-boton"
+                onclick="iniciarOAuth('discord')"
+            >
+                Continuar con Discord
+            </button>
+
+        </div>
+
+        <div class="separador-cuenta">
+            o usa tu correo
+        </div>
+
+        <form
+            class="cuenta-form"
+            onsubmit="crearCuentaLocal(event)"
+        >
+
+            <label for="nombreCuenta">
+                Nombre
+            </label>
+
+            <input
+                id="nombreCuenta"
+                type="text"
+                maxlength="30"
+                placeholder="Tu nombre"
+                required
+            >
+
+            <label for="correoCuenta">
+                Correo electrónico
+            </label>
+
+            <input
+                id="correoCuenta"
+                type="email"
+                placeholder="tu@correo.com"
+                required
+            >
+
+            <button
+                class="cuenta-boton"
+                type="submit"
+            >
+                Crear perfil
+            </button>
+
+        </form>
+
+        <div
+            id="mensajeCuenta"
+            class="cuenta-mensaje"
+        >
+            Por ahora el perfil es local.
+        </div>
+
+    `;
+
+}
+
+
+function crearCuentaLocal(evento) {
+
+    evento.preventDefault();
+
+
+    const nombre =
+        document.getElementById(
+            "nombreCuenta"
+        ).value.trim();
+
+
+    const correo =
+        document.getElementById(
+            "correoCuenta"
+        ).value.trim();
+
+
+    if (!nombre || !correo) {
+        return;
+    }
+
+
+    const perfil = {
+
+        nombre: nombre,
+
+        correo: correo,
+
+        creado:
+            new Date().toISOString()
+
+    };
+
+
+    guardarPerfilLocal(
+        perfil
+    );
+
+
+    mostrarPantallaCuenta();
+
+    actualizarBotonCuenta();
+
+}
+
+
+function cerrarSesionLocal() {
+
+    localStorage.removeItem(
+        "luaDrixPerfil"
+    );
+
+
+    mostrarPantallaCuenta();
+
+    actualizarBotonCuenta();
+
+}
+
+
+function actualizarBotonCuenta() {
+
+    const boton =
+        document.getElementById(
+            "botonCuenta"
+        );
+
+
+    if (!boton) {
+        return;
+    }
+
+
+    const perfil =
+        obtenerPerfilLocal();
+
+
+    if (perfil) {
+
+        boton.textContent =
+            `👤 ${perfil.nombre}`;
+
+    } else {
+
+        boton.textContent =
+            "👤 Cuenta";
+
+    }
+
+}
+
+
+/* ==================== OAUTH ==================== */
+
+function iniciarOAuth(proveedor) {
+
+    /*
+        Todavía no está conectado el backend.
+
+        Cuando configuremos Supabase, esta función utilizará:
+
+        supabase.auth.signInWithOAuth({
+            provider: proveedor
+        });
+    */
+
+
+    const contenedor =
+        document.getElementById(
+            "mensajeCuenta"
+        );
+
+
+    if (!contenedor) {
+        return;
+    }
+
+
+    contenedor.className =
+        "cuenta-mensaje cuenta-error";
+
+
+    contenedor.textContent =
+        `El inicio con ${proveedor} todavía necesita configurar el servicio de autenticación.`;
+
+}
+
+
+/* ==================== SUPABASE PREPARADO ==================== */
+
+let supabaseClient = null;
+
+
+function prepararSupabase() {
+
+    /*
+        No hacemos nada mientras las credenciales estén vacías.
+
+        Esto permite que LuaDrix siga funcionando normalmente
+        desde GitHub Pages.
+    */
+
+
+    if (
+        SUPABASE_URL === "" ||
+        SUPABASE_ANON_KEY === ""
+    ) {
+
+        return;
+
+    }
+
+
+    if (
+        typeof window.supabase ===
+        "undefined"
+    ) {
+
+        console.warn(
+            "Supabase no está cargado."
+        );
+
+        return;
+    }
+
+
+    supabaseClient =
+        window.supabase.createClient(
+            SUPABASE_URL,
+            SUPABASE_ANON_KEY
+        );
+
+
+    console.log(
+        "Supabase preparado."
+    );
+
+}
+
+
+/* ==================== CERRAR MODAL AL HACER CLICK FUERA ==================== */
+
+document.addEventListener(
+    "click",
+    function(evento) {
+
+        const modal =
+            document.getElementById(
+                "modalCuenta"
+            );
+
+
+        if (
+            modal &&
+            evento.target === modal
+        ) {
+
+            cerrarCuenta();
+
+        }
+
+    }
+);
+
+
+/* ==================== ESCAPE PARA MODAL ==================== */
+
+document.addEventListener(
+    "keydown",
+    function(evento) {
+
+        if (
+            evento.key === "Escape"
+        ) {
+
+            cerrarCuenta();
+
+        }
+
+    }
+);
 
 
 /* ==================== INICIO ==================== */
@@ -1382,20 +2572,40 @@ document.addEventListener(
 
         generarDiccionario();
 
+        actualizarRacha();
+
         actualizarProgreso();
 
+        actualizarEstadisticas();
+
+        actualizarBotonCuenta();
+
+        prepararSupabase();
+
+
         const inicio =
-            document.getElementById("inicio");
+            document.getElementById(
+                "inicio"
+            );
+
 
         if (inicio) {
-            inicio.style.display = "block";
+            inicio.style.display =
+                "block";
         }
 
-        document.querySelectorAll(".pagina").forEach(
+
+        document.querySelectorAll(
+            ".pagina"
+        ).forEach(
             function(pagina) {
-                pagina.style.display = "none";
+
+                pagina.style.display =
+                    "none";
+
             }
         );
 
     }
 );
+```
