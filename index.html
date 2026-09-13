@@ -1,66 +1,61 @@
-```html
 <!DOCTYPE html>
 <html lang="es">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>LuaDrix — Aprende Lua 5.5</title>
+    <title>LuaDrix — Aprende Lua jugando</title>
 
-    <meta
-        name="description"
-        content="LuaDrix: aprende Lua 5.5 de forma sencilla, práctica y progresiva."
-    >
-
-    <meta
-        name="keywords"
-        content="Lua, Lua 5.5, programación, aprender Lua, curso Lua"
-    >
-
-    <meta name="author" content="LuaDrix">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
 
     <link rel="stylesheet" href="style.css">
 </head>
 
-
 <body>
 
-<header>
+<header class="topbar">
 
-    <div class="header-superior">
+    <div class="brand" onclick="mostrarPagina('inicio')">
+        <div class="logo">L</div>
 
         <div>
-            <p class="header-etiqueta">
-                CURSO INTERACTIVO DE LUA 5.5
-            </p>
-
             <h1>LuaDrix</h1>
+            <span>Aprende Lua jugando</span>
+        </div>
+    </div>
 
-            <p>
-                Aprende Lua paso a paso, practica y mejora tu código.
-            </p>
+    <div class="top-stats">
+
+        <div class="stat">
+            <span>⭐</span>
+            <strong id="nivelTop">1</strong>
         </div>
 
-        <div class="controles-header">
-
-            <button
-                class="boton-header"
-                onclick="alternarModo()"
-                id="modoOscuro"
-            >
-                🌙 Modo oscuro
-            </button>
-
-            <button
-                class="boton-cuenta"
-                onclick="abrirCuenta()"
-                id="botonCuenta"
-            >
-                👤 Cuenta
-            </button>
-
+        <div class="stat">
+            <span>🔥</span>
+            <strong id="rachaTop">0</strong>
         </div>
+
+        <div class="stat">
+            <span>🪙</span>
+            <strong id="monedasTop">0</strong>
+        </div>
+
+        <div class="stat battery">
+            <span>🔋</span>
+            <strong id="bateriaTop">25</strong>
+            <small>/25</small>
+        </div>
+
+        <button class="icon-button" onclick="mostrarPagina('perfil')" title="Perfil">
+            👤
+        </button>
+
+        <button class="icon-button" onclick="alternarTema()" title="Cambiar tema">
+            🌙
+        </button>
 
     </div>
 
@@ -69,543 +64,160 @@
 
 <main>
 
+    <!-- INICIO -->
 
-    <!-- ==================== HERRAMIENTAS ==================== -->
+    <section id="inicio" class="pagina activa">
 
-    <section id="herramientas">
-
-        <div class="buscador">
-
-            <input
-                id="busqueda"
-                type="search"
-                placeholder="🔎 Buscar un concepto de Lua..."
-                oninput="buscarConcepto()"
-            >
-
-        </div>
-
-
-        <div
-            id="resultadosBusqueda"
-            class="resultados-busqueda"
-        ></div>
-
-
-        <div class="progreso-caja">
-
-            <div class="progreso-textos">
-
-                <strong>
-                    Tu progreso
-                </strong>
-
-                <span id="textoProgreso">
-                    0 conceptos aprendidos
-                </span>
-
-            </div>
-
-
-            <div class="barra-progreso">
-
-                <div id="barraProgreso"></div>
-
-            </div>
-
-        </div>
-
-    </section>
-
-
-
-    <!-- ==================== INICIO ==================== -->
-
-    <section id="inicio">
-
-        <div class="bienvenida">
+        <div class="hero">
 
             <div>
+                <p class="eyebrow">BIENVENIDO A LUADRIX</p>
 
-                <p class="etiqueta-seccion">
-                    TU CURSO DE LUA
-                </p>
-
-                <h2>
-                    Aprende Lua haciendo.
-                </h2>
+                <h2>Aprende Lua.<br><span>Sube de nivel.</span></h2>
 
                 <p>
-                    Empieza desde las bases y avanza poco a poco.
-                    Cada lección te permite practicar lo que acabas de aprender.
+                    Aprende programación paso a paso mediante lecciones,
+                    preguntas y retos donde tú escribes el código.
                 </p>
 
+                <button class="primary-button" onclick="continuarAprendiendo()">
+                    Continuar aprendiendo →
+                </button>
             </div>
 
-            <button
-                class="boton-principal"
-                onclick="mostrarTema('variables')"
-            >
-                Empezar a aprender →
-            </button>
+            <div class="hero-code">
+                <div class="code-top">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
 
-        </div>
+                <pre><code>local nombre = "Angel"
 
+print(nombre)
 
-        <div class="estadisticas">
-
-            <div class="estadistica">
-
-                <span class="estadistica-icono">⭐</span>
-
-                <strong id="xpInicio">
-                    0 XP
-                </strong>
-
-                <span>
-                    Experiencia
-                </span>
-
-            </div>
-
-
-            <div class="estadistica">
-
-                <span class="estadistica-icono">🔥</span>
-
-                <strong id="rachaInicio">
-                    0 días
-                </strong>
-
-                <span>
-                    Racha
-                </span>
-
-            </div>
-
-
-            <div class="estadistica">
-
-                <span class="estadistica-icono">📚</span>
-
-                <strong id="leccionesInicio">
-                    0
-                </strong>
-
-                <span>
-                    Lecciones
-                </span>
-
+-- ¡Estás aprendiendo Lua!</code></pre>
             </div>
 
         </div>
 
 
-        <h2 class="titulo-menu">
-            ¿Qué quieres aprender?
-        </h2>
+        <div class="dashboard-grid">
+
+            <div class="dashboard-card level-card">
+
+                <div class="card-icon">⭐</div>
+
+                <div class="card-info">
+                    <span>Nivel actual</span>
+                    <h3 id="nivelInicio">1</h3>
+                    <p id="tituloNivelInicio">Recién empezando</p>
+                </div>
+
+                <div class="mini-progress">
+                    <div id="xpBarInicio"></div>
+                </div>
+
+                <small id="xpTextoInicio">0 / 100 EXP</small>
+
+            </div>
 
 
-        <div class="menu">
+            <div class="dashboard-card">
+
+                <div class="card-icon">🔥</div>
+
+                <div class="card-info">
+                    <span>Racha</span>
+                    <h3><span id="rachaInicio">0</span> días</h3>
+                    <p>¡Haz una actividad hoy!</p>
+                </div>
+
+            </div>
 
 
-            <button
-                class="tarjeta"
-                onclick="mostrarTema('variables')"
-            >
-                <span class="tarjeta-icono">📦</span>
+            <div class="dashboard-card">
 
-                <span class="tarjeta-titulo">
-                    Variables y alcance
-                </span>
+                <div class="card-icon">🔋</div>
 
-                <span class="tarjeta-descripcion">
-                    Aprende a guardar datos y controlar su alcance.
-                </span>
+                <div class="card-info">
+                    <span>Batería</span>
+                    <h3><span id="bateriaInicio">25</span>/25</h3>
+                    <p id="recargaTexto">Se recarga automáticamente</p>
+                </div>
 
-                <span class="tarjeta-nivel">
-                    NIVEL 1 · FUNDAMENTOS
-                </span>
+            </div>
+
+
+            <div class="dashboard-card">
+
+                <div class="card-icon">🪙</div>
+
+                <div class="card-info">
+                    <span>Monedas</span>
+                    <h3 id="monedasInicio">0</h3>
+                    <p>Úsalas en la tienda</p>
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <div class="section-heading">
+            <div>
+                <p class="eyebrow">TU CAMINO</p>
+                <h2>Continúa aprendiendo</h2>
+            </div>
+        </div>
+
+        <div id="continueLesson" class="continue-card"></div>
+
+
+        <div class="section-heading">
+            <div>
+                <p class="eyebrow">EXPLORA</p>
+                <h2>¿Qué quieres hacer?</h2>
+            </div>
+        </div>
+
+
+        <div class="menu-grid">
+
+            <button class="menu-card" onclick="mostrarPagina('niveles')">
+                <span>📚</span>
+                <strong>Aprender</strong>
+                <small>Avanza por niveles</small>
             </button>
 
-
-            <button
-                class="tarjeta"
-                onclick="mostrarTema('tipos')"
-            >
-                <span class="tarjeta-icono">🔢</span>
-
-                <span class="tarjeta-titulo">
-                    Tipos de datos
-                </span>
-
-                <span class="tarjeta-descripcion">
-                    Conoce los diferentes tipos de valores de Lua.
-                </span>
-
-                <span class="tarjeta-nivel">
-                    NIVEL 1 · FUNDAMENTOS
-                </span>
+            <button class="menu-card" onclick="mostrarPagina('practica')">
+                <span>🎯</span>
+                <strong>Practicar</strong>
+                <small>Refuerza lo aprendido</small>
             </button>
 
-
-            <button
-                class="tarjeta"
-                onclick="mostrarTema('booleanos')"
-            >
-                <span class="tarjeta-icono">🔘</span>
-
-                <span class="tarjeta-titulo">
-                    Booleanos
-                </span>
-
-                <span class="tarjeta-descripcion">
-                    true, false, and, or y not.
-                </span>
-
-                <span class="tarjeta-nivel">
-                    NIVEL 1 · FUNDAMENTOS
-                </span>
+            <button class="menu-card" onclick="mostrarPagina('laboratorio')">
+                <span>💻</span>
+                <strong>Laboratorio</strong>
+                <small>Experimenta con Lua</small>
             </button>
 
-
-            <button
-                class="tarjeta"
-                onclick="mostrarTema('operadores')"
-            >
-                <span class="tarjeta-icono">🧮</span>
-
-                <span class="tarjeta-titulo">
-                    Operadores
-                </span>
-
-                <span class="tarjeta-descripcion">
-                    Aritmética, comparación, lógica y bits.
-                </span>
-
-                <span class="tarjeta-nivel">
-                    NIVEL 1 · FUNDAMENTOS
-                </span>
+            <button class="menu-card" onclick="mostrarPagina('biblioteca')">
+                <span>📖</span>
+                <strong>Biblioteca</strong>
+                <small>Consulta Lua</small>
             </button>
 
-
-            <button
-                class="tarjeta"
-                onclick="mostrarTema('condicionales')"
-            >
-                <span class="tarjeta-icono">🔀</span>
-
-                <span class="tarjeta-titulo">
-                    Condicionales
-                </span>
-
-                <span class="tarjeta-descripcion">
-                    if, then, elseif, else y comparaciones.
-                </span>
-
-                <span class="tarjeta-nivel">
-                    NIVEL 2 · CONTROL
-                </span>
+            <button class="menu-card" onclick="mostrarPagina('logros')">
+                <span>🏆</span>
+                <strong>Logros</strong>
+                <small>Completa objetivos</small>
             </button>
 
-
-            <button
-                class="tarjeta"
-                onclick="mostrarTema('bucles')"
-            >
-                <span class="tarjeta-icono">🔁</span>
-
-                <span class="tarjeta-titulo">
-                    Bucles
-                </span>
-
-                <span class="tarjeta-descripcion">
-                    while, repeat, for y break.
-                </span>
-
-                <span class="tarjeta-nivel">
-                    NIVEL 2 · CONTROL
-                </span>
-            </button>
-
-
-            <button
-                class="tarjeta"
-                onclick="mostrarTema('funciones')"
-            >
-                <span class="tarjeta-icono">🧩</span>
-
-                <span class="tarjeta-titulo">
-                    Funciones
-                </span>
-
-                <span class="tarjeta-descripcion">
-                    Parámetros, return, closures y varargs.
-                </span>
-
-                <span class="tarjeta-nivel">
-                    NIVEL 3 · PROGRAMACIÓN
-                </span>
-            </button>
-
-
-            <button
-                class="tarjeta"
-                onclick="mostrarTema('tablas')"
-            >
-                <span class="tarjeta-icono">🗂️</span>
-
-                <span class="tarjeta-titulo">
-                    Tablas
-                </span>
-
-                <span class="tarjeta-descripcion">
-                    Listas, claves, campos e iteración.
-                </span>
-
-                <span class="tarjeta-nivel">
-                    NIVEL 3 · PROGRAMACIÓN
-                </span>
-            </button>
-
-
-            <button
-                class="tarjeta"
-                onclick="mostrarTema('strings')"
-            >
-                <span class="tarjeta-icono">🔤</span>
-
-                <span class="tarjeta-titulo">
-                    Strings
-                </span>
-
-                <span class="tarjeta-descripcion">
-                    Texto, búsqueda, patrones y UTF-8.
-                </span>
-
-                <span class="tarjeta-nivel">
-                    NIVEL 3 · PROGRAMACIÓN
-                </span>
-            </button>
-
-
-            <button
-                class="tarjeta"
-                onclick="mostrarTema('funcionesbasicas')"
-            >
-                <span class="tarjeta-icono">🛠️</span>
-
-                <span class="tarjeta-titulo">
-                    Funciones básicas
-                </span>
-
-                <span class="tarjeta-descripcion">
-                    print, type, tonumber, pcall y más.
-                </span>
-
-                <span class="tarjeta-nivel">
-                    NIVEL 4 · HERRAMIENTAS
-                </span>
-            </button>
-
-
-            <button
-                class="tarjeta"
-                onclick="mostrarTema('funcionesextras')"
-            >
-                <span class="tarjeta-icono">📚</span>
-
-                <span class="tarjeta-titulo">
-                    Librerías estándar
-                </span>
-
-                <span class="tarjeta-descripcion">
-                    string, table, math, io, os y package.
-                </span>
-
-                <span class="tarjeta-nivel">
-                    NIVEL 4 · HERRAMIENTAS
-                </span>
-            </button>
-
-
-            <button
-                class="tarjeta"
-                onclick="mostrarTema('errores')"
-            >
-                <span class="tarjeta-icono">🚨</span>
-
-                <span class="tarjeta-titulo">
-                    Errores y protección
-                </span>
-
-                <span class="tarjeta-descripcion">
-                    error, assert, pcall, xpcall y warn.
-                </span>
-
-                <span class="tarjeta-nivel">
-                    NIVEL 4 · HERRAMIENTAS
-                </span>
-            </button>
-
-
-            <button
-                class="tarjeta"
-                onclick="mostrarTema('modulos')"
-            >
-                <span class="tarjeta-icono">📦</span>
-
-                <span class="tarjeta-titulo">
-                    Módulos
-                </span>
-
-                <span class="tarjeta-descripcion">
-                    require, package y organización.
-                </span>
-
-                <span class="tarjeta-nivel">
-                    NIVEL 5 · PROYECTOS
-                </span>
-            </button>
-
-
-            <button
-                class="tarjeta"
-                onclick="mostrarTema('metatables')"
-            >
-                <span class="tarjeta-icono">⚙️</span>
-
-                <span class="tarjeta-titulo">
-                    Metatables
-                </span>
-
-                <span class="tarjeta-descripcion">
-                    Metamethods y comportamientos personalizados.
-                </span>
-
-                <span class="tarjeta-nivel">
-                    NIVEL 5 · AVANZADO
-                </span>
-            </button>
-
-
-            <button
-                class="tarjeta"
-                onclick="mostrarTema('coroutines')"
-            >
-                <span class="tarjeta-icono">🔄</span>
-
-                <span class="tarjeta-titulo">
-                    Coroutines
-                </span>
-
-                <span class="tarjeta-descripcion">
-                    Suspender y reanudar código.
-                </span>
-
-                <span class="tarjeta-nivel">
-                    NIVEL 5 · AVANZADO
-                </span>
-            </button>
-
-
-            <button
-                class="tarjeta"
-                onclick="mostrarTema('avanzado')"
-            >
-                <span class="tarjeta-icono">🧠</span>
-
-                <span class="tarjeta-titulo">
-                    Conceptos avanzados
-                </span>
-
-                <span class="tarjeta-descripcion">
-                    GC, weak tables, _ENV, debug y más.
-                </span>
-
-                <span class="tarjeta-nivel">
-                    NIVEL 6 · EXPERTO
-                </span>
-            </button>
-
-
-            <button
-                class="tarjeta especial"
-                onclick="mostrarTema('ejercicios')"
-            >
-                <span class="tarjeta-icono">✏️</span>
-
-                <span class="tarjeta-titulo">
-                    Práctica
-                </span>
-
-                <span class="tarjeta-descripcion">
-                    Resuelve ejercicios para reforzar lo aprendido.
-                </span>
-
-                <span class="tarjeta-nivel">
-                    PRACTICA
-                </span>
-            </button>
-
-
-            <button
-                class="tarjeta especial"
-                onclick="mostrarTema('quiz')"
-            >
-                <span class="tarjeta-icono">🧠</span>
-
-                <span class="tarjeta-titulo">
-                    Quiz de Lua
-                </span>
-
-                <span class="tarjeta-descripcion">
-                    Comprueba cuánto recuerdas.
-                </span>
-
-                <span class="tarjeta-nivel">
-                    DESAFÍO
-                </span>
-            </button>
-
-
-            <button
-                class="tarjeta especial"
-                onclick="mostrarTema('interactivo')"
-            >
-                <span class="tarjeta-icono">▶️</span>
-
-                <span class="tarjeta-titulo">
-                    Laboratorio
-                </span>
-
-                <span class="tarjeta-descripcion">
-                    Experimenta con operaciones de Lua.
-                </span>
-
-                <span class="tarjeta-nivel">
-                    EXPERIMENTA
-                </span>
-            </button>
-
-
-            <button
-                class="tarjeta especial"
-                onclick="mostrarTema('completo')"
-            >
-                <span class="tarjeta-icono">📖</span>
-
-                <span class="tarjeta-titulo">
-                    Diccionario completo
-                </span>
-
-                <span class="tarjeta-descripcion">
-                    Consulta todos los conceptos.
-                </span>
-
-                <span class="tarjeta-nivel">
-                    REFERENCIA
-                </span>
+            <button class="menu-card" onclick="mostrarPagina('tienda')">
+                <span>🛒</span>
+                <strong>Tienda</strong>
+                <small>Usa tus monedas</small>
             </button>
 
         </div>
@@ -613,1214 +225,459 @@
     </section>
 
 
+    <!-- NIVELES -->
 
-    <!-- ==================== LECCIONES ==================== -->
+    <section id="niveles" class="pagina">
 
-    <section id="variables" class="pagina">
+        <div class="page-header">
 
-        <button class="volver" onclick="volverInicio()">
-            ← Volver al inicio
-        </button>
+            <button class="back-button" onclick="mostrarPagina('inicio')">
+                ← Inicio
+            </button>
 
-        <p class="breadcrumb">Inicio > Variables y alcance</p>
-
-        <div class="leccion-cabecera">
-
-            <span class="leccion-nivel">
-                NIVEL 1
-            </span>
-
-            <h2>Variables y alcance</h2>
+            <p class="eyebrow">TU CAMINO</p>
+            <h2>Ruta de aprendizaje</h2>
 
             <p>
-                Las variables permiten guardar valores para utilizarlos después.
+                Completa las lecciones en orden para desbloquear las siguientes.
             </p>
 
         </div>
 
-        <h3>local</h3>
-
-        <pre><code>local vidas = 3
-
-print(vidas)</code></pre>
-
-        <p>
-            Usar <code>local</code> crea una variable con alcance local.
-            Es la forma habitual de declarar variables.
-        </p>
-
-        <h3>Variables globales</h3>
-
-        <p>
-            Lua 5.5 también incluye una declaración explícita
-            para variables globales.
-        </p>
-
-        <pre><code>global nombre
-
-nombre = "Lua"</code></pre>
-
-        <h3>const</h3>
-
-        <pre><code>local &lt;const&gt; PI = 3.14159</code></pre>
-
-        <p>
-            <code>&lt;const&gt;</code> indica que la variable local no puede
-            ser reasignada.
-        </p>
-
-        <h3>close</h3>
-
-        <pre><code>local &lt;close&gt; recurso = obtenerRecurso()</code></pre>
-
-        <p>
-            Los valores marcados con <code>&lt;close&gt;</code> pueden ejecutar
-            su comportamiento de cierre al salir de su alcance.
-        </p>
-
-        <h3>_ENV y _G</h3>
-
-        <p>
-            <code>_ENV</code> representa el entorno utilizado para resolver
-            nombres globales. <code>_G</code> es la referencia convencional
-            al entorno global.
-        </p>
-
-        <div class="regla">
-            <strong>Consejo:</strong>
-            cuando estés empezando, usa <code>local</code> casi siempre.
-        </div>
-
-        <button
-            class="aprendido"
-            onclick="marcarAprendido('variables')"
-        >
-            ✓ Marcar como aprendido
-        </button>
+        <div id="levelsContainer"></div>
 
     </section>
 
 
-    <section id="tipos" class="pagina">
+    <!-- LECCIÓN -->
 
-        <button class="volver" onclick="volverInicio()">
-            ← Volver al inicio
-        </button>
+    <section id="leccion" class="pagina">
 
-        <p class="breadcrumb">Inicio > Tipos de datos</p>
+        <div class="lesson-header">
 
-        <h2>Tipos de datos</h2>
-
-        <p>
-            Lua utiliza tipado dinámico: las variables no tienen un tipo fijo;
-            los valores sí.
-        </p>
-
-        <div class="lista-conceptos grande">
-            <span>nil</span>
-            <span>boolean</span>
-            <span>number</span>
-            <span>string</span>
-            <span>function</span>
-            <span>userdata</span>
-            <span>thread</span>
-            <span>table</span>
-        </div>
-
-        <pre><code>print(type(nil))
-print(type(true))
-print(type(10))
-print(type("Lua"))
-print(type({}))
-print(type(function() end))</code></pre>
-
-        <button
-            class="aprendido"
-            onclick="marcarAprendido('tipos')"
-        >
-            ✓ Marcar como aprendido
-        </button>
-
-    </section>
-
-
-    <section id="booleanos" class="pagina">
-
-        <button class="volver" onclick="volverInicio()">
-            ← Volver al inicio
-        </button>
-
-        <p class="breadcrumb">Inicio > Booleanos</p>
-
-        <h2>Booleanos</h2>
-
-        <p>
-            Lua tiene dos valores booleanos:
-            <code>true</code> y <code>false</code>.
-        </p>
-
-        <pre><code>local jugando = true
-local terminado = false</code></pre>
-
-        <div class="regla">
-
-            <strong>Muy importante:</strong>
-
-            en Lua solamente <code>false</code> y <code>nil</code>
-            son falsos en una condición.
-
-            <code>0</code> y <code>""</code> son verdaderos.
-
-        </div>
-
-        <h3>Operadores lógicos</h3>
-
-        <pre><code>if edad >= 13 and edad <= 17 then
-    print("Adolescente")
-end
-
-if dia == "sabado" or dia == "domingo" then
-    print("Fin de semana")
-end
-
-print(not true)</code></pre>
-
-        <button
-            class="aprendido"
-            onclick="marcarAprendido('booleanos')"
-        >
-            ✓ Marcar como aprendido
-        </button>
-
-    </section>
-
-
-    <section id="operadores" class="pagina">
-
-        <button class="volver" onclick="volverInicio()">
-            ← Volver al inicio
-        </button>
-
-        <p class="breadcrumb">Inicio > Operadores</p>
-
-        <h2>Operadores</h2>
-
-        <h3>Aritméticos</h3>
-
-        <p>
-            <code>+</code>
-            <code>-</code>
-            <code>*</code>
-            <code>/</code>
-            <code>//</code>
-            <code>%</code>
-            <code>^</code>
-        </p>
-
-        <h3>Comparación</h3>
-
-        <p>
-            <code>==</code>
-            <code>~=</code>
-            <code>&lt;</code>
-            <code>&gt;</code>
-            <code>&lt;=</code>
-            <code>&gt;=</code>
-        </p>
-
-        <h3>Lógicos</h3>
-
-        <p>
-            <code>and</code>
-            <code>or</code>
-            <code>not</code>
-        </p>
-
-        <h3>Bits</h3>
-
-        <p>
-            <code>&amp;</code>
-            <code>|</code>
-            <code>~</code>
-            <code>&lt;&lt;</code>
-            <code>&gt;&gt;</code>
-        </p>
-
-        <h3>Otros</h3>
-
-        <p>
-            <code>..</code> concatenación
-        </p>
-
-        <p>
-            <code>#</code> longitud
-        </p>
-
-        <p>
-            <code>=</code> asignación
-        </p>
-
-        <button
-            class="aprendido"
-            onclick="marcarAprendido('operadores')"
-        >
-            ✓ Marcar como aprendido
-        </button>
-
-    </section>
-
-
-    <section id="condicionales" class="pagina">
-
-        <button class="volver" onclick="volverInicio()">
-            ← Volver al inicio
-        </button>
-
-        <p class="breadcrumb">Inicio > Condicionales</p>
-
-        <h2>Condicionales</h2>
-
-        <p>
-            Permiten ejecutar código dependiendo de una condición.
-        </p>
-
-        <h3>if / then</h3>
-
-        <pre><code>local edad = 16
-
-if edad >= 18 then
-    print("Mayor de edad")
-end</code></pre>
-
-        <h3>elseif y else</h3>
-
-        <pre><code>if edad >= 18 then
-    print("Adulto")
-elseif edad >= 13 then
-    print("Adolescente")
-else
-    print("Niño")
-end</code></pre>
-
-        <h3>Comparaciones</h3>
-
-        <p>
-            <code>==</code> igual
-            <code>~=</code> diferente
-            <code>&gt;</code> mayor
-            <code>&lt;</code> menor
-            <code>&gt;=</code> mayor o igual
-            <code>&lt;=</code> menor o igual
-        </p>
-
-        <div class="regla">
-            <strong>Regla:</strong>
-            todo bloque iniciado con <code>if</code> termina con <code>end</code>.
-        </div>
-
-        <button
-            class="aprendido"
-            onclick="marcarAprendido('condicionales')"
-        >
-            ✓ Marcar como aprendido
-        </button>
-
-    </section>
-
-
-    <section id="bucles" class="pagina">
-
-        <button class="volver" onclick="volverInicio()">
-            ← Volver al inicio
-        </button>
-
-        <p class="breadcrumb">Inicio > Bucles</p>
-
-        <h2>Bucles</h2>
-
-        <h3>while</h3>
-
-        <pre><code>local i = 1
-
-while i <= 5 do
-    print(i)
-    i = i + 1
-end</code></pre>
-
-        <h3>repeat ... until</h3>
-
-        <pre><code>repeat
-    i = i + 1
-until i >= 5</code></pre>
-
-        <h3>for numérico</h3>
-
-        <pre><code>for i = 1, 10, 2 do
-    print(i)
-end</code></pre>
-
-        <h3>for genérico</h3>
-
-        <pre><code>for clave, valor in pairs(persona) do
-    print(clave, valor)
-end</code></pre>
-
-        <h3>break</h3>
-
-        <pre><code>for i = 1, 10 do
-
-    if i == 5 then
-        break
-    end
-
-end</code></pre>
-
-        <button
-            class="aprendido"
-            onclick="marcarAprendido('bucles')"
-        >
-            ✓ Marcar como aprendido
-        </button>
-
-    </section>
-
-
-    <section id="funciones" class="pagina">
-
-        <button class="volver" onclick="volverInicio()">
-            ← Volver al inicio
-        </button>
-
-        <p class="breadcrumb">Inicio > Funciones</p>
-
-        <h2>Funciones</h2>
-
-        <h3>Crear una función</h3>
-
-        <pre><code>local function saludar(nombre)
-    print("Hola " .. nombre)
-end
-
-saludar("Lua")</code></pre>
-
-        <h3>Parámetros y return</h3>
-
-        <pre><code>local function sumar(a, b)
-    return a + b
-end
-
-local resultado = sumar(3, 4)
-
-print(resultado)</code></pre>
-
-        <h3>Funciones anónimas</h3>
-
-        <pre><code>local doble = function(numero)
-    return numero * 2
-end
-
-print(doble(5))</code></pre>
-
-        <h3>Varargs</h3>
-
-        <pre><code>local function contar(...)
-    return select("#", ...)
-end</code></pre>
-
-        <h3>Closures</h3>
-
-        <pre><code>local function crearContador()
-
-    local numero = 0
-
-    return function()
-
-        numero = numero + 1
-
-        return numero
-
-    end
-
-end</code></pre>
-
-        <div class="regla">
-            Las funciones son valores de primera clase:
-            puedes guardarlas en variables, pasarlas a otras funciones
-            y devolverlas.
-        </div>
-
-        <button
-            class="aprendido"
-            onclick="marcarAprendido('funciones')"
-        >
-            ✓ Marcar como aprendido
-        </button>
-
-    </section>
-
-
-    <section id="tablas" class="pagina">
-
-        <button class="volver" onclick="volverInicio()">
-            ← Volver al inicio
-        </button>
-
-        <p class="breadcrumb">Inicio > Tablas</p>
-
-        <h2>Tablas</h2>
-
-        <h3>Crear una tabla</h3>
-
-        <pre><code>local frutas = {
-    "Manzana",
-    "Banano",
-    "Naranja"
-}</code></pre>
-
-        <h3>Acceder a elementos</h3>
-
-        <pre><code>print(frutas[1])
-print(frutas[2])</code></pre>
-
-        <h3>Tablas con claves</h3>
-
-        <pre><code>local persona = {
-    nombre = "Lua",
-    edad = 10
-}
-
-print(persona.nombre)
-print(persona["edad"])</code></pre>
-
-        <h3>Insertar y eliminar</h3>
-
-        <pre><code>table.insert(frutas, "Pera")
-
-table.remove(frutas, 1)</code></pre>
-
-        <h3>Recorrer</h3>
-
-        <pre><code>for i, fruta in ipairs(frutas) do
-    print(i, fruta)
-end
-
-for clave, valor in pairs(persona) do
-    print(clave, valor)
-end</code></pre>
-
-        <div class="regla">
-            Una tabla puede tener distintas claves.
-            Las secuencias normalmente comienzan en el índice 1.
-        </div>
-
-        <button
-            class="aprendido"
-            onclick="marcarAprendido('tablas')"
-        >
-            ✓ Marcar como aprendido
-        </button>
-
-    </section>
-
-
-    <section id="strings" class="pagina">
-
-        <button class="volver" onclick="volverInicio()">
-            ← Volver al inicio
-        </button>
-
-        <p class="breadcrumb">Inicio > Strings</p>
-
-        <h2>Strings</h2>
-
-        <pre><code>local nombre = "Lua"
-
-local saludo = "Hola " .. nombre
-
-print(saludo)</code></pre>
-
-        <h3>Longitud</h3>
-
-        <pre><code>print(#"LuaDrix")</code></pre>
-
-        <h3>Buscar</h3>
-
-        <pre><code>local inicio, fin =
-    string.find("Hola Lua", "Lua")
-
-print(inicio, fin)</code></pre>
-
-        <h3>Patrones</h3>
-
-        <pre><code>local numero =
-    string.match("Tengo 15 años", "%d+")
-
-print(numero)</code></pre>
-
-        <div class="regla">
-            Los strings de Lua son inmutables.
-            Las funciones de la librería <code>string</code>
-            devuelven nuevos valores.
-        </div>
-
-        <button
-            class="aprendido"
-            onclick="marcarAprendido('strings')"
-        >
-            ✓ Marcar como aprendido
-        </button>
-
-    </section>
-
-
-    <section id="funcionesbasicas" class="pagina">
-
-        <button class="volver" onclick="volverInicio()">
-            ← Volver al inicio
-        </button>
-
-        <p class="breadcrumb">Inicio > Funciones básicas</p>
-
-        <h2>Funciones básicas</h2>
-
-        <div class="lista-conceptos grande">
-            <span>print()</span>
-            <span>type()</span>
-            <span>tostring()</span>
-            <span>tonumber()</span>
-            <span>assert()</span>
-            <span>error()</span>
-            <span>pcall()</span>
-            <span>xpcall()</span>
-            <span>select()</span>
-            <span>next()</span>
-            <span>pairs()</span>
-            <span>ipairs()</span>
-            <span>load()</span>
-            <span>loadfile()</span>
-            <span>dofile()</span>
-            <span>require()</span>
-            <span>collectgarbage()</span>
-            <span>getmetatable()</span>
-            <span>setmetatable()</span>
-            <span>rawget()</span>
-            <span>rawset()</span>
-            <span>rawequal()</span>
-            <span>rawlen()</span>
-            <span>warn()</span>
-            <span>_VERSION</span>
-        </div>
-
-        <button
-            class="aprendido"
-            onclick="marcarAprendido('funcionesbasicas')"
-        >
-            ✓ Marcar como aprendido
-        </button>
-
-    </section>
-
-
-    <section id="funcionesextras" class="pagina">
-
-        <button class="volver" onclick="volverInicio()">
-            ← Volver al inicio
-        </button>
-
-        <p class="breadcrumb">Inicio > Librerías estándar</p>
-
-        <h2>Librerías estándar</h2>
-
-        <p>
-            Lua incluye librerías para tareas comunes:
-            strings, tablas, matemáticas, archivos, sistema,
-            paquetes, coroutines, UTF-8 y debug.
-        </p>
-
-        <div class="bibliotecas-grid">
-
-            <button onclick="filtrarBiblioteca('basic')">Basic</button>
-            <button onclick="filtrarBiblioteca('coroutine')">Coroutine</button>
-            <button onclick="filtrarBiblioteca('package')">Package</button>
-            <button onclick="filtrarBiblioteca('string')">String</button>
-            <button onclick="filtrarBiblioteca('utf8')">UTF-8</button>
-            <button onclick="filtrarBiblioteca('table')">Table</button>
-            <button onclick="filtrarBiblioteca('math')">Math</button>
-            <button onclick="filtrarBiblioteca('io')">IO</button>
-            <button onclick="filtrarBiblioteca('os')">OS</button>
-            <button onclick="filtrarBiblioteca('debug')">Debug</button>
-
-        </div>
-
-        <div
-            id="bibliotecaResultado"
-            class="biblioteca-resultado"
-        >
-            Selecciona una librería para ver sus funciones.
-        </div>
-
-        <button
-            class="aprendido"
-            onclick="marcarAprendido('funcionesextras')"
-        >
-            ✓ Marcar como aprendido
-        </button>
-
-    </section>
-
-
-    <section id="metatables" class="pagina">
-
-        <button class="volver" onclick="volverInicio()">
-            ← Volver al inicio
-        </button>
-
-        <p class="breadcrumb">Inicio > Metatables</p>
-
-        <h2>Metatables</h2>
-
-        <p>
-            Las metatables permiten personalizar determinados comportamientos
-            de valores.
-        </p>
-
-        <pre><code>local persona = {
-    nombre = "Angel"
-}
-
-local meta = {
-
-    __tostring = function(tabla)
-        return "Persona: " .. tabla.nombre
-    end
-
-}
-
-setmetatable(persona, meta)
-
-print(persona)</code></pre>
-
-        <h3>Metamethods</h3>
-
-        <div class="lista-conceptos grande">
-            <span>__index</span>
-            <span>__newindex</span>
-            <span>__call</span>
-            <span>__tostring</span>
-            <span>__len</span>
-            <span>__eq</span>
-            <span>__lt</span>
-            <span>__le</span>
-            <span>__add</span>
-            <span>__sub</span>
-            <span>__mul</span>
-            <span>__div</span>
-            <span>__idiv</span>
-            <span>__mod</span>
-            <span>__pow</span>
-            <span>__unm</span>
-            <span>__concat</span>
-            <span>__band</span>
-            <span>__bor</span>
-            <span>__bxor</span>
-            <span>__bnot</span>
-            <span>__shl</span>
-            <span>__shr</span>
-            <span>__gc</span>
-            <span>__close</span>
-            <span>__mode</span>
-            <span>__name</span>
-        </div>
-
-        <button
-            class="aprendido"
-            onclick="marcarAprendido('metatables')"
-        >
-            ✓ Marcar como aprendido
-        </button>
-
-    </section>
-
-
-    <section id="coroutines" class="pagina">
-
-        <button class="volver" onclick="volverInicio()">
-            ← Volver al inicio
-        </button>
-
-        <p class="breadcrumb">Inicio > Coroutines</p>
-
-        <h2>Coroutines</h2>
-
-        <p>
-            Permiten suspender y reanudar una ejecución de Lua
-            de forma cooperativa.
-        </p>
-
-        <pre><code>local co = coroutine.create(function()
-
-    print("Uno")
-
-    coroutine.yield()
-
-    print("Dos")
-
-end)
-
-coroutine.resume(co)
-
-coroutine.resume(co)</code></pre>
-
-        <p>
-            Conceptos:
-            <code>create</code>,
-            <code>resume</code>,
-            <code>yield</code>,
-            <code>status</code>,
-            <code>running</code>,
-            <code>wrap</code>,
-            <code>isyieldable</code>
-            y
-            <code>close</code>.
-        </p>
-
-        <button
-            class="aprendido"
-            onclick="marcarAprendido('coroutines')"
-        >
-            ✓ Marcar como aprendido
-        </button>
-
-    </section>
-
-
-    <section id="errores" class="pagina">
-
-        <button class="volver" onclick="volverInicio()">
-            ← Volver al inicio
-        </button>
-
-        <p class="breadcrumb">Inicio > Errores</p>
-
-        <h2>Errores y protección</h2>
-
-        <h3>error()</h3>
-
-        <pre><code>error("Algo salió mal")</code></pre>
-
-        <h3>assert()</h3>
-
-        <pre><code>assert(
-    edad >= 0,
-    "Edad inválida"
-)</code></pre>
-
-        <h3>pcall()</h3>
-
-        <pre><code>local ok, resultado =
-    pcall(function()
-
-        return 10 / 0
-
-    end)
-
-print(ok, resultado)</code></pre>
-
-        <h3>xpcall()</h3>
-
-        <p>
-            Ejecuta una función protegida y permite especificar
-            un manejador de errores.
-        </p>
-
-        <h3>warn()</h3>
-
-        <p>
-            Produce una advertencia.
-        </p>
-
-        <button
-            class="aprendido"
-            onclick="marcarAprendido('errores')"
-        >
-            ✓ Marcar como aprendido
-        </button>
-
-    </section>
-
-
-    <section id="modulos" class="pagina">
-
-        <button class="volver" onclick="volverInicio()">
-            ← Volver al inicio
-        </button>
-
-        <p class="breadcrumb">Inicio > Módulos</p>
-
-        <h2>Módulos</h2>
-
-        <h3>require()</h3>
-
-        <pre><code>local miModulo =
-    require("miModulo")</code></pre>
-
-        <h3>package</h3>
-
-        <div class="lista-conceptos grande">
-            <span>package.path</span>
-            <span>package.cpath</span>
-            <span>package.loaded</span>
-            <span>package.preload</span>
-            <span>package.searchers</span>
-            <span>package.config</span>
-        </div>
-
-        <div class="regla">
-            Normalmente un módulo devuelve una tabla u otro valor
-            que luego guardas en una variable.
-        </div>
-
-        <button
-            class="aprendido"
-            onclick="marcarAprendido('modulos')"
-        >
-            ✓ Marcar como aprendido
-        </button>
-
-    </section>
-
-
-    <section id="avanzado" class="pagina">
-
-        <button class="volver" onclick="volverInicio()">
-            ← Volver al inicio
-        </button>
-
-        <p class="breadcrumb">Inicio > Avanzado</p>
-
-        <h2>Conceptos avanzados</h2>
-
-        <div class="lista-conceptos grande">
-            <span>Garbage Collector</span>
-            <span>GC incremental</span>
-            <span>GC generacional</span>
-            <span>Finalizers</span>
-            <span>Weak tables</span>
-            <span>Ephemeron tables</span>
-            <span>_ENV</span>
-            <span>_G</span>
-            <span>Chunks</span>
-            <span>load()</span>
-            <span>loadfile()</span>
-            <span>dofile()</span>
-            <span>string.dump()</span>
-            <span>Closures</span>
-            <span>Upvalues</span>
-            <span>Varargs</span>
-            <span>Metatables</span>
-            <span>Metamethods</span>
-            <span>to-be-closed</span>
-            <span>const</span>
-            <span>global</span>
-            <span>userdata</span>
-            <span>threads</span>
-            <span>coroutines</span>
-            <span>debug library</span>
-            <span>hooks</span>
-            <span>environments</span>
-        </div>
-
-        <button
-            class="aprendido"
-            onclick="marcarAprendido('avanzado')"
-        >
-            ✓ Marcar como aprendido
-        </button>
-
-    </section>
-
-
-
-    <!-- ==================== DICCIONARIO ==================== -->
-
-    <section id="completo" class="pagina">
-
-        <button class="volver" onclick="volverInicio()">
-            ← Volver al inicio
-        </button>
-
-        <p class="breadcrumb">Inicio > Diccionario completo</p>
-
-        <h2>Diccionario completo</h2>
-
-        <p>
-            Consulta todos los conceptos registrados en LuaDrix.
-        </p>
-
-        <div id="diccionarioCompleto"></div>
-
-    </section>
-
-
-
-    <!-- ==================== QUIZ ==================== -->
-
-    <section id="quiz" class="pagina">
-
-        <button class="volver" onclick="volverInicio()">
-            ← Volver al inicio
-        </button>
-
-        <p class="breadcrumb">Inicio > Quiz</p>
-
-        <h2>Quiz de Lua</h2>
-
-        <p>
-            Responde las preguntas y descubre cuánto recuerdas de Lua.
-        </p>
-
-        <div id="quizContenedor"></div>
-
-    </section>
-
-
-
-    <!-- ==================== EJERCICIOS ==================== -->
-
-    <section id="ejercicios" class="pagina">
-
-        <button class="volver" onclick="volverInicio()">
-            ← Volver al inicio
-        </button>
-
-        <p class="breadcrumb">Inicio > Práctica</p>
-
-        <h2>Práctica</h2>
-
-        <p>
-            Intenta resolver cada ejercicio antes de mirar la respuesta.
-        </p>
-
-        <div class="ejercicio">
-
-            <h3>Ejercicio 1 — Variables</h3>
-
-            <p>
-                Crea una variable llamada
-                <code>vidas</code>
-                con el valor
-                <code>3</code>.
-            </p>
-
-            <button onclick="mostrarRespuesta('respuesta1')">
-                Ver respuesta
+            <button class="back-button" onclick="mostrarPagina('niveles')">
+                ← Niveles
             </button>
 
-            <div id="respuesta1" class="respuesta"></div>
+            <div>
+                <span id="lessonLevel">Nivel 1</span>
+                <h2 id="lessonTitle">Lección</h2>
+            </div>
+
+            <div class="lesson-progress">
+                <div id="lessonProgressBar"></div>
+            </div>
 
         </div>
 
 
-        <div class="ejercicio">
+        <div id="lessonContent"></div>
 
-            <h3>Ejercicio 2 — Condicionales</h3>
+    </section>
 
-            <p>
-                Haz que Lua imprima
-                <code>"Ganaste"</code>
-                si <code>puntos</code>
-                es mayor o igual a 100.
-            </p>
 
-            <button onclick="mostrarRespuesta('respuesta2')">
-                Ver respuesta
+    <!-- PRÁCTICA -->
+
+    <section id="practica" class="pagina">
+
+        <div class="page-header">
+
+            <button class="back-button" onclick="mostrarPagina('inicio')">
+                ← Inicio
             </button>
 
-            <div id="respuesta2" class="respuesta"></div>
+            <p class="eyebrow">ENTRENAMIENTO</p>
+            <h2>Práctica</h2>
+
+            <p>
+                Ejercicios rápidos para reforzar conceptos que ya conoces.
+            </p>
+
+        </div>
+
+        <div id="practiceContainer"></div>
+
+    </section>
+
+
+    <!-- LABORATORIO -->
+
+    <section id="laboratorio" class="pagina">
+
+        <div class="page-header">
+
+            <button class="back-button" onclick="mostrarPagina('inicio')">
+                ← Inicio
+            </button>
+
+            <p class="eyebrow">EXPERIMENTA</p>
+            <h2>Laboratorio de Lua</h2>
+
+            <p>
+                Escribe código y observa una simulación de lo que ocurriría.
+            </p>
 
         </div>
 
 
-        <div class="ejercicio">
+        <div class="lab-layout">
 
-            <h3>Ejercicio 3 — Bucles</h3>
+            <div class="lab-editor-card">
 
-            <p>
-                Haz un <code>for</code>
-                que imprima los números del 1 al 5.
-            </p>
+                <div class="editor-header">
+                    <span>Lua</span>
+                    <button onclick="limpiarEditor()">Limpiar</button>
+                </div>
 
-            <button onclick="mostrarRespuesta('respuesta3')">
-                Ver respuesta
-            </button>
+                <textarea id="luaEditor" spellcheck="false">local nombre = "Angel"
+print(nombre)</textarea>
 
-            <div id="respuesta3" class="respuesta"></div>
+                <button class="primary-button run-button" onclick="ejecutarLaboratorio()">
+                    ▶ Ejecutar
+                </button>
 
-        </div>
+            </div>
 
 
-        <div class="ejercicio">
+            <div class="lab-output-card">
 
-            <h3>Ejercicio 4 — Funciones</h3>
+                <div class="output-header">
+                    <span>Salida</span>
+                    <span class="status-dot"></span>
+                </div>
 
-            <p>
-                Crea una función que reciba dos números y devuelva su suma.
-            </p>
+                <pre id="labOutput">Aquí aparecerá la salida simulada...</pre>
 
-            <button onclick="mostrarRespuesta('respuesta4')">
-                Ver respuesta
-            </button>
-
-            <div id="respuesta4" class="respuesta"></div>
+            </div>
 
         </div>
 
 
-        <div class="ejercicio">
+        <div class="lab-topics">
 
-            <h3>Ejercicio 5 — Tablas</h3>
+            <h3>Áreas disponibles</h3>
 
-            <p>
-                Crea una tabla con tres frutas y muestra la primera.
-            </p>
+            <div class="lab-topic-grid">
 
-            <button onclick="mostrarRespuesta('respuesta5')">
-                Ver respuesta
-            </button>
+                <button onclick="insertarEjemplo('variables')">Variables</button>
+                <button onclick="insertarEjemplo('tipos')">Tipos</button>
+                <button onclick="insertarEjemplo('operadores')">Operadores</button>
+                <button onclick="insertarEjemplo('condicionales')">Condicionales</button>
+                <button onclick="insertarEjemplo('bucles')">Bucles</button>
+                <button onclick="insertarEjemplo('funciones')">Funciones</button>
+                <button onclick="insertarEjemplo('tablas')">Tablas</button>
+                <button onclick="insertarEjemplo('strings')">Strings</button>
+                <button onclick="insertarEjemplo('errores')">Errores</button>
+                <button onclick="insertarEjemplo('metatables')">Metatables</button>
+                <button onclick="insertarEjemplo('coroutines')">Coroutines</button>
+                <button onclick="insertarEjemplo('modulos')">Módulos</button>
 
-            <div id="respuesta5" class="respuesta"></div>
+            </div>
 
         </div>
 
     </section>
 
 
+    <!-- BIBLIOTECA -->
 
-    <!-- ==================== LABORATORIO ==================== -->
+    <section id="biblioteca" class="pagina">
 
-    <section id="interactivo" class="pagina">
+        <div class="page-header">
 
-        <button class="volver" onclick="volverInicio()">
-            ← Volver al inicio
-        </button>
+            <button class="back-button" onclick="mostrarPagina('inicio')">
+                ← Inicio
+            </button>
 
-        <p class="breadcrumb">Inicio > Laboratorio</p>
+            <p class="eyebrow">REFERENCIA</p>
+            <h2>Biblioteca Lua</h2>
 
-        <h2>Laboratorio de Lua</h2>
+            <p>
+                Consulta conceptos y funciones de Lua sin gastar batería.
+            </p>
 
-        <p>
-            Experimenta con operaciones básicas.
-            Este laboratorio no ejecuta código Lua arbitrario dentro del navegador.
-        </p>
+        </div>
 
-        <div class="laboratorio">
 
-            <label for="valorA">
-                Valor A:
-            </label>
+        <input
+            id="librarySearch"
+            class="search-input"
+            type="search"
+            placeholder="Buscar en LuaDrix..."
+            oninput="buscarBiblioteca()"
+        >
 
-            <input
-                id="valorA"
-                type="number"
-                value="10"
-            >
 
-            <label for="valorB">
-                Valor B:
-            </label>
+        <div id="libraryContainer" class="library-grid"></div>
 
-            <input
-                id="valorB"
-                type="number"
-                value="5"
-            >
+    </section>
 
-            <label for="operacion">
-                Operación:
-            </label>
 
-            <select id="operacion">
+    <!-- LOGROS -->
 
-                <option value="suma">
-                    Suma
-                </option>
+    <section id="logros" class="pagina">
 
-                <option value="resta">
-                    Resta
-                </option>
+        <div class="page-header">
 
-                <option value="multiplicacion">
-                    Multiplicación
-                </option>
+            <button class="back-button" onclick="mostrarPagina('inicio')">
+                ← Inicio
+            </button>
 
-                <option value="division">
-                    División
-                </option>
+            <p class="eyebrow">COLECCIÓN</p>
+            <h2>Logros</h2>
 
-                <option value="mayor">
-                    ¿A es mayor que B?
-                </option>
+            <p>
+                Hay 50 logros esperando ser desbloqueados.
+            </p>
 
+        </div>
+
+        <div id="achievementsContainer" class="achievements-grid"></div>
+
+    </section>
+
+
+    <!-- TIENDA -->
+
+    <section id="tienda" class="pagina">
+
+        <div class="page-header">
+
+            <button class="back-button" onclick="mostrarPagina('inicio')">
+                ← Inicio
+            </button>
+
+            <p class="eyebrow">PERSONALIZA</p>
+            <h2>Tienda</h2>
+
+            <p>
+                Tienes <strong>🪙 <span id="shopCoins">0</span></strong> monedas.
+            </p>
+
+        </div>
+
+
+        <div class="shop-grid">
+
+            <div class="shop-item">
+                <span class="shop-icon">🔋</span>
+                <h3>Recarga de batería</h3>
+                <p>Recupera 5 puntos de batería.</p>
+                <button onclick="comprar('bateria', 20)">20 🪙</button>
+            </div>
+
+            <div class="shop-item">
+                <span class="shop-icon">💡</span>
+                <h3>Pista extra</h3>
+                <p>Consigue una pista adicional hoy.</p>
+                <button onclick="comprar('pista', 30)">30 🪙</button>
+            </div>
+
+            <div class="shop-item">
+                <span class="shop-icon">🎯</span>
+                <h3>Práctica extra</h3>
+                <p>Desbloquea una práctica adicional.</p>
+                <button onclick="comprar('practica', 25)">25 🪙</button>
+            </div>
+
+            <div class="shop-item">
+                <span class="shop-icon">🎨</span>
+                <h3>Tema azul</h3>
+                <p>Una apariencia alternativa.</p>
+                <button onclick="comprarTema('azul', 100)">100 🪙</button>
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- PERFIL -->
+
+    <section id="perfil" class="pagina">
+
+        <div class="page-header">
+
+            <button class="back-button" onclick="mostrarPagina('inicio')">
+                ← Inicio
+            </button>
+
+            <p class="eyebrow">TU CUENTA</p>
+            <h2>Perfil</h2>
+
+        </div>
+
+
+        <div class="profile-card">
+
+            <div class="avatar" id="avatarDisplay">👤</div>
+
+            <div class="profile-main">
+
+                <h2 id="profileName">Angel</h2>
+
+                <p id="profileTitle">
+                    Recién empezando
+                </p>
+
+                <div class="profile-stats">
+
+                    <div>
+                        <span>Nivel</span>
+                        <strong id="profileLevel">1</strong>
+                    </div>
+
+                    <div>
+                        <span>EXP</span>
+                        <strong id="profileXP">0</strong>
+                    </div>
+
+                    <div>
+                        <span>Racha</span>
+                        <strong id="profileStreak">0</strong>
+                    </div>
+
+                    <div>
+                        <span>Monedas</span>
+                        <strong id="profileCoins">0</strong>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <div class="profile-progress-card">
+
+            <div class="progress-heading">
+                <span>Progreso al siguiente nivel</span>
+                <strong id="profileXPText">0 / 100 EXP</strong>
+            </div>
+
+            <div class="big-progress">
+                <div id="profileXPBar"></div>
+            </div>
+
+            <p id="profileXPRemaining">
+                Te faltan 100 EXP
+            </p>
+
+        </div>
+
+
+        <div class="account-card">
+
+            <h3>Cuenta</h3>
+
+            <p>
+                Sin cuenta, tu progreso se guarda en este navegador.
+            </p>
+
+            <button class="secondary-button" onclick="simularCuenta()">
+                Crear / iniciar sesión
+            </button>
+
+        </div>
+
+    </section>
+
+
+    <!-- SUGERENCIAS -->
+
+    <section id="sugerencias" class="pagina">
+
+        <div class="page-header">
+
+            <button class="back-button" onclick="mostrarPagina('inicio')">
+                ← Inicio
+            </button>
+
+            <p class="eyebrow">AYÚDANOS A MEJORAR</p>
+            <h2>Sugerencias</h2>
+
+            <p>
+                Tus ideas pueden ayudar a mejorar LuaDrix.
+            </p>
+
+        </div>
+
+
+        <div class="suggestion-card">
+
+            <label>Categoría</label>
+
+            <select id="suggestionCategory">
+                <option>Lecciones</option>
+                <option>Ejercicios</option>
+                <option>Laboratorio</option>
+                <option>Diseño</option>
+                <option>Problemas / errores</option>
+                <option>Nuevas funciones</option>
+                <option>Otro</option>
             </select>
 
-            <button onclick="ejecutarLaboratorio()">
-                ▶ Ejecutar
-            </button>
 
-            <pre id="salidaLaboratorio"><code>Resultado aparecerá aquí...</code></pre>
+            <label>Tu sugerencia</label>
+
+            <textarea
+                id="suggestionText"
+                placeholder="Escribe tu idea..."
+            ></textarea>
+
+
+            <button class="primary-button" onclick="enviarSugerencia()">
+                Enviar sugerencia
+            </button>
 
         </div>
 
     </section>
 
+
+    <!-- DIAGNÓSTICO -->
+
+    <section id="diagnostico" class="pagina">
+
+        <div class="diagnostic-container">
+
+            <p class="eyebrow">ANTES DE EMPEZAR</p>
+
+            <h2>Vamos a conocerte</h2>
+
+            <p>
+                Primero responderás unas preguntas sobre tus objetivos.
+                Después haremos una pequeña prueba de Lua.
+            </p>
+
+
+            <div id="surveyContainer"></div>
+
+        </div>
+
+    </section>
 
 </main>
 
 
-
-<!-- ==================== MODAL DE CUENTA ==================== -->
-
-<div
-    id="modalCuenta"
-    class="modal"
-    aria-hidden="true"
->
-
-    <div class="modal-contenido">
-
-        <button
-            class="modal-cerrar"
-            onclick="cerrarCuenta()"
-            aria-label="Cerrar"
-        >
-            ×
-        </button>
-
-        <div id="cuentaContenido"></div>
-
-    </div>
-
-</div>
-
-
-
 <footer>
 
-    <p>
-        LuaDrix — Aprende Lua de forma sencilla.
-    </p>
+    <strong>LuaDrix</strong>
 
-    <p>
-        Referencia orientada a Lua 5.5.
-    </p>
+    <span>Aprende Lua en lenguaje humano.</span>
+
+    <button onclick="mostrarPagina('sugerencias')">
+        💡 Sugerencias
+    </button>
 
 </footer>
 
+
+<div id="toastContainer"></div>
 
 
 <script src="script.js"></script>
 
 </body>
-
 </html>
-```
