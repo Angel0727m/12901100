@@ -8,7 +8,11 @@
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&display=swap"
+        rel="stylesheet"
+    >
 
     <link rel="stylesheet" href="style.css">
 </head>
@@ -18,13 +22,16 @@
 <header class="topbar">
 
     <div class="brand" onclick="mostrarPagina('inicio')">
+
         <div class="logo">L</div>
 
         <div>
             <h1>LuaDrix</h1>
             <span>Aprende Lua jugando</span>
         </div>
+
     </div>
+
 
     <div class="top-stats">
 
@@ -40,20 +47,28 @@
 
         <div class="stat">
             <span>🪙</span>
-            <strong id="monedasTop">0</strong>
+            <strong id="monedasTop">50</strong>
         </div>
 
         <div class="stat battery">
             <span>🔋</span>
-            <strong id="bateriaTop">25</strong>
-            <small>/25</small>
+            <strong id="bateriaTop">10</strong>
+            <small>/10</small>
         </div>
 
-        <button class="icon-button" onclick="mostrarPagina('perfil')" title="Perfil">
+        <button
+            class="icon-button"
+            onclick="mostrarPagina('perfil')"
+            title="Perfil"
+        >
             👤
         </button>
 
-        <button class="icon-button" onclick="alternarTema()" title="Cambiar tema">
+        <button
+            class="icon-button"
+            onclick="alternarTema()"
+            title="Cambiar tema"
+        >
             🌙
         </button>
 
@@ -64,28 +79,43 @@
 
 <main>
 
-    <!-- INICIO -->
+    <!-- =====================================================
+         INICIO
+         ===================================================== -->
 
     <section id="inicio" class="pagina activa">
 
         <div class="hero">
 
             <div>
-                <p class="eyebrow">BIENVENIDO A LUADRIX</p>
 
-                <h2>Aprende Lua.<br><span>Sube de nivel.</span></h2>
-
-                <p>
-                    Aprende programación paso a paso mediante lecciones,
-                    preguntas y retos donde tú escribes el código.
+                <p class="eyebrow">
+                    BIENVENIDO A LUADRIX
                 </p>
 
-                <button class="primary-button" onclick="continuarAprendiendo()">
+                <h2>
+                    Aprende Lua.<br>
+                    <span>Sube de nivel.</span>
+                </h2>
+
+                <p>
+                    Aprende programación paso a paso mediante
+                    lecciones, preguntas y retos donde tú escribes
+                    el código.
+                </p>
+
+                <button
+                    class="primary-button"
+                    onclick="continuarAprendiendo()"
+                >
                     Continuar aprendiendo →
                 </button>
+
             </div>
 
+
             <div class="hero-code">
+
                 <div class="code-top">
                     <span></span>
                     <span></span>
@@ -97,6 +127,7 @@
 print(nombre)
 
 -- ¡Estás aprendiendo Lua!</code></pre>
+
             </div>
 
         </div>
@@ -109,16 +140,24 @@ print(nombre)
                 <div class="card-icon">⭐</div>
 
                 <div class="card-info">
+
                     <span>Nivel actual</span>
+
                     <h3 id="nivelInicio">1</h3>
-                    <p id="tituloNivelInicio">Recién empezando</p>
+
+                    <p id="tituloNivelInicio">
+                        Recién empezando
+                    </p>
+
                 </div>
 
                 <div class="mini-progress">
                     <div id="xpBarInicio"></div>
                 </div>
 
-                <small id="xpTextoInicio">0 / 100 EXP</small>
+                <small id="xpTextoInicio">
+                    0 / 100 EXP
+                </small>
 
             </div>
 
@@ -128,9 +167,18 @@ print(nombre)
                 <div class="card-icon">🔥</div>
 
                 <div class="card-info">
+
                     <span>Racha</span>
-                    <h3><span id="rachaInicio">0</span> días</h3>
-                    <p>¡Haz una actividad hoy!</p>
+
+                    <h3>
+                        <span id="rachaInicio">0</span>
+                        días
+                    </h3>
+
+                    <p>
+                        ¡Haz una actividad hoy!
+                    </p>
+
                 </div>
 
             </div>
@@ -141,9 +189,17 @@ print(nombre)
                 <div class="card-icon">🔋</div>
 
                 <div class="card-info">
+
                     <span>Batería</span>
-                    <h3><span id="bateriaInicio">25</span>/25</h3>
-                    <p id="recargaTexto">Se recarga automáticamente</p>
+
+                    <h3>
+                        <span id="bateriaInicio">10</span>/10
+                    </h3>
+
+                    <p id="recargaTexto">
+                        Batería completa
+                    </p>
+
                 </div>
 
             </div>
@@ -154,9 +210,15 @@ print(nombre)
                 <div class="card-icon">🪙</div>
 
                 <div class="card-info">
+
                     <span>Monedas</span>
-                    <h3 id="monedasInicio">0</h3>
-                    <p>Úsalas en la tienda</p>
+
+                    <h3 id="monedasInicio">50</h3>
+
+                    <p>
+                        Úsalas en la tienda
+                    </p>
+
                 </div>
 
             </div>
@@ -165,56 +227,111 @@ print(nombre)
 
 
         <div class="section-heading">
+
             <div>
-                <p class="eyebrow">TU CAMINO</p>
-                <h2>Continúa aprendiendo</h2>
+
+                <p class="eyebrow">
+                    TU CAMINO
+                </p>
+
+                <h2>
+                    Continúa aprendiendo
+                </h2>
+
             </div>
+
         </div>
 
-        <div id="continueLesson" class="continue-card"></div>
+
+        <div
+            id="continueLesson"
+            class="continue-card"
+        ></div>
 
 
         <div class="section-heading">
+
             <div>
-                <p class="eyebrow">EXPLORA</p>
-                <h2>¿Qué quieres hacer?</h2>
+
+                <p class="eyebrow">
+                    EXPLORA
+                </p>
+
+                <h2>
+                    ¿Qué quieres hacer?
+                </h2>
+
             </div>
+
         </div>
 
 
         <div class="menu-grid">
 
-            <button class="menu-card" onclick="mostrarPagina('niveles')">
+            <button
+                class="menu-card"
+                onclick="mostrarPagina('niveles')"
+            >
                 <span>📚</span>
                 <strong>Aprender</strong>
                 <small>Avanza por niveles</small>
             </button>
 
-            <button class="menu-card" onclick="mostrarPagina('practica')">
+
+            <button
+                class="menu-card"
+                onclick="mostrarPagina('practica')"
+            >
                 <span>🎯</span>
                 <strong>Practicar</strong>
                 <small>Refuerza lo aprendido</small>
             </button>
 
-            <button class="menu-card" onclick="mostrarPagina('laboratorio')">
+
+            <button
+                class="menu-card"
+                onclick="mostrarPagina('laboratorio')"
+            >
                 <span>💻</span>
                 <strong>Laboratorio</strong>
                 <small>Experimenta con Lua</small>
             </button>
 
-            <button class="menu-card" onclick="mostrarPagina('biblioteca')">
+
+            <button
+                class="menu-card"
+                onclick="mostrarPagina('biblioteca')"
+            >
                 <span>📖</span>
                 <strong>Biblioteca</strong>
                 <small>Consulta Lua</small>
             </button>
 
-            <button class="menu-card" onclick="mostrarPagina('logros')">
+
+            <button
+                class="menu-card"
+                onclick="mostrarPagina('amigos')"
+            >
+                <span>👥</span>
+                <strong>Amigos</strong>
+                <small>Aprende con otras personas</small>
+            </button>
+
+
+            <button
+                class="menu-card"
+                onclick="mostrarPagina('logros')"
+            >
                 <span>🏆</span>
                 <strong>Logros</strong>
                 <small>Completa objetivos</small>
             </button>
 
-            <button class="menu-card" onclick="mostrarPagina('tienda')">
+
+            <button
+                class="menu-card"
+                onclick="mostrarPagina('tienda')"
+            >
                 <span>🛒</span>
                 <strong>Tienda</strong>
                 <small>Usa tus monedas</small>
@@ -225,21 +342,32 @@ print(nombre)
     </section>
 
 
-    <!-- NIVELES -->
+    <!-- =====================================================
+         NIVELES
+         ===================================================== -->
 
     <section id="niveles" class="pagina">
 
         <div class="page-header">
 
-            <button class="back-button" onclick="mostrarPagina('inicio')">
+            <button
+                class="back-button"
+                onclick="mostrarPagina('inicio')"
+            >
                 ← Inicio
             </button>
 
-            <p class="eyebrow">TU CAMINO</p>
-            <h2>Ruta de aprendizaje</h2>
+            <p class="eyebrow">
+                TU CAMINO
+            </p>
+
+            <h2>
+                Ruta de aprendizaje
+            </h2>
 
             <p>
-                Completa las lecciones en orden para desbloquear las siguientes.
+                Completa las lecciones en orden para
+                desbloquear las siguientes.
             </p>
 
         </div>
@@ -249,23 +377,37 @@ print(nombre)
     </section>
 
 
-    <!-- LECCIÓN -->
+    <!-- =====================================================
+         LECCIÓN
+         ===================================================== -->
 
     <section id="leccion" class="pagina">
 
         <div class="lesson-header">
 
-            <button class="back-button" onclick="mostrarPagina('niveles')">
+            <button
+                class="back-button"
+                onclick="mostrarPagina('niveles')"
+            >
                 ← Niveles
             </button>
 
             <div>
-                <span id="lessonLevel">Nivel 1</span>
-                <h2 id="lessonTitle">Lección</h2>
+
+                <span id="lessonLevel">
+                    Nivel 1
+                </span>
+
+                <h2 id="lessonTitle">
+                    Lección
+                </h2>
+
             </div>
 
             <div class="lesson-progress">
+
                 <div id="lessonProgressBar"></div>
+
             </div>
 
         </div>
@@ -276,21 +418,32 @@ print(nombre)
     </section>
 
 
-    <!-- PRÁCTICA -->
+    <!-- =====================================================
+         PRÁCTICA
+         ===================================================== -->
 
     <section id="practica" class="pagina">
 
         <div class="page-header">
 
-            <button class="back-button" onclick="mostrarPagina('inicio')">
+            <button
+                class="back-button"
+                onclick="mostrarPagina('inicio')"
+            >
                 ← Inicio
             </button>
 
-            <p class="eyebrow">ENTRENAMIENTO</p>
-            <h2>Práctica</h2>
+            <p class="eyebrow">
+                ENTRENAMIENTO
+            </p>
+
+            <h2>
+                Práctica
+            </h2>
 
             <p>
-                Ejercicios rápidos para reforzar conceptos que ya conoces.
+                Ejercicios rápidos para reforzar conceptos
+                que ya conoces.
             </p>
 
         </div>
@@ -300,21 +453,32 @@ print(nombre)
     </section>
 
 
-    <!-- LABORATORIO -->
+    <!-- =====================================================
+         LABORATORIO
+         ===================================================== -->
 
     <section id="laboratorio" class="pagina">
 
         <div class="page-header">
 
-            <button class="back-button" onclick="mostrarPagina('inicio')">
+            <button
+                class="back-button"
+                onclick="mostrarPagina('inicio')"
+            >
                 ← Inicio
             </button>
 
-            <p class="eyebrow">EXPERIMENTA</p>
-            <h2>Laboratorio de Lua</h2>
+            <p class="eyebrow">
+                EXPERIMENTA
+            </p>
+
+            <h2>
+                Laboratorio de Lua
+            </h2>
 
             <p>
-                Escribe código y observa una simulación de lo que ocurriría.
+                Escribe código y observa una simulación
+                de lo que ocurriría.
             </p>
 
         </div>
@@ -325,14 +489,27 @@ print(nombre)
             <div class="lab-editor-card">
 
                 <div class="editor-header">
+
                     <span>Lua</span>
-                    <button onclick="limpiarEditor()">Limpiar</button>
+
+                    <button onclick="limpiarEditor()">
+                        Limpiar
+                    </button>
+
                 </div>
 
-                <textarea id="luaEditor" spellcheck="false">local nombre = "Angel"
+
+                <textarea
+                    id="luaEditor"
+                    spellcheck="false"
+                >local nombre = "Angel"
 print(nombre)</textarea>
 
-                <button class="primary-button run-button" onclick="ejecutarLaboratorio()">
+
+                <button
+                    class="primary-button run-button"
+                    onclick="ejecutarLaboratorio()"
+                >
                     ▶ Ejecutar
                 </button>
 
@@ -342,8 +519,11 @@ print(nombre)</textarea>
             <div class="lab-output-card">
 
                 <div class="output-header">
+
                     <span>Salida</span>
+
                     <span class="status-dot"></span>
+
                 </div>
 
                 <pre id="labOutput">Aquí aparecerá la salida simulada...</pre>
@@ -355,22 +535,59 @@ print(nombre)</textarea>
 
         <div class="lab-topics">
 
-            <h3>Áreas disponibles</h3>
+            <h3>
+                Áreas disponibles
+            </h3>
 
             <div class="lab-topic-grid">
 
-                <button onclick="insertarEjemplo('variables')">Variables</button>
-                <button onclick="insertarEjemplo('tipos')">Tipos</button>
-                <button onclick="insertarEjemplo('operadores')">Operadores</button>
-                <button onclick="insertarEjemplo('condicionales')">Condicionales</button>
-                <button onclick="insertarEjemplo('bucles')">Bucles</button>
-                <button onclick="insertarEjemplo('funciones')">Funciones</button>
-                <button onclick="insertarEjemplo('tablas')">Tablas</button>
-                <button onclick="insertarEjemplo('strings')">Strings</button>
-                <button onclick="insertarEjemplo('errores')">Errores</button>
-                <button onclick="insertarEjemplo('metatables')">Metatables</button>
-                <button onclick="insertarEjemplo('coroutines')">Coroutines</button>
-                <button onclick="insertarEjemplo('modulos')">Módulos</button>
+                <button onclick="insertarEjemplo('variables')">
+                    Variables
+                </button>
+
+                <button onclick="insertarEjemplo('tipos')">
+                    Tipos
+                </button>
+
+                <button onclick="insertarEjemplo('operadores')">
+                    Operadores
+                </button>
+
+                <button onclick="insertarEjemplo('condicionales')">
+                    Condicionales
+                </button>
+
+                <button onclick="insertarEjemplo('bucles')">
+                    Bucles
+                </button>
+
+                <button onclick="insertarEjemplo('funciones')">
+                    Funciones
+                </button>
+
+                <button onclick="insertarEjemplo('tablas')">
+                    Tablas
+                </button>
+
+                <button onclick="insertarEjemplo('strings')">
+                    Strings
+                </button>
+
+                <button onclick="insertarEjemplo('errores')">
+                    Errores
+                </button>
+
+                <button onclick="insertarEjemplo('metatables')">
+                    Metatables
+                </button>
+
+                <button onclick="insertarEjemplo('coroutines')">
+                    Coroutines
+                </button>
+
+                <button onclick="insertarEjemplo('modulos')">
+                    Módulos
+                </button>
 
             </div>
 
@@ -379,21 +596,32 @@ print(nombre)</textarea>
     </section>
 
 
-    <!-- BIBLIOTECA -->
+    <!-- =====================================================
+         BIBLIOTECA
+         ===================================================== -->
 
     <section id="biblioteca" class="pagina">
 
         <div class="page-header">
 
-            <button class="back-button" onclick="mostrarPagina('inicio')">
+            <button
+                class="back-button"
+                onclick="mostrarPagina('inicio')"
+            >
                 ← Inicio
             </button>
 
-            <p class="eyebrow">REFERENCIA</p>
-            <h2>Biblioteca Lua</h2>
+            <p class="eyebrow">
+                REFERENCIA
+            </p>
+
+            <h2>
+                Biblioteca Lua
+            </h2>
 
             <p>
-                Consulta conceptos y funciones de Lua sin gastar batería.
+                Consulta conceptos y funciones de Lua
+                sin gastar batería.
             </p>
 
         </div>
@@ -408,23 +636,177 @@ print(nombre)</textarea>
         >
 
 
-        <div id="libraryContainer" class="library-grid"></div>
+        <div
+            id="libraryContainer"
+            class="library-grid"
+        ></div>
 
     </section>
 
 
-    <!-- LOGROS -->
+    <!-- =====================================================
+         AMIGOS
+         ===================================================== -->
+
+    <section id="amigos" class="pagina">
+
+        <div class="page-header">
+
+            <button
+                class="back-button"
+                onclick="mostrarPagina('inicio')"
+            >
+                ← Inicio
+            </button>
+
+            <p class="eyebrow">
+                COMUNIDAD
+            </p>
+
+            <h2>
+                Amigos
+            </h2>
+
+            <p>
+                Busca personas, envía solicitudes y
+                aprende junto a ellas.
+            </p>
+
+        </div>
+
+
+        <div class="social-search-card">
+
+            <h3>
+                Buscar usuarios
+            </h3>
+
+            <div class="social-search-row">
+
+                <input
+                    id="userSearch"
+                    class="search-input"
+                    type="search"
+                    placeholder="Escribe un nombre de usuario..."
+                    onkeydown="if(event.key === 'Enter') buscarUsuarios()"
+                >
+
+                <button
+                    class="primary-button"
+                    onclick="buscarUsuarios()"
+                >
+                    Buscar
+                </button>
+
+            </div>
+
+        </div>
+
+
+        <div class="social-section">
+
+            <div class="social-section-heading">
+
+                <h3>
+                    Resultados
+                </h3>
+
+            </div>
+
+            <div
+                id="socialSearchResults"
+                class="social-list"
+            >
+
+                <div class="empty-social">
+                    Busca un usuario para comenzar.
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <div class="social-section">
+
+            <div class="social-section-heading">
+
+                <h3>
+                    Solicitudes recibidas
+                </h3>
+
+                <span id="requestCount">
+                    0
+                </span>
+
+            </div>
+
+            <div
+                id="friendRequests"
+                class="social-list"
+            >
+
+                <div class="empty-social">
+                    No tienes solicitudes pendientes.
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <div class="social-section">
+
+            <div class="social-section-heading">
+
+                <h3>
+                    Mis amigos
+                </h3>
+
+                <span id="friendCount">
+                    0
+                </span>
+
+            </div>
+
+            <div
+                id="friendsList"
+                class="social-list"
+            >
+
+                <div class="empty-social">
+                    Todavía no tienes amigos.
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- =====================================================
+         LOGROS
+         ===================================================== -->
 
     <section id="logros" class="pagina">
 
         <div class="page-header">
 
-            <button class="back-button" onclick="mostrarPagina('inicio')">
+            <button
+                class="back-button"
+                onclick="mostrarPagina('inicio')"
+            >
                 ← Inicio
             </button>
 
-            <p class="eyebrow">COLECCIÓN</p>
-            <h2>Logros</h2>
+            <p class="eyebrow">
+                COLECCIÓN
+            </p>
+
+            <h2>
+                Logros
+            </h2>
 
             <p>
                 Hay 50 logros esperando ser desbloqueados.
@@ -432,26 +814,43 @@ print(nombre)</textarea>
 
         </div>
 
-        <div id="achievementsContainer" class="achievements-grid"></div>
+        <div
+            id="achievementsContainer"
+            class="achievements-grid"
+        ></div>
 
     </section>
 
 
-    <!-- TIENDA -->
+    <!-- =====================================================
+         TIENDA
+         ===================================================== -->
 
     <section id="tienda" class="pagina">
 
         <div class="page-header">
 
-            <button class="back-button" onclick="mostrarPagina('inicio')">
+            <button
+                class="back-button"
+                onclick="mostrarPagina('inicio')"
+            >
                 ← Inicio
             </button>
 
-            <p class="eyebrow">PERSONALIZA</p>
-            <h2>Tienda</h2>
+            <p class="eyebrow">
+                PERSONALIZA
+            </p>
+
+            <h2>
+                Tienda
+            </h2>
 
             <p>
-                Tienes <strong>🪙 <span id="shopCoins">0</span></strong> monedas.
+                Tienes
+                <strong>
+                    🪙 <span id="shopCoins">50</span>
+                </strong>
+                monedas.
             </p>
 
         </div>
@@ -460,31 +859,94 @@ print(nombre)</textarea>
         <div class="shop-grid">
 
             <div class="shop-item">
-                <span class="shop-icon">🔋</span>
-                <h3>Recarga de batería</h3>
-                <p>Recupera 5 puntos de batería.</p>
-                <button onclick="comprar('bateria', 20)">20 🪙</button>
+
+                <span class="shop-icon">
+                    🔋
+                </span>
+
+                <h3>
+                    Recarga de batería
+                </h3>
+
+                <p>
+                    Recupera 5 puntos de batería.
+                </p>
+
+                <button
+                    onclick="comprar('bateria', 20)"
+                >
+                    20 🪙
+                </button>
+
             </div>
 
-            <div class="shop-item">
-                <span class="shop-icon">💡</span>
-                <h3>Pista extra</h3>
-                <p>Consigue una pista adicional hoy.</p>
-                <button onclick="comprar('pista', 30)">30 🪙</button>
-            </div>
 
             <div class="shop-item">
-                <span class="shop-icon">🎯</span>
-                <h3>Práctica extra</h3>
-                <p>Desbloquea una práctica adicional.</p>
-                <button onclick="comprar('practica', 25)">25 🪙</button>
+
+                <span class="shop-icon">
+                    💡
+                </span>
+
+                <h3>
+                    Pista extra
+                </h3>
+
+                <p>
+                    Consigue una pista adicional hoy.
+                </p>
+
+                <button
+                    onclick="comprar('pista', 30)"
+                >
+                    30 🪙
+                </button>
+
             </div>
 
+
             <div class="shop-item">
-                <span class="shop-icon">🎨</span>
-                <h3>Tema azul</h3>
-                <p>Una apariencia alternativa.</p>
-                <button onclick="comprarTema('azul', 100)">100 🪙</button>
+
+                <span class="shop-icon">
+                    🎯
+                </span>
+
+                <h3>
+                    Práctica extra
+                </h3>
+
+                <p>
+                    Desbloquea una práctica adicional.
+                </p>
+
+                <button
+                    onclick="comprar('practica', 25)"
+                >
+                    25 🪙
+                </button>
+
+            </div>
+
+
+            <div class="shop-item">
+
+                <span class="shop-icon">
+                    🎨
+                </span>
+
+                <h3>
+                    Tema azul
+                </h3>
+
+                <p>
+                    Una apariencia alternativa.
+                </p>
+
+                <button
+                    onclick="comprarTema('azul', 100)"
+                >
+                    100 🪙
+                </button>
+
             </div>
 
         </div>
@@ -492,33 +954,52 @@ print(nombre)</textarea>
     </section>
 
 
-    <!-- PERFIL -->
+    <!-- =====================================================
+         PERFIL
+         ===================================================== -->
 
     <section id="perfil" class="pagina">
 
         <div class="page-header">
 
-            <button class="back-button" onclick="mostrarPagina('inicio')">
+            <button
+                class="back-button"
+                onclick="mostrarPagina('inicio')"
+            >
                 ← Inicio
             </button>
 
-            <p class="eyebrow">TU CUENTA</p>
-            <h2>Perfil</h2>
+            <p class="eyebrow">
+                TU CUENTA
+            </p>
+
+            <h2>
+                Perfil
+            </h2>
 
         </div>
 
 
         <div class="profile-card">
 
-            <div class="avatar" id="avatarDisplay">👤</div>
+            <div
+                class="avatar"
+                id="avatarDisplay"
+            >
+                👤
+            </div>
+
 
             <div class="profile-main">
 
-                <h2 id="profileName">Angel</h2>
+                <h2 id="profileName">
+                    Angel
+                </h2>
 
                 <p id="profileTitle">
                     Recién empezando
                 </p>
+
 
                 <div class="profile-stats">
 
@@ -539,7 +1020,7 @@ print(nombre)</textarea>
 
                     <div>
                         <span>Monedas</span>
-                        <strong id="profileCoins">0</strong>
+                        <strong id="profileCoins">50</strong>
                     </div>
 
                 </div>
@@ -552,13 +1033,24 @@ print(nombre)</textarea>
         <div class="profile-progress-card">
 
             <div class="progress-heading">
-                <span>Progreso al siguiente nivel</span>
-                <strong id="profileXPText">0 / 100 EXP</strong>
+
+                <span>
+                    Progreso al siguiente nivel
+                </span>
+
+                <strong id="profileXPText">
+                    0 / 100 EXP
+                </strong>
+
             </div>
 
+
             <div class="big-progress">
+
                 <div id="profileXPBar"></div>
+
             </div>
+
 
             <p id="profileXPRemaining">
                 Te faltan 100 EXP
@@ -569,33 +1061,95 @@ print(nombre)</textarea>
 
         <div class="account-card">
 
-            <h3>Cuenta</h3>
+            <h3>
+                Cuenta LuaDrix
+            </h3>
 
-            <p>
-                Sin cuenta, tu progreso se guarda en este navegador.
+            <p id="accountStatus">
+                Inicia sesión para poder buscar y agregar amigos.
             </p>
 
-            <button class="secondary-button" onclick="simularCuenta()">
-                Crear / iniciar sesión
-            </button>
+
+            <div class="account-form">
+
+                <input
+                    id="accountUsername"
+                    class="search-input"
+                    type="text"
+                    maxlength="20"
+                    placeholder="Nombre de usuario"
+                >
+
+                <input
+                    id="accountEmail"
+                    class="search-input"
+                    type="email"
+                    placeholder="Correo"
+                >
+
+                <input
+                    id="accountPassword"
+                    class="search-input"
+                    type="password"
+                    placeholder="Contraseña"
+                >
+
+
+                <div class="account-buttons">
+
+                    <button
+                        class="primary-button"
+                        onclick="registrarCuenta()"
+                    >
+                        Crear cuenta
+                    </button>
+
+                    <button
+                        class="secondary-button"
+                        onclick="iniciarSesion()"
+                    >
+                        Iniciar sesión
+                    </button>
+
+                    <button
+                        class="secondary-button hidden"
+                        id="logoutButton"
+                        onclick="cerrarSesion()"
+                    >
+                        Cerrar sesión
+                    </button>
+
+                </div>
+
+            </div>
 
         </div>
 
     </section>
 
 
-    <!-- SUGERENCIAS -->
+    <!-- =====================================================
+         SUGERENCIAS
+         ===================================================== -->
 
     <section id="sugerencias" class="pagina">
 
         <div class="page-header">
 
-            <button class="back-button" onclick="mostrarPagina('inicio')">
+            <button
+                class="back-button"
+                onclick="mostrarPagina('inicio')"
+            >
                 ← Inicio
             </button>
 
-            <p class="eyebrow">AYÚDANOS A MEJORAR</p>
-            <h2>Sugerencias</h2>
+            <p class="eyebrow">
+                AYÚDANOS A MEJORAR
+            </p>
+
+            <h2>
+                Sugerencias
+            </h2>
 
             <p>
                 Tus ideas pueden ayudar a mejorar LuaDrix.
@@ -606,20 +1160,46 @@ print(nombre)</textarea>
 
         <div class="suggestion-card">
 
-            <label>Categoría</label>
+            <label>
+                Categoría
+            </label>
 
             <select id="suggestionCategory">
-                <option>Lecciones</option>
-                <option>Ejercicios</option>
-                <option>Laboratorio</option>
-                <option>Diseño</option>
-                <option>Problemas / errores</option>
-                <option>Nuevas funciones</option>
-                <option>Otro</option>
+
+                <option>
+                    Lecciones
+                </option>
+
+                <option>
+                    Ejercicios
+                </option>
+
+                <option>
+                    Laboratorio
+                </option>
+
+                <option>
+                    Diseño
+                </option>
+
+                <option>
+                    Problemas / errores
+                </option>
+
+                <option>
+                    Nuevas funciones
+                </option>
+
+                <option>
+                    Otro
+                </option>
+
             </select>
 
 
-            <label>Tu sugerencia</label>
+            <label>
+                Tu sugerencia
+            </label>
 
             <textarea
                 id="suggestionText"
@@ -627,7 +1207,10 @@ print(nombre)</textarea>
             ></textarea>
 
 
-            <button class="primary-button" onclick="enviarSugerencia()">
+            <button
+                class="primary-button"
+                onclick="enviarSugerencia()"
+            >
                 Enviar sugerencia
             </button>
 
@@ -636,19 +1219,26 @@ print(nombre)</textarea>
     </section>
 
 
-    <!-- DIAGNÓSTICO -->
+    <!-- =====================================================
+         DIAGNÓSTICO
+         ===================================================== -->
 
     <section id="diagnostico" class="pagina">
 
         <div class="diagnostic-container">
 
-            <p class="eyebrow">ANTES DE EMPEZAR</p>
+            <p class="eyebrow">
+                ANTES DE EMPEZAR
+            </p>
 
-            <h2>Vamos a conocerte</h2>
+            <h2>
+                Vamos a conocerte
+            </h2>
 
             <p>
-                Primero responderás unas preguntas sobre tus objetivos.
-                Después haremos una pequeña prueba de Lua.
+                Primero responderás unas preguntas sobre tus
+                objetivos. Después haremos una pequeña prueba
+                de Lua.
             </p>
 
 
@@ -663,9 +1253,13 @@ print(nombre)</textarea>
 
 <footer>
 
-    <strong>LuaDrix</strong>
+    <strong>
+        LuaDrix
+    </strong>
 
-    <span>Aprende Lua en lenguaje humano.</span>
+    <span>
+        Aprende Lua en lenguaje humano.
+    </span>
 
     <button onclick="mostrarPagina('sugerencias')">
         💡 Sugerencias
@@ -676,6 +1270,8 @@ print(nombre)</textarea>
 
 <div id="toastContainer"></div>
 
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
 <script src="script.js"></script>
 
