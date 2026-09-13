@@ -1,22 +1,50 @@
 /* =========================================================
    LUADRIX
    Sistema principal de aprendizaje
-   El laboratorio es una SIMULACIÓN educativa.
    ========================================================= */
+
+
+/* =========================================================
+   SUPABASE
+   ========================================================= */
+
+const SUPABASE_URL =
+    "https://tiwqgwshekjkojpwnksr.supabase.co";
+
+const SUPABASE_PUBLISHABLE_KEY =
+    "sb_publishable_Un40MYviqC42PUNTz9yxEQ_l24N2non";
+
+let supabaseClient = null;
+
+if (
+    window.supabase &&
+    typeof window.supabase.createClient === "function"
+) {
+
+    supabaseClient =
+        window.supabase.createClient(
+            SUPABASE_URL,
+            SUPABASE_PUBLISHABLE_KEY
+        );
+
+}
 
 
 /* =========================================================
    CONFIGURACIÓN
    ========================================================= */
 
-const MAX_BATERIA = 25;
+const MAX_BATERIA = 10;
 
-const BATERIA_REGEN_MS = 55 * 60 * 1000;
+const BATERIA_REGEN_MS =
+    30 * 60 * 1000;
 
 const XP_POR_LECCION = 50;
+
 const XP_POR_RETO = 25;
 
 const MONEDAS_POR_LECCION = 10;
+
 const MONEDAS_POR_RETO = 5;
 
 
@@ -28,40 +56,114 @@ const niveles = [
 
     {
         id: 1,
+
         nombre: "Recién empezando",
+
         descripcion: "Los fundamentos de Lua",
+
         lecciones: [
 
             {
                 id: "1-1",
+
                 titulo: "Tu primer print()",
+
                 concepto: "print",
+
                 teoria: `
                     <h3>Mostrar información</h3>
 
                     <p>
-                        Una de las primeras cosas que puedes hacer en Lua
-                        es mostrar información usando <code>print()</code>.
+                        Una de las primeras cosas que puedes hacer
+                        en Lua es mostrar información usando
+                        <code>print()</code>.
                     </p>
 
                     <pre class="example-code">print("Hola, mundo")</pre>
 
                     <p>
-                        El texto que quieras mostrar se coloca entre comillas
-                        y dentro de los paréntesis.
+                        El texto que quieras mostrar se coloca entre
+                        comillas y dentro de los paréntesis.
                     </p>
                 `,
-                pregunta: "¿Qué función utilizamos para mostrar algo en pantalla?",
-                opciones: ["show()", "print()", "display()", "writeScreen()"],
-                correcta: 1,
-                reto: "Escribe un código que muestre el texto Hola Lua.",
-                validacion: ["print", "Hola Lua"]
+
+                preguntas: [
+
+                    {
+                        pregunta:
+                            "¿Qué función utilizamos para mostrar algo en pantalla?",
+
+                        opciones: [
+                            "show()",
+                            "print()",
+                            "display()",
+                            "writeScreen()"
+                        ],
+
+                        correcta: 1
+                    },
+
+                    {
+                        pregunta:
+                            "¿Qué muestra este código?\n\nprint(\"Hola Lua\")",
+
+                        opciones: [
+                            "El texto Hola Lua",
+                            "Un número",
+                            "Un error",
+                            "Nada"
+                        ],
+
+                        correcta: 0
+                    },
+
+                    {
+                        pregunta:
+                            "¿Cuál está escrito correctamente?",
+
+                        opciones: [
+                            "print Hola",
+                            "print(\"Hola\")",
+                            "print[Hola]",
+                            "print = Hola"
+                        ],
+
+                        correcta: 1
+                    },
+
+                    {
+                        pregunta:
+                            "¿Qué representan las comillas en print(\"Hola\")?",
+
+                        opciones: [
+                            "Un string",
+                            "Una variable",
+                            "Una función",
+                            "Un bucle"
+                        ],
+
+                        correcta: 0
+                    }
+
+                ],
+
+                reto:
+                    "Escribe un código que muestre el texto Hola Lua.",
+
+                validacion: [
+                    "print",
+                    "Hola Lua"
+                ]
             },
+
 
             {
                 id: "1-2",
+
                 titulo: "Variables",
+
                 concepto: "variables",
+
                 teoria: `
                     <h3>Guardar información</h3>
 
@@ -72,27 +174,95 @@ const niveles = [
                     <pre class="example-code">local nombre = "Angel"</pre>
 
                     <p>
-                        <code>local</code> crea una variable local y
-                        <code>=</code> le asigna un valor.
+                        <code>local</code> crea una variable local
+                        y <code>=</code> le asigna un valor.
                     </p>
                 `,
-                pregunta: "¿Qué palabra utilizamos normalmente para crear una variable local?",
-                opciones: ["var", "let", "local", "variable"],
-                correcta: 2,
-                reto: "Crea una variable local llamada nombre con el valor Angel.",
-                validacion: ["local", "nombre", "=", "Angel"]
+
+                preguntas: [
+
+                    {
+                        pregunta:
+                            "¿Qué palabra utilizamos normalmente para crear una variable local?",
+
+                        opciones: [
+                            "var",
+                            "let",
+                            "local",
+                            "variable"
+                        ],
+
+                        correcta: 2
+                    },
+
+                    {
+                        pregunta:
+                            "¿Qué guarda nombre en este ejemplo?\n\nlocal nombre = \"Angel\"",
+
+                        opciones: [
+                            "El texto Angel",
+                            "Una función",
+                            "Un número",
+                            "Nada"
+                        ],
+
+                        correcta: 0
+                    },
+
+                    {
+                        pregunta:
+                            "¿Qué símbolo asigna un valor?",
+
+                        opciones: [
+                            "==",
+                            "=",
+                            ":=",
+                            "=>"
+                        ],
+
+                        correcta: 1
+                    },
+
+                    {
+                        pregunta:
+                            "¿Cuál crea correctamente una variable?",
+
+                        opciones: [
+                            "local edad = 13",
+                            "variable edad 13",
+                            "let edad = 13",
+                            "new edad = 13"
+                        ],
+
+                        correcta: 0
+                    }
+
+                ],
+
+                reto:
+                    "Crea una variable local llamada nombre con el valor Angel.",
+
+                validacion: [
+                    "local",
+                    "nombre",
+                    "=",
+                    "Angel"
+                ]
             },
+
 
             {
                 id: "1-3",
+
                 titulo: "Tipos de datos",
+
                 concepto: "tipos",
+
                 teoria: `
                     <h3>Los tipos de datos</h3>
 
                     <p>
                         Lua tiene distintos tipos de valores.
-                        Algunos importantes son:
                     </p>
 
                     <ul>
@@ -107,17 +277,86 @@ const niveles = [
 local nombre = "Angel"
 local activo = true</pre>
                 `,
-                pregunta: "¿Cuál de estos es un valor booleano?",
-                opciones: ["Hola", "25", "true", "nil"],
-                correcta: 2,
-                reto: "Crea una variable local llamada activo y asígnale true.",
-                validacion: ["local", "activo", "=", "true"]
+
+                preguntas: [
+
+                    {
+                        pregunta:
+                            "¿Cuál de estos es un valor booleano?",
+
+                        opciones: [
+                            "Hola",
+                            "25",
+                            "true",
+                            "nil"
+                        ],
+
+                        correcta: 2
+                    },
+
+                    {
+                        pregunta:
+                            "¿Qué tipo representa texto?",
+
+                        opciones: [
+                            "number",
+                            "string",
+                            "boolean",
+                            "nil"
+                        ],
+
+                        correcta: 1
+                    },
+
+                    {
+                        pregunta:
+                            "¿Qué valor representa ausencia de valor?",
+
+                        opciones: [
+                            "empty",
+                            "none",
+                            "nil",
+                            "void"
+                        ],
+
+                        correcta: 2
+                    },
+
+                    {
+                        pregunta:
+                            "¿Qué tipo representa 25?",
+
+                        opciones: [
+                            "string",
+                            "boolean",
+                            "number",
+                            "table"
+                        ],
+
+                        correcta: 2
+                    }
+
+                ],
+
+                reto:
+                    "Crea una variable local llamada activo y asígnale true.",
+
+                validacion: [
+                    "local",
+                    "activo",
+                    "=",
+                    "true"
+                ]
             },
+
 
             {
                 id: "1-4",
+
                 titulo: "Operadores básicos",
+
                 concepto: "operadores",
+
                 teoria: `
                     <h3>Operaciones</h3>
 
@@ -133,11 +372,78 @@ print(resultado)</pre>
                         Algunos operadores son +, -, *, / y %.
                     </p>
                 `,
-                pregunta: "¿Qué operador utilizamos para multiplicar?",
-                opciones: ["x", "*", "%", "#"],
-                correcta: 1,
-                reto: "Crea una variable resultado que contenga 5 multiplicado por 4.",
-                validacion: ["local", "resultado", "=", "5", "*", "4"]
+
+                preguntas: [
+
+                    {
+                        pregunta:
+                            "¿Qué operador utilizamos para multiplicar?",
+
+                        opciones: [
+                            "x",
+                            "*",
+                            "%",
+                            "#"
+                        ],
+
+                        correcta: 1
+                    },
+
+                    {
+                        pregunta:
+                            "¿Qué operador representa la división?",
+
+                        opciones: [
+                            "/",
+                            ":",
+                            "//",
+                            "\\"
+                        ],
+
+                        correcta: 0
+                    },
+
+                    {
+                        pregunta:
+                            "¿Qué resultado produce 5 + 4?",
+
+                        opciones: [
+                            "1",
+                            "9",
+                            "20",
+                            "54"
+                        ],
+
+                        correcta: 1
+                    },
+
+                    {
+                        pregunta:
+                            "¿Qué operador calcula el resto de una división?",
+
+                        opciones: [
+                            "%",
+                            "&",
+                            "#",
+                            "$"
+                        ],
+
+                        correcta: 0
+                    }
+
+                ],
+
+                reto:
+                    "Crea una variable resultado que contenga 5 multiplicado por 4.",
+
+                validacion: [
+                    "local",
+                    "resultado",
+                    "=",
+                    "5",
+                    "*",
+                    "4"
+                ]
             }
 
         ]
@@ -146,37 +452,114 @@ print(resultado)</pre>
 
     {
         id: 2,
+
         nombre: "Tomando el control",
+
         descripcion: "Condiciones y repetición",
+
         lecciones: [
 
             {
                 id: "2-1",
+
                 titulo: "Condicionales if",
+
                 concepto: "if",
+
                 teoria: `
                     <h3>Tomar decisiones</h3>
 
                     <p>
-                        <code>if</code> permite ejecutar código solamente
-                        cuando una condición es verdadera.
+                        <code>if</code> permite ejecutar código
+                        solamente cuando una condición es verdadera.
                     </p>
 
                     <pre class="example-code">if edad >= 18 then
     print("Adulto")
 end</pre>
                 `,
-                pregunta: "¿Qué palabra termina un bloque if en Lua?",
-                opciones: ["finish", "stop", "end", "endif"],
-                correcta: 2,
-                reto: "Crea un if que compruebe si edad es mayor que 10.",
-                validacion: ["if", "edad", ">", "10", "then", "end"]
+
+                preguntas: [
+
+                    {
+                        pregunta:
+                            "¿Qué palabra inicia un condicional?",
+
+                        opciones: [
+                            "if",
+                            "when",
+                            "check",
+                            "condition"
+                        ],
+
+                        correcta: 0
+                    },
+
+                    {
+                        pregunta:
+                            "¿Qué palabra termina un bloque if?",
+
+                        opciones: [
+                            "finish",
+                            "stop",
+                            "end",
+                            "endif"
+                        ],
+
+                        correcta: 2
+                    },
+
+                    {
+                        pregunta:
+                            "¿Qué palabra aparece después de la condición?",
+
+                        opciones: [
+                            "then",
+                            "do",
+                            "next",
+                            "start"
+                        ],
+
+                        correcta: 0
+                    },
+
+                    {
+                        pregunta:
+                            "¿Qué ocurre si la condición de un if es verdadera?",
+
+                        opciones: [
+                            "Se ejecuta su bloque",
+                            "El programa se detiene",
+                            "Se crea una tabla",
+                            "Se repite automáticamente"
+                        ],
+
+                        correcta: 0
+                    }
+
+                ],
+
+                reto:
+                    "Crea un if que compruebe si edad es mayor que 10.",
+
+                validacion: [
+                    "if",
+                    "edad",
+                    ">",
+                    "10",
+                    "then",
+                    "end"
+                ]
             },
+
 
             {
                 id: "2-2",
+
                 titulo: "else y elseif",
+
                 concepto: "else",
+
                 teoria: `
                     <h3>Más de una posibilidad</h3>
 
@@ -191,22 +574,86 @@ else
     print("Menor")
 end</pre>
                 `,
-                pregunta: "¿Qué ocurre con el bloque else?",
-                opciones: [
-                    "Siempre se ejecuta",
-                    "Se ejecuta si el if no se cumple",
-                    "Crea una variable",
-                    "Repite el código"
+
+                preguntas: [
+
+                    {
+                        pregunta:
+                            "¿Qué ocurre con el bloque else?",
+
+                        opciones: [
+                            "Siempre se ejecuta",
+                            "Se ejecuta si el if no se cumple",
+                            "Crea una variable",
+                            "Repite el código"
+                        ],
+
+                        correcta: 1
+                    },
+
+                    {
+                        pregunta:
+                            "¿Qué palabra representa una alternativa?",
+
+                        opciones: [
+                            "else",
+                            "other",
+                            "alternative",
+                            "otherwise"
+                        ],
+
+                        correcta: 0
+                    },
+
+                    {
+                        pregunta:
+                            "¿Cuál estructura es correcta?",
+
+                        opciones: [
+                            "if x then else end",
+                            "if x else then end",
+                            "if x then else end",
+                            "if x do else finish"
+                        ],
+
+                        correcta: 0
+                    },
+
+                    {
+                        pregunta:
+                            "¿Qué permite elseif?",
+
+                        opciones: [
+                            "Comprobar otra condición",
+                            "Crear una tabla",
+                            "Repetir siempre",
+                            "Cerrar el programa"
+                        ],
+
+                        correcta: 0
+                    }
+
                 ],
-                correcta: 1,
-                reto: "Escribe un if con una condición y un bloque else.",
-                validacion: ["if", "then", "else", "end"]
+
+                reto:
+                    "Escribe un if con una condición y un bloque else.",
+
+                validacion: [
+                    "if",
+                    "then",
+                    "else",
+                    "end"
+                ]
             },
+
 
             {
                 id: "2-3",
+
                 titulo: "Bucle while",
+
                 concepto: "while",
+
                 teoria: `
                     <h3>Repetir mientras</h3>
 
@@ -222,17 +669,88 @@ while numero <= 5 do
     numero = numero + 1
 end</pre>
                 `,
-                pregunta: "¿Qué palabra utilizamos para crear este tipo de bucle?",
-                opciones: ["repeat", "while", "loop", "again"],
-                correcta: 1,
-                reto: "Crea un while que compruebe si numero es menor que 5.",
-                validacion: ["while", "numero", "<", "5", "do", "end"]
+
+                preguntas: [
+
+                    {
+                        pregunta:
+                            "¿Qué palabra crea este tipo de bucle?",
+
+                        opciones: [
+                            "repeat",
+                            "while",
+                            "loop",
+                            "again"
+                        ],
+
+                        correcta: 1
+                    },
+
+                    {
+                        pregunta:
+                            "¿Cuándo continúa un while?",
+
+                        opciones: [
+                            "Mientras su condición sea verdadera",
+                            "Solo una vez",
+                            "Cuando es falsa",
+                            "Nunca"
+                        ],
+
+                        correcta: 0
+                    },
+
+                    {
+                        pregunta:
+                            "¿Qué palabra aparece después de la condición?",
+
+                        opciones: [
+                            "then",
+                            "do",
+                            "go",
+                            "start"
+                        ],
+
+                        correcta: 1
+                    },
+
+                    {
+                        pregunta:
+                            "¿Qué palabra termina el while?",
+
+                        opciones: [
+                            "end",
+                            "stop",
+                            "done",
+                            "until"
+                        ],
+
+                        correcta: 0
+                    }
+
+                ],
+
+                reto:
+                    "Crea un while que compruebe si numero es menor que 5.",
+
+                validacion: [
+                    "while",
+                    "numero",
+                    "<",
+                    "5",
+                    "do",
+                    "end"
+                ]
             },
+
 
             {
                 id: "2-4",
+
                 titulo: "Bucle for",
+
                 concepto: "for",
+
                 teoria: `
                     <h3>Contar repeticiones</h3>
 
@@ -245,11 +763,79 @@ end</pre>
                         cambiando el valor de <code>i</code>.
                     </p>
                 `,
-                pregunta: "¿Qué variable suele utilizarse como contador en un for?",
-                opciones: ["i", "counterOnly", "numberLoop", "forValue"],
-                correcta: 0,
-                reto: "Crea un for que vaya del 1 al 5.",
-                validacion: ["for", "i", "=", "1", "5", "do", "end"]
+
+                preguntas: [
+
+                    {
+                        pregunta:
+                            "¿Qué variable suele utilizarse como contador?",
+
+                        opciones: [
+                            "i",
+                            "counterOnly",
+                            "numberLoop",
+                            "forValue"
+                        ],
+
+                        correcta: 0
+                    },
+
+                    {
+                        pregunta:
+                            "¿Qué palabra crea el bucle?",
+
+                        opciones: [
+                            "for",
+                            "repeat",
+                            "count",
+                            "each"
+                        ],
+
+                        correcta: 0
+                    },
+
+                    {
+                        pregunta:
+                            "¿Qué representa el 1 en for i = 1, 5 do?",
+
+                        opciones: [
+                            "El inicio",
+                            "El final",
+                            "La cantidad de errores",
+                            "El resultado"
+                        ],
+
+                        correcta: 0
+                    },
+
+                    {
+                        pregunta:
+                            "¿Qué representa el 5?",
+
+                        opciones: [
+                            "El inicio",
+                            "El límite final",
+                            "El nombre de la variable",
+                            "El operador"
+                        ],
+
+                        correcta: 1
+                    }
+
+                ],
+
+                reto:
+                    "Crea un for que vaya del 1 al 5.",
+
+                validacion: [
+                    "for",
+                    "i",
+                    "=",
+                    "1",
+                    "5",
+                    "do",
+                    "end"
+                ]
             }
 
         ]
@@ -258,14 +844,20 @@ end</pre>
 
     {
         id: 3,
+
         nombre: "Subiendo de nivel",
+
         descripcion: "Funciones, tablas y strings",
+
         lecciones: [
 
             {
                 id: "3-1",
+
                 titulo: "Funciones",
+
                 concepto: "funciones",
+
                 teoria: `
                     <h3>Crear funciones</h3>
 
@@ -280,17 +872,87 @@ end
 
 saludar()</pre>
                 `,
-                pregunta: "¿Qué palabra utilizamos para declarar una función?",
-                opciones: ["function", "func", "define", "method"],
-                correcta: 0,
-                reto: "Crea una función llamada saludar que imprima Hola.",
-                validacion: ["function", "saludar", "print", "Hola", "end"]
+
+                preguntas: [
+
+                    {
+                        pregunta:
+                            "¿Qué palabra utilizamos para declarar una función?",
+
+                        opciones: [
+                            "function",
+                            "func",
+                            "define",
+                            "method"
+                        ],
+
+                        correcta: 0
+                    },
+
+                    {
+                        pregunta:
+                            "¿Qué palabra termina la función?",
+
+                        opciones: [
+                            "stop",
+                            "end",
+                            "finish",
+                            "close"
+                        ],
+
+                        correcta: 1
+                    },
+
+                    {
+                        pregunta:
+                            "¿Cómo llamamos a saludar?",
+
+                        opciones: [
+                            "run saludar",
+                            "saludar()",
+                            "call saludar",
+                            "execute saludar"
+                        ],
+
+                        correcta: 1
+                    },
+
+                    {
+                        pregunta:
+                            "¿Para qué sirven las funciones?",
+
+                        opciones: [
+                            "Reutilizar instrucciones",
+                            "Solo crear números",
+                            "Solo crear tablas",
+                            "Cerrar bucles"
+                        ],
+
+                        correcta: 0
+                    }
+
+                ],
+
+                reto:
+                    "Crea una función llamada saludar que imprima Hola.",
+
+                validacion: [
+                    "function",
+                    "saludar",
+                    "print",
+                    "Hola",
+                    "end"
+                ]
             },
+
 
             {
                 id: "3-2",
+
                 titulo: "Parámetros y return",
+
                 concepto: "return",
+
                 teoria: `
                     <h3>Funciones con información</h3>
 
@@ -305,23 +967,97 @@ local resultado = sumar(5, 3)</pre>
                         <code>return</code> devuelve un resultado.
                     </p>
                 `,
-                pregunta: "¿Qué palabra devuelve un resultado de una función?",
-                opciones: ["send", "return", "give", "output"],
-                correcta: 1,
-                reto: "Crea una función sumar que reciba a y b y devuelva a + b.",
-                validacion: ["function", "sumar", "a", "b", "return", "a", "+", "b", "end"]
+
+                preguntas: [
+
+                    {
+                        pregunta:
+                            "¿Qué palabra devuelve un resultado?",
+
+                        opciones: [
+                            "send",
+                            "return",
+                            "give",
+                            "output"
+                        ],
+
+                        correcta: 1
+                    },
+
+                    {
+                        pregunta:
+                            "¿Qué son a y b en sumar(a, b)?",
+
+                        opciones: [
+                            "Parámetros",
+                            "Tablas",
+                            "Bucles",
+                            "Strings"
+                        ],
+
+                        correcta: 0
+                    },
+
+                    {
+                        pregunta:
+                            "¿Qué devuelve return a + b?",
+
+                        opciones: [
+                            "La suma",
+                            "El nombre",
+                            "La función completa",
+                            "Nada siempre"
+                        ],
+
+                        correcta: 0
+                    },
+
+                    {
+                        pregunta:
+                            "¿Qué permite un parámetro?",
+
+                        opciones: [
+                            "Recibir información",
+                            "Cerrar una función",
+                            "Crear un comentario",
+                            "Detener Lua"
+                        ],
+
+                        correcta: 0
+                    }
+
+                ],
+
+                reto:
+                    "Crea una función sumar que reciba a y b y devuelva a + b.",
+
+                validacion: [
+                    "function",
+                    "sumar",
+                    "a",
+                    "b",
+                    "return",
+                    "a",
+                    "+",
+                    "b",
+                    "end"
+                ]
             },
+
 
             {
                 id: "3-3",
+
                 titulo: "Tablas",
+
                 concepto: "tablas",
+
                 teoria: `
                     <h3>Las tablas de Lua</h3>
 
                     <p>
-                        Las tablas son una de las estructuras más importantes
-                        de Lua.
+                        Las tablas son una de las estructuras más
+                        importantes de Lua.
                     </p>
 
                     <pre class="example-code">local frutas = {
@@ -332,23 +1068,93 @@ local resultado = sumar(5, 3)</pre>
 
 print(frutas[1])</pre>
                 `,
-                pregunta: "¿Qué estructura utiliza Lua para almacenar colecciones?",
-                opciones: ["arrays solamente", "tables", "lists", "objects"],
-                correcta: 1,
-                reto: "Crea una tabla llamada frutas con al menos una fruta.",
-                validacion: ["local", "frutas", "=", "{"]
+
+                preguntas: [
+
+                    {
+                        pregunta:
+                            "¿Qué estructura utiliza Lua para almacenar colecciones?",
+
+                        opciones: [
+                            "arrays solamente",
+                            "tables",
+                            "lists",
+                            "objects"
+                        ],
+
+                        correcta: 1
+                    },
+
+                    {
+                        pregunta:
+                            "¿Con qué símbolo comienza una tabla?",
+
+                        opciones: [
+                            "[",
+                            "{",
+                            "<",
+                            "("
+                        ],
+
+                        correcta: 1
+                    },
+
+                    {
+                        pregunta:
+                            "¿Qué posición ocupa normalmente el primer elemento?",
+
+                        opciones: [
+                            "0",
+                            "1",
+                            "-1",
+                            "10"
+                        ],
+
+                        correcta: 1
+                    },
+
+                    {
+                        pregunta:
+                            "¿Qué contiene frutas[1] en el ejemplo?",
+
+                        opciones: [
+                            "manzana",
+                            "pera",
+                            "banana",
+                            "nada"
+                        ],
+
+                        correcta: 0
+                    }
+
+                ],
+
+                reto:
+                    "Crea una tabla llamada frutas con al menos una fruta.",
+
+                validacion: [
+                    "local",
+                    "frutas",
+                    "=",
+                    "{"
+                ]
             },
+
 
             {
                 id: "3-4",
+
                 titulo: "Strings",
+
                 concepto: "strings",
+
                 teoria: `
                     <h3>Trabajar con texto</h3>
 
                     <p>
                         Los strings representan texto.
-                        Lua proporciona muchas funciones para trabajar con ellos.
+                        Lua proporciona muchas funciones para trabajar
+                        con ellos.
                     </p>
 
                     <pre class="example-code">local texto = "Hola Lua"
@@ -356,11 +1162,74 @@ print(frutas[1])</pre>
 print(string.len(texto))
 print(string.find(texto, "Lua"))</pre>
                 `,
-                pregunta: "¿Qué biblioteca de Lua contiene funciones para trabajar con strings?",
-                opciones: ["text", "string", "words", "char"],
-                correcta: 1,
-                reto: "Usa string.find para buscar Lua dentro de un texto.",
-                validacion: ["string.find", "Lua"]
+
+                preguntas: [
+
+                    {
+                        pregunta:
+                            "¿Qué biblioteca de Lua contiene funciones para strings?",
+
+                        opciones: [
+                            "text",
+                            "string",
+                            "words",
+                            "char"
+                        ],
+
+                        correcta: 1
+                    },
+
+                    {
+                        pregunta:
+                            "¿Qué función puede buscar texto?",
+
+                        opciones: [
+                            "string.find()",
+                            "string.searchText()",
+                            "find.string()",
+                            "text.find()"
+                        ],
+
+                        correcta: 0
+                    },
+
+                    {
+                        pregunta:
+                            "¿Qué función obtiene la longitud de un string?",
+
+                        opciones: [
+                            "string.len()",
+                            "string.size()",
+                            "string.length()",
+                            "len.string()"
+                        ],
+
+                        correcta: 0
+                    },
+
+                    {
+                        pregunta:
+                            "¿Qué tipo de dato representa \"Hola Lua\"?",
+
+                        opciones: [
+                            "number",
+                            "boolean",
+                            "string",
+                            "table"
+                        ],
+
+                        correcta: 2
+                    }
+
+                ],
+
+                reto:
+                    "Usa string.find para buscar Lua dentro de un texto.",
+
+                validacion: [
+                    "string.find",
+                    "Lua"
+                ]
             }
 
         ]
@@ -369,20 +1238,26 @@ print(string.find(texto, "Lua"))</pre>
 
     {
         id: 4,
+
         nombre: "Programador en progreso",
+
         descripcion: "Bibliotecas y programación más elaborada",
+
         lecciones: [
 
             {
                 id: "4-1",
+
                 titulo: "Biblioteca string",
+
                 concepto: "stringlib",
+
                 teoria: `
                     <h3>Funciones de strings</h3>
 
                     <p>
-                        La biblioteca string permite buscar, transformar
-                        y analizar texto.
+                        La biblioteca string permite buscar,
+                        transformar y analizar texto.
                     </p>
 
                     <pre class="example-code">local texto = "LuaDrix"
@@ -390,17 +1265,83 @@ print(string.find(texto, "Lua"))</pre>
 print(string.upper(texto))
 print(string.lower(texto))</pre>
                 `,
-                pregunta: "¿Qué función convierte un string a mayúsculas?",
-                opciones: ["string.big()", "string.upper()", "string.capital()", "string.max()"],
-                correcta: 1,
-                reto: "Usa string.upper con un texto.",
-                validacion: ["string.upper"]
+
+                preguntas: [
+
+                    {
+                        pregunta:
+                            "¿Qué función convierte un string a mayúsculas?",
+
+                        opciones: [
+                            "string.big()",
+                            "string.upper()",
+                            "string.capital()",
+                            "string.max()"
+                        ],
+
+                        correcta: 1
+                    },
+
+                    {
+                        pregunta:
+                            "¿Qué función convierte un string a minúsculas?",
+
+                        opciones: [
+                            "string.small()",
+                            "string.lower()",
+                            "string.down()",
+                            "string.tolowercase()"
+                        ],
+
+                        correcta: 1
+                    },
+
+                    {
+                        pregunta:
+                            "¿Qué biblioteca estás utilizando?",
+
+                        opciones: [
+                            "table",
+                            "math",
+                            "string",
+                            "io"
+                        ],
+
+                        correcta: 2
+                    },
+
+                    {
+                        pregunta:
+                            "¿Qué hace string.upper(\"lua\")?",
+
+                        opciones: [
+                            "Convierte a mayúsculas",
+                            "Busca lua",
+                            "Elimina lua",
+                            "Cuenta caracteres"
+                        ],
+
+                        correcta: 0
+                    }
+
+                ],
+
+                reto:
+                    "Usa string.upper con un texto.",
+
+                validacion: [
+                    "string.upper"
+                ]
             },
+
 
             {
                 id: "4-2",
+
                 titulo: "Biblioteca table",
+
                 concepto: "tablelib",
+
                 teoria: `
                     <h3>Manipular tablas</h3>
 
@@ -412,20 +1353,87 @@ print(string.lower(texto))</pre>
 table.insert(frutas, "banana")</pre>
 
                     <p>
-                        Las funciones de table permiten modificar y consultar tablas.
+                        Las funciones de table permiten modificar
+                        y consultar tablas.
                     </p>
                 `,
-                pregunta: "¿Qué función sirve para insertar un elemento?",
-                opciones: ["table.add()", "table.insert()", "table.push()", "table.put()"],
-                correcta: 1,
-                reto: "Usa table.insert para agregar un valor a una tabla.",
-                validacion: ["table.insert"]
+
+                preguntas: [
+
+                    {
+                        pregunta:
+                            "¿Qué función sirve para insertar un elemento?",
+
+                        opciones: [
+                            "table.add()",
+                            "table.insert()",
+                            "table.push()",
+                            "table.put()"
+                        ],
+
+                        correcta: 1
+                    },
+
+                    {
+                        pregunta:
+                            "¿Qué biblioteca utilizamos?",
+
+                        opciones: [
+                            "string",
+                            "table",
+                            "list",
+                            "array"
+                        ],
+
+                        correcta: 1
+                    },
+
+                    {
+                        pregunta:
+                            "¿Qué función elimina normalmente un elemento?",
+
+                        opciones: [
+                            "table.delete()",
+                            "table.remove()",
+                            "table.erase()",
+                            "table.destroy()"
+                        ],
+
+                        correcta: 1
+                    },
+
+                    {
+                        pregunta:
+                            "¿Qué hace table.insert?",
+
+                        opciones: [
+                            "Agrega un elemento",
+                            "Cierra una tabla",
+                            "Convierte texto",
+                            "Crea un bucle"
+                        ],
+
+                        correcta: 0
+                    }
+
+                ],
+
+                reto:
+                    "Usa table.insert para agregar un valor a una tabla.",
+
+                validacion: [
+                    "table.insert"
+                ]
             },
+
 
             {
                 id: "4-3",
+
                 titulo: "Módulos",
+
                 concepto: "modulos",
+
                 teoria: `
                     <h3>Separar programas</h3>
 
@@ -436,17 +1444,83 @@ table.insert(frutas, "banana")</pre>
 
                     <pre class="example-code">local modulo = require("miModulo")</pre>
                 `,
-                pregunta: "¿Qué función se utiliza normalmente para cargar un módulo?",
-                opciones: ["load()", "require()", "module()", "import()"],
-                correcta: 1,
-                reto: "Escribe una línea que utilice require.",
-                validacion: ["require"]
+
+                preguntas: [
+
+                    {
+                        pregunta:
+                            "¿Qué función se utiliza normalmente para cargar un módulo?",
+
+                        opciones: [
+                            "load()",
+                            "require()",
+                            "module()",
+                            "import()"
+                        ],
+
+                        correcta: 1
+                    },
+
+                    {
+                        pregunta:
+                            "¿Qué permite un módulo?",
+
+                        opciones: [
+                            "Separar código",
+                            "Solo hacer números",
+                            "Solo imprimir",
+                            "Eliminar variables"
+                        ],
+
+                        correcta: 0
+                    },
+
+                    {
+                        pregunta:
+                            "¿Cuál es una llamada válida?",
+
+                        opciones: [
+                            "require(\"miModulo\")",
+                            "import Lua",
+                            "load module",
+                            "module.require"
+                        ],
+
+                        correcta: 0
+                    },
+
+                    {
+                        pregunta:
+                            "¿Qué palabra aparece en require(\"miModulo\")?",
+
+                        opciones: [
+                            "load",
+                            "require",
+                            "include",
+                            "use"
+                        ],
+
+                        correcta: 1
+                    }
+
+                ],
+
+                reto:
+                    "Escribe una línea que utilice require.",
+
+                validacion: [
+                    "require"
+                ]
             },
+
 
             {
                 id: "4-4",
+
                 titulo: "Errores",
+
                 concepto: "errores",
+
                 teoria: `
                     <h3>Cuando algo sale mal</h3>
 
@@ -460,16 +1534,73 @@ table.insert(frutas, "banana")</pre>
     return 10
 end)</pre>
                 `,
-                pregunta: "¿Para qué sirve pcall?",
-                opciones: [
-                    "Para crear tablas",
-                    "Para ejecutar código protegido contra errores",
-                    "Para hacer bucles",
-                    "Para imprimir texto"
+
+                preguntas: [
+
+                    {
+                        pregunta:
+                            "¿Para qué sirve pcall?",
+
+                        opciones: [
+                            "Para crear tablas",
+                            "Para ejecutar código protegido contra errores",
+                            "Para hacer bucles",
+                            "Para imprimir texto"
+                        ],
+
+                        correcta: 1
+                    },
+
+                    {
+                        pregunta:
+                            "¿Qué biblioteca especial necesita pcall?",
+
+                        opciones: [
+                            "No necesita una biblioteca",
+                            "table",
+                            "errorlib",
+                            "safe"
+                        ],
+
+                        correcta: 0
+                    },
+
+                    {
+                        pregunta:
+                            "¿Qué puede devolver pcall?",
+
+                        opciones: [
+                            "Un estado de éxito y resultados",
+                            "Solo texto",
+                            "Solo una tabla",
+                            "Siempre nil"
+                        ],
+
+                        correcta: 0
+                    },
+
+                    {
+                        pregunta:
+                            "¿Qué intenta evitar pcall?",
+
+                        opciones: [
+                            "Que un error detenga directamente la ejecución protegida",
+                            "Que existan variables",
+                            "Que haya funciones",
+                            "Que existan strings"
+                        ],
+
+                        correcta: 0
+                    }
+
                 ],
-                correcta: 1,
-                reto: "Escribe una llamada a pcall.",
-                validacion: ["pcall"]
+
+                reto:
+                    "Escribe una llamada a pcall.",
+
+                validacion: [
+                    "pcall"
+                ]
             }
 
         ]
@@ -478,14 +1609,20 @@ end)</pre>
 
     {
         id: 5,
+
         nombre: "Programador intermedio",
+
         descripcion: "Archivos, matemáticas y control avanzado",
+
         lecciones: [
 
             {
                 id: "5-1",
+
                 titulo: "Biblioteca math",
+
                 concepto: "math",
+
                 teoria: `
                     <h3>Matemáticas</h3>
 
@@ -497,17 +1634,83 @@ end)</pre>
 print(math.ceil(4.2))
 print(math.abs(-10))</pre>
                 `,
-                pregunta: "¿Qué biblioteca contiene funciones matemáticas?",
-                opciones: ["number", "math", "calc", "numeric"],
-                correcta: 1,
-                reto: "Usa math.floor con un número decimal.",
-                validacion: ["math.floor"]
+
+                preguntas: [
+
+                    {
+                        pregunta:
+                            "¿Qué biblioteca contiene funciones matemáticas?",
+
+                        opciones: [
+                            "number",
+                            "math",
+                            "calc",
+                            "numeric"
+                        ],
+
+                        correcta: 1
+                    },
+
+                    {
+                        pregunta:
+                            "¿Qué hace math.floor()?",
+
+                        opciones: [
+                            "Redondea hacia abajo",
+                            "Redondea hacia arriba",
+                            "Convierte a string",
+                            "Calcula una tabla"
+                        ],
+
+                        correcta: 0
+                    },
+
+                    {
+                        pregunta:
+                            "¿Qué hace math.ceil()?",
+
+                        opciones: [
+                            "Redondea hacia abajo",
+                            "Redondea hacia arriba",
+                            "Elimina decimales sin redondear",
+                            "Busca texto"
+                        ],
+
+                        correcta: 1
+                    },
+
+                    {
+                        pregunta:
+                            "¿Qué función obtiene el valor absoluto?",
+
+                        opciones: [
+                            "math.abs()",
+                            "math.absolute()",
+                            "math.positive()",
+                            "math.value()"
+                        ],
+
+                        correcta: 0
+                    }
+
+                ],
+
+                reto:
+                    "Usa math.floor con un número decimal.",
+
+                validacion: [
+                    "math.floor"
+                ]
             },
+
 
             {
                 id: "5-2",
+
                 titulo: "Archivos",
+
                 concepto: "io",
+
                 teoria: `
                     <h3>Entrada y salida</h3>
 
@@ -518,17 +1721,83 @@ print(math.abs(-10))</pre>
 
                     <pre class="example-code">local archivo = io.open("datos.txt", "r")</pre>
                 `,
-                pregunta: "¿Qué biblioteca está relacionada con entrada y salida?",
-                opciones: ["io", "input", "file", "stream"],
-                correcta: 0,
-                reto: "Escribe una llamada a io.open.",
-                validacion: ["io.open"]
+
+                preguntas: [
+
+                    {
+                        pregunta:
+                            "¿Qué biblioteca está relacionada con entrada y salida?",
+
+                        opciones: [
+                            "io",
+                            "input",
+                            "file",
+                            "stream"
+                        ],
+
+                        correcta: 0
+                    },
+
+                    {
+                        pregunta:
+                            "¿Qué función abre un archivo?",
+
+                        opciones: [
+                            "io.open()",
+                            "io.file()",
+                            "file.open()",
+                            "open.io()"
+                        ],
+
+                        correcta: 0
+                    },
+
+                    {
+                        pregunta:
+                            "¿Qué representa \"r\" normalmente?",
+
+                        opciones: [
+                            "Lectura",
+                            "Borrado",
+                            "Ejecución",
+                            "Repetición"
+                        ],
+
+                        correcta: 0
+                    },
+
+                    {
+                        pregunta:
+                            "¿Qué biblioteca usamos con io.open?",
+
+                        opciones: [
+                            "math",
+                            "io",
+                            "table",
+                            "string"
+                        ],
+
+                        correcta: 1
+                    }
+
+                ],
+
+                reto:
+                    "Escribe una llamada a io.open.",
+
+                validacion: [
+                    "io.open"
+                ]
             },
+
 
             {
                 id: "5-3",
+
                 titulo: "Metatables",
+
                 concepto: "metatables",
+
                 teoria: `
                     <h3>Modificar el comportamiento de tablas</h3>
 
@@ -541,23 +1810,89 @@ print(math.abs(-10))</pre>
 
 setmetatable(persona, {})</pre>
                 `,
-                pregunta: "¿Qué función asigna una metatable a una tabla?",
-                opciones: ["setmetatable()", "settable()", "metatable()", "tablemeta()"],
-                correcta: 0,
-                reto: "Usa setmetatable con una tabla.",
-                validacion: ["setmetatable"]
+
+                preguntas: [
+
+                    {
+                        pregunta:
+                            "¿Qué función asigna una metatable a una tabla?",
+
+                        opciones: [
+                            "setmetatable()",
+                            "settable()",
+                            "metatable()",
+                            "tablemeta()"
+                        ],
+
+                        correcta: 0
+                    },
+
+                    {
+                        pregunta:
+                            "¿Qué estructura suele recibir una metatable?",
+
+                        opciones: [
+                            "Una tabla",
+                            "Solo un número",
+                            "Solo un string",
+                            "Un comentario"
+                        ],
+
+                        correcta: 0
+                    },
+
+                    {
+                        pregunta:
+                            "¿Para qué sirven las metatables?",
+
+                        opciones: [
+                            "Definir comportamientos especiales",
+                            "Solo imprimir",
+                            "Solo hacer bucles",
+                            "Solo crear strings"
+                        ],
+
+                        correcta: 0
+                    },
+
+                    {
+                        pregunta:
+                            "¿Qué función obtiene una metatable?",
+
+                        opciones: [
+                            "getmetatable()",
+                            "readmetatable()",
+                            "table.get()",
+                            "metatable.get()"
+                        ],
+
+                        correcta: 0
+                    }
+
+                ],
+
+                reto:
+                    "Usa setmetatable con una tabla.",
+
+                validacion: [
+                    "setmetatable"
+                ]
             },
+
 
             {
                 id: "5-4",
+
                 titulo: "Metamétodos",
+
                 concepto: "metamethods",
+
                 teoria: `
                     <h3>Operadores personalizados</h3>
 
                     <p>
-                        Los metamétodos permiten cambiar cómo Lua interpreta
-                        ciertas operaciones sobre tablas.
+                        Los metamétodos permiten cambiar cómo Lua
+                        interpreta ciertas operaciones sobre tablas.
                     </p>
 
                     <pre class="example-code">__add
@@ -565,11 +1900,73 @@ __sub
 __eq
 __tostring</pre>
                 `,
-                pregunta: "¿Qué metamétodo está relacionado con la suma?",
-                opciones: ["__sum", "__plus", "__add", "__math"],
-                correcta: 2,
-                reto: "Escribe el nombre del metamétodo utilizado para la suma.",
-                validacion: ["__add"]
+
+                preguntas: [
+
+                    {
+                        pregunta:
+                            "¿Qué metamétodo está relacionado con la suma?",
+
+                        opciones: [
+                            "__sum",
+                            "__plus",
+                            "__add",
+                            "__math"
+                        ],
+
+                        correcta: 2
+                    },
+
+                    {
+                        pregunta:
+                            "¿Qué metamétodo está relacionado con igualdad?",
+
+                        opciones: [
+                            "__same",
+                            "__eq",
+                            "__equal",
+                            "__equals"
+                        ],
+
+                        correcta: 1
+                    },
+
+                    {
+                        pregunta:
+                            "¿Qué metamétodo está relacionado con convertir a texto?",
+
+                        opciones: [
+                            "__text",
+                            "__string",
+                            "__tostring",
+                            "__convert"
+                        ],
+
+                        correcta: 2
+                    },
+
+                    {
+                        pregunta:
+                            "¿Con qué operador se relaciona __sub?",
+
+                        opciones: [
+                            "+",
+                            "-",
+                            "*",
+                            "/"
+                        ],
+
+                        correcta: 1
+                    }
+
+                ],
+
+                reto:
+                    "Escribe el nombre del metamétodo utilizado para la suma.",
+
+                validacion: [
+                    "__add"
+                ]
             }
 
         ]
@@ -578,14 +1975,20 @@ __tostring</pre>
 
     {
         id: 6,
+
         nombre: "Programador avanzado",
+
         descripcion: "Coroutines y conceptos avanzados",
+
         lecciones: [
 
             {
                 id: "6-1",
+
                 titulo: "Coroutines",
+
                 concepto: "coroutines",
+
                 teoria: `
                     <h3>Coroutines</h3>
 
@@ -600,79 +2003,339 @@ end)
 
 coroutine.resume(co)</pre>
                 `,
-                pregunta: "¿Qué biblioteca contiene las funciones de coroutines?",
-                opciones: ["thread", "coroutine", "process", "async"],
-                correcta: 1,
-                reto: "Crea una coroutine usando coroutine.create.",
-                validacion: ["coroutine.create"]
+
+                preguntas: [
+
+                    {
+                        pregunta:
+                            "¿Qué biblioteca contiene las coroutines?",
+
+                        opciones: [
+                            "coroutine",
+                            "thread",
+                            "task",
+                            "process"
+                        ],
+
+                        correcta: 0
+                    },
+
+                    {
+                        pregunta:
+                            "¿Qué función crea una coroutine?",
+
+                        opciones: [
+                            "coroutine.create()",
+                            "coroutine.new()",
+                            "create.coroutine()",
+                            "thread.create()"
+                        ],
+
+                        correcta: 0
+                    },
+
+                    {
+                        pregunta:
+                            "¿Qué función continúa una coroutine?",
+
+                        opciones: [
+                            "coroutine.resume()",
+                            "coroutine.start()",
+                            "coroutine.continue()",
+                            "coroutine.run()"
+                        ],
+
+                        correcta: 0
+                    },
+
+                    {
+                        pregunta:
+                            "¿Qué ventaja tienen las coroutines?",
+
+                        opciones: [
+                            "Pueden suspenderse y continuar",
+                            "Eliminan las variables",
+                            "Solo sirven para strings",
+                            "Reemplazan todas las funciones"
+                        ],
+
+                        correcta: 0
+                    }
+
+                ],
+
+                reto:
+                    "Crea una coroutine y utiliza coroutine.resume.",
+
+                validacion: [
+                    "coroutine.create",
+                    "coroutine.resume"
+                ]
             },
+
 
             {
                 id: "6-2",
-                titulo: "yield",
+
+                titulo: "coroutine.yield()",
+
                 concepto: "yield",
+
                 teoria: `
-                    <h3>Suspender una coroutine</h3>
+                    <h3>Pausar una coroutine</h3>
 
                     <p>
                         <code>coroutine.yield()</code> permite suspender
                         temporalmente una coroutine.
                     </p>
 
-                    <pre class="example-code">coroutine.yield()</pre>
+                    <pre class="example-code">local co = coroutine.create(function()
+    print("Antes")
+    coroutine.yield()
+    print("Después")
+end)</pre>
                 `,
-                pregunta: "¿Qué función permite suspender una coroutine?",
-                opciones: ["coroutine.stop()", "coroutine.pause()", "coroutine.yield()", "yield()"],
-                correcta: 2,
-                reto: "Escribe coroutine.yield().",
-                validacion: ["coroutine.yield"]
+
+                preguntas: [
+
+                    {
+                        pregunta:
+                            "¿Qué función pausa una coroutine?",
+
+                        opciones: [
+                            "coroutine.pause()",
+                            "coroutine.yield()",
+                            "coroutine.stop()",
+                            "coroutine.wait()"
+                        ],
+
+                        correcta: 1
+                    },
+
+                    {
+                        pregunta:
+                            "¿En qué biblioteca está yield?",
+
+                        opciones: [
+                            "task",
+                            "coroutine",
+                            "pause",
+                            "thread"
+                        ],
+
+                        correcta: 1
+                    },
+
+                    {
+                        pregunta:
+                            "¿Qué puede ocurrir después de yield?",
+
+                        opciones: [
+                            "La coroutine puede continuar posteriormente",
+                            "Lua se desinstala",
+                            "Se borra la función",
+                            "Se crea automáticamente una tabla"
+                        ],
+
+                        correcta: 0
+                    },
+
+                    {
+                        pregunta:
+                            "¿Qué concepto representa yield?",
+
+                        opciones: [
+                            "Suspensión temporal",
+                            "Multiplicación",
+                            "Conversión de texto",
+                            "Lectura de archivos"
+                        ],
+
+                        correcta: 0
+                    }
+
+                ],
+
+                reto:
+                    "Escribe una llamada a coroutine.yield().",
+
+                validacion: [
+                    "coroutine.yield"
+                ]
             },
+
 
             {
                 id: "6-3",
+
                 titulo: "Garbage Collector",
+
                 concepto: "gc",
+
                 teoria: `
-                    <h3>Recolección de basura</h3>
+                    <h3>Recolector de basura</h3>
 
                     <p>
-                        Lua administra automáticamente memoria mediante
-                        su recolector de basura.
+                        Lua tiene un recolector de basura que administra
+                        memoria de objetos que ya no son necesarios.
                     </p>
 
                     <pre class="example-code">collectgarbage()</pre>
                 `,
-                pregunta: "¿Qué función permite interactuar con el garbage collector?",
-                opciones: ["memory()", "collectgarbage()", "gc()", "free()"],
-                correcta: 1,
-                reto: "Escribe una llamada a collectgarbage.",
-                validacion: ["collectgarbage"]
+
+                preguntas: [
+
+                    {
+                        pregunta:
+                            "¿Qué función está relacionada con el recolector de basura?",
+
+                        opciones: [
+                            "collectgarbage()",
+                            "garbage.collect()",
+                            "memory.clean()",
+                            "gc.clean()"
+                        ],
+
+                        correcta: 0
+                    },
+
+                    {
+                        pregunta:
+                            "¿Qué administra el garbage collector?",
+
+                        opciones: [
+                            "Memoria",
+                            "Strings únicamente",
+                            "Teclado",
+                            "Pantalla"
+                        ],
+
+                        correcta: 0
+                    },
+
+                    {
+                        pregunta:
+                            "¿Qué biblioteca especial necesitas para collectgarbage()?",
+
+                        opciones: [
+                            "No necesita una biblioteca",
+                            "gc",
+                            "memory",
+                            "system"
+                        ],
+
+                        correcta: 0
+                    },
+
+                    {
+                        pregunta:
+                            "¿Qué significa GC?",
+
+                        opciones: [
+                            "Garbage Collector",
+                            "Game Controller",
+                            "Global Code",
+                            "General Coroutine"
+                        ],
+
+                        correcta: 0
+                    }
+
+                ],
+
+                reto:
+                    "Escribe una llamada a collectgarbage().",
+
+                validacion: [
+                    "collectgarbage"
+                ]
             },
+
 
             {
                 id: "6-4",
-                titulo: "debug y conceptos expertos",
+
+                titulo: "Depuración con debug",
+
                 concepto: "debug",
+
                 teoria: `
-                    <h3>Herramientas avanzadas</h3>
+                    <h3>Depurar programas</h3>
 
                     <p>
-                        Lua incluye una biblioteca debug para operaciones
-                        avanzadas relacionadas con depuración y ejecución.
+                        La biblioteca <code>debug</code> contiene herramientas
+                        útiles para analizar la ejecución de un programa.
                     </p>
 
-                    <pre class="example-code">debug.traceback()</pre>
-
-                    <p>
-                        Este tipo de herramientas pertenece a las partes
-                        más avanzadas del lenguaje.
-                    </p>
+                    <pre class="example-code">print(debug.traceback())</pre>
                 `,
-                pregunta: "¿Qué biblioteca está relacionada con herramientas de depuración?",
-                opciones: ["debug", "errorTools", "inspect", "developer"],
-                correcta: 0,
-                reto: "Escribe una llamada a debug.traceback().",
-                validacion: ["debug.traceback"]
+
+                preguntas: [
+
+                    {
+                        pregunta:
+                            "¿Qué biblioteca se utiliza para herramientas de depuración?",
+
+                        opciones: [
+                            "debug",
+                            "error",
+                            "trace",
+                            "inspect"
+                        ],
+
+                        correcta: 0
+                    },
+
+                    {
+                        pregunta:
+                            "¿Qué función construye información de seguimiento?",
+
+                        opciones: [
+                            "debug.traceback()",
+                            "debug.track()",
+                            "debug.follow()",
+                            "debug.stacktrace()"
+                        ],
+
+                        correcta: 0
+                    },
+
+                    {
+                        pregunta:
+                            "¿Para qué sirve la depuración?",
+
+                        opciones: [
+                            "Ayudar a encontrar problemas",
+                            "Crear imágenes",
+                            "Eliminar Lua",
+                            "Solo crear tablas"
+                        ],
+
+                        correcta: 0
+                    },
+
+                    {
+                        pregunta:
+                            "¿Qué palabra aparece en debug.traceback()?",
+
+                        opciones: [
+                            "traceback",
+                            "track",
+                            "error",
+                            "follow"
+                        ],
+
+                        correcta: 0
+                    }
+
+                ],
+
+                reto:
+                    "Escribe una llamada a debug.traceback().",
+
+                validacion: [
+                    "debug.traceback"
+                ]
             }
 
         ]
@@ -693,6 +2356,8 @@ function estadoInicial() {
     return {
 
         nombre: "Angel",
+
+        username: "",
 
         xp: 0,
 
@@ -728,7 +2393,17 @@ function estadoInicial() {
 
         pistaUsadaHoy: false,
 
-        practicaUsadaHoy: false
+        practicaUsadaHoy: false,
+
+        labUsos: 0,
+
+        practicas: 0,
+
+        bibliotecaVisitada: false,
+
+        sugerenciasEnviadas: 0,
+
+        modoOscuro: false
 
     };
 
@@ -737,19 +2412,37 @@ function estadoInicial() {
 
 function cargarEstado() {
 
-    const guardado = localStorage.getItem("luaDrixEstado");
+    const guardado =
+        localStorage.getItem(
+            "luaDrixEstado"
+        );
+
 
     if (!guardado) {
+
         return estadoInicial();
+
     }
+
 
     try {
 
-        const viejo = JSON.parse(guardado);
+        const viejo =
+            JSON.parse(guardado);
+
 
         return {
+
             ...estadoInicial(),
-            ...viejo
+
+            ...viejo,
+
+            bateria:
+                Math.min(
+                    MAX_BATERIA,
+                    Number(viejo.bateria ?? MAX_BATERIA)
+                )
+
         };
 
     } catch {
@@ -772,7 +2465,7 @@ function guardarEstado() {
 
 
 /* =========================================================
-   NIVELES / XP
+   NIVEL / XP
    ========================================================= */
 
 function obtenerNivel(xp = estado.xp) {
@@ -792,9 +2485,13 @@ function xpNivelActual() {
 function tituloNivel(nivel) {
 
     if (nivel >= 25) return "Maestro de Lua";
+
     if (nivel >= 20) return "Experto de Lua";
+
     if (nivel >= 15) return "Programador avanzado";
+
     if (nivel >= 10) return "Programador experto";
+
     if (nivel >= 5) return "Programador en progreso";
 
     return "Recién empezando";
@@ -804,35 +2501,70 @@ function tituloNivel(nivel) {
 
 function actualizarXP() {
 
-    const nivel = obtenerNivel();
+    const nivel =
+        obtenerNivel();
 
-    document.querySelectorAll("#nivelTop, #nivelInicio, #profileLevel")
-        .forEach(el => el.textContent = nivel);
 
-    document.getElementById("tituloNivelInicio").textContent =
+    document
+        .querySelectorAll(
+            "#nivelTop, #nivelInicio, #profileLevel"
+        )
+        .forEach(
+            el => el.textContent = nivel
+        );
+
+
+    document.getElementById(
+        "tituloNivelInicio"
+    ).textContent =
         tituloNivel(nivel);
 
-    document.getElementById("profileTitle").textContent =
+
+    document.getElementById(
+        "profileTitle"
+    ).textContent =
         tituloNivel(nivel);
 
-    document.getElementById("profileXP").textContent =
+
+    document.getElementById(
+        "profileXP"
+    ).textContent =
         estado.xp;
 
-    const actual = xpNivelActual();
 
-    document.getElementById("xpTextoInicio").textContent =
+    const actual =
+        xpNivelActual();
+
+
+    document.getElementById(
+        "xpTextoInicio"
+    ).textContent =
         `${actual} / 100 EXP`;
 
-    document.getElementById("profileXPText").textContent =
+
+    document.getElementById(
+        "profileXPText"
+    ).textContent =
         `${actual} / 100 EXP`;
 
-    document.getElementById("profileXPRemaining").textContent =
-        `Te faltan ${100 - actual} EXP`;
 
-    document.getElementById("xpBarInicio").style.width =
+    document.getElementById(
+        "profileXPRemaining"
+    ).textContent =
+        actual === 0
+            ? "Te faltan 100 EXP"
+            : `Te faltan ${100 - actual} EXP`;
+
+
+    document.getElementById(
+        "xpBarInicio"
+    ).style.width =
         `${actual}%`;
 
-    document.getElementById("profileXPBar").style.width =
+
+    document.getElementById(
+        "profileXPBar"
+    ).style.width =
         `${actual}%`;
 
 }
@@ -844,23 +2576,35 @@ function actualizarXP() {
 
 function actualizarBateria() {
 
-    const ahora = Date.now();
+    const ahora =
+        Date.now();
+
 
     if (estado.bateria < MAX_BATERIA) {
 
         const transcurrido =
             ahora - estado.ultimaRecarga;
 
+
         const puntos =
-            Math.floor(transcurrido / BATERIA_REGEN_MS);
+            Math.floor(
+                transcurrido /
+                BATERIA_REGEN_MS
+            );
+
 
         if (puntos > 0) {
 
             estado.bateria =
-                Math.min(MAX_BATERIA, estado.bateria + puntos);
+                Math.min(
+                    MAX_BATERIA,
+                    estado.bateria + puntos
+                );
+
 
             estado.ultimaRecarga +=
                 puntos * BATERIA_REGEN_MS;
+
 
             guardarEstado();
 
@@ -868,35 +2612,60 @@ function actualizarBateria() {
 
     } else {
 
-        estado.ultimaRecarga = ahora;
+        estado.ultimaRecarga =
+            ahora;
 
     }
 
 
-    document.querySelectorAll(
-        "#bateriaTop, #bateriaInicio"
-    ).forEach(el => {
+    document
+        .querySelectorAll(
+            "#bateriaTop, #bateriaInicio"
+        )
+        .forEach(
+            el =>
+                el.textContent =
+                    estado.bateria
+        );
 
-        el.textContent = estado.bateria;
 
-    });
+    const recarga =
+        document.getElementById(
+            "recargaTexto"
+        );
 
 
-    if (estado.bateria >= MAX_BATERIA) {
+    if (!recarga) return;
 
-        document.getElementById("recargaTexto").textContent =
+
+    if (
+        estado.bateria >=
+        MAX_BATERIA
+    ) {
+
+        recarga.textContent =
             "Batería completa";
 
     } else {
 
         const restante =
             BATERIA_REGEN_MS -
-            (Date.now() - estado.ultimaRecarga);
+            (
+                Date.now() -
+                estado.ultimaRecarga
+            );
+
 
         const minutos =
-            Math.max(0, Math.ceil(restante / 60000));
+            Math.max(
+                0,
+                Math.ceil(
+                    restante / 60000
+                )
+            );
 
-        document.getElementById("recargaTexto").textContent =
+
+        recarga.textContent =
             `+1 batería en ${minutos} min`;
 
     }
@@ -908,19 +2677,35 @@ function gastarBateria(cantidad = 1) {
 
     actualizarBateria();
 
-    if (estado.bateria < cantidad) {
 
-        mostrarToast("No tienes suficiente batería.");
+    if (
+        estado.bateria <
+        cantidad
+    ) {
+
+        mostrarToast(
+            "No tienes suficiente batería."
+        );
 
         return false;
 
     }
 
-    estado.bateria -= cantidad;
 
-    if (estado.bateria < MAX_BATERIA) {
-        estado.ultimaRecarga = Date.now();
+    estado.bateria -=
+        cantidad;
+
+
+    if (
+        estado.bateria <
+        MAX_BATERIA
+    ) {
+
+        estado.ultimaRecarga =
+            Date.now();
+
     }
+
 
     guardarEstado();
 
@@ -937,13 +2722,15 @@ function gastarBateria(cantidad = 1) {
 
 function actualizarMonedas() {
 
-    document.querySelectorAll(
-        "#monedasTop, #monedasInicio, #profileCoins, #shopCoins"
-    ).forEach(el => {
-
-        el.textContent = estado.monedas;
-
-    });
+    document
+        .querySelectorAll(
+            "#monedasTop, #monedasInicio, #profileCoins, #shopCoins"
+        )
+        .forEach(
+            el =>
+                el.textContent =
+                    estado.monedas
+        );
 
 }
 
@@ -954,12 +2741,22 @@ function actualizarMonedas() {
 
 function fechaLocal() {
 
-    const ahora = new Date();
+    const ahora =
+        new Date();
+
 
     return [
+
         ahora.getFullYear(),
-        String(ahora.getMonth() + 1).padStart(2, "0"),
-        String(ahora.getDate()).padStart(2, "0")
+
+        String(
+            ahora.getMonth() + 1
+        ).padStart(2, "0"),
+
+        String(
+            ahora.getDate()
+        ).padStart(2, "0")
+
     ].join("-");
 
 }
@@ -967,31 +2764,43 @@ function fechaLocal() {
 
 function actualizarRacha() {
 
-    const hoy = fechaLocal();
+    const hoy =
+        fechaLocal();
 
-    document.querySelectorAll(
-        "#rachaTop, #rachaInicio, #profileStreak"
-    ).forEach(el => {
 
-        el.textContent = estado.racha;
+    document
+        .querySelectorAll(
+            "#rachaTop, #rachaInicio, #profileStreak"
+        )
+        .forEach(
+            el =>
+                el.textContent =
+                    estado.racha
+        );
 
-    });
 
-    if (!estado.ultimoDia) {
-        return;
-    }
+    if (!estado.ultimoDia) return;
 
-    if (estado.ultimoDia === hoy) {
-        return;
-    }
 
-    const ultima = new Date(
-        estado.ultimoDia + "T00:00:00"
-    );
+    if (
+        estado.ultimoDia ===
+        hoy
+    ) return;
 
-    const actual = new Date(
-        hoy + "T00:00:00"
-    );
+
+    const ultima =
+        new Date(
+            estado.ultimoDia +
+            "T00:00:00"
+        );
+
+
+    const actual =
+        new Date(
+            hoy +
+            "T00:00:00"
+        );
+
 
     const diferencia =
         Math.round(
@@ -999,23 +2808,28 @@ function actualizarRacha() {
             86400000
         );
 
-    if (diferencia > 1) {
 
-        if (estado.protectores > 0) {
+    if (
+        diferencia > 1 &&
+        estado.protectores > 0
+    ) {
 
-            estado.protectores--;
+        estado.protectores--;
 
-            estado.ultimoDia = hoy;
+        estado.ultimoDia =
+            hoy;
 
-            mostrarToast(
-                "🛡️ Usaste un protector de racha."
-            );
+        mostrarToast(
+            "Usaste un protector de racha."
+        );
 
-        } else {
+        guardarEstado();
 
-            estado.racha = 0;
+    } else if (
+        diferencia > 1
+    ) {
 
-        }
+        estado.racha = 0;
 
         guardarEstado();
 
@@ -1026,11 +2840,19 @@ function actualizarRacha() {
 
 function registrarActividad() {
 
-    const hoy = fechaLocal();
+    const hoy =
+        fechaLocal();
 
-    if (estado.ultimoDia === hoy) {
+
+    if (
+        estado.ultimoDia ===
+        hoy
+    ) {
+
         return;
+
     }
+
 
     if (!estado.ultimoDia) {
 
@@ -1038,13 +2860,19 @@ function registrarActividad() {
 
     } else {
 
-        const anterior = new Date(
-            estado.ultimoDia + "T00:00:00"
-        );
+        const anterior =
+            new Date(
+                estado.ultimoDia +
+                "T00:00:00"
+            );
 
-        const actual = new Date(
-            hoy + "T00:00:00"
-        );
+
+        const actual =
+            new Date(
+                hoy +
+                "T00:00:00"
+            );
+
 
         const diferencia =
             Math.round(
@@ -1052,20 +2880,27 @@ function registrarActividad() {
                 86400000
             );
 
-        if (diferencia === 1) {
+
+        if (
+            diferencia === 1
+        ) {
 
             estado.racha++;
 
-        } else if (diferencia > 1) {
+        } else if (
+            diferencia > 1
+        ) {
 
-            if (estado.protectores > 0) {
+            if (
+                estado.protectores > 0
+            ) {
 
                 estado.protectores--;
 
                 estado.racha++;
 
                 mostrarToast(
-                    "🛡️ Tu protector mantuvo la racha."
+                    "Tu protector mantuvo la racha."
                 );
 
             } else {
@@ -1078,7 +2913,10 @@ function registrarActividad() {
 
     }
 
-    estado.ultimoDia = hoy;
+
+    estado.ultimoDia =
+        hoy;
+
 
     guardarEstado();
 
@@ -1093,19 +2931,25 @@ function registrarActividad() {
 
 function mostrarPagina(id) {
 
-    document.querySelectorAll(".pagina")
-        .forEach(pagina => {
+    document
+        .querySelectorAll(".pagina")
+        .forEach(
+            pagina =>
+                pagina.classList.remove(
+                    "activa"
+                )
+        );
 
-            pagina.classList.remove("activa");
 
-        });
+    const pagina =
+        document.getElementById(id);
 
-
-    const pagina = document.getElementById(id);
 
     if (!pagina) return;
 
+
     pagina.classList.add("activa");
+
 
     window.scrollTo({
         top: 0,
@@ -1113,25 +2957,40 @@ function mostrarPagina(id) {
     });
 
 
-    if (id === "niveles") {
+    if (id === "niveles")
         renderizarNiveles();
-    }
 
-    if (id === "logros") {
+
+    if (id === "logros")
         renderizarLogros();
-    }
+
 
     if (id === "biblioteca") {
+
+        estado.bibliotecaVisitada =
+            true;
+
+        guardarEstado();
+
         renderizarBiblioteca();
+
     }
 
-    if (id === "practica") {
+
+    if (id === "practica")
         renderizarPractica();
-    }
 
-    if (id === "perfil") {
+
+    if (id === "perfil")
         actualizarPerfil();
-    }
+
+
+    if (id === "amigos")
+        cargarSocial();
+
+
+    if (id === "diagnostico")
+        actualizarEstadoOnboarding();
 
 }
 
@@ -1142,31 +3001,56 @@ function mostrarPagina(id) {
 
 function nivelDesbloqueado(indice) {
 
-    if (indice === 0) {
+    if (indice === 0)
         return true;
-    }
 
-    const anterior = niveles[indice - 1];
 
-    return anterior.lecciones.every(leccion =>
-        estado.leccionesCompletadas.includes(leccion.id)
+    const anterior =
+        niveles[indice - 1];
+
+
+    return anterior.lecciones.every(
+        leccion =>
+            estado.leccionesCompletadas.includes(
+                leccion.id
+            )
     );
 
 }
 
 
-function leccionDesbloqueada(nivelIndex, leccionIndex) {
+function leccionDesbloqueada(
+    nivelIndex,
+    leccionIndex
+) {
 
-    if (!nivelDesbloqueado(nivelIndex)) {
+    if (
+        !nivelDesbloqueado(
+            nivelIndex
+        )
+    ) {
+
         return false;
+
     }
 
-    if (leccionIndex === 0) {
+
+    if (
+        leccionIndex === 0
+    ) {
+
         return true;
+
     }
+
 
     const anterior =
-        niveles[nivelIndex].lecciones[leccionIndex - 1];
+        niveles[
+            nivelIndex
+        ].lecciones[
+            leccionIndex - 1
+        ];
+
 
     return estado.leccionesCompletadas.includes(
         anterior.id
@@ -1178,127 +3062,208 @@ function leccionDesbloqueada(nivelIndex, leccionIndex) {
 function renderizarNiveles() {
 
     const container =
-        document.getElementById("levelsContainer");
+        document.getElementById(
+            "levelsContainer"
+        );
+
 
     container.innerHTML = "";
 
 
-    niveles.forEach((nivel, nivelIndex) => {
+    niveles.forEach(
+        (
+            nivel,
+            nivelIndex
+        ) => {
 
-        const desbloqueado =
-            nivelDesbloqueado(nivelIndex);
-
-        const completadas =
-            nivel.lecciones.filter(leccion =>
-                estado.leccionesCompletadas.includes(
-                    leccion.id
-                )
-            ).length;
-
-
-        const bloque = document.createElement("div");
-
-        bloque.className = "level-block";
-
-
-        const titulo = document.createElement("div");
-
-        titulo.className = "level-title";
-
-        titulo.innerHTML = `
-
-            <div>
-                <h3>
-                    ${desbloqueado ? "⭐" : "🔒"}
-                    Nivel ${nivel.id}
-                </h3>
-
-                <p>
-                    ${nivel.nombre} · ${nivel.descripcion}
-                </p>
-            </div>
-
-            <div class="level-status">
-                ${completadas}/${nivel.lecciones.length}
-            </div>
-
-        `;
-
-
-        const lista = document.createElement("div");
-
-        lista.className = "lesson-list";
-
-
-        nivel.lecciones.forEach((leccion, leccionIndex) => {
-
-            const completada =
-                estado.leccionesCompletadas.includes(
-                    leccion.id
-                );
-
-            const disponible =
-                leccionDesbloqueada(
-                    nivelIndex,
-                    leccionIndex
+            const desbloqueado =
+                nivelDesbloqueado(
+                    nivelIndex
                 );
 
 
-            const boton =
-                document.createElement("button");
+            const completadas =
+                nivel.lecciones.filter(
+                    leccion =>
+                        estado.leccionesCompletadas.includes(
+                            leccion.id
+                        )
+                ).length;
 
-            boton.className =
-                "lesson-item" +
-                (completada ? " completed" : "") +
-                (!disponible ? " locked" : "");
+
+            const bloque =
+                document.createElement(
+                    "div"
+                );
 
 
-            boton.innerHTML = `
+            bloque.className =
+                "level-block";
 
-                <div class="lesson-number">
-                    ${completada ? "✓" : disponible ? leccionIndex + 1 : "🔒"}
+
+            const titulo =
+                document.createElement(
+                    "div"
+                );
+
+
+            titulo.className =
+                "level-title";
+
+
+            titulo.innerHTML = `
+
+                <div>
+
+                    <h3>
+                        ${
+                            desbloqueado
+                                ? "⭐"
+                                : "🔒"
+                        }
+
+                        Nivel ${nivel.id}
+                    </h3>
+
+                    <p>
+                        ${nivel.nombre}
+                        ·
+                        ${nivel.descripcion}
+                    </p>
+
                 </div>
 
-                <div class="lesson-info">
-
-                    <strong>
-                        ${leccion.titulo}
-                    </strong>
-
-                    <small>
-                        ${completada ? "Completada" : disponible ? "Disponible" : "Bloqueada"}
-                    </small>
-
+                <div class="level-status">
+                    ${completadas}/${nivel.lecciones.length}
                 </div>
 
             `;
 
 
-            if (disponible) {
+            const lista =
+                document.createElement(
+                    "div"
+                );
 
-                boton.onclick = () => {
 
-                    abrirLeccion(
-                        nivelIndex,
-                        leccionIndex
+            lista.className =
+                "lesson-list";
+
+
+            nivel.lecciones.forEach(
+                (
+                    leccion,
+                    leccionIndex
+                ) => {
+
+                    const completada =
+                        estado.leccionesCompletadas.includes(
+                            leccion.id
+                        );
+
+
+                    const disponible =
+                        leccionDesbloqueada(
+                            nivelIndex,
+                            leccionIndex
+                        );
+
+
+                    const boton =
+                        document.createElement(
+                            "button"
+                        );
+
+
+                    boton.className =
+                        "lesson-item" +
+
+                        (
+                            completada
+                                ? " completed"
+                                : ""
+                        ) +
+
+                        (
+                            !disponible
+                                ? " locked"
+                                : ""
+                        );
+
+
+                    boton.innerHTML = `
+
+                        <div class="lesson-number">
+
+                            ${
+                                completada
+                                    ? "✓"
+                                    : disponible
+                                        ? leccionIndex + 1
+                                        : "🔒"
+                            }
+
+                        </div>
+
+                        <div class="lesson-info">
+
+                            <strong>
+                                ${leccion.titulo}
+                            </strong>
+
+                            <small>
+
+                                ${
+                                    completada
+                                        ? "Completada"
+                                        : disponible
+                                            ? "Disponible"
+                                            : "Bloqueada"
+                                }
+
+                            </small>
+
+                        </div>
+
+                    `;
+
+
+                    if (disponible) {
+
+                        boton.onclick =
+                            () =>
+                                abrirLeccion(
+                                    nivelIndex,
+                                    leccionIndex
+                                );
+
+                    }
+
+
+                    lista.appendChild(
+                        boton
                     );
 
-                };
-
-            }
-
-
-            lista.appendChild(boton);
-
-        });
+                }
+            );
 
 
-        bloque.appendChild(titulo);
-        bloque.appendChild(lista);
+            bloque.appendChild(
+                titulo
+            );
 
-        container.appendChild(bloque);
 
-    });
+            bloque.appendChild(
+                lista
+            );
+
+
+            container.appendChild(
+                bloque
+            );
+
+        }
+    );
 
 }
 
@@ -1313,23 +3278,78 @@ let pasoLeccion = 0;
 
 let preguntaRespondida = false;
 
+let respuestasLeccion = 0;
 
-function abrirLeccion(nivelIndex, leccionIndex) {
+
+function obtenerPreguntasLeccion(
+    leccion
+) {
+
+    if (
+        leccion.preguntas &&
+        leccion.preguntas.length
+    ) {
+
+        return leccion.preguntas;
+
+    }
+
+
+    return [
+
+        {
+
+            pregunta:
+                leccion.pregunta,
+
+            opciones:
+                leccion.opciones,
+
+            correcta:
+                leccion.correcta
+
+        }
+
+    ];
+
+}
+
+
+function abrirLeccion(
+    nivelIndex,
+    leccionIndex
+) {
 
     const leccion =
-        niveles[nivelIndex].lecciones[leccionIndex];
+        niveles[
+            nivelIndex
+        ].lecciones[
+            leccionIndex
+        ];
+
 
     leccionActual = {
+
         nivelIndex,
+
         leccionIndex,
+
         leccion
+
     };
+
 
     pasoLeccion = 0;
 
     preguntaRespondida = false;
 
-    mostrarPagina("leccion");
+    respuestasLeccion = 0;
+
+
+    mostrarPagina(
+        "leccion"
+    );
+
 
     renderizarPasoLeccion();
 
@@ -1338,35 +3358,59 @@ function abrirLeccion(nivelIndex, leccionIndex) {
 
 function renderizarPasoLeccion() {
 
-    if (!leccionActual) return;
+    if (!leccionActual)
+        return;
+
 
     const leccion =
         leccionActual.leccion;
 
+
     const nivel =
-        niveles[leccionActual.nivelIndex];
+        niveles[
+            leccionActual.nivelIndex
+        ];
 
 
-    document.getElementById("lessonLevel").textContent =
+    const preguntas =
+        obtenerPreguntasLeccion(
+            leccion
+        );
+
+
+    const totalPasos =
+        preguntas.length + 2;
+
+
+    document.getElementById(
+        "lessonLevel"
+    ).textContent =
         `Nivel ${nivel.id} · ${nivel.nombre}`;
 
-    document.getElementById("lessonTitle").textContent =
+
+    document.getElementById(
+        "lessonTitle"
+    ).textContent =
         leccion.titulo;
 
 
-    const totalPasos = 3;
-
-    document.getElementById("lessonProgressBar").style.width =
+    document.getElementById(
+        "lessonProgressBar"
+    ).style.width =
         `${((pasoLeccion + 1) / totalPasos) * 100}%`;
 
 
     const container =
-        document.getElementById("lessonContent");
+        document.getElementById(
+            "lessonContent"
+        );
 
 
-    /* PASO 1 — TEORÍA */
+    /* TEORÍA */
 
-    if (pasoLeccion === 0) {
+    if (
+        pasoLeccion === 0
+    ) {
 
         container.innerHTML = `
 
@@ -1386,23 +3430,48 @@ function renderizarPasoLeccion() {
         `;
 
         return;
+
     }
 
 
-    /* PASO 2 — PREGUNTA */
+    const indicePregunta =
+        pasoLeccion - 1;
 
-    if (pasoLeccion === 1) {
 
-        preguntaRespondida = false;
+    /* PREGUNTAS */
+
+    if (
+        indicePregunta >= 0 &&
+        indicePregunta < preguntas.length
+    ) {
+
+        const pregunta =
+            preguntas[
+                indicePregunta
+            ];
+
+
+        preguntaRespondida =
+            false;
+
 
         container.innerHTML = `
 
             <div class="lesson-card">
 
-                <h3>Comprueba lo que aprendiste</h3>
+                <small>
+                    Pregunta
+                    ${indicePregunta + 1}
+                    de
+                    ${preguntas.length}
+                </small>
 
-                <p>
-                    ${leccion.pregunta}
+                <h3>
+                    Comprueba lo que aprendiste
+                </h3>
+
+                <p style="white-space: pre-line;">
+                    ${pregunta.pregunta}
                 </p>
 
                 <div id="questionOptions"></div>
@@ -1420,85 +3489,108 @@ function renderizarPasoLeccion() {
             );
 
 
-        leccion.opciones.forEach(
-            (opcion, index) => {
+        pregunta.opciones.forEach(
+            (
+                opcion,
+                index
+            ) => {
 
                 const boton =
-                    document.createElement("button");
+                    document.createElement(
+                        "button"
+                    );
+
 
                 boton.className =
                     "question-option";
 
+
                 boton.textContent =
                     opcion;
 
-                boton.onclick = () =>
-                    responderPregunta(
-                        index
-                    );
 
-                opciones.appendChild(boton);
+                boton.onclick =
+                    () =>
+                        responderPregunta(
+                            index
+                        );
+
+
+                opciones.appendChild(
+                    boton
+                );
 
             }
         );
 
+
         return;
+
     }
 
 
-    /* PASO 3 — RETO */
+    /* RETO */
 
-    if (pasoLeccion === 2) {
+    container.innerHTML = `
 
-        container.innerHTML = `
+        <div class="lesson-card">
 
-            <div class="lesson-card">
+            <h3>
+                ⌨️ Reto de código
+            </h3>
 
-                <h3>⌨️ Reto de código</h3>
+            <p>
+                ${leccion.reto}
+            </p>
 
-                <p>
-                    ${leccion.reto}
-                </p>
+            <textarea
+                id="challengeEditor"
+                class="challenge-editor"
+                spellcheck="false"
+                placeholder="Escribe tu código aquí..."
+            ></textarea>
 
-                <textarea
-                    id="challengeEditor"
-                    class="challenge-editor"
-                    spellcheck="false"
-                    placeholder="Escribe tu código aquí..."
-                ></textarea>
+            <div class="hint-box">
 
+                💡
+                <strong>Pista:</strong>
 
-                <div class="hint-box">
-
-                    💡 <strong>Pista fácil:</strong>
-
-                    ${obtenerPista(leccion)}
-
-                </div>
-
-
-                <button
-                    class="primary-button"
-                    onclick="comprobarReto()"
-                >
-                    Comprobar código
-                </button>
-
-
-                <div id="challengeFeedback"></div>
+                ${obtenerPista(leccion)}
 
             </div>
 
-        `;
+            <button
+                class="primary-button"
+                onclick="comprobarReto()"
+            >
+                Comprobar código
+            </button>
 
-    }
+            <div id="challengeFeedback"></div>
+
+        </div>
+
+    `;
 
 }
 
 
 function siguientePaso() {
 
-    if (pasoLeccion < 2) {
+    const preguntas =
+        obtenerPreguntasLeccion(
+            leccionActual.leccion
+        );
+
+
+    const ultimoPaso =
+        preguntas.length + 1;
+
+
+    if (
+        pasoLeccion <
+        ultimoPaso
+    ) {
 
         pasoLeccion++;
 
@@ -1509,19 +3601,31 @@ function siguientePaso() {
 }
 
 
-/* =========================================================
-   PREGUNTAS
-   ========================================================= */
+function responderPregunta(
+    index
+) {
 
-function responderPregunta(index) {
+    if (
+        preguntaRespondida
+    ) {
 
-    if (preguntaRespondida) {
         return;
+
     }
 
 
-    const leccion =
-        leccionActual.leccion;
+    const preguntas =
+        obtenerPreguntasLeccion(
+            leccionActual.leccion
+        );
+
+
+    const indice =
+        pasoLeccion - 1;
+
+
+    const pregunta =
+        preguntas[indice];
 
 
     const botones =
@@ -1530,28 +3634,47 @@ function responderPregunta(index) {
         );
 
 
-    preguntaRespondida = true;
+    preguntaRespondida =
+        true;
 
 
-    if (index === leccion.correcta) {
+    if (
+        index ===
+        pregunta.correcta
+    ) {
 
-        botones[index].classList.add("correct");
+        botones[index].classList.add(
+            "correct"
+        );
 
 
-        if (!gastarBateria(1)) {
+        if (
+            !gastarBateria(1)
+        ) {
 
-            preguntaRespondida = false;
+            preguntaRespondida =
+                false;
 
-            botones[index].classList.remove("correct");
+            botones[index].classList.remove(
+                "correct"
+            );
 
             return;
 
         }
 
 
+        respuestasLeccion++;
+
+
         aprenderConcepto(
-            leccion.concepto
+            leccionActual.leccion.concepto
         );
+
+
+        const ultimo =
+            indice >=
+            preguntas.length - 1;
 
 
         document.getElementById(
@@ -1562,9 +3685,13 @@ function responderPregunta(index) {
 
                 ✓ Correcto.
 
-                <br>
+                <br><br>
 
-                Ahora viene el reto de código.
+                ${
+                    ultimo
+                        ? "Has terminado las preguntas."
+                        : "Vamos con la siguiente."
+                }
 
                 <br><br>
 
@@ -1572,62 +3699,91 @@ function responderPregunta(index) {
                     class="primary-button"
                     onclick="siguientePaso()"
                 >
-                    Continuar →
+                    ${
+                        ultimo
+                            ? "Ir al reto →"
+                            : "Continuar →"
+                    }
                 </button>
 
             </div>
 
         `;
 
-    } else {
+        return;
 
-        botones[index].classList.add("incorrect");
-
-
-        if (!gastarBateria(2)) {
-            return;
-        }
+    }
 
 
-        document.getElementById(
-            "questionFeedback"
-        ).innerHTML = `
-
-            <div class="feedback error">
-
-                ✗ No exactamente.
-
-                <br>
-
-                Revisa la explicación y vuelve a intentarlo.
-
-            </div>
-
-        `;
+    botones[index].classList.add(
+        "incorrect"
+    );
 
 
-        setTimeout(() => {
+    if (
+        !gastarBateria(2)
+    ) {
 
-            preguntaRespondida = false;
+        preguntaRespondida =
+            false;
+
+        botones[index].classList.remove(
+            "incorrect"
+        );
+
+        return;
+
+    }
+
+
+    document.getElementById(
+        "questionFeedback"
+    ).innerHTML = `
+
+        <div class="feedback error">
+
+            ✗ No exactamente.
+
+            <br><br>
+
+            Revisa la explicación
+            y vuelve a intentarlo.
+
+        </div>
+
+    `;
+
+
+    setTimeout(
+        () => {
+
+            preguntaRespondida =
+                false;
 
             botones[index].classList.remove(
                 "incorrect"
             );
 
-        }, 900);
+        },
 
-    }
+        900
+    );
 
 }
 
 
 /* =========================================================
-   CONCEPTOS / HABILIDADES
+   CONCEPTOS
    ========================================================= */
 
-function aprenderConcepto(concepto) {
+function aprenderConcepto(
+    concepto
+) {
 
-    estado.conceptosAprendidos[concepto] = 100;
+    estado.conceptosAprendidos[
+        concepto
+    ] = 100;
+
 
     guardarEstado();
 
@@ -1638,7 +3794,9 @@ function aprenderConcepto(concepto) {
    PISTAS
    ========================================================= */
 
-function obtenerPista(leccion) {
+function obtenerPista(
+    leccion
+) {
 
     const aprendido =
         estado.conceptosAprendidos[
@@ -1646,11 +3804,8 @@ function obtenerPista(leccion) {
         ] >= 80;
 
 
-    if (!aprendido) {
-
+    if (!aprendido)
         return pistaFacil(leccion);
-
-    }
 
 
     return pistaDificil(leccion);
@@ -1658,7 +3813,9 @@ function obtenerPista(leccion) {
 }
 
 
-function pistaFacil(leccion) {
+function pistaFacil(
+    leccion
+) {
 
     const mapa = {
 
@@ -1669,7 +3826,7 @@ function pistaFacil(leccion) {
             "Necesitas local y el operador =.",
 
         tipos:
-            "Piensa en local, el nombre de la variable y true.",
+            "Necesitas local, el nombre de la variable y true.",
 
         operadores:
             "Necesitas una variable, = y el operador de multiplicación.",
@@ -1737,12 +3894,17 @@ function pistaFacil(leccion) {
     };
 
 
-    return mapa[leccion.concepto] ||
+    return mapa[
+        leccion.concepto
+    ] ||
         "Revisa la explicación de esta lección.";
+
 }
 
 
-function pistaDificil(leccion) {
+function pistaDificil(
+    leccion
+) {
 
     const mapa = {
 
@@ -1795,7 +3957,7 @@ function pistaDificil(leccion) {
             "Recuerda la función que protegía la ejecución.",
 
         math:
-            "Piensa en la biblioteca que empieza con 'math'.",
+            "Piensa en la biblioteca que empieza con math.",
 
         io:
             "Recuerda la biblioteca que usabas con archivos.",
@@ -1821,13 +3983,16 @@ function pistaDificil(leccion) {
     };
 
 
-    return mapa[leccion.concepto] ||
+    return mapa[
+        leccion.concepto
+    ] ||
         "Piensa en lo que aprendiste anteriormente.";
+
 }
 
 
 /* =========================================================
-   COMPROBAR RETOS
+   RETOS
    ========================================================= */
 
 function comprobarReto() {
@@ -1836,6 +4001,9 @@ function comprobarReto() {
         document.getElementById(
             "challengeEditor"
         );
+
+
+    if (!editor) return;
 
 
     const codigo =
@@ -1865,14 +4033,19 @@ function comprobarReto() {
         );
 
 
-    if (!gastarBateria(1)) {
+    if (
+        !gastarBateria(1)
+    ) {
+
         return;
+
     }
 
 
     if (cumple) {
 
         completarLeccion();
+
 
         feedback.innerHTML = `
 
@@ -1922,24 +4095,32 @@ function comprobarReto() {
 }
 
 
-/* =========================================================
-   COMPLETAR LECCIÓN
-   ========================================================= */
-
 function completarLeccion() {
 
     const id =
         leccionActual.leccion.id;
 
 
-    if (estado.leccionesCompletadas.includes(id)) {
+    if (
+        estado.leccionesCompletadas.includes(
+            id
+        )
+    ) {
+
         return;
+
     }
 
 
-    estado.leccionesCompletadas.push(id);
+    estado.leccionesCompletadas.push(
+        id
+    );
 
-    estado.xp += XP_POR_LECCION + XP_POR_RETO;
+
+    estado.xp +=
+        XP_POR_LECCION +
+        XP_POR_RETO;
+
 
     estado.monedas +=
         MONEDAS_POR_LECCION +
@@ -1956,7 +4137,7 @@ function completarLeccion() {
 
 
     mostrarToast(
-        `🎉 +${XP_POR_LECCION + XP_POR_RETO} EXP`
+        `+${XP_POR_LECCION + XP_POR_RETO} EXP`
     );
 
 }
@@ -1964,7 +4145,10 @@ function completarLeccion() {
 
 function terminarLeccion() {
 
-    mostrarPagina("niveles");
+    mostrarPagina(
+        "niveles"
+    );
+
 
     renderizarNiveles();
 
@@ -1991,9 +4175,8 @@ function continuarAprendiendo() {
         ) {
 
             const leccion =
-                niveles[nivelIndex].lecciones[
-                    leccionIndex
-                ];
+                niveles[nivelIndex]
+                    .lecciones[leccionIndex];
 
 
             if (
@@ -2020,7 +4203,9 @@ function continuarAprendiendo() {
     }
 
 
-    mostrarPagina("niveles");
+    mostrarPagina(
+        "niveles"
+    );
 
 }
 
@@ -2032,43 +4217,83 @@ function continuarAprendiendo() {
 const ejerciciosPractica = [
 
     {
-        pregunta: "¿Qué palabra crea una variable local?",
-        respuesta: "local"
+        pregunta:
+            "¿Qué palabra crea una variable local?",
+
+        respuesta:
+            "local"
     },
 
     {
-        pregunta: "¿Qué función muestra texto?",
-        respuesta: "print"
+        pregunta:
+            "¿Qué función muestra texto?",
+
+        respuesta:
+            "print"
     },
 
     {
-        pregunta: "¿Qué palabra termina un if?",
-        respuesta: "end"
+        pregunta:
+            "¿Qué palabra termina un if?",
+
+        respuesta:
+            "end"
     },
 
     {
-        pregunta: "¿Qué palabra devuelve un resultado?",
-        respuesta: "return"
+        pregunta:
+            "¿Qué palabra devuelve un resultado?",
+
+        respuesta:
+            "return"
     },
 
     {
-        pregunta: "¿Qué biblioteca trabaja con strings?",
-        respuesta: "string"
+        pregunta:
+            "¿Qué biblioteca trabaja con strings?",
+
+        respuesta:
+            "string"
     },
 
     {
-        pregunta: "¿Qué biblioteca contiene funciones matemáticas?",
-        respuesta: "math"
+        pregunta:
+            "¿Qué biblioteca contiene funciones matemáticas?",
+
+        respuesta:
+            "math"
     },
 
     {
-        pregunta: "¿Qué función carga módulos?",
-        respuesta: "require"
+        pregunta:
+            "¿Qué función carga módulos?",
+
+        respuesta:
+            "require"
     },
 
     {
-        pregunta: "¿Qué biblioteca contiene las coroutines?",
-        respuesta: "coroutine"
+        pregunta:
+            "¿Qué biblioteca contiene las coroutines?",
+
+        respuesta:
+            "coroutine"
+    },
+
+    {
+        pregunta:
+            "¿Qué función inserta elementos en una tabla?",
+
+        respuesta:
+            "table.insert"
+    },
+
+    {
+        pregunta:
+            "¿Qué función ejecuta código protegido?",
+
+        respuesta:
+            "pcall"
     }
 
 ];
@@ -2098,7 +4323,9 @@ function renderizarPractica() {
 
         <div class="lesson-card">
 
-            <h3>🎯 Reto rápido</h3>
+            <h3>
+                🎯 Reto rápido
+            </h3>
 
             <p>
                 ${practicaActual.pregunta}
@@ -2142,18 +4369,28 @@ function comprobarPractica() {
         );
 
 
-    if (!gastarBateria(1)) {
+    if (
+        !gastarBateria(1)
+    ) {
+
         return;
+
     }
 
 
     if (
         respuesta ===
-        practicaActual.respuesta.toLowerCase()
+        practicaActual.respuesta
+            .toLowerCase()
     ) {
 
         estado.xp += 15;
+
         estado.monedas += 3;
+
+        estado.practicas =
+            (estado.practicas || 0) + 1;
+
 
         registrarActividad();
 
@@ -2163,10 +4400,21 @@ function comprobarPractica() {
 
         actualizarTodo();
 
+
         feedback.innerHTML = `
 
             <div class="feedback success">
-                ✓ Correcto. +15 EXP
+
+                ✓ Correcto.
+
+                <br>
+
+                +15 EXP
+
+                <br>
+
+                +3 🪙
+
             </div>
 
         `;
@@ -2176,7 +4424,11 @@ function comprobarPractica() {
         feedback.innerHTML = `
 
             <div class="feedback error">
-                ✗ Incorrecto. Inténtalo otra vez.
+
+                ✗ Incorrecto.
+
+                Inténtalo otra vez.
+
             </div>
 
         `;
@@ -2187,7 +4439,7 @@ function comprobarPractica() {
 
 
 /* =========================================================
-   LABORATORIO SIMULADO
+   LABORATORIO
    ========================================================= */
 
 const ejemplosLab = {
@@ -2273,12 +4525,15 @@ print(modulo)`
 };
 
 
-function insertarEjemplo(tipo) {
+function insertarEjemplo(
+    tipo
+) {
 
     document.getElementById(
         "luaEditor"
     ).value =
-        ejemplosLab[tipo] || "";
+        ejemplosLab[tipo] ||
+        "";
 
 }
 
@@ -2287,7 +4542,9 @@ function limpiarEditor() {
 
     document.getElementById(
         "luaEditor"
-    ).value = "";
+    ).value =
+        "";
+
 
     document.getElementById(
         "labOutput"
@@ -2324,129 +4581,150 @@ function ejecutarLaboratorio() {
     registrarActividad();
 
 
+    estado.labUsos =
+        (estado.labUsos || 0) + 1;
+
+
     const lineas =
         codigo.split("\n");
+
 
     const salida = [];
 
 
-    /*
-        SIMULACIÓN:
+    lineas.forEach(
+        linea => {
 
-        No ejecutamos Lua real.
-        Detectamos instrucciones comunes
-        y simulamos su resultado.
-    */
+            const limpia =
+                linea.trim();
 
 
-    lineas.forEach(linea => {
-
-        const limpia =
-            linea.trim();
-
-
-        const printMatch =
-            limpia.match(
-                /^print\s*\(\s*["'](.*?)["']\s*\)/
-            );
-
-
-        if (printMatch) {
-
-            salida.push(
-                printMatch[1]
-            );
-
-            return;
-
-        }
-
-
-        const variablePrint =
-            limpia.match(
-                /^print\s*\(\s*([a-zA-Z_][a-zA-Z0-9_]*)\s*\)/
-            );
-
-
-        if (variablePrint) {
-
-            const variable =
-                variablePrint[1];
-
-            const regex =
-                new RegExp(
-                    `local\\s+${variable}\\s*=\\s*["'](.*?)["']`
+            const printMatch =
+                limpia.match(
+                    /^print\s*\(\s*["'](.*?)["']\s*\)/
                 );
 
-            const encontrada =
-                codigo.match(regex);
 
-            if (encontrada) {
+            if (printMatch) {
 
                 salida.push(
-                    encontrada[1]
+                    printMatch[1]
                 );
 
-            } else {
+                return;
+
+            }
+
+
+            const variablePrint =
+                limpia.match(
+                    /^print\s*\(\s*([a-zA-Z_][a-zA-Z0-9_]*)\s*\)/
+                );
+
+
+            if (variablePrint) {
+
+                const variable =
+                    variablePrint[1];
+
+
+                const regex =
+                    new RegExp(
+                        `local\\s+${variable}\\s*=\\s*["'](.*?)["']`
+                    );
+
+
+                const encontrada =
+                    codigo.match(regex);
+
+
+                if (encontrada) {
+
+                    salida.push(
+                        encontrada[1]
+                    );
+
+                } else {
+
+                    salida.push(
+                        `[simulación] ${variable}`
+                    );
+
+                }
+
+                return;
+
+            }
+
+
+            const mathPrint =
+                limpia.match(
+                    /^print\s*\(\s*(\d+)\s*([+\-*\/])\s*(\d+)\s*\)/
+                );
+
+
+            if (mathPrint) {
+
+                const a =
+                    Number(
+                        mathPrint[1]
+                    );
+
+
+                const operador =
+                    mathPrint[2];
+
+
+                const b =
+                    Number(
+                        mathPrint[3]
+                    );
+
+
+                let resultado;
+
+
+                if (
+                    operador === "+"
+                )
+                    resultado =
+                        a + b;
+
+
+                if (
+                    operador === "-"
+                )
+                    resultado =
+                        a - b;
+
+
+                if (
+                    operador === "*"
+                )
+                    resultado =
+                        a * b;
+
+
+                if (
+                    operador === "/"
+                )
+                    resultado =
+                        a / b;
+
 
                 salida.push(
-                    `[simulación] ${variable}`
+                    String(resultado)
                 );
 
             }
 
-            return;
-
         }
+    );
 
 
-        const mathPrint =
-            limpia.match(
-                /^print\s*\(\s*(\d+)\s*([+\-*\/])\s*(\d+)\s*\)/
-            );
-
-
-        if (mathPrint) {
-
-            const a =
-                Number(mathPrint[1]);
-
-            const operador =
-                mathPrint[2];
-
-            const b =
-                Number(mathPrint[3]);
-
-            let resultado;
-
-
-            if (operador === "+") {
-                resultado = a + b;
-            }
-
-            if (operador === "-") {
-                resultado = a - b;
-            }
-
-            if (operador === "*") {
-                resultado = a * b;
-            }
-
-            if (operador === "/") {
-                resultado = a / b;
-            }
-
-
-            salida.push(
-                String(resultado)
-            );
-
-        }
-
-    });
-
-
-    if (salida.length === 0) {
+    if (
+        salida.length === 0
+    ) {
 
         salida.push(
             "[simulación] Código procesado correctamente."
@@ -2465,9 +4743,12 @@ function ejecutarLaboratorio() {
 
     estado.monedas += 1;
 
+
     guardarEstado();
 
     actualizarMonedas();
+
+    comprobarLogros();
 
 }
 
@@ -2481,133 +4762,169 @@ const biblioteca = [
     {
         nombre: "print()",
         categoria: "Básico",
-        descripcion: "Muestra valores o texto en la salida."
+        descripcion:
+            "Muestra valores o texto en la salida."
     },
 
     {
         nombre: "local",
         categoria: "Variables",
-        descripcion: "Declara una variable local."
+        descripcion:
+            "Declara una variable local."
     },
 
     {
         nombre: "type()",
         categoria: "Básico",
-        descripcion: "Devuelve el tipo de un valor."
+        descripcion:
+            "Devuelve el tipo de un valor."
     },
 
     {
         nombre: "string.find()",
         categoria: "String",
-        descripcion: "Busca un patrón o texto dentro de un string."
+        descripcion:
+            "Busca un patrón o texto dentro de un string."
     },
 
     {
         nombre: "string.len()",
         categoria: "String",
-        descripcion: "Obtiene la longitud de un string."
+        descripcion:
+            "Obtiene la longitud de un string."
     },
 
     {
         nombre: "string.upper()",
         categoria: "String",
-        descripcion: "Convierte un string a mayúsculas."
+        descripcion:
+            "Convierte un string a mayúsculas."
+    },
+
+    {
+        nombre: "string.lower()",
+        categoria: "String",
+        descripcion:
+            "Convierte un string a minúsculas."
     },
 
     {
         nombre: "table.insert()",
         categoria: "Table",
-        descripcion: "Inserta un elemento en una tabla."
+        descripcion:
+            "Inserta un elemento en una tabla."
     },
 
     {
         nombre: "table.remove()",
         categoria: "Table",
-        descripcion: "Elimina un elemento de una tabla."
+        descripcion:
+            "Elimina un elemento de una tabla."
     },
 
     {
         nombre: "math.floor()",
         categoria: "Math",
-        descripcion: "Redondea un número hacia abajo."
+        descripcion:
+            "Redondea un número hacia abajo."
     },
 
     {
         nombre: "math.ceil()",
         categoria: "Math",
-        descripcion: "Redondea un número hacia arriba."
+        descripcion:
+            "Redondea un número hacia arriba."
+    },
+
+    {
+        nombre: "math.abs()",
+        categoria: "Math",
+        descripcion:
+            "Obtiene el valor absoluto de un número."
     },
 
     {
         nombre: "io.open()",
         categoria: "IO",
-        descripcion: "Abre un archivo."
+        descripcion:
+            "Abre un archivo."
     },
 
     {
         nombre: "os.date()",
         categoria: "OS",
-        descripcion: "Obtiene información relacionada con fechas y horas."
+        descripcion:
+            "Obtiene información relacionada con fechas y horas."
     },
 
     {
         nombre: "require()",
         categoria: "Package",
-        descripcion: "Carga un módulo."
+        descripcion:
+            "Carga un módulo."
     },
 
     {
         nombre: "pcall()",
         categoria: "Errores",
-        descripcion: "Ejecuta una función protegida contra errores."
+        descripcion:
+            "Ejecuta una función protegida contra errores."
     },
 
     {
         nombre: "xpcall()",
         categoria: "Errores",
-        descripcion: "Ejecuta una función protegida utilizando un manejador de errores."
+        descripcion:
+            "Ejecuta una función protegida utilizando un manejador de errores."
     },
 
     {
         nombre: "setmetatable()",
         categoria: "Metatables",
-        descripcion: "Asigna una metatable a una tabla."
+        descripcion:
+            "Asigna una metatable a una tabla."
     },
 
     {
         nombre: "getmetatable()",
         categoria: "Metatables",
-        descripcion: "Obtiene la metatable de un valor."
+        descripcion:
+            "Obtiene la metatable de un valor."
     },
 
     {
         nombre: "coroutine.create()",
         categoria: "Coroutines",
-        descripcion: "Crea una coroutine."
+        descripcion:
+            "Crea una coroutine."
     },
 
     {
         nombre: "coroutine.resume()",
         categoria: "Coroutines",
-        descripcion: "Continúa una coroutine."
+        descripcion:
+            "Continúa una coroutine."
     },
 
     {
         nombre: "coroutine.yield()",
         categoria: "Coroutines",
-        descripcion: "Suspende una coroutine."
+        descripcion:
+            "Suspende una coroutine."
     },
 
     {
         nombre: "collectgarbage()",
         categoria: "Garbage Collector",
-        descripcion: "Permite controlar o consultar el recolector de basura."
+        descripcion:
+            "Permite controlar o consultar el recolector de basura."
     },
 
     {
         nombre: "debug.traceback()",
         categoria: "Debug",
-        descripcion: "Construye información de seguimiento para depuración."
+        descripcion:
+            "Construye información de seguimiento para depuración."
     }
 
 ];
@@ -2619,6 +4936,7 @@ function renderizarBiblioteca() {
         document.getElementById(
             "libraryContainer"
         );
+
 
     renderizarResultadosBiblioteca(
         biblioteca,
@@ -2636,13 +4954,24 @@ function renderizarResultadosBiblioteca(
     container.innerHTML = "";
 
 
-    if (datos.length === 0) {
+    if (
+        datos.length === 0
+    ) {
 
         container.innerHTML = `
+
             <div class="library-item">
-                <h3>No encontrado</h3>
-                <p>No encontramos ese concepto.</p>
+
+                <h3>
+                    No encontrado
+                </h3>
+
+                <p>
+                    No encontramos ese concepto.
+                </p>
+
             </div>
+
         `;
 
         return;
@@ -2650,33 +4979,42 @@ function renderizarResultadosBiblioteca(
     }
 
 
-    datos.forEach(item => {
+    datos.forEach(
+        item => {
 
-        const div =
-            document.createElement("div");
+            const div =
+                document.createElement(
+                    "div"
+                );
 
-        div.className =
-            "library-item";
 
-        div.innerHTML = `
+            div.className =
+                "library-item";
 
-            <small>
-                ${item.categoria}
-            </small>
 
-            <h3>
-                ${item.nombre}
-            </h3>
+            div.innerHTML = `
 
-            <p>
-                ${item.descripcion}
-            </p>
+                <small>
+                    ${item.categoria}
+                </small>
 
-        `;
+                <h3>
+                    ${item.nombre}
+                </h3>
 
-        container.appendChild(div);
+                <p>
+                    ${item.descripcion}
+                </p>
 
-    });
+            `;
+
+
+            container.appendChild(
+                div
+            );
+
+        }
+    );
 
 }
 
@@ -2692,24 +5030,24 @@ function buscarBiblioteca() {
 
 
     const resultados =
-        biblioteca.filter(item =>
+        biblioteca.filter(
+            item =>
 
-            item.nombre
-                .toLowerCase()
-                .includes(texto)
+                item.nombre
+                    .toLowerCase()
+                    .includes(texto)
 
-            ||
+                ||
 
-            item.categoria
-                .toLowerCase()
-                .includes(texto)
+                item.categoria
+                    .toLowerCase()
+                    .includes(texto)
 
-            ||
+                ||
 
-            item.descripcion
-                .toLowerCase()
-                .includes(texto)
-
+                item.descripcion
+                    .toLowerCase()
+                    .includes(texto)
         );
 
 
@@ -2787,6 +5125,7 @@ const logros = [
     ["👑", "Leyenda", "Llega al Nivel 20."],
     ["💡", "Curioso", "Envía una sugerencia."],
     ["🏁", "LuaDrix completo", "Explora todo el camino disponible."]
+
 ];
 
 
@@ -2797,47 +5136,68 @@ function renderizarLogros() {
             "achievementsContainer"
         );
 
+
     container.innerHTML = "";
 
 
-    logros.forEach((logro, index) => {
+    logros.forEach(
+        (
+            logro,
+            index
+        ) => {
 
-        const desbloqueado =
-            estado.logros.includes(index);
-
-
-        const div =
-            document.createElement("div");
-
-        div.className =
-            "achievement" +
-            (desbloqueado ? "" : " locked");
+            const desbloqueado =
+                estado.logros.includes(
+                    index
+                );
 
 
-        div.innerHTML = `
-
-            <div class="achievement-icon">
-                ${logro[0]}
-            </div>
-
-            <h3>
-                ${logro[1]}
-            </h3>
-
-            <p>
-                ${logro[2]}
-            </p>
-
-            <small>
-                ${desbloqueado ? "✓ Desbloqueado" : "🔒 Bloqueado"}
-            </small>
-
-        `;
+            const div =
+                document.createElement(
+                    "div"
+                );
 
 
-        container.appendChild(div);
+            div.className =
+                "achievement" +
+                (
+                    desbloqueado
+                        ? ""
+                        : " locked"
+                );
 
-    });
+
+            div.innerHTML = `
+
+                <div class="achievement-icon">
+                    ${logro[0]}
+                </div>
+
+                <h3>
+                    ${logro[1]}
+                </h3>
+
+                <p>
+                    ${logro[2]}
+                </p>
+
+                <small>
+                    ${
+                        desbloqueado
+                            ? "✓ Desbloqueado"
+                            : "🔒 Bloqueado"
+                    }
+                </small>
+
+            `;
+
+
+            container.appendChild(
+                div
+            );
+
+        }
+    );
 
 }
 
@@ -2894,35 +5254,58 @@ function comprobarLogros() {
         estado.monedas >= 500,
         estado.monedas >= 1000,
 
-        estado.bateria <= 5 && completadas > 0,
+        estado.bateria <= 5 &&
+            completadas > 0,
+
         estado.protectores < 2,
+
         (estado.practicas || 0) >= 1,
+
         estado.bibliotecaVisitada === true,
+
         (estado.labUsos || 0) >= 5,
+
         estado.tema === "azul",
+
         estado.cuenta === true,
+
         completadas >= 4,
+
         estado.racha >= 3,
+
         completadas >= 10,
+
         obtenerNivel() >= 6,
+
         obtenerNivel() >= 20,
+
         estado.sugerenciasEnviadas > 0,
+
         completadas >= 24
+
     ];
 
 
     checks.forEach(
-        (cumplido, index) => {
+        (
+            cumplido,
+            index
+        ) => {
 
             if (
                 cumplido &&
-                !estado.logros.includes(index)
+                !estado.logros.includes(
+                    index
+                )
             ) {
 
-                estado.logros.push(index);
+                estado.logros.push(
+                    index
+                );
+
 
                 mostrarToast(
-                    `🏆 Logro desbloqueado: ${logros[index][1]}`
+                    `Logro desbloqueado: ${logros[index][1]}`
                 );
 
             }
@@ -2940,9 +5323,15 @@ function comprobarLogros() {
    TIENDA
    ========================================================= */
 
-function comprar(tipo, precio) {
+function comprar(
+    tipo,
+    precio
+) {
 
-    if (estado.monedas < precio) {
+    if (
+        estado.monedas <
+        precio
+    ) {
 
         mostrarToast(
             "No tienes suficientes monedas."
@@ -2953,9 +5342,14 @@ function comprar(tipo, precio) {
     }
 
 
-    if (tipo === "bateria") {
+    if (
+        tipo === "bateria"
+    ) {
 
-        if (estado.bateria >= MAX_BATERIA) {
+        if (
+            estado.bateria >=
+            MAX_BATERIA
+        ) {
 
             mostrarToast(
                 "Tu batería ya está completa."
@@ -2965,7 +5359,10 @@ function comprar(tipo, precio) {
 
         }
 
-        estado.monedas -= precio;
+
+        estado.monedas -=
+            precio;
+
 
         estado.bateria =
             Math.min(
@@ -2973,15 +5370,20 @@ function comprar(tipo, precio) {
                 estado.bateria + 5
             );
 
+
         estado.ultimaRecarga =
             Date.now();
 
     }
 
 
-    if (tipo === "pista") {
+    if (
+        tipo === "pista"
+    ) {
 
-        if (estado.pistaUsadaHoy) {
+        if (
+            estado.pistaUsadaHoy
+        ) {
 
             mostrarToast(
                 "Ya utilizaste una pista extra hoy."
@@ -2991,20 +5393,29 @@ function comprar(tipo, precio) {
 
         }
 
-        estado.monedas -= precio;
 
-        estado.pistaUsadaHoy = true;
+        estado.monedas -=
+            precio;
+
+
+        estado.pistaUsadaHoy =
+            true;
+
 
         mostrarToast(
-            "💡 Pista extra desbloqueada por hoy."
+            "Pista extra desbloqueada por hoy."
         );
 
     }
 
 
-    if (tipo === "practica") {
+    if (
+        tipo === "practica"
+    ) {
 
-        if (estado.practicaUsadaHoy) {
+        if (
+            estado.practicaUsadaHoy
+        ) {
 
             mostrarToast(
                 "Ya compraste la práctica extra de hoy."
@@ -3014,12 +5425,17 @@ function comprar(tipo, precio) {
 
         }
 
-        estado.monedas -= precio;
 
-        estado.practicaUsadaHoy = true;
+        estado.monedas -=
+            precio;
+
+
+        estado.practicaUsadaHoy =
+            true;
+
 
         mostrarToast(
-            "🎯 Práctica extra desbloqueada."
+            "Práctica extra desbloqueada."
         );
 
     }
@@ -3032,9 +5448,15 @@ function comprar(tipo, precio) {
 }
 
 
-function comprarTema(tema, precio) {
+function comprarTema(
+    tema,
+    precio
+) {
 
-    if (estado.tema === tema) {
+    if (
+        estado.tema ===
+        tema
+    ) {
 
         mostrarToast(
             "Ya estás usando este tema."
@@ -3045,7 +5467,10 @@ function comprarTema(tema, precio) {
     }
 
 
-    if (estado.monedas < precio) {
+    if (
+        estado.monedas <
+        precio
+    ) {
 
         mostrarToast(
             "No tienes suficientes monedas."
@@ -3056,9 +5481,13 @@ function comprarTema(tema, precio) {
     }
 
 
-    estado.monedas -= precio;
+    estado.monedas -=
+        precio;
 
-    estado.tema = tema;
+
+    estado.tema =
+        tema;
+
 
     aplicarTema();
 
@@ -3066,8 +5495,9 @@ function comprarTema(tema, precio) {
 
     actualizarTodo();
 
+
     mostrarToast(
-        "🎨 Tema comprado."
+        "Tema comprado."
     );
 
 }
@@ -3084,7 +5514,7 @@ function aplicarTema() {
 
 
 /* =========================================================
-   PERFIL
+   PERFIL / CUENTAS
    ========================================================= */
 
 function actualizarPerfil() {
@@ -3094,23 +5524,411 @@ function actualizarPerfil() {
     ).textContent =
         estado.nombre;
 
+
     actualizarXP();
+
+    actualizarEstadoCuenta();
 
 }
 
 
-function simularCuenta() {
+async function obtenerUsuarioActual() {
+
+    if (!supabaseClient)
+        return null;
+
+
+    const {
+        data,
+        error
+    } =
+        await supabaseClient.auth.getUser();
+
+
+    if (error)
+        return null;
+
+
+    return data.user || null;
+
+}
+
+
+function actualizarEstadoCuenta() {
+
+    const status =
+        document.getElementById(
+            "accountStatus"
+        );
+
+
+    const logout =
+        document.getElementById(
+            "logoutButton"
+        );
+
+
+    if (
+        !status ||
+        !logout
+    ) return;
+
+
+    if (estado.cuenta) {
+
+        status.textContent =
+            `Cuenta activa como @${estado.username || estado.nombre}.`;
+
+        logout.classList.remove(
+            "hidden"
+        );
+
+    } else {
+
+        status.textContent =
+            "Inicia sesión para poder buscar y agregar amigos.";
+
+        logout.classList.add(
+            "hidden"
+        );
+
+    }
+
+}
+
+
+async function registrarCuenta() {
+
+    if (!supabaseClient) {
+
+        mostrarToast(
+            "Supabase no está disponible."
+        );
+
+        return;
+
+    }
+
+
+    const username =
+        document.getElementById(
+            "accountUsername"
+        ).value.trim();
+
+
+    const email =
+        document.getElementById(
+            "accountEmail"
+        ).value.trim();
+
+
+    const password =
+        document.getElementById(
+            "accountPassword"
+        ).value;
+
+
+    if (
+        !username ||
+        !email ||
+        !password
+    ) {
+
+        mostrarToast(
+            "Completa usuario, correo y contraseña."
+        );
+
+        return;
+
+    }
+
+
+    if (
+        username.length < 3
+    ) {
+
+        mostrarToast(
+            "El nombre de usuario debe tener al menos 3 caracteres."
+        );
+
+        return;
+
+    }
+
+
+    if (
+        password.length < 6
+    ) {
+
+        mostrarToast(
+            "La contraseña debe tener al menos 6 caracteres."
+        );
+
+        return;
+
+    }
+
+
+    const {
+        data,
+        error
+    } =
+        await supabaseClient.auth.signUp({
+
+            email,
+
+            password,
+
+            options: {
+
+                data: {
+                    username
+                }
+
+            }
+
+        });
+
+
+    if (error) {
+
+        mostrarToast(
+            error.message
+        );
+
+        return;
+
+    }
+
+
+    if (!data.user) {
+
+        mostrarToast(
+            "No se pudo crear la cuenta."
+        );
+
+        return;
+
+    }
+
+
+    const user =
+        data.user;
+
+
+    const {
+        error: profileError
+    } =
+        await supabaseClient
+            .from("profiles")
+            .insert({
+
+                id: user.id,
+
+                username:
+                    username,
+
+                display_name:
+                    username,
+
+                level:
+                    obtenerNivel(),
+
+                xp:
+                    estado.xp,
+
+                avatar:
+                    "👤"
+
+            });
+
+
+    if (
+        profileError &&
+        profileError.code !== "23505"
+    ) {
+
+        mostrarToast(
+            profileError.message
+        );
+
+        return;
+
+    }
+
 
     estado.cuenta = true;
 
-    guardarEstado();
+    estado.username =
+        username;
 
-    comprobarLogros();
+    estado.nombre =
+        username;
+
+
+    guardarEstado();
 
     actualizarTodo();
 
+
     mostrarToast(
-        "👤 Cuenta simulada activada."
+        "Cuenta creada."
+    );
+
+}
+
+
+async function iniciarSesion() {
+
+    if (!supabaseClient) {
+
+        mostrarToast(
+            "Supabase no está disponible."
+        );
+
+        return;
+
+    }
+
+
+    const email =
+        document.getElementById(
+            "accountEmail"
+        ).value.trim();
+
+
+    const password =
+        document.getElementById(
+            "accountPassword"
+        ).value;
+
+
+    if (
+        !email ||
+        !password
+    ) {
+
+        mostrarToast(
+            "Escribe tu correo y contraseña."
+        );
+
+        return;
+
+    }
+
+
+    const {
+        data,
+        error
+    } =
+        await supabaseClient.auth.signInWithPassword({
+
+            email,
+
+            password
+
+        });
+
+
+    if (error) {
+
+        mostrarToast(
+            error.message
+        );
+
+        return;
+
+    }
+
+
+    await cargarPerfilSupabase(
+        data.user
+    );
+
+
+    mostrarToast(
+        "Sesión iniciada."
+    );
+
+}
+
+
+async function cargarPerfilSupabase(
+    user
+) {
+
+    if (!user)
+        return;
+
+
+    const {
+        data,
+        error
+    } =
+        await supabaseClient
+            .from("profiles")
+            .select(
+                "username, display_name, level, xp, avatar"
+            )
+            .eq(
+                "id",
+                user.id
+            )
+            .maybeSingle();
+
+
+    if (
+        error ||
+        !data
+    ) {
+
+        return;
+
+    }
+
+
+    estado.cuenta = true;
+
+    estado.username =
+        data.username || "";
+
+    estado.nombre =
+        data.display_name ||
+        data.username ||
+        "Angel";
+
+
+    guardarEstado();
+
+    actualizarPerfil();
+
+}
+
+
+async function cerrarSesion() {
+
+    if (
+        !supabaseClient
+    ) return;
+
+
+    await supabaseClient.auth.signOut();
+
+
+    estado.cuenta =
+        false;
+
+    estado.username =
+        "";
+
+
+    guardarEstado();
+
+    actualizarPerfil();
+
+
+    mostrarToast(
+        "Sesión cerrada."
     );
 
 }
@@ -3145,23 +5963,19 @@ function enviarSugerencia() {
     }
 
 
-    /*
-        Por ahora se guarda localmente.
-        Cuando conectemos Supabase,
-        esta función enviará los datos al backend.
-    */
-
     const sugerencias =
         JSON.parse(
             localStorage.getItem(
                 "luaDrixSugerencias"
-            ) || "[]"
+            ) ||
+            "[]"
         );
 
 
     sugerencias.push({
 
         categoria,
+
         texto,
 
         fecha:
@@ -3172,12 +5986,17 @@ function enviarSugerencia() {
 
     localStorage.setItem(
         "luaDrixSugerencias",
-        JSON.stringify(sugerencias)
+        JSON.stringify(
+            sugerencias
+        )
     );
 
 
     estado.sugerenciasEnviadas =
-        (estado.sugerenciasEnviadas || 0) + 1;
+        (
+            estado.sugerenciasEnviadas ||
+            0
+        ) + 1;
 
 
     guardarEstado();
@@ -3191,20 +6010,22 @@ function enviarSugerencia() {
 
 
     mostrarToast(
-        "💡 Sugerencia guardada."
+        "Sugerencia guardada."
     );
 
 }
 
 
 /* =========================================================
-   ENCUESTA / DIAGNÓSTICO
+   ENCUESTA
    ========================================================= */
 
 const encuesta = [
 
     {
-        pregunta: "¿Cómo conociste LuaDrix?",
+        pregunta:
+            "¿Cómo conociste LuaDrix?",
+
         opciones: [
             "YouTube",
             "Google",
@@ -3215,7 +6036,9 @@ const encuesta = [
     },
 
     {
-        pregunta: "¿Por qué quieres aprender programación?",
+        pregunta:
+            "¿Por qué quieres aprender programación?",
+
         opciones: [
             "Crear juegos",
             "Curiosidad",
@@ -3226,7 +6049,9 @@ const encuesta = [
     },
 
     {
-        pregunta: "¿Qué te gustaría crear?",
+        pregunta:
+            "¿Qué te gustaría crear?",
+
         opciones: [
             "Juegos",
             "Aplicaciones",
@@ -3237,7 +6062,9 @@ const encuesta = [
     },
 
     {
-        pregunta: "¿Cuánta programación conoces?",
+        pregunta:
+            "¿Cuánta programación conoces?",
+
         opciones: [
             "Nada",
             "Un poco",
@@ -3248,7 +6075,9 @@ const encuesta = [
     },
 
     {
-        pregunta: "¿Qué esperas de LuaDrix?",
+        pregunta:
+            "¿Qué esperas de LuaDrix?",
+
         opciones: [
             "Aprender desde cero",
             "Practicar",
@@ -3266,7 +6095,25 @@ let encuestaRespuestas = {};
 let encuestaPaso = 0;
 
 
+function actualizarEstadoOnboarding() {
+
+    const activo =
+        !estado.encuestaTerminada ||
+        !estado.diagnosticoTerminado;
+
+
+    document.body.classList.toggle(
+        "onboarding-active",
+        activo
+    );
+
+}
+
+
 function iniciarOnboarding() {
+
+    actualizarEstadoOnboarding();
+
 
     if (
         estado.encuestaTerminada &&
@@ -3278,11 +6125,23 @@ function iniciarOnboarding() {
     }
 
 
-    if (!estado.encuestaTerminada) {
+    if (
+        !estado.encuestaTerminada
+    ) {
 
-        mostrarPagina("diagnostico");
+        mostrarPagina(
+            "diagnostico"
+        );
 
         renderizarEncuesta();
+
+    } else {
+
+        mostrarPagina(
+            "diagnostico"
+        );
+
+        renderizarDiagnosticoLua();
 
     }
 
@@ -3310,7 +6169,9 @@ function renderizarEncuesta() {
 
 
     const pregunta =
-        encuesta[encuestaPaso];
+        encuesta[
+            encuestaPaso
+        ];
 
 
     container.innerHTML = `
@@ -3318,8 +6179,10 @@ function renderizarEncuesta() {
         <div class="survey-card">
 
             <h3>
-                Pregunta ${encuestaPaso + 1}
-                de ${encuesta.length}
+                Pregunta
+                ${encuestaPaso + 1}
+                de
+                ${encuesta.length}
             </h3>
 
             <p>
@@ -3340,32 +6203,39 @@ function renderizarEncuesta() {
 
 
     pregunta.opciones.forEach(
-        (opcion, index) => {
+        (
+            opcion,
+            index
+        ) => {
 
             const boton =
                 document.createElement(
                     "button"
                 );
 
+
             boton.className =
                 "survey-option";
+
 
             boton.textContent =
                 opcion;
 
-            boton.onclick = () => {
 
-                encuestaRespuestas[
-                    encuestaPaso
-                ] = opcion;
+            boton.onclick =
+                () => {
+
+                    encuestaRespuestas[
+                        encuestaPaso
+                    ] = opcion;
 
 
-                encuestaPaso++;
+                    encuestaPaso++;
 
 
-                renderizarEncuesta();
+                    renderizarEncuesta();
 
-            };
+                };
 
 
             opciones.appendChild(
@@ -3395,8 +6265,8 @@ function renderizarDiagnosticoLua() {
             </h3>
 
             <p>
-                Ahora comprobaremos qué conceptos
-                ya conoces. No ganas ni pierdes XP.
+                Ahora comprobaremos qué conceptos ya conoces.
+                No ganas ni pierdes XP ni batería.
             </p>
 
             <button
@@ -3419,56 +6289,121 @@ function comenzarDiagnostico() {
 
         {
             skill: "print",
-            pregunta: "¿Cuál muestra texto?",
+
+            pregunta:
+                "¿Cuál muestra texto?",
+
             opciones: [
                 "print()",
                 "show()",
                 "display()"
             ],
+
             correcta: 0
         },
 
         {
             skill: "variables",
-            pregunta: "¿Cuál crea una variable local?",
+
+            pregunta:
+                "¿Cuál crea una variable local?",
+
             opciones: [
                 "local nombre = Angel",
                 "var nombre = Angel",
                 "let nombre = Angel"
             ],
+
+            correcta: 0
+        },
+
+        {
+            skill: "tipos",
+
+            pregunta:
+                "¿Cuál de estos valores es booleano?",
+
+            opciones: [
+                "true",
+                "\"Hola\"",
+                "25"
+            ],
+
             correcta: 0
         },
 
         {
             skill: "if",
-            pregunta: "¿Qué estructura sirve para tomar decisiones?",
+
+            pregunta:
+                "¿Qué estructura sirve para tomar decisiones?",
+
             opciones: [
                 "if",
                 "loop",
                 "table"
             ],
+
             correcta: 0
         },
 
         {
             skill: "while",
-            pregunta: "¿Qué estructura repite mientras una condición sea verdadera?",
+
+            pregunta:
+                "¿Qué estructura repite mientras una condición sea verdadera?",
+
             opciones: [
                 "while",
                 "if",
                 "function"
             ],
+
             correcta: 0
         },
 
         {
             skill: "funciones",
-            pregunta: "¿Qué palabra declara una función?",
+
+            pregunta:
+                "¿Qué palabra declara una función?",
+
             opciones: [
                 "function",
                 "method",
                 "func"
             ],
+
+            correcta: 0
+        },
+
+        {
+            skill: "tablas",
+
+            pregunta:
+                "¿Qué estructura permite guardar varios valores?",
+
+            opciones: [
+                "table",
+                "boolean",
+                "number"
+            ],
+
+            correcta: 0
+        },
+
+        {
+            skill: "strings",
+
+            pregunta:
+                "¿Qué biblioteca trabaja con strings?",
+
+            opciones: [
+                "string",
+                "text",
+                "words"
+            ],
+
             correcta: 0
         }
 
@@ -3495,7 +6430,15 @@ function comenzarDiagnostico() {
 
 
         const p =
-            preguntas[actual];
+            preguntas[
+                actual
+            ];
+
+
+        const container =
+            document.getElementById(
+                "surveyContainer"
+            );
 
 
         container.innerHTML = `
@@ -3503,7 +6446,8 @@ function comenzarDiagnostico() {
             <div class="survey-card">
 
                 <h3>
-                    Diagnóstico ${actual + 1}/${preguntas.length}
+                    Diagnóstico
+                    ${actual + 1}/${preguntas.length}
                 </h3>
 
                 <p>
@@ -3524,32 +6468,43 @@ function comenzarDiagnostico() {
 
 
         p.opciones.forEach(
-            (opcion, index) => {
+            (
+                opcion,
+                index
+            ) => {
 
                 const boton =
                     document.createElement(
                         "button"
                     );
 
+
                 boton.className =
                     "survey-option";
+
 
                 boton.textContent =
                     opcion;
 
 
-                boton.onclick = () => {
+                boton.onclick =
+                    () => {
 
-                    puntuacion[p.skill] =
-                        index === p.correcta
-                            ? 100
-                            : 0;
+                        puntuacion[
+                            p.skill
+                        ] =
+                            index ===
+                            p.correcta
+                                ? 100
+                                : 0;
 
-                    actual++;
 
-                    siguiente();
+                        actual++;
 
-                };
+
+                        siguiente();
+
+                    };
 
 
                 opciones.appendChild(
@@ -3567,16 +6522,22 @@ function comenzarDiagnostico() {
         estado.encuestaTerminada =
             true;
 
+
         estado.diagnosticoTerminado =
             true;
+
 
         estado.diagnosticoSkills =
             puntuacion;
 
+
         estado.conceptosAprendidos =
             {
+
                 ...estado.conceptosAprendidos,
+
                 ...puntuacion
+
             };
 
 
@@ -3590,12 +6551,19 @@ function comenzarDiagnostico() {
 
         guardarEstado();
 
+
+        actualizarEstadoOnboarding();
+
+
         mostrarToast(
-            "✓ Diagnóstico terminado."
+            "Diagnóstico terminado."
         );
 
 
-        mostrarPagina("inicio");
+        mostrarPagina(
+            "inicio"
+        );
+
 
         actualizarTodo();
 
@@ -3603,6 +6571,823 @@ function comenzarDiagnostico() {
 
 
     siguiente();
+
+}
+
+
+/* =========================================================
+   AMIGOS / SOCIAL
+   ========================================================= */
+
+async function cargarSocial() {
+
+    if (
+        !supabaseClient
+    ) {
+
+        mostrarToast(
+            "No se pudo conectar con el sistema de amigos."
+        );
+
+        return;
+
+    }
+
+
+    const user =
+        await obtenerUsuarioActual();
+
+
+    if (!user) {
+
+        document.getElementById(
+            "socialSearchResults"
+        ).innerHTML = `
+
+            <div class="empty-social">
+
+                Necesitas iniciar sesión para
+                utilizar el sistema de amigos.
+
+                <br><br>
+
+                Ve a
+                <strong>Perfil → Cuenta</strong>
+                para iniciar sesión.
+
+            </div>
+
+        `;
+
+
+        document.getElementById(
+            "friendRequests"
+        ).innerHTML = `
+
+            <div class="empty-social">
+                Inicia sesión para ver solicitudes.
+            </div>
+
+        `;
+
+
+        document.getElementById(
+            "friendsList"
+        ).innerHTML = `
+
+            <div class="empty-social">
+                Inicia sesión para ver tus amigos.
+            </div>
+
+        `;
+
+
+        return;
+
+    }
+
+
+    await cargarSolicitudes();
+
+    await cargarAmigos();
+
+}
+
+
+function escapeHTML(
+    texto
+) {
+
+    return String(
+        texto ?? ""
+    )
+        .replace(
+            /&/g,
+            "&amp;"
+        )
+        .replace(
+            /</g,
+            "&lt;"
+        )
+        .replace(
+            />/g,
+            "&gt;"
+        )
+        .replace(
+            /"/g,
+            "&quot;"
+        )
+        .replace(
+            /'/g,
+            "&#039;"
+        );
+
+}
+
+
+async function buscarUsuarios() {
+
+    const input =
+        document.getElementById(
+            "userSearch"
+        );
+
+
+    const query =
+        input.value
+            .trim()
+            .toLowerCase();
+
+
+    const container =
+        document.getElementById(
+            "socialSearchResults"
+        );
+
+
+    if (
+        query.length < 2
+    ) {
+
+        container.innerHTML = `
+
+            <div class="empty-social">
+                Escribe al menos 2 caracteres.
+            </div>
+
+        `;
+
+        return;
+
+    }
+
+
+    const user =
+        await obtenerUsuarioActual();
+
+
+    if (!user) {
+
+        container.innerHTML = `
+
+            <div class="empty-social">
+                Inicia sesión primero para buscar usuarios.
+            </div>
+
+        `;
+
+        return;
+
+    }
+
+
+    const {
+        data,
+        error
+    } =
+        await supabaseClient
+            .from("profiles")
+            .select(
+                "id, username, display_name, level, xp, avatar"
+            )
+            .ilike(
+                "username",
+                `%${query}%`
+            )
+            .neq(
+                "id",
+                user.id
+            )
+            .limit(20);
+
+
+    if (error) {
+
+        container.innerHTML = `
+
+            <div class="empty-social">
+                Error buscando usuarios.
+                <br><br>
+                ${escapeHTML(error.message)}
+            </div>
+
+        `;
+
+        return;
+
+    }
+
+
+    if (
+        !data ||
+        data.length === 0
+    ) {
+
+        container.innerHTML = `
+
+            <div class="empty-social">
+                No encontramos usuarios con ese nombre.
+            </div>
+
+        `;
+
+        return;
+
+    }
+
+
+    const resultados =
+        [];
+
+
+    for (
+        const perfil of data
+    ) {
+
+        const estadoAmistad =
+            await obtenerEstadoAmistad(
+                user.id,
+                perfil.id
+            );
+
+
+        resultados.push({
+
+            ...perfil,
+
+            estadoAmistad
+
+        });
+
+    }
+
+
+    container.innerHTML =
+        resultados
+            .map(
+                crearTarjetaUsuario
+            )
+            .join("");
+
+}
+
+
+async function obtenerEstadoAmistad(
+    userId,
+    otherId
+) {
+
+    const {
+        data,
+        error
+    } =
+        await supabaseClient
+            .from("friendships")
+            .select(
+                "id, requester_id, addressee_id, status"
+            )
+            .or(
+                `and(requester_id.eq.${userId},addressee_id.eq.${otherId}),and(requester_id.eq.${otherId},addressee_id.eq.${userId})`
+            )
+            .limit(1)
+            .maybeSingle();
+
+
+    if (
+        error ||
+        !data
+    ) {
+
+        return null;
+
+    }
+
+
+    return data;
+
+}
+
+
+function crearTarjetaUsuario(
+    perfil
+) {
+
+    let accion = "";
+
+
+    if (
+        !perfil.estadoAmistad
+    ) {
+
+        accion = `
+
+            <button
+                class="social-add"
+                onclick="enviarSolicitud('${perfil.id}')"
+            >
+                Agregar
+            </button>
+
+        `;
+
+    } else if (
+        perfil.estadoAmistad.status ===
+        "accepted"
+    ) {
+
+        accion = `
+
+            <span class="social-status">
+                ✓ Amigos
+            </span>
+
+        `;
+
+    } else if (
+        perfil.estadoAmistad.requester_id ===
+        perfil.id
+    ) {
+
+        accion = `
+
+            <span class="social-status">
+                Solicitud recibida
+            </span>
+
+        `;
+
+    } else {
+
+        accion = `
+
+            <span class="social-status">
+                Solicitud enviada
+            </span>
+
+        `;
+
+    }
+
+
+    return `
+
+        <div class="social-card">
+
+            <div class="social-user">
+
+                <div class="social-avatar">
+                    ${escapeHTML(
+                        perfil.avatar || "👤"
+                    )}
+                </div>
+
+                <div class="social-user-info">
+
+                    <strong>
+                        @${escapeHTML(
+                            perfil.username
+                        )}
+                    </strong>
+
+                    <small>
+                        Nivel
+                        ${Number(
+                            perfil.level || 1
+                        )}
+                    </small>
+
+                </div>
+
+            </div>
+
+            <div class="social-actions">
+
+                ${accion}
+
+            </div>
+
+        </div>
+
+    `;
+
+}
+
+
+async function enviarSolicitud(
+    addresseeId
+) {
+
+    const user =
+        await obtenerUsuarioActual();
+
+
+    if (!user) {
+
+        mostrarToast(
+            "Inicia sesión primero."
+        );
+
+        return;
+
+    }
+
+
+    if (
+        user.id ===
+        addresseeId
+    ) {
+
+        return;
+
+    }
+
+
+    const existente =
+        await obtenerEstadoAmistad(
+            user.id,
+            addresseeId
+        );
+
+
+    if (existente) {
+
+        mostrarToast(
+            "Ya existe una solicitud o amistad."
+        );
+
+        return;
+
+    }
+
+
+    const {
+        error
+    } =
+        await supabaseClient
+            .from("friendships")
+            .insert({
+
+                requester_id:
+                    user.id,
+
+                addressee_id:
+                    addresseeId,
+
+                status:
+                    "pending"
+
+            });
+
+
+    if (error) {
+
+        mostrarToast(
+            error.message
+        );
+
+        return;
+
+    }
+
+
+    mostrarToast(
+        "Solicitud enviada."
+    );
+
+
+    await buscarUsuarios();
+
+}
+
+
+async function cargarSolicitudes() {
+
+    const user =
+        await obtenerUsuarioActual();
+
+
+    if (!user) return;
+
+
+    const container =
+        document.getElementById(
+            "friendRequests"
+        );
+
+
+    const {
+        data,
+        error
+    } =
+        await supabaseClient
+            .from("friendships")
+            .select(
+                "id, requester_id, status, profiles:requester_id(id, username, display_name, level, avatar)"
+            )
+            .eq(
+                "addressee_id",
+                user.id
+            )
+            .eq(
+                "status",
+                "pending"
+            );
+
+
+    if (error) {
+
+        container.innerHTML = `
+
+            <div class="empty-social">
+                ${escapeHTML(
+                    error.message
+                )}
+            </div>
+
+        `;
+
+        return;
+
+    }
+
+
+    const solicitudes =
+        data || [];
+
+
+    document.getElementById(
+        "requestCount"
+    ).textContent =
+        solicitudes.length;
+
+
+    if (
+        solicitudes.length === 0
+    ) {
+
+        container.innerHTML = `
+
+            <div class="empty-social">
+                No tienes solicitudes pendientes.
+            </div>
+
+        `;
+
+        return;
+
+    }
+
+
+    container.innerHTML =
+        solicitudes
+            .map(
+                solicitud => {
+
+                    const perfil =
+                        solicitud.profiles;
+
+
+                    return `
+
+                        <div class="social-card">
+
+                            <div class="social-user">
+
+                                <div class="social-avatar">
+                                    ${escapeHTML(
+                                        perfil?.avatar ||
+                                        "👤"
+                                    )}
+                                </div>
+
+                                <div class="social-user-info">
+
+                                    <strong>
+                                        @${escapeHTML(
+                                            perfil?.username ||
+                                            "Usuario"
+                                        )}
+                                    </strong>
+
+                                    <small>
+                                        Nivel
+                                        ${Number(
+                                            perfil?.level ||
+                                            1
+                                        )}
+                                    </small>
+
+                                </div>
+
+                            </div>
+
+                            <div class="social-actions">
+
+                                <button
+                                    class="social-accept"
+                                    onclick="responderSolicitud('${solicitud.id}', 'accepted')"
+                                >
+                                    Aceptar
+                                </button>
+
+                                <button
+                                    class="social-reject"
+                                    onclick="responderSolicitud('${solicitud.id}', 'rejected')"
+                                >
+                                    Rechazar
+                                </button>
+
+                            </div>
+
+                        </div>
+
+                    `;
+
+                }
+            )
+            .join("");
+
+}
+
+
+async function responderSolicitud(
+    friendshipId,
+    nuevoEstado
+) {
+
+    const {
+        error
+    } =
+        await supabaseClient
+            .from("friendships")
+            .update({
+                status:
+                    nuevoEstado
+            })
+            .eq(
+                "id",
+                friendshipId
+            );
+
+
+    if (error) {
+
+        mostrarToast(
+            error.message
+        );
+
+        return;
+
+    }
+
+
+    mostrarToast(
+        nuevoEstado === "accepted"
+            ? "Amigo agregado."
+            : "Solicitud rechazada."
+    );
+
+
+    await cargarSolicitudes();
+
+    await cargarAmigos();
+
+}
+
+
+async function cargarAmigos() {
+
+    const user =
+        await obtenerUsuarioActual();
+
+
+    if (!user) return;
+
+
+    const container =
+        document.getElementById(
+            "friendsList"
+        );
+
+
+    const {
+        data,
+        error
+    } =
+        await supabaseClient
+            .from("friendships")
+            .select(
+                "id, requester_id, addressee_id, status, requester:requester_id(id, username, display_name, level, avatar), addressee:addressee_id(id, username, display_name, level, avatar)"
+            )
+            .eq(
+                "status",
+                "accepted"
+            )
+            .or(
+                `requester_id.eq.${user.id},addressee_id.eq.${user.id}`
+            );
+
+
+    if (error) {
+
+        container.innerHTML = `
+
+            <div class="empty-social">
+                ${escapeHTML(
+                    error.message
+                )}
+            </div>
+
+        `;
+
+        return;
+
+    }
+
+
+    const amigos =
+        (data || [])
+            .map(
+                amistad =>
+                    amistad.requester_id === user.id
+                        ? amistad.addressee
+                        : amistad.requester
+            )
+            .filter(Boolean);
+
+
+    document.getElementById(
+        "friendCount"
+    ).textContent =
+        amigos.length;
+
+
+    if (
+        amigos.length === 0
+    ) {
+
+        container.innerHTML = `
+
+            <div class="empty-social">
+                Todavía no tienes amigos.
+            </div>
+
+        `;
+
+        return;
+
+    }
+
+
+    container.innerHTML =
+        amigos
+            .map(
+                amigo => `
+
+                    <div class="social-card">
+
+                        <div class="social-user">
+
+                            <div class="social-avatar">
+                                ${escapeHTML(
+                                    amigo.avatar ||
+                                    "👤"
+                                )}
+                            </div>
+
+                            <div class="social-user-info">
+
+                                <strong>
+                                    @${escapeHTML(
+                                        amigo.username
+                                    )}
+                                </strong>
+
+                                <small>
+                                    Nivel
+                                    ${Number(
+                                        amigo.level ||
+                                        1
+                                    )}
+                                </small>
+
+                            </div>
+
+                        </div>
+
+                        <div class="social-actions">
+
+                            <span class="social-status">
+                                ✓ Amigo
+                            </span>
+
+                        </div>
+
+                    </div>
+
+                `
+            )
+            .join("");
 
 }
 
@@ -3635,7 +7420,9 @@ function alternarTema() {
 
 function aplicarTemaInicial() {
 
-    if (estado.modoOscuro) {
+    if (
+        estado.modoOscuro
+    ) {
 
         document.body.classList.add(
             "dark"
@@ -3643,16 +7430,19 @@ function aplicarTemaInicial() {
 
     }
 
+
     aplicarTema();
 
 }
 
 
 /* =========================================================
-   TOASTS
+   TOAST
    ========================================================= */
 
-function mostrarToast(mensaje) {
+function mostrarToast(
+    mensaje
+) {
 
     const container =
         document.getElementById(
@@ -3660,13 +7450,18 @@ function mostrarToast(mensaje) {
         );
 
 
+    if (!container) return;
+
+
     const toast =
         document.createElement(
             "div"
         );
 
+
     toast.className =
         "toast";
+
 
     toast.textContent =
         mensaje;
@@ -3677,11 +7472,15 @@ function mostrarToast(mensaje) {
     );
 
 
-    setTimeout(() => {
+    setTimeout(
+        () => {
 
-        toast.remove();
+            toast.remove();
 
-    }, 3000);
+        },
+
+        3000
+    );
 
 }
 
@@ -3702,31 +7501,54 @@ function actualizarTodo() {
 
     actualizarPerfil();
 
-    document.getElementById(
-        "continueLesson"
-    ).innerHTML = `
 
-        <div>
+    const continueLesson =
+        document.getElementById(
+            "continueLesson"
+        );
 
-            <small>
-                TU SIGUIENTE PASO
-            </small>
 
-            <h3>
-                ${obtenerSiguienteLeccion()?.titulo || "Has completado todo"}
-            </h3>
+    if (
+        continueLesson
+    ) {
 
-            <p>
-                ${obtenerSiguienteLeccion()?.descripcion || "Explora el laboratorio y la biblioteca."}
-            </p>
+        const siguiente =
+            obtenerSiguienteLeccion();
 
-        </div>
 
-        <button onclick="continuarAprendiendo()">
-            Continuar
-        </button>
+        continueLesson.innerHTML = `
 
-    `;
+            <div>
+
+                <small>
+                    TU SIGUIENTE PASO
+                </small>
+
+                <h3>
+                    ${
+                        siguiente?.titulo ||
+                        "Has completado todo"
+                    }
+                </h3>
+
+                <p>
+                    ${
+                        siguiente?.descripcion ||
+                        "Explora el laboratorio y la biblioteca."
+                    }
+                </p>
+
+            </div>
+
+            <button
+                onclick="continuarAprendiendo()"
+            >
+                Continuar
+            </button>
+
+        `;
+
+    }
 
 }
 
@@ -3747,9 +7569,10 @@ function obtenerSiguienteLeccion() {
         ) {
 
             const leccion =
-                niveles[nivelIndex].lecciones[
-                    leccionIndex
-                ];
+                niveles[nivelIndex]
+                    .lecciones[
+                        leccionIndex
+                    ];
 
 
             if (
@@ -3785,18 +7608,21 @@ function obtenerSiguienteLeccion() {
 
 
 /* =========================================================
-   CONTADORES EXTRA
+   CONTADORES
    ========================================================= */
 
 function actualizarContadores() {
 
-    if (!estado.labUsos) {
+    if (!estado.labUsos)
         estado.labUsos = 0;
-    }
 
-    if (!estado.practicas) {
+
+    if (!estado.practicas)
         estado.practicas = 0;
-    }
+
+
+    if (!estado.sugerenciasEnviadas)
+        estado.sugerenciasEnviadas = 0;
 
 }
 
@@ -3807,11 +7633,13 @@ function actualizarContadores() {
 
 document.addEventListener(
     "DOMContentLoaded",
-    () => {
+    async () => {
 
         actualizarContadores();
 
         aplicarTemaInicial();
+
+        actualizarEstadoOnboarding();
 
         actualizarTodo();
 
@@ -3822,10 +7650,24 @@ document.addEventListener(
         comprobarLogros();
 
 
-        /*
-            Si es la primera vez,
-            comienza el onboarding.
-        */
+        if (
+            supabaseClient
+        ) {
+
+            const user =
+                await obtenerUsuarioActual();
+
+
+            if (user) {
+
+                await cargarPerfilSupabase(
+                    user
+                );
+
+            }
+
+        }
+
 
         if (
             !estado.encuestaTerminada ||
@@ -3839,19 +7681,12 @@ document.addEventListener(
 
         }
 
-        /*
-            Actualizamos la batería
-            periódicamente.
-        */
 
         setInterval(
             actualizarBateria,
             30000
         );
 
-        /*
-            Guardamos periódicamente.
-        */
 
         setInterval(
             guardarEstado,
@@ -3860,72 +7695,3 @@ document.addEventListener(
 
     }
 );
-
-
-/* =========================================================
-   CONTADOR DE LABORATORIO
-   ========================================================= */
-
-const ejecutarLabOriginal =
-    ejecutarLaboratorio;
-
-
-ejecutarLaboratorio =
-function () {
-
-    estado.labUsos =
-        (estado.labUsos || 0) + 1;
-
-    guardarEstado();
-
-    ejecutarLabOriginal();
-
-    comprobarLogros();
-
-};
-
-
-/* =========================================================
-   CONTADOR DE PRÁCTICA
-   ========================================================= */
-
-const comprobarPracticaOriginal =
-    comprobarPractica;
-
-
-comprobarPractica =
-function () {
-
-    const antes =
-        estado.practicas || 0;
-
-    comprobarPracticaOriginal();
-
-    /*
-        Solo contamos si la respuesta
-        fue correcta comprobándolo
-        después mediante el estado.
-    */
-
-    const respuesta =
-        document.getElementById(
-            "practiceAnswer"
-        );
-
-
-    if (
-        respuesta &&
-        respuesta.value.trim().toLowerCase() ===
-        practicaActual.respuesta.toLowerCase()
-    ) {
-
-        estado.practicas =
-            antes + 1;
-
-        guardarEstado();
-
-        comprobarLogros();
-
-    }
-
-};
