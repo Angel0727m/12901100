@@ -1,2234 +1,1386 @@
-```javascript
 /* =========================================================
-   LUADRIX — JAVASCRIPT
-   Aprende Lua 5.5
+   LUADRIX
+   Sistema principal de aprendizaje
+   El laboratorio es una SIMULACIÓN educativa.
    ========================================================= */
 
 
-/* ==================== CONFIGURACIÓN ==================== */
+/* =========================================================
+   CONFIGURACIÓN
+   ========================================================= */
 
-/*
-    IMPORTANTE:
+const MAX_BATERIA = 25;
 
-    LuaDrix puede funcionar sin configurar Supabase.
+const BATERIA_REGEN_MS = 55 * 60 * 1000;
 
-    Cuando queramos activar cuentas reales, pondremos aquí:
+const XP_POR_LECCION = 50;
+const XP_POR_RETO = 25;
 
-    const SUPABASE_URL = "https://...";
-    const SUPABASE_ANON_KEY = "...";
-
-    NO pongas aquí una service_role key.
-*/
-
-const SUPABASE_URL = "";
-const SUPABASE_ANON_KEY = "";
+const MONEDAS_POR_LECCION = 10;
+const MONEDAS_POR_RETO = 5;
 
 
-/* ==================== DATOS ==================== */
+/* =========================================================
+   DATOS DE NIVELES
+   ========================================================= */
 
-const conceptos = [
+const niveles = [
 
     {
-        nombre: "Variables y alcance",
-        id: "variables",
-        descripcion: "local, global, const, close, _ENV y _G."
+        id: 1,
+        nombre: "Recién empezando",
+        descripcion: "Los fundamentos de Lua",
+        lecciones: [
+
+            {
+                id: "1-1",
+                titulo: "Tu primer print()",
+                concepto: "print",
+                teoria: `
+                    <h3>Mostrar información</h3>
+
+                    <p>
+                        Una de las primeras cosas que puedes hacer en Lua
+                        es mostrar información usando <code>print()</code>.
+                    </p>
+
+                    <pre class="example-code">print("Hola, mundo")</pre>
+
+                    <p>
+                        El texto que quieras mostrar se coloca entre comillas
+                        y dentro de los paréntesis.
+                    </p>
+                `,
+                pregunta: "¿Qué función utilizamos para mostrar algo en pantalla?",
+                opciones: ["show()", "print()", "display()", "writeScreen()"],
+                correcta: 1,
+                reto: "Escribe un código que muestre el texto Hola Lua.",
+                validacion: ["print", "Hola Lua"]
+            },
+
+            {
+                id: "1-2",
+                titulo: "Variables",
+                concepto: "variables",
+                teoria: `
+                    <h3>Guardar información</h3>
+
+                    <p>
+                        Una variable sirve para guardar un valor.
+                    </p>
+
+                    <pre class="example-code">local nombre = "Angel"</pre>
+
+                    <p>
+                        <code>local</code> crea una variable local y
+                        <code>=</code> le asigna un valor.
+                    </p>
+                `,
+                pregunta: "¿Qué palabra utilizamos normalmente para crear una variable local?",
+                opciones: ["var", "let", "local", "variable"],
+                correcta: 2,
+                reto: "Crea una variable local llamada nombre con el valor Angel.",
+                validacion: ["local", "nombre", "=", "Angel"]
+            },
+
+            {
+                id: "1-3",
+                titulo: "Tipos de datos",
+                concepto: "tipos",
+                teoria: `
+                    <h3>Los tipos de datos</h3>
+
+                    <p>
+                        Lua tiene distintos tipos de valores.
+                        Algunos importantes son:
+                    </p>
+
+                    <ul>
+                        <li>string → texto</li>
+                        <li>number → números</li>
+                        <li>boolean → true o false</li>
+                        <li>nil → ausencia de valor</li>
+                        <li>table → tablas</li>
+                    </ul>
+
+                    <pre class="example-code">local edad = 13
+local nombre = "Angel"
+local activo = true</pre>
+                `,
+                pregunta: "¿Cuál de estos es un valor booleano?",
+                opciones: ["Hola", "25", "true", "nil"],
+                correcta: 2,
+                reto: "Crea una variable local llamada activo y asígnale true.",
+                validacion: ["local", "activo", "=", "true"]
+            },
+
+            {
+                id: "1-4",
+                titulo: "Operadores básicos",
+                concepto: "operadores",
+                teoria: `
+                    <h3>Operaciones</h3>
+
+                    <p>
+                        Lua permite realizar operaciones matemáticas
+                        utilizando operadores.
+                    </p>
+
+                    <pre class="example-code">local resultado = 10 + 5
+print(resultado)</pre>
+
+                    <p>
+                        Algunos operadores son +, -, *, / y %.
+                    </p>
+                `,
+                pregunta: "¿Qué operador utilizamos para multiplicar?",
+                opciones: ["x", "*", "%", "#"],
+                correcta: 1,
+                reto: "Crea una variable resultado que contenga 5 multiplicado por 4.",
+                validacion: ["local", "resultado", "=", "5", "*", "4"]
+            }
+
+        ]
     },
 
-    {
-        nombre: "Tipos de datos",
-        id: "tipos",
-        descripcion: "nil, boolean, number, string, function, table y más."
-    },
 
     {
-        nombre: "Booleanos",
-        id: "booleanos",
-        descripcion: "true, false, and, or y not."
+        id: 2,
+        nombre: "Tomando el control",
+        descripcion: "Condiciones y repetición",
+        lecciones: [
+
+            {
+                id: "2-1",
+                titulo: "Condicionales if",
+                concepto: "if",
+                teoria: `
+                    <h3>Tomar decisiones</h3>
+
+                    <p>
+                        <code>if</code> permite ejecutar código solamente
+                        cuando una condición es verdadera.
+                    </p>
+
+                    <pre class="example-code">if edad >= 18 then
+    print("Adulto")
+end</pre>
+                `,
+                pregunta: "¿Qué palabra termina un bloque if en Lua?",
+                opciones: ["finish", "stop", "end", "endif"],
+                correcta: 2,
+                reto: "Crea un if que compruebe si edad es mayor que 10.",
+                validacion: ["if", "edad", ">", "10", "then", "end"]
+            },
+
+            {
+                id: "2-2",
+                titulo: "else y elseif",
+                concepto: "else",
+                teoria: `
+                    <h3>Más de una posibilidad</h3>
+
+                    <p>
+                        <code>else</code> permite ejecutar otro bloque
+                        cuando la condición principal no se cumple.
+                    </p>
+
+                    <pre class="example-code">if edad >= 18 then
+    print("Adulto")
+else
+    print("Menor")
+end</pre>
+                `,
+                pregunta: "¿Qué ocurre con el bloque else?",
+                opciones: [
+                    "Siempre se ejecuta",
+                    "Se ejecuta si el if no se cumple",
+                    "Crea una variable",
+                    "Repite el código"
+                ],
+                correcta: 1,
+                reto: "Escribe un if con una condición y un bloque else.",
+                validacion: ["if", "then", "else", "end"]
+            },
+
+            {
+                id: "2-3",
+                titulo: "Bucle while",
+                concepto: "while",
+                teoria: `
+                    <h3>Repetir mientras</h3>
+
+                    <p>
+                        Un <code>while</code> repite código mientras
+                        una condición sea verdadera.
+                    </p>
+
+                    <pre class="example-code">local numero = 1
+
+while numero <= 5 do
+    print(numero)
+    numero = numero + 1
+end</pre>
+                `,
+                pregunta: "¿Qué palabra utilizamos para crear este tipo de bucle?",
+                opciones: ["repeat", "while", "loop", "again"],
+                correcta: 1,
+                reto: "Crea un while que compruebe si numero es menor que 5.",
+                validacion: ["while", "numero", "<", "5", "do", "end"]
+            },
+
+            {
+                id: "2-4",
+                titulo: "Bucle for",
+                concepto: "for",
+                teoria: `
+                    <h3>Contar repeticiones</h3>
+
+                    <pre class="example-code">for i = 1, 5 do
+    print(i)
+end</pre>
+
+                    <p>
+                        Este código ejecuta el bloque varias veces,
+                        cambiando el valor de <code>i</code>.
+                    </p>
+                `,
+                pregunta: "¿Qué variable suele utilizarse como contador en un for?",
+                opciones: ["i", "counterOnly", "numberLoop", "forValue"],
+                correcta: 0,
+                reto: "Crea un for que vaya del 1 al 5.",
+                validacion: ["for", "i", "=", "1", "5", "do", "end"]
+            }
+
+        ]
     },
 
-    {
-        nombre: "Operadores",
-        id: "operadores",
-        descripcion: "Aritméticos, lógicos, comparación y bits."
-    },
 
     {
-        nombre: "Condicionales",
-        id: "condicionales",
-        descripcion: "if, then, else, elseif y comparaciones."
+        id: 3,
+        nombre: "Subiendo de nivel",
+        descripcion: "Funciones, tablas y strings",
+        lecciones: [
+
+            {
+                id: "3-1",
+                titulo: "Funciones",
+                concepto: "funciones",
+                teoria: `
+                    <h3>Crear funciones</h3>
+
+                    <p>
+                        Las funciones permiten guardar instrucciones
+                        para reutilizarlas.
+                    </p>
+
+                    <pre class="example-code">function saludar()
+    print("Hola")
+end
+
+saludar()</pre>
+                `,
+                pregunta: "¿Qué palabra utilizamos para declarar una función?",
+                opciones: ["function", "func", "define", "method"],
+                correcta: 0,
+                reto: "Crea una función llamada saludar que imprima Hola.",
+                validacion: ["function", "saludar", "print", "Hola", "end"]
+            },
+
+            {
+                id: "3-2",
+                titulo: "Parámetros y return",
+                concepto: "return",
+                teoria: `
+                    <h3>Funciones con información</h3>
+
+                    <pre class="example-code">function sumar(a, b)
+    return a + b
+end
+
+local resultado = sumar(5, 3)</pre>
+
+                    <p>
+                        Los parámetros reciben información y
+                        <code>return</code> devuelve un resultado.
+                    </p>
+                `,
+                pregunta: "¿Qué palabra devuelve un resultado de una función?",
+                opciones: ["send", "return", "give", "output"],
+                correcta: 1,
+                reto: "Crea una función sumar que reciba a y b y devuelva a + b.",
+                validacion: ["function", "sumar", "a", "b", "return", "a", "+", "b", "end"]
+            },
+
+            {
+                id: "3-3",
+                titulo: "Tablas",
+                concepto: "tablas",
+                teoria: `
+                    <h3>Las tablas de Lua</h3>
+
+                    <p>
+                        Las tablas son una de las estructuras más importantes
+                        de Lua.
+                    </p>
+
+                    <pre class="example-code">local frutas = {
+    "manzana",
+    "pera",
+    "banana"
+}
+
+print(frutas[1])</pre>
+                `,
+                pregunta: "¿Qué estructura utiliza Lua para almacenar colecciones?",
+                opciones: ["arrays solamente", "tables", "lists", "objects"],
+                correcta: 1,
+                reto: "Crea una tabla llamada frutas con al menos una fruta.",
+                validacion: ["local", "frutas", "=", "{"]
+            },
+
+            {
+                id: "3-4",
+                titulo: "Strings",
+                concepto: "strings",
+                teoria: `
+                    <h3>Trabajar con texto</h3>
+
+                    <p>
+                        Los strings representan texto.
+                        Lua proporciona muchas funciones para trabajar con ellos.
+                    </p>
+
+                    <pre class="example-code">local texto = "Hola Lua"
+
+print(string.len(texto))
+print(string.find(texto, "Lua"))</pre>
+                `,
+                pregunta: "¿Qué biblioteca de Lua contiene funciones para trabajar con strings?",
+                opciones: ["text", "string", "words", "char"],
+                correcta: 1,
+                reto: "Usa string.find para buscar Lua dentro de un texto.",
+                validacion: ["string.find", "Lua"]
+            }
+
+        ]
     },
 
-    {
-        nombre: "Bucles",
-        id: "bucles",
-        descripcion: "while, repeat, for y break."
-    },
 
     {
-        nombre: "Funciones",
-        id: "funciones",
-        descripcion: "Parámetros, return, closures y varargs."
+        id: 4,
+        nombre: "Programador en progreso",
+        descripcion: "Bibliotecas y programación más elaborada",
+        lecciones: [
+
+            {
+                id: "4-1",
+                titulo: "Biblioteca string",
+                concepto: "stringlib",
+                teoria: `
+                    <h3>Funciones de strings</h3>
+
+                    <p>
+                        La biblioteca string permite buscar, transformar
+                        y analizar texto.
+                    </p>
+
+                    <pre class="example-code">local texto = "LuaDrix"
+
+print(string.upper(texto))
+print(string.lower(texto))</pre>
+                `,
+                pregunta: "¿Qué función convierte un string a mayúsculas?",
+                opciones: ["string.big()", "string.upper()", "string.capital()", "string.max()"],
+                correcta: 1,
+                reto: "Usa string.upper con un texto.",
+                validacion: ["string.upper"]
+            },
+
+            {
+                id: "4-2",
+                titulo: "Biblioteca table",
+                concepto: "tablelib",
+                teoria: `
+                    <h3>Manipular tablas</h3>
+
+                    <pre class="example-code">local frutas = {
+    "manzana",
+    "pera"
+}
+
+table.insert(frutas, "banana")</pre>
+
+                    <p>
+                        Las funciones de table permiten modificar y consultar tablas.
+                    </p>
+                `,
+                pregunta: "¿Qué función sirve para insertar un elemento?",
+                opciones: ["table.add()", "table.insert()", "table.push()", "table.put()"],
+                correcta: 1,
+                reto: "Usa table.insert para agregar un valor a una tabla.",
+                validacion: ["table.insert"]
+            },
+
+            {
+                id: "4-3",
+                titulo: "Módulos",
+                concepto: "modulos",
+                teoria: `
+                    <h3>Separar programas</h3>
+
+                    <p>
+                        Lua permite dividir código en módulos y utilizar
+                        <code>require()</code> para cargarlos.
+                    </p>
+
+                    <pre class="example-code">local modulo = require("miModulo")</pre>
+                `,
+                pregunta: "¿Qué función se utiliza normalmente para cargar un módulo?",
+                opciones: ["load()", "require()", "module()", "import()"],
+                correcta: 1,
+                reto: "Escribe una línea que utilice require.",
+                validacion: ["require"]
+            },
+
+            {
+                id: "4-4",
+                titulo: "Errores",
+                concepto: "errores",
+                teoria: `
+                    <h3>Cuando algo sale mal</h3>
+
+                    <p>
+                        Los programas pueden producir errores.
+                        Lua ofrece mecanismos como <code>pcall()</code>
+                        para ejecutar código protegido.
+                    </p>
+
+                    <pre class="example-code">local ok, resultado = pcall(function()
+    return 10
+end)</pre>
+                `,
+                pregunta: "¿Para qué sirve pcall?",
+                opciones: [
+                    "Para crear tablas",
+                    "Para ejecutar código protegido contra errores",
+                    "Para hacer bucles",
+                    "Para imprimir texto"
+                ],
+                correcta: 1,
+                reto: "Escribe una llamada a pcall.",
+                validacion: ["pcall"]
+            }
+
+        ]
     },
 
-    {
-        nombre: "Tablas",
-        id: "tablas",
-        descripcion: "Listas, claves, campos e iteración."
-    },
 
     {
-        nombre: "Strings",
-        id: "strings",
-        descripcion: "Texto, patrones, búsqueda y UTF-8."
+        id: 5,
+        nombre: "Programador intermedio",
+        descripcion: "Archivos, matemáticas y control avanzado",
+        lecciones: [
+
+            {
+                id: "5-1",
+                titulo: "Biblioteca math",
+                concepto: "math",
+                teoria: `
+                    <h3>Matemáticas</h3>
+
+                    <p>
+                        La biblioteca math contiene funciones matemáticas.
+                    </p>
+
+                    <pre class="example-code">print(math.floor(4.8))
+print(math.ceil(4.2))
+print(math.abs(-10))</pre>
+                `,
+                pregunta: "¿Qué biblioteca contiene funciones matemáticas?",
+                opciones: ["number", "math", "calc", "numeric"],
+                correcta: 1,
+                reto: "Usa math.floor con un número decimal.",
+                validacion: ["math.floor"]
+            },
+
+            {
+                id: "5-2",
+                titulo: "Archivos",
+                concepto: "io",
+                teoria: `
+                    <h3>Entrada y salida</h3>
+
+                    <p>
+                        La biblioteca io permite trabajar con entrada,
+                        salida y archivos.
+                    </p>
+
+                    <pre class="example-code">local archivo = io.open("datos.txt", "r")</pre>
+                `,
+                pregunta: "¿Qué biblioteca está relacionada con entrada y salida?",
+                opciones: ["io", "input", "file", "stream"],
+                correcta: 0,
+                reto: "Escribe una llamada a io.open.",
+                validacion: ["io.open"]
+            },
+
+            {
+                id: "5-3",
+                titulo: "Metatables",
+                concepto: "metatables",
+                teoria: `
+                    <h3>Modificar el comportamiento de tablas</h3>
+
+                    <p>
+                        Las metatables permiten definir comportamientos
+                        especiales para tablas.
+                    </p>
+
+                    <pre class="example-code">local persona = {}
+
+setmetatable(persona, {})</pre>
+                `,
+                pregunta: "¿Qué función asigna una metatable a una tabla?",
+                opciones: ["setmetatable()", "settable()", "metatable()", "tablemeta()"],
+                correcta: 0,
+                reto: "Usa setmetatable con una tabla.",
+                validacion: ["setmetatable"]
+            },
+
+            {
+                id: "5-4",
+                titulo: "Metamétodos",
+                concepto: "metamethods",
+                teoria: `
+                    <h3>Operadores personalizados</h3>
+
+                    <p>
+                        Los metamétodos permiten cambiar cómo Lua interpreta
+                        ciertas operaciones sobre tablas.
+                    </p>
+
+                    <pre class="example-code">__add
+__sub
+__eq
+__tostring</pre>
+                `,
+                pregunta: "¿Qué metamétodo está relacionado con la suma?",
+                opciones: ["__sum", "__plus", "__add", "__math"],
+                correcta: 2,
+                reto: "Escribe el nombre del metamétodo utilizado para la suma.",
+                validacion: ["__add"]
+            }
+
+        ]
     },
 
-    {
-        nombre: "Funciones básicas",
-        id: "funcionesbasicas",
-        descripcion: "print, type, tonumber, pcall y más."
-    },
 
     {
-        nombre: "Librerías estándar",
-        id: "funcionesextras",
-        descripcion: "string, table, math, io, os, package y más."
-    },
+        id: 6,
+        nombre: "Programador avanzado",
+        descripcion: "Coroutines y conceptos avanzados",
+        lecciones: [
 
-    {
-        nombre: "Metatables",
-        id: "metatables",
-        descripcion: "Metamethods y comportamiento personalizado."
-    },
+            {
+                id: "6-1",
+                titulo: "Coroutines",
+                concepto: "coroutines",
+                teoria: `
+                    <h3>Coroutines</h3>
 
-    {
-        nombre: "Coroutines",
-        id: "coroutines",
-        descripcion: "Suspender y reanudar código."
-    },
+                    <p>
+                        Las coroutines permiten crear tareas que pueden
+                        suspenderse y continuar posteriormente.
+                    </p>
 
-    {
-        nombre: "Errores y protección",
-        id: "errores",
-        descripcion: "error, assert, pcall, xpcall y warn."
-    },
+                    <pre class="example-code">local co = coroutine.create(function()
+    print("Hola")
+end)
 
-    {
-        nombre: "Módulos",
-        id: "modulos",
-        descripcion: "require, package y organización del código."
-    },
+coroutine.resume(co)</pre>
+                `,
+                pregunta: "¿Qué biblioteca contiene las funciones de coroutines?",
+                opciones: ["thread", "coroutine", "process", "async"],
+                correcta: 1,
+                reto: "Crea una coroutine usando coroutine.create.",
+                validacion: ["coroutine.create"]
+            },
 
-    {
-        nombre: "Conceptos avanzados",
-        id: "avanzado",
-        descripcion: "GC, weak tables, load, debug, _G y más."
-    },
+            {
+                id: "6-2",
+                titulo: "yield",
+                concepto: "yield",
+                teoria: `
+                    <h3>Suspender una coroutine</h3>
 
-    {
-        nombre: "Diccionario completo",
-        id: "completo",
-        descripcion: "Todos los conceptos de LuaDrix."
-    },
+                    <p>
+                        <code>coroutine.yield()</code> permite suspender
+                        temporalmente una coroutine.
+                    </p>
 
-    {
-        nombre: "Quiz de Lua",
-        id: "quiz",
-        descripcion: "Pon a prueba lo que aprendiste."
-    },
+                    <pre class="example-code">coroutine.yield()</pre>
+                `,
+                pregunta: "¿Qué función permite suspender una coroutine?",
+                opciones: ["coroutine.stop()", "coroutine.pause()", "coroutine.yield()", "yield()"],
+                correcta: 2,
+                reto: "Escribe coroutine.yield().",
+                validacion: ["coroutine.yield"]
+            },
 
-    {
-        nombre: "Práctica",
-        id: "ejercicios",
-        descripcion: "Practica lo aprendido."
-    },
+            {
+                id: "6-3",
+                titulo: "Garbage Collector",
+                concepto: "gc",
+                teoria: `
+                    <h3>Recolección de basura</h3>
 
-    {
-        nombre: "Laboratorio",
-        id: "interactivo",
-        descripcion: "Prueba conceptos básicos."
+                    <p>
+                        Lua administra automáticamente memoria mediante
+                        su recolector de basura.
+                    </p>
+
+                    <pre class="example-code">collectgarbage()</pre>
+                `,
+                pregunta: "¿Qué función permite interactuar con el garbage collector?",
+                opciones: ["memory()", "collectgarbage()", "gc()", "free()"],
+                correcta: 1,
+                reto: "Escribe una llamada a collectgarbage.",
+                validacion: ["collectgarbage"]
+            },
+
+            {
+                id: "6-4",
+                titulo: "debug y conceptos expertos",
+                concepto: "debug",
+                teoria: `
+                    <h3>Herramientas avanzadas</h3>
+
+                    <p>
+                        Lua incluye una biblioteca debug para operaciones
+                        avanzadas relacionadas con depuración y ejecución.
+                    </p>
+
+                    <pre class="example-code">debug.traceback()</pre>
+
+                    <p>
+                        Este tipo de herramientas pertenece a las partes
+                        más avanzadas del lenguaje.
+                    </p>
+                `,
+                pregunta: "¿Qué biblioteca está relacionada con herramientas de depuración?",
+                opciones: ["debug", "errorTools", "inspect", "developer"],
+                correcta: 0,
+                reto: "Escribe una llamada a debug.traceback().",
+                validacion: ["debug.traceback"]
+            }
+
+        ]
     }
 
 ];
 
 
-/* ==================== AUXILIARES ==================== */
+/* =========================================================
+   ESTADO
+   ========================================================= */
 
-function escapeHTML(texto) {
-
-    return String(texto)
-        .replace(/&/g, "&amp;")
-        .replace(/</g, "&lt;")
-        .replace(/>/g, "&gt;")
-        .replace(/"/g, "&quot;")
-        .replace(/'/g, "&#039;");
-
-}
+let estado = cargarEstado();
 
 
-/* ==================== NAVEGACIÓN ==================== */
+function estadoInicial() {
 
-function mostrarTema(tema) {
+    return {
 
-    const paginas =
-        document.querySelectorAll(".pagina");
+        nombre: "Angel",
 
-    paginas.forEach(function(pagina) {
-        pagina.style.display = "none";
-    });
+        xp: 0,
 
+        monedas: 50,
 
-    const inicio =
-        document.getElementById("inicio");
+        bateria: MAX_BATERIA,
 
-    if (inicio) {
-        inicio.style.display = "none";
-    }
+        ultimaRecarga: Date.now(),
 
+        racha: 0,
 
-    const pagina =
-        document.getElementById(tema);
+        ultimoDia: null,
 
-    if (!pagina) {
+        protectores: 2,
 
-        console.warn(
-            "No existe la página:",
-            tema
-        );
+        leccionesCompletadas: [],
 
-        return;
-    }
+        conceptosAprendidos: {},
 
+        logros: [],
 
-    pagina.style.display = "block";
+        encuestaTerminada: false,
 
+        diagnosticoTerminado: false,
 
-    window.scrollTo({
-        top: 0,
-        behavior: "smooth"
-    });
+        diagnosticoSkills: {},
 
+        tema: "normal",
 
-    if (tema === "quiz") {
-        iniciarQuiz();
-    }
+        cuenta: false,
 
+        compras: [],
 
-    if (tema === "completo") {
-        generarDiccionario();
-    }
+        pistaUsadaHoy: false,
+
+        practicaUsadaHoy: false
+
+    };
 
 }
 
 
-function volverInicio() {
+function cargarEstado() {
 
-    document.querySelectorAll(".pagina").forEach(
-        function(pagina) {
-            pagina.style.display = "none";
-        }
-    );
-
-
-    const inicio =
-        document.getElementById("inicio");
-
-    if (inicio) {
-        inicio.style.display = "block";
-    }
-
-
-    window.scrollTo({
-        top: 0,
-        behavior: "smooth"
-    });
-
-}
-
-
-/* ==================== PROGRESO ==================== */
-
-function obtenerProgreso() {
-
-    const guardado =
-        localStorage.getItem("luaDrixProgreso");
+    const guardado = localStorage.getItem("luaDrixEstado");
 
     if (!guardado) {
-        return [];
+        return estadoInicial();
     }
-
 
     try {
 
-        const progreso =
-            JSON.parse(guardado);
+        const viejo = JSON.parse(guardado);
 
-        if (!Array.isArray(progreso)) {
-            return [];
-        }
+        return {
+            ...estadoInicial(),
+            ...viejo
+        };
 
-        return progreso;
+    } catch {
 
-    } catch (error) {
-
-        return [];
+        return estadoInicial();
 
     }
 
 }
 
 
-function guardarProgreso(progreso) {
+function guardarEstado() {
 
     localStorage.setItem(
-        "luaDrixProgreso",
-        JSON.stringify(progreso)
+        "luaDrixEstado",
+        JSON.stringify(estado)
     );
 
 }
 
 
-function obtenerXP() {
+/* =========================================================
+   NIVELES / XP
+   ========================================================= */
 
-    const xp =
-        Number(
-            localStorage.getItem("luaDrixXP")
-        );
+function obtenerNivel(xp = estado.xp) {
 
-    return Number.isFinite(xp)
-        ? xp
-        : 0;
+    return Math.floor(xp / 100) + 1;
 
 }
 
 
-function guardarXP(xp) {
+function xpNivelActual() {
 
-    localStorage.setItem(
-        "luaDrixXP",
-        String(xp)
-    );
+    return estado.xp % 100;
 
 }
 
 
-function sumarXP(cantidad) {
+function tituloNivel(nivel) {
 
-    const xp =
-        obtenerXP() + cantidad;
+    if (nivel >= 25) return "Maestro de Lua";
+    if (nivel >= 20) return "Experto de Lua";
+    if (nivel >= 15) return "Programador avanzado";
+    if (nivel >= 10) return "Programador experto";
+    if (nivel >= 5) return "Programador en progreso";
 
-    guardarXP(xp);
-
-    actualizarEstadisticas();
+    return "Recién empezando";
 
 }
 
 
-function obtenerRacha() {
+function actualizarXP() {
 
-    const racha =
-        Number(
-            localStorage.getItem("luaDrixRacha")
-        );
+    const nivel = obtenerNivel();
 
-    return Number.isFinite(racha)
-        ? racha
-        : 0;
+    document.querySelectorAll("#nivelTop, #nivelInicio, #profileLevel")
+        .forEach(el => el.textContent = nivel);
+
+    document.getElementById("tituloNivelInicio").textContent =
+        tituloNivel(nivel);
+
+    document.getElementById("profileTitle").textContent =
+        tituloNivel(nivel);
+
+    document.getElementById("profileXP").textContent =
+        estado.xp;
+
+    const actual = xpNivelActual();
+
+    document.getElementById("xpTextoInicio").textContent =
+        `${actual} / 100 EXP`;
+
+    document.getElementById("profileXPText").textContent =
+        `${actual} / 100 EXP`;
+
+    document.getElementById("profileXPRemaining").textContent =
+        `Te faltan ${100 - actual} EXP`;
+
+    document.getElementById("xpBarInicio").style.width =
+        `${actual}%`;
+
+    document.getElementById("profileXPBar").style.width =
+        `${actual}%`;
+
+}
+
+
+/* =========================================================
+   BATERÍA
+   ========================================================= */
+
+function actualizarBateria() {
+
+    const ahora = Date.now();
+
+    if (estado.bateria < MAX_BATERIA) {
+
+        const transcurrido =
+            ahora - estado.ultimaRecarga;
+
+        const puntos =
+            Math.floor(transcurrido / BATERIA_REGEN_MS);
+
+        if (puntos > 0) {
+
+            estado.bateria =
+                Math.min(MAX_BATERIA, estado.bateria + puntos);
+
+            estado.ultimaRecarga +=
+                puntos * BATERIA_REGEN_MS;
+
+            guardarEstado();
+
+        }
+
+    } else {
+
+        estado.ultimaRecarga = ahora;
+
+    }
+
+
+    document.querySelectorAll(
+        "#bateriaTop, #bateriaInicio"
+    ).forEach(el => {
+
+        el.textContent = estado.bateria;
+
+    });
+
+
+    if (estado.bateria >= MAX_BATERIA) {
+
+        document.getElementById("recargaTexto").textContent =
+            "Batería completa";
+
+    } else {
+
+        const restante =
+            BATERIA_REGEN_MS -
+            (Date.now() - estado.ultimaRecarga);
+
+        const minutos =
+            Math.max(0, Math.ceil(restante / 60000));
+
+        document.getElementById("recargaTexto").textContent =
+            `+1 batería en ${minutos} min`;
+
+    }
+
+}
+
+
+function gastarBateria(cantidad = 1) {
+
+    actualizarBateria();
+
+    if (estado.bateria < cantidad) {
+
+        mostrarToast("No tienes suficiente batería.");
+
+        return false;
+
+    }
+
+    estado.bateria -= cantidad;
+
+    if (estado.bateria < MAX_BATERIA) {
+        estado.ultimaRecarga = Date.now();
+    }
+
+    guardarEstado();
+
+    actualizarBateria();
+
+    return true;
+
+}
+
+
+/* =========================================================
+   MONEDAS
+   ========================================================= */
+
+function actualizarMonedas() {
+
+    document.querySelectorAll(
+        "#monedasTop, #monedasInicio, #profileCoins, #shopCoins"
+    ).forEach(el => {
+
+        el.textContent = estado.monedas;
+
+    });
+
+}
+
+
+/* =========================================================
+   RACHA
+   ========================================================= */
+
+function fechaLocal() {
+
+    const ahora = new Date();
+
+    return [
+        ahora.getFullYear(),
+        String(ahora.getMonth() + 1).padStart(2, "0"),
+        String(ahora.getDate()).padStart(2, "0")
+    ].join("-");
 
 }
 
 
 function actualizarRacha() {
 
-    const hoy =
-        new Date()
-            .toISOString()
-            .slice(0, 10);
+    const hoy = fechaLocal();
 
-    const ultimoDia =
-        localStorage.getItem("luaDrixUltimoDia");
+    document.querySelectorAll(
+        "#rachaTop, #rachaInicio, #profileStreak"
+    ).forEach(el => {
 
+        el.textContent = estado.racha;
 
-    if (!ultimoDia) {
+    });
 
-        localStorage.setItem(
-            "luaDrixUltimoDia",
-            hoy
-        );
-
-        localStorage.setItem(
-            "luaDrixRacha",
-            "1"
-        );
-
-        return;
-
-    }
-
-
-    if (ultimoDia === hoy) {
+    if (!estado.ultimoDia) {
         return;
     }
 
+    if (estado.ultimoDia === hoy) {
+        return;
+    }
 
-    const fechaAnterior =
-        new Date(ultimoDia + "T00:00:00");
+    const ultima = new Date(
+        estado.ultimoDia + "T00:00:00"
+    );
 
-    const fechaActual =
-        new Date(hoy + "T00:00:00");
-
+    const actual = new Date(
+        hoy + "T00:00:00"
+    );
 
     const diferencia =
         Math.round(
-            (
-                fechaActual -
-                fechaAnterior
-            ) / 86400000
+            (actual - ultima) /
+            86400000
         );
 
+    if (diferencia > 1) {
 
-    let racha =
-        obtenerRacha();
+        if (estado.protectores > 0) {
 
+            estado.protectores--;
 
-    if (diferencia === 1) {
+            estado.ultimoDia = hoy;
 
-        racha++;
-
-    } else if (diferencia > 1) {
-
-        racha = 1;
-
-    }
-
-
-    localStorage.setItem(
-        "luaDrixRacha",
-        String(racha)
-    );
-
-    localStorage.setItem(
-        "luaDrixUltimoDia",
-        hoy
-    );
-
-}
-
-
-function marcarAprendido(nombre) {
-
-    let progreso =
-        obtenerProgreso();
-
-
-    if (!progreso.includes(nombre)) {
-
-        progreso.push(nombre);
-
-        guardarProgreso(progreso);
-
-        sumarXP(20);
-
-    }
-
-
-    const boton =
-        document.querySelector(
-            `.aprendido[onclick="marcarAprendido('${nombre}')"]`
-        );
-
-
-    if (boton) {
-
-        boton.classList.add(
-            "aprendido-activo"
-        );
-
-        boton.textContent =
-            "✓ Aprendido";
-
-    }
-
-
-    actualizarRacha();
-    actualizarProgreso();
-    actualizarEstadisticas();
-
-}
-
-
-function actualizarProgreso() {
-
-    const progreso =
-        obtenerProgreso();
-
-
-    const texto =
-        document.getElementById(
-            "textoProgreso"
-        );
-
-
-    const barra =
-        document.getElementById(
-            "barraProgreso"
-        );
-
-
-    const total =
-        conceptos.filter(function(concepto) {
-
-            return [
-                "variables",
-                "tipos",
-                "booleanos",
-                "operadores",
-                "condicionales",
-                "bucles",
-                "funciones",
-                "tablas",
-                "strings",
-                "funcionesbasicas",
-                "funcionesextras",
-                "metatables",
-                "coroutines",
-                "errores",
-                "modulos",
-                "avanzado"
-            ].includes(concepto.id);
-
-        }).length;
-
-
-    const aprendidos =
-        progreso.filter(function(nombre) {
-
-            return [
-                "variables",
-                "tipos",
-                "booleanos",
-                "operadores",
-                "condicionales",
-                "bucles",
-                "funciones",
-                "tablas",
-                "strings",
-                "funcionesbasicas",
-                "funcionesextras",
-                "metatables",
-                "coroutines",
-                "errores",
-                "modulos",
-                "avanzado"
-            ].includes(nombre);
-
-        }).length;
-
-
-    const porcentaje =
-        total === 0
-            ? 0
-            : Math.round(
-                (aprendidos / total) * 100
+            mostrarToast(
+                "🛡️ Usaste un protector de racha."
             );
 
+        } else {
 
-    if (texto) {
-
-        texto.textContent =
-            `${aprendidos} de ${total} lecciones aprendidas (${porcentaje}%)`;
-
-    }
-
-
-    if (barra) {
-
-        barra.style.width =
-            `${porcentaje}%`;
-
-        barra.setAttribute(
-            "aria-valuenow",
-            porcentaje
-        );
-
-    }
-
-
-    document.querySelectorAll(
-        ".aprendido"
-    ).forEach(function(boton) {
-
-        const coincidencia =
-            boton.getAttribute("onclick");
-
-
-        if (!coincidencia) {
-            return;
-        }
-
-
-        const resultado =
-            coincidencia.match(
-                /marcarAprendido\('([^']+)'\)/
-            );
-
-
-        if (!resultado) {
-            return;
-        }
-
-
-        const id =
-            resultado[1];
-
-
-        if (progreso.includes(id)) {
-
-            boton.classList.add(
-                "aprendido-activo"
-            );
-
-            boton.textContent =
-                "✓ Aprendido";
+            estado.racha = 0;
 
         }
 
-    });
-
-}
-
-
-function actualizarEstadisticas() {
-
-    const xp =
-        obtenerXP();
-
-    const racha =
-        obtenerRacha();
-
-    const progreso =
-        obtenerProgreso();
-
-
-    const xpInicio =
-        document.getElementById(
-            "xpInicio"
-        );
-
-    const rachaInicio =
-        document.getElementById(
-            "rachaInicio"
-        );
-
-    const leccionesInicio =
-        document.getElementById(
-            "leccionesInicio"
-        );
-
-
-    if (xpInicio) {
-        xpInicio.textContent =
-            `${xp} XP`;
-    }
-
-
-    if (rachaInicio) {
-        rachaInicio.textContent =
-            `${racha} días`;
-    }
-
-
-    if (leccionesInicio) {
-
-        const lecciones =
-            progreso.filter(function(id) {
-
-                return [
-                    "variables",
-                    "tipos",
-                    "booleanos",
-                    "operadores",
-                    "condicionales",
-                    "bucles",
-                    "funciones",
-                    "tablas",
-                    "strings",
-                    "funcionesbasicas",
-                    "funcionesextras",
-                    "metatables",
-                    "coroutines",
-                    "errores",
-                    "modulos",
-                    "avanzado"
-                ].includes(id);
-
-            }).length;
-
-        leccionesInicio.textContent =
-            lecciones;
+        guardarEstado();
 
     }
 
 }
 
 
-/* ==================== MODO OSCURO ==================== */
+function registrarActividad() {
 
-function alternarModo() {
+    const hoy = fechaLocal();
 
-    const activado =
-        document.body.classList.toggle(
-            "oscuro"
-        );
-
-
-    localStorage.setItem(
-        "luaDrixModoOscuro",
-        activado
-            ? "true"
-            : "false"
-    );
-
-
-    actualizarBotonModo();
-
-}
-
-
-function actualizarBotonModo() {
-
-    const boton =
-        document.getElementById(
-            "modoOscuro"
-        );
-
-
-    if (!boton) {
+    if (estado.ultimoDia === hoy) {
         return;
     }
 
+    if (!estado.ultimoDia) {
 
-    const activado =
-        document.body.classList.contains(
-            "oscuro"
-        );
-
-
-    boton.textContent =
-        activado
-            ? "☀️ Modo claro"
-            : "🌙 Modo oscuro";
-
-}
-
-
-function cargarModoOscuro() {
-
-    const guardado =
-        localStorage.getItem(
-            "luaDrixModoOscuro"
-        );
-
-
-    if (guardado === "true") {
-
-        document.body.classList.add(
-            "oscuro"
-        );
-
-    }
-
-
-    actualizarBotonModo();
-
-}
-
-
-/* ==================== BUSCADOR ==================== */
-
-function buscarConcepto() {
-
-    const input =
-        document.getElementById(
-            "busqueda"
-        );
-
-
-    const resultados =
-        document.getElementById(
-            "resultadosBusqueda"
-        );
-
-
-    if (!input || !resultados) {
-        return;
-    }
-
-
-    const texto =
-        input.value
-            .trim()
-            .toLowerCase();
-
-
-    if (texto === "") {
-
-        resultados.innerHTML =
-            "";
-
-        resultados.style.display =
-            "none";
-
-        return;
-    }
-
-
-    const encontrados =
-        conceptos.filter(
-            function(concepto) {
-
-                return (
-                    concepto.nombre
-                        .toLowerCase()
-                        .includes(texto) ||
-
-                    concepto.descripcion
-                        .toLowerCase()
-                        .includes(texto)
-                );
-
-            }
-        );
-
-
-    resultados.style.display =
-        "block";
-
-
-    if (encontrados.length === 0) {
-
-        resultados.innerHTML =
-            '<p class="sin-resultados">No se encontró ningún concepto.</p>';
-
-        return;
-    }
-
-
-    let html = "";
-
-
-    encontrados.forEach(
-        function(concepto) {
-
-            html += `
-                <button
-                    class="resultado-busqueda"
-                    onclick="mostrarTema('${escapeHTML(concepto.id)}')"
-                >
-
-                    <strong class="resultado-titulo">
-                        ${escapeHTML(concepto.nombre)}
-                    </strong>
-
-                    <span class="resultado-descripcion">
-                        ${escapeHTML(concepto.descripcion)}
-                    </span>
-
-                </button>
-            `;
-
-        }
-    );
-
-
-    resultados.innerHTML =
-        html;
-
-}
-
-
-/* ==================== DICCIONARIO ==================== */
-
-function generarDiccionario() {
-
-    const contenedor =
-        document.getElementById(
-            "diccionarioCompleto"
-        );
-
-
-    if (!contenedor) {
-        return;
-    }
-
-
-    let html = "";
-
-
-    conceptos.forEach(
-        function(concepto) {
-
-            html += `
-                <div class="concepto-card">
-
-                    <h3>
-                        ${escapeHTML(concepto.nombre)}
-                    </h3>
-
-                    <p>
-                        ${escapeHTML(concepto.descripcion)}
-                    </p>
-
-                    <button
-                        onclick="mostrarTema('${escapeHTML(concepto.id)}')"
-                    >
-                        Ver tema
-                    </button>
-
-                </div>
-            `;
-
-        }
-    );
-
-
-    contenedor.innerHTML =
-        html;
-
-}
-
-
-/* ==================== EJERCICIOS ==================== */
-
-const respuestasEjercicios = {
-
-    respuesta1: {
-
-        respuesta:
-`local vidas = 3
-
-print(vidas)`,
-
-        explicacion:
-            "local crea una variable local llamada vidas y el número 3 es su valor."
-
-    },
-
-
-    respuesta2: {
-
-        respuesta:
-`local puntos = 100
-
-if puntos >= 100 then
-    print("Ganaste")
-end`,
-
-        explicacion:
-            "if comprueba si puntos es mayor o igual a 100."
-
-    },
-
-
-    respuesta3: {
-
-        respuesta:
-`for i = 1, 5 do
-    print(i)
-end`,
-
-        explicacion:
-            "El for comienza en 1 y continúa hasta 5."
-
-    },
-
-
-    respuesta4: {
-
-        respuesta:
-`local function sumar(a, b)
-    return a + b
-end
-
-print(sumar(5, 3))`,
-
-        explicacion:
-            "La función recibe dos parámetros y devuelve su suma con return."
-
-    },
-
-
-    respuesta5: {
-
-        respuesta:
-`local frutas = {
-    "manzana",
-    "banana",
-    "pera"
-}
-
-print(frutas[1])`,
-
-        explicacion:
-            "Las secuencias normales de Lua comienzan en el índice 1."
-
-    }
-
-};
-
-
-function mostrarRespuesta(id) {
-
-    const datos =
-        respuestasEjercicios[id];
-
-
-    const contenedor =
-        document.getElementById(id);
-
-
-    if (!datos || !contenedor) {
-        return;
-    }
-
-
-    const visible =
-        contenedor.style.display === "block";
-
-
-    if (visible) {
-
-        contenedor.style.display =
-            "none";
-
-        contenedor.innerHTML =
-            "";
-
-        return;
-    }
-
-
-    contenedor.innerHTML = `
-
-        <h4>Respuesta</h4>
-
-        <pre><code>${escapeHTML(datos.respuesta)}</code></pre>
-
-        <p>
-            <strong>¿Por qué?</strong>
-            ${escapeHTML(datos.explicacion)}
-        </p>
-
-    `;
-
-
-    contenedor.style.display =
-        "block";
-
-}
-
-
-/* ==================== LABORATORIO ==================== */
-
-function ejecutarLaboratorio() {
-
-    const valorA =
-        document.getElementById(
-            "valorA"
-        );
-
-
-    const valorB =
-        document.getElementById(
-            "valorB"
-        );
-
-
-    const operacion =
-        document.getElementById(
-            "operacion"
-        );
-
-
-    const salida =
-        document.getElementById(
-            "salidaLaboratorio"
-        );
-
-
-    if (
-        !valorA ||
-        !valorB ||
-        !operacion ||
-        !salida
-    ) {
-        return;
-    }
-
-
-    if (
-        valorA.value.trim() === "" ||
-        valorB.value.trim() === ""
-    ) {
-
-        salida.textContent =
-            "Escribe los dos valores primero.";
-
-        return;
-    }
-
-
-    const a =
-        Number(valorA.value);
-
-
-    const b =
-        Number(valorB.value);
-
-
-    if (
-        Number.isNaN(a) ||
-        Number.isNaN(b)
-    ) {
-
-        salida.textContent =
-            "Los valores deben ser números.";
-
-        return;
-    }
-
-
-    let resultado;
-
-
-    switch (operacion.value) {
-
-        case "suma":
-
-            resultado =
-                a + b;
-
-            break;
-
-
-        case "resta":
-
-            resultado =
-                a - b;
-
-            break;
-
-
-        case "multiplicacion":
-
-            resultado =
-                a * b;
-
-            break;
-
-
-        case "division":
-
-            if (b === 0) {
-
-                salida.textContent =
-                    "No se puede dividir entre cero.";
-
-                return;
-            }
-
-
-            resultado =
-                a / b;
-
-            break;
-
-
-        case "mayor":
-
-            resultado =
-                a > b
-                    ? `${a} es mayor que ${b}`
-                    : a < b
-                        ? `${b} es mayor que ${a}`
-                        : "Los dos valores son iguales.";
-
-            break;
-
-
-        default:
-
-            salida.textContent =
-                "Operación no reconocida.";
-
-            return;
-
-    }
-
-
-    salida.textContent =
-        `Resultado: ${resultado}`;
-
-
-    sumarXP(2);
-    actualizarRacha();
-
-}
-
-
-/* ==================== LIBRERÍAS ==================== */
-
-const bibliotecas = {
-
-    basic: {
-
-        nombre: "Basic",
-
-        funciones: [
-            "print()",
-            "type()",
-            "tonumber()",
-            "tostring()",
-            "pairs()",
-            "ipairs()",
-            "next()",
-            "select()",
-            "pcall()",
-            "xpcall()",
-            "error()",
-            "assert()",
-            "warn()",
-            "load()",
-            "loadfile()",
-            "dofile()",
-            "require()"
-        ]
-
-    },
-
-
-    coroutine: {
-
-        nombre: "Coroutine",
-
-        funciones: [
-            "coroutine.create()",
-            "coroutine.resume()",
-            "coroutine.yield()",
-            "coroutine.status()",
-            "coroutine.running()",
-            "coroutine.wrap()",
-            "coroutine.isyieldable()",
-            "coroutine.close()"
-        ]
-
-    },
-
-
-    package: {
-
-        nombre: "Package",
-
-        funciones: [
-            "package.path",
-            "package.cpath",
-            "package.loaded",
-            "package.preload",
-            "package.searchers",
-            "package.config"
-        ]
-
-    },
-
-
-    string: {
-
-        nombre: "String",
-
-        funciones: [
-            "string.byte()",
-            "string.char()",
-            "string.dump()",
-            "string.find()",
-            "string.format()",
-            "string.gmatch()",
-            "string.gsub()",
-            "string.len()",
-            "string.lower()",
-            "string.match()",
-            "string.rep()",
-            "string.reverse()",
-            "string.sub()",
-            "string.upper()"
-        ]
-
-    },
-
-
-    utf8: {
-
-        nombre: "UTF-8",
-
-        funciones: [
-            "utf8.char()",
-            "utf8.charpattern",
-            "utf8.codes()",
-            "utf8.codepoint()",
-            "utf8.len()",
-            "utf8.offset()"
-        ]
-
-    },
-
-
-    table: {
-
-        nombre: "Table",
-
-        funciones: [
-            "table.concat()",
-            "table.create()",
-            "table.insert()",
-            "table.move()",
-            "table.pack()",
-            "table.remove()",
-            "table.sort()",
-            "table.unpack()"
-        ]
-
-    },
-
-
-    math: {
-
-        nombre: "Math",
-
-        funciones: [
-            "math.abs()",
-            "math.ceil()",
-            "math.floor()",
-            "math.max()",
-            "math.min()",
-            "math.random()",
-            "math.randomseed()",
-            "math.sqrt()",
-            "math.sin()",
-            "math.cos()",
-            "math.tan()",
-            "math.pi"
-        ]
-
-    },
-
-
-    io: {
-
-        nombre: "IO",
-
-        funciones: [
-            "io.close()",
-            "io.flush()",
-            "io.input()",
-            "io.lines()",
-            "io.open()",
-            "io.output()",
-            "io.popen()",
-            "io.read()",
-            "io.tmpfile()",
-            "io.type()",
-            "io.write()"
-        ]
-
-    },
-
-
-    os: {
-
-        nombre: "OS",
-
-        funciones: [
-            "os.clock()",
-            "os.date()",
-            "os.difftime()",
-            "os.execute()",
-            "os.exit()",
-            "os.getenv()",
-            "os.remove()",
-            "os.rename()",
-            "os.setlocale()",
-            "os.time()",
-            "os.tmpname()"
-        ]
-
-    },
-
-
-    debug: {
-
-        nombre: "Debug",
-
-        funciones: [
-            "debug.debug()",
-            "debug.gethook()",
-            "debug.getinfo()",
-            "debug.getlocal()",
-            "debug.getmetatable()",
-            "debug.getregistry()",
-            "debug.getupvalue()",
-            "debug.sethook()",
-            "debug.setlocal()",
-            "debug.setmetatable()",
-            "debug.setupvalue()",
-            "debug.traceback()",
-            "debug.upvalueid()",
-            "debug.upvaluejoin()"
-        ]
-
-    }
-
-};
-
-
-function filtrarBiblioteca(nombre) {
-
-    const contenedor =
-        document.getElementById(
-            "bibliotecaResultado"
-        );
-
-
-    if (!contenedor) {
-        return;
-    }
-
-
-    const biblioteca =
-        bibliotecas[nombre];
-
-
-    if (!biblioteca) {
-
-        contenedor.innerHTML =
-            "No se encontró esa librería.";
-
-        return;
-    }
-
-
-    let html = `
-
-        <h3>
-            ${escapeHTML(biblioteca.nombre)}
-        </h3>
-
-        <div class="lista-conceptos grande">
-
-    `;
-
-
-    biblioteca.funciones.forEach(
-        function(funcion) {
-
-            html += `
-
-                <span>
-                    ${escapeHTML(funcion)}
-                </span>
-
-            `;
-
-        }
-    );
-
-
-    html += `
-        </div>
-    `;
-
-
-    contenedor.innerHTML =
-        html;
-
-}
-
-
-/* ==================== QUIZ ==================== */
-
-const preguntasQuiz = [
-
-    {
-
-        pregunta:
-            "¿Cuál de estos valores es falso en una condición de Lua?",
-
-        opciones: [
-            "0",
-            "\"\"",
-            "nil",
-            "{}"
-        ],
-
-        correcta: 2,
-
-        explicacion:
-            "En Lua solamente nil y false son falsos en condiciones."
-
-    },
-
-
-    {
-
-        pregunta:
-            "¿Qué palabra se utiliza para declarar una variable local?",
-
-        opciones: [
-            "var",
-            "local",
-            "let",
-            "define"
-        ],
-
-        correcta: 1,
-
-        explicacion:
-            "local declara una variable con alcance local."
-
-    },
-
-
-    {
-
-        pregunta:
-            "¿Qué operador se utiliza para concatenar strings?",
-
-        opciones: [
-            "+",
-            "&",
-            "..",
-            "concat"
-        ],
-
-        correcta: 2,
-
-        explicacion:
-            "Lua utiliza .. para concatenar strings."
-
-    },
-
-
-    {
-
-        pregunta:
-            "¿Qué estructura permite repetir código mientras una condición sea verdadera?",
-
-        opciones: [
-            "while",
-            "repeat",
-            "if",
-            "switch"
-        ],
-
-        correcta: 0,
-
-        explicacion:
-            "while ejecuta su bloque mientras la condición sea verdadera."
-
-    },
-
-
-    {
-
-        pregunta:
-            "¿Cuál es el índice inicial habitual de una secuencia en una tabla Lua?",
-
-        opciones: [
-            "0",
-            "1",
-            "-1",
-            "Depende siempre del programa"
-        ],
-
-        correcta: 1,
-
-        explicacion:
-            "Las secuencias convencionales de Lua empiezan en 1."
-
-    },
-
-
-    {
-
-        pregunta:
-            "¿Qué función devuelve el tipo de un valor?",
-
-        opciones: [
-            "typeof",
-            "kind",
-            "type",
-            "gettype"
-        ],
-
-        correcta: 2,
-
-        explicacion:
-            "type(valor) devuelve información sobre el tipo del valor."
-
-    },
-
-
-    {
-
-        pregunta:
-            "¿Qué palabra permite devolver valores desde una función?",
-
-        opciones: [
-            "send",
-            "give",
-            "return",
-            "output"
-        ],
-
-        correcta: 2,
-
-        explicacion:
-            "return devuelve uno o varios valores desde una función."
-
-    },
-
-
-    {
-
-        pregunta:
-            "¿Qué función se utiliza normalmente para recorrer pares clave-valor de una tabla?",
-
-        opciones: [
-            "pairs",
-            "loop",
-            "each",
-            "table.for"
-        ],
-
-        correcta: 0,
-
-        explicacion:
-            "pairs(tabla) proporciona un iterador para recorrer pares clave-valor."
-
-    },
-
-
-    {
-
-        pregunta:
-            "¿Qué función busca un patrón dentro de un string?",
-
-        opciones: [
-            "string.search",
-            "string.find",
-            "string.look",
-            "string.scan"
-        ],
-
-        correcta: 1,
-
-        explicacion:
-            "string.find busca una coincidencia y puede devolver sus posiciones."
-
-    },
-
-
-    {
-
-        pregunta:
-            "¿Qué función permite ejecutar otra función de forma protegida?",
-
-        opciones: [
-            "safe",
-            "protect",
-            "pcall",
-            "try"
-        ],
-
-        correcta: 2,
-
-        explicacion:
-            "pcall ejecuta una función en modo protegido."
-
-    },
-
-
-    {
-
-        pregunta:
-            "¿Qué estructura de Lua se utiliza como su principal estructura de datos?",
-
-        opciones: [
-            "table",
-            "array",
-            "object",
-            "struct"
-        ],
-
-        correcta: 0,
-
-        explicacion:
-            "table es la estructura de datos principal de Lua."
-
-    },
-
-
-    {
-
-        pregunta:
-            "¿Qué característica de Lua 5.5 permite marcar una variable local para que no pueda reasignarse?",
-
-        opciones: [
-            "<fixed>",
-            "<const>",
-            "<final>",
-            "<static>"
-        ],
-
-        correcta: 1,
-
-        explicacion:
-            "Lua 5.5 incorpora el atributo <const> para variables locales constantes."
-
-    }
-
-];
-
-
-let preguntaActual = 0;
-let respuestasQuiz = [];
-let quizTerminado = false;
-
-
-function iniciarQuiz() {
-
-    preguntaActual = 0;
-    respuestasQuiz = [];
-    quizTerminado = false;
-
-    mostrarPreguntaQuiz();
-
-}
-
-
-function mostrarPreguntaQuiz() {
-
-    const contenedor =
-        document.getElementById(
-            "quizContenedor"
-        );
-
-
-    if (!contenedor) {
-        return;
-    }
-
-
-    if (
-        preguntaActual >=
-        preguntasQuiz.length
-    ) {
-
-        mostrarResultadoQuiz();
-
-        return;
-    }
-
-
-    const pregunta =
-        preguntasQuiz[
-            preguntaActual
-        ];
-
-
-    let html = `
-
-        <div class="quiz-caja">
-
-            <div class="quiz-numero">
-                Pregunta ${preguntaActual + 1}
-                de ${preguntasQuiz.length}
-            </div>
-
-            <div class="quiz-pregunta">
-                ${escapeHTML(pregunta.pregunta)}
-            </div>
-
-            <div class="quiz-opciones">
-
-    `;
-
-
-    pregunta.opciones.forEach(
-        function(opcion, indice) {
-
-            html += `
-
-                <button
-                    class="quiz-opcion"
-                    onclick="responderQuiz(${indice})"
-                >
-                    ${escapeHTML(opcion)}
-                </button>
-
-            `;
-
-        }
-    );
-
-
-    html += `
-
-            </div>
-
-        </div>
-
-    `;
-
-
-    contenedor.innerHTML =
-        html;
-
-}
-
-
-function responderQuiz(indice) {
-
-    if (quizTerminado) {
-        return;
-    }
-
-
-    const pregunta =
-        preguntasQuiz[
-            preguntaActual
-        ];
-
-
-    if (!pregunta) {
-        return;
-    }
-
-
-    const correcta =
-        indice ===
-        pregunta.correcta;
-
-
-    respuestasQuiz.push({
-        correcta: correcta,
-        respuestaUsuario: indice
-    });
-
-
-    const contenedor =
-        document.getElementById(
-            "quizContenedor"
-        );
-
-
-    if (!contenedor) {
-        return;
-    }
-
-
-    const botones =
-        contenedor.querySelectorAll(
-            ".quiz-opcion"
-        );
-
-
-    botones.forEach(
-        function(boton) {
-
-            boton.disabled =
-                true;
-
-        }
-    );
-
-
-    botones.forEach(
-        function(boton, posicion) {
-
-            if (
-                posicion ===
-                pregunta.correcta
-            ) {
-
-                boton.classList.add(
-                    "correcta"
-                );
-
-            }
-
-
-            if (
-                posicion === indice &&
-                posicion !== pregunta.correcta
-            ) {
-
-                boton.classList.add(
-                    "incorrecta"
-                );
-
-            }
-
-        }
-    );
-
-
-    const explicacion =
-        document.createElement(
-            "div"
-        );
-
-
-    explicacion.className =
-        "quiz-explicacion";
-
-
-    explicacion.innerHTML = `
-
-        <p>
-            <strong>
-                ${correcta ? "Correcto." : "Incorrecto."}
-            </strong>
-        </p>
-
-        <p>
-            ${escapeHTML(
-                pregunta.explicacion
-            )}
-        </p>
-
-        <button
-            class="quiz-siguiente"
-            onclick="siguientePreguntaQuiz()"
-        >
-            ${
-                preguntaActual ===
-                preguntasQuiz.length - 1
-                    ? "Ver resultado"
-                    : "Siguiente pregunta"
-            }
-        </button>
-
-    `;
-
-
-    contenedor
-        .querySelector(".quiz-caja")
-        .appendChild(
-            explicacion
-        );
-
-
-    if (correcta) {
-        sumarXP(10);
-    }
-
-
-    actualizarRacha();
-
-}
-
-
-function siguientePreguntaQuiz() {
-
-    preguntaActual++;
-
-    mostrarPreguntaQuiz();
-
-}
-
-
-function mostrarResultadoQuiz() {
-
-    const contenedor =
-        document.getElementById(
-            "quizContenedor"
-        );
-
-
-    if (!contenedor) {
-        return;
-    }
-
-
-    quizTerminado = true;
-
-
-    let puntos = 0;
-
-
-    respuestasQuiz.forEach(
-        function(respuesta) {
-
-            if (respuesta.correcta) {
-                puntos++;
-            }
-
-        }
-    );
-
-
-    const total =
-        preguntasQuiz.length;
-
-
-    const porcentaje =
-        total === 0
-            ? 0
-            : Math.round(
-                (puntos / total) * 100
-            );
-
-
-    let mensaje;
-
-
-    if (porcentaje === 100) {
-
-        mensaje =
-            "Perfecto. Dominaste este quiz.";
-
-    } else if (porcentaje >= 80) {
-
-        mensaje =
-            "Muy buen resultado. Ya tienes una buena base.";
-
-    } else if (porcentaje >= 60) {
-
-        mensaje =
-            "Vas bien. Un repaso de algunos conceptos te vendría bien.";
+        estado.racha = 1;
 
     } else {
 
-        mensaje =
-            "Todavía hay cosas por reforzar, pero para eso está LuaDrix.";
+        const anterior = new Date(
+            estado.ultimoDia + "T00:00:00"
+        );
+
+        const actual = new Date(
+            hoy + "T00:00:00"
+        );
+
+        const diferencia =
+            Math.round(
+                (actual - anterior) /
+                86400000
+            );
+
+        if (diferencia === 1) {
+
+            estado.racha++;
+
+        } else if (diferencia > 1) {
+
+            if (estado.protectores > 0) {
+
+                estado.protectores--;
+
+                estado.racha++;
+
+                mostrarToast(
+                    "🛡️ Tu protector mantuvo la racha."
+                );
+
+            } else {
+
+                estado.racha = 1;
+
+            }
+
+        }
 
     }
 
+    estado.ultimoDia = hoy;
 
-    contenedor.innerHTML = `
+    guardarEstado();
 
-        <div class="quiz-resultado">
-
-            <h2>
-                Resultado
-            </h2>
-
-            <div class="quiz-puntuacion">
-                ${puntos} / ${total}
-            </div>
-
-            <p>
-                ${porcentaje}% de respuestas correctas.
-            </p>
-
-            <p>
-                ${escapeHTML(mensaje)}
-            </p>
-
-            <button
-                class="quiz-reiniciar"
-                onclick="iniciarQuiz()"
-            >
-                Repetir quiz
-            </button>
-
-        </div>
-
-    `;
+    actualizarRacha();
 
 }
 
 
 /* =========================================================
-   CUENTAS
+   NAVEGACIÓN
    ========================================================= */
 
+function mostrarPagina(id) {
 
-/*
-    Por ahora existe un perfil local para que la interfaz
-    de LuaDrix pueda funcionar incluso sin backend.
+    document.querySelectorAll(".pagina")
+        .forEach(pagina => {
 
-    Esto NO pretende ser un sistema de cuentas seguro.
-    Para cuentas reales conectaremos Supabase.
-*/
+            pagina.classList.remove("activa");
 
-
-function obtenerPerfilLocal() {
-
-    const guardado =
-        localStorage.getItem(
-            "luaDrixPerfil"
-        );
+        });
 
 
-    if (!guardado) {
-        return null;
+    const pagina = document.getElementById(id);
+
+    if (!pagina) return;
+
+    pagina.classList.add("activa");
+
+    window.scrollTo({
+        top: 0,
+        behavior: "smooth"
+    });
+
+
+    if (id === "niveles") {
+        renderizarNiveles();
     }
 
+    if (id === "logros") {
+        renderizarLogros();
+    }
 
-    try {
+    if (id === "biblioteca") {
+        renderizarBiblioteca();
+    }
 
-        const perfil =
-            JSON.parse(guardado);
+    if (id === "practica") {
+        renderizarPractica();
+    }
 
-        return perfil;
-
-    } catch (error) {
-
-        return null;
-
+    if (id === "perfil") {
+        actualizarPerfil();
     }
 
 }
 
 
-function guardarPerfilLocal(perfil) {
+/* =========================================================
+   NIVELES
+   ========================================================= */
 
-    localStorage.setItem(
-        "luaDrixPerfil",
-        JSON.stringify(perfil)
+function nivelDesbloqueado(indice) {
+
+    if (indice === 0) {
+        return true;
+    }
+
+    const anterior = niveles[indice - 1];
+
+    return anterior.lecciones.every(leccion =>
+        estado.leccionesCompletadas.includes(leccion.id)
     );
 
 }
 
 
-function abrirCuenta() {
+function leccionDesbloqueada(nivelIndex, leccionIndex) {
 
-    const modal =
-        document.getElementById(
-            "modalCuenta"
-        );
-
-
-    if (!modal) {
-        return;
+    if (!nivelDesbloqueado(nivelIndex)) {
+        return false;
     }
 
-
-    modal.classList.add(
-        "activo"
-    );
-
-
-    modal.setAttribute(
-        "aria-hidden",
-        "false"
-    );
-
-
-    mostrarPantallaCuenta();
-
-}
-
-
-function cerrarCuenta() {
-
-    const modal =
-        document.getElementById(
-            "modalCuenta"
-        );
-
-
-    if (!modal) {
-        return;
+    if (leccionIndex === 0) {
+        return true;
     }
 
+    const anterior =
+        niveles[nivelIndex].lecciones[leccionIndex - 1];
 
-    modal.classList.remove(
-        "activo"
-    );
-
-
-    modal.setAttribute(
-        "aria-hidden",
-        "true"
+    return estado.leccionesCompletadas.includes(
+        anterior.id
     );
 
 }
 
 
-function mostrarPantallaCuenta() {
+function renderizarNiveles() {
 
-    const contenedor =
-        document.getElementById(
-            "cuentaContenido"
-        );
+    const container =
+        document.getElementById("levelsContainer");
 
-
-    if (!contenedor) {
-        return;
-    }
+    container.innerHTML = "";
 
 
-    const perfil =
-        obtenerPerfilLocal();
+    niveles.forEach((nivel, nivelIndex) => {
+
+        const desbloqueado =
+            nivelDesbloqueado(nivelIndex);
+
+        const completadas =
+            nivel.lecciones.filter(leccion =>
+                estado.leccionesCompletadas.includes(
+                    leccion.id
+                )
+            ).length;
 
 
-    if (perfil) {
+        const bloque = document.createElement("div");
 
-        contenedor.innerHTML = `
+        bloque.className = "level-block";
 
-            <h2 class="cuenta-titulo">
-                Tu cuenta
-            </h2>
 
-            <p class="cuenta-subtitulo">
-                Tu progreso local de LuaDrix.
-            </p>
+        const titulo = document.createElement("div");
 
-            <div class="perfil-caja">
+        titulo.className = "level-title";
 
-                <div class="perfil-nombre">
-                    👤 ${escapeHTML(perfil.nombre)}
-                </div>
+        titulo.innerHTML = `
 
-                <div class="perfil-correo">
-                    ${escapeHTML(perfil.correo)}
-                </div>
+            <div>
+                <h3>
+                    ${desbloqueado ? "⭐" : "🔒"}
+                    Nivel ${nivel.id}
+                </h3>
 
-                <div class="perfil-estadisticas">
-
-                    <div class="perfil-estadistica">
-                        <strong>${obtenerXP()}</strong>
-                        <span>XP</span>
-                    </div>
-
-                    <div class="perfil-estadistica">
-                        <strong>${obtenerRacha()}</strong>
-                        <span>Racha</span>
-                    </div>
-
-                    <div class="perfil-estadistica">
-                        <strong>${obtenerProgreso().length}</strong>
-                        <span>Aprendidas</span>
-                    </div>
-
-                </div>
-
+                <p>
+                    ${nivel.nombre} · ${nivel.descripcion}
+                </p>
             </div>
 
-            <div class="cuenta-form">
+            <div class="level-status">
+                ${completadas}/${nivel.lecciones.length}
+            </div>
+
+        `;
+
+
+        const lista = document.createElement("div");
+
+        lista.className = "lesson-list";
+
+
+        nivel.lecciones.forEach((leccion, leccionIndex) => {
+
+            const completada =
+                estado.leccionesCompletadas.includes(
+                    leccion.id
+                );
+
+            const disponible =
+                leccionDesbloqueada(
+                    nivelIndex,
+                    leccionIndex
+                );
+
+
+            const boton =
+                document.createElement("button");
+
+            boton.className =
+                "lesson-item" +
+                (completada ? " completed" : "") +
+                (!disponible ? " locked" : "");
+
+
+            boton.innerHTML = `
+
+                <div class="lesson-number">
+                    ${completada ? "✓" : disponible ? leccionIndex + 1 : "🔒"}
+                </div>
+
+                <div class="lesson-info">
+
+                    <strong>
+                        ${leccion.titulo}
+                    </strong>
+
+                    <small>
+                        ${completada ? "Completada" : disponible ? "Disponible" : "Bloqueada"}
+                    </small>
+
+                </div>
+
+            `;
+
+
+            if (disponible) {
+
+                boton.onclick = () => {
+
+                    abrirLeccion(
+                        nivelIndex,
+                        leccionIndex
+                    );
+
+                };
+
+            }
+
+
+            lista.appendChild(boton);
+
+        });
+
+
+        bloque.appendChild(titulo);
+        bloque.appendChild(lista);
+
+        container.appendChild(bloque);
+
+    });
+
+}
+
+
+/* =========================================================
+   LECCIONES
+   ========================================================= */
+
+let leccionActual = null;
+
+let pasoLeccion = 0;
+
+let preguntaRespondida = false;
+
+
+function abrirLeccion(nivelIndex, leccionIndex) {
+
+    const leccion =
+        niveles[nivelIndex].lecciones[leccionIndex];
+
+    leccionActual = {
+        nivelIndex,
+        leccionIndex,
+        leccion
+    };
+
+    pasoLeccion = 0;
+
+    preguntaRespondida = false;
+
+    mostrarPagina("leccion");
+
+    renderizarPasoLeccion();
+
+}
+
+
+function renderizarPasoLeccion() {
+
+    if (!leccionActual) return;
+
+    const leccion =
+        leccionActual.leccion;
+
+    const nivel =
+        niveles[leccionActual.nivelIndex];
+
+
+    document.getElementById("lessonLevel").textContent =
+        `Nivel ${nivel.id} · ${nivel.nombre}`;
+
+    document.getElementById("lessonTitle").textContent =
+        leccion.titulo;
+
+
+    const totalPasos = 3;
+
+    document.getElementById("lessonProgressBar").style.width =
+        `${((pasoLeccion + 1) / totalPasos) * 100}%`;
+
+
+    const container =
+        document.getElementById("lessonContent");
+
+
+    /* PASO 1 — TEORÍA */
+
+    if (pasoLeccion === 0) {
+
+        container.innerHTML = `
+
+            <div class="lesson-card">
+
+                ${leccion.teoria}
 
                 <button
-                    class="cuenta-boton-secundario"
-                    onclick="cerrarSesionLocal()"
+                    class="primary-button"
+                    onclick="siguientePaso()"
                 >
-                    Cerrar sesión local
+                    Entendido →
                 </button>
 
-            </div>
-
-            <div class="cuenta-mensaje">
-                Esta cuenta todavía funciona solamente en este navegador.
-                La conexión de cuentas reales será el siguiente paso.
             </div>
 
         `;
@@ -2237,101 +1389,736 @@ function mostrarPantallaCuenta() {
     }
 
 
-    contenedor.innerHTML = `
+    /* PASO 2 — PREGUNTA */
 
-        <h2 class="cuenta-titulo">
-            Crear cuenta
-        </h2>
+    if (pasoLeccion === 1) {
 
-        <p class="cuenta-subtitulo">
-            Guarda tu perfil y prepárate para sincronizar tu progreso.
-        </p>
+        preguntaRespondida = false;
 
-        <div class="oauth-grid">
+        container.innerHTML = `
 
-            <button
-                class="oauth-boton"
-                onclick="iniciarOAuth('google')"
-            >
-                Continuar con Google
-            </button>
+            <div class="lesson-card">
 
-            <button
-                class="oauth-boton"
-                onclick="iniciarOAuth('apple')"
-            >
-                Continuar con Apple
-            </button>
+                <h3>Comprueba lo que aprendiste</h3>
 
-            <button
-                class="oauth-boton"
-                onclick="iniciarOAuth('github')"
-            >
-                Continuar con GitHub
-            </button>
+                <p>
+                    ${leccion.pregunta}
+                </p>
 
-            <button
-                class="oauth-boton"
-                onclick="iniciarOAuth('azure')"
-            >
-                Continuar con Microsoft
-            </button>
+                <div id="questionOptions"></div>
 
-            <button
-                class="oauth-boton"
-                onclick="iniciarOAuth('discord')"
-            >
-                Continuar con Discord
-            </button>
+                <div id="questionFeedback"></div>
 
-        </div>
+            </div>
 
-        <div class="separador-cuenta">
-            o usa tu correo
-        </div>
+        `;
 
-        <form
-            class="cuenta-form"
-            onsubmit="crearCuentaLocal(event)"
-        >
 
-            <label for="nombreCuenta">
-                Nombre
-            </label>
+        const opciones =
+            document.getElementById(
+                "questionOptions"
+            );
+
+
+        leccion.opciones.forEach(
+            (opcion, index) => {
+
+                const boton =
+                    document.createElement("button");
+
+                boton.className =
+                    "question-option";
+
+                boton.textContent =
+                    opcion;
+
+                boton.onclick = () =>
+                    responderPregunta(
+                        index
+                    );
+
+                opciones.appendChild(boton);
+
+            }
+        );
+
+        return;
+    }
+
+
+    /* PASO 3 — RETO */
+
+    if (pasoLeccion === 2) {
+
+        container.innerHTML = `
+
+            <div class="lesson-card">
+
+                <h3>⌨️ Reto de código</h3>
+
+                <p>
+                    ${leccion.reto}
+                </p>
+
+                <textarea
+                    id="challengeEditor"
+                    class="challenge-editor"
+                    spellcheck="false"
+                    placeholder="Escribe tu código aquí..."
+                ></textarea>
+
+
+                <div class="hint-box">
+
+                    💡 <strong>Pista fácil:</strong>
+
+                    ${obtenerPista(leccion)}
+
+                </div>
+
+
+                <button
+                    class="primary-button"
+                    onclick="comprobarReto()"
+                >
+                    Comprobar código
+                </button>
+
+
+                <div id="challengeFeedback"></div>
+
+            </div>
+
+        `;
+
+    }
+
+}
+
+
+function siguientePaso() {
+
+    if (pasoLeccion < 2) {
+
+        pasoLeccion++;
+
+        renderizarPasoLeccion();
+
+    }
+
+}
+
+
+/* =========================================================
+   PREGUNTAS
+   ========================================================= */
+
+function responderPregunta(index) {
+
+    if (preguntaRespondida) {
+        return;
+    }
+
+
+    const leccion =
+        leccionActual.leccion;
+
+
+    const botones =
+        document.querySelectorAll(
+            ".question-option"
+        );
+
+
+    preguntaRespondida = true;
+
+
+    if (index === leccion.correcta) {
+
+        botones[index].classList.add("correct");
+
+
+        if (!gastarBateria(1)) {
+
+            preguntaRespondida = false;
+
+            botones[index].classList.remove("correct");
+
+            return;
+
+        }
+
+
+        aprenderConcepto(
+            leccion.concepto
+        );
+
+
+        document.getElementById(
+            "questionFeedback"
+        ).innerHTML = `
+
+            <div class="feedback success">
+
+                ✓ Correcto.
+
+                <br>
+
+                Ahora viene el reto de código.
+
+                <br><br>
+
+                <button
+                    class="primary-button"
+                    onclick="siguientePaso()"
+                >
+                    Continuar →
+                </button>
+
+            </div>
+
+        `;
+
+    } else {
+
+        botones[index].classList.add("incorrect");
+
+
+        if (!gastarBateria(2)) {
+            return;
+        }
+
+
+        document.getElementById(
+            "questionFeedback"
+        ).innerHTML = `
+
+            <div class="feedback error">
+
+                ✗ No exactamente.
+
+                <br>
+
+                Revisa la explicación y vuelve a intentarlo.
+
+            </div>
+
+        `;
+
+
+        setTimeout(() => {
+
+            preguntaRespondida = false;
+
+            botones[index].classList.remove(
+                "incorrect"
+            );
+
+        }, 900);
+
+    }
+
+}
+
+
+/* =========================================================
+   CONCEPTOS / HABILIDADES
+   ========================================================= */
+
+function aprenderConcepto(concepto) {
+
+    estado.conceptosAprendidos[concepto] = 100;
+
+    guardarEstado();
+
+}
+
+
+/* =========================================================
+   PISTAS
+   ========================================================= */
+
+function obtenerPista(leccion) {
+
+    const aprendido =
+        estado.conceptosAprendidos[
+            leccion.concepto
+        ] >= 80;
+
+
+    if (!aprendido) {
+
+        return pistaFacil(leccion);
+
+    }
+
+
+    return pistaDificil(leccion);
+
+}
+
+
+function pistaFacil(leccion) {
+
+    const mapa = {
+
+        print:
+            "Necesitas la función que aprendiste para mostrar información.",
+
+        variables:
+            "Necesitas local y el operador =.",
+
+        tipos:
+            "Piensa en local, el nombre de la variable y true.",
+
+        operadores:
+            "Necesitas una variable, = y el operador de multiplicación.",
+
+        if:
+            "Necesitas if, una condición, then y end.",
+
+        else:
+            "Necesitas if, then, else y end.",
+
+        while:
+            "Necesitas while, una condición, do y end.",
+
+        for:
+            "Necesitas for, un contador, =, dos números, do y end.",
+
+        funciones:
+            "Necesitas function, un nombre, paréntesis y end.",
+
+        return:
+            "Necesitas function, parámetros, return y end.",
+
+        tablas:
+            "Necesitas local, el nombre de la tabla, = y llaves.",
+
+        strings:
+            "Busca la función de strings que viste en la explicación.",
+
+        stringlib:
+            "Busca una función que empiece por string.",
+
+        tablelib:
+            "Busca una función que empiece por table.",
+
+        modulos:
+            "Necesitas la función utilizada para cargar módulos.",
+
+        errores:
+            "Piensa en la función utilizada para ejecutar código protegido.",
+
+        math:
+            "Busca la biblioteca matemática y una de sus funciones.",
+
+        io:
+            "Busca la biblioteca de entrada y salida.",
+
+        metatables:
+            "Busca la función que asigna una metatable.",
+
+        metamethods:
+            "El metamétodo de suma comienza y termina con dos guiones bajos.",
+
+        coroutines:
+            "Necesitas la biblioteca coroutine y su función create.",
+
+        yield:
+            "Busca la función yield dentro de coroutine.",
+
+        gc:
+            "Busca la función relacionada con collectgarbage.",
+
+        debug:
+            "Busca la biblioteca debug y su función traceback."
+
+    };
+
+
+    return mapa[leccion.concepto] ||
+        "Revisa la explicación de esta lección.";
+}
+
+
+function pistaDificil(leccion) {
+
+    const mapa = {
+
+        print:
+            "Recuerda la función que utilizaste desde tu primera lección.",
+
+        variables:
+            "Recuerda qué palabra utilizaste para declarar variables locales.",
+
+        tipos:
+            "Piensa en el valor booleano que aprendiste.",
+
+        operadores:
+            "Recuerda el símbolo que representa multiplicación.",
+
+        if:
+            "Recuerda cómo terminaban los bloques condicionales.",
+
+        else:
+            "Piensa en la alternativa del if.",
+
+        while:
+            "Recuerda la estructura que repetía mientras una condición era verdadera.",
+
+        for:
+            "Piensa en el contador que utilizaste en el ejemplo.",
+
+        funciones:
+            "Recuerda la palabra con la que comenzabas una función.",
+
+        return:
+            "Recuerda qué palabra utilizabas para devolver resultados.",
+
+        tablas:
+            "Piensa en la estructura que usaste para guardar varios valores.",
+
+        strings:
+            "Recuerda la biblioteca que utilizaste para buscar texto.",
+
+        stringlib:
+            "Piensa en la función que convierte texto a mayúsculas.",
+
+        tablelib:
+            "Recuerda la función que agrega elementos a una tabla.",
+
+        modulos:
+            "Piensa en cómo se cargaba otro archivo o módulo.",
+
+        errores:
+            "Recuerda la función que protegía la ejecución.",
+
+        math:
+            "Piensa en la biblioteca que empieza con 'math'.",
+
+        io:
+            "Recuerda la biblioteca que usabas con archivos.",
+
+        metatables:
+            "Recuerda la función que comenzaba con set.",
+
+        metamethods:
+            "Piensa en el operador +.",
+
+        coroutines:
+            "Recuerda la biblioteca que contiene create.",
+
+        yield:
+            "Recuerda la función que pausaba la coroutine.",
+
+        gc:
+            "Piensa en el recolector de basura.",
+
+        debug:
+            "Recuerda la biblioteca dedicada a depuración."
+
+    };
+
+
+    return mapa[leccion.concepto] ||
+        "Piensa en lo que aprendiste anteriormente.";
+}
+
+
+/* =========================================================
+   COMPROBAR RETOS
+   ========================================================= */
+
+function comprobarReto() {
+
+    const editor =
+        document.getElementById(
+            "challengeEditor"
+        );
+
+
+    const codigo =
+        editor.value.toLowerCase();
+
+
+    const leccion =
+        leccionActual.leccion;
+
+
+    const feedback =
+        document.getElementById(
+            "challengeFeedback"
+        );
+
+
+    const requisitos =
+        leccion.validacion;
+
+
+    const cumple =
+        requisitos.every(
+            requisito =>
+                codigo.includes(
+                    requisito.toLowerCase()
+                )
+        );
+
+
+    if (!gastarBateria(1)) {
+        return;
+    }
+
+
+    if (cumple) {
+
+        completarLeccion();
+
+        feedback.innerHTML = `
+
+            <div class="feedback success">
+
+                ✓ ¡Reto superado!
+
+                <br>
+
+                +${XP_POR_RETO} EXP
+
+                <br>
+
+                +${MONEDAS_POR_RETO} 🪙
+
+                <br><br>
+
+                <button
+                    class="primary-button"
+                    onclick="terminarLeccion()"
+                >
+                    Terminar lección
+                </button>
+
+            </div>
+
+        `;
+
+    } else {
+
+        feedback.innerHTML = `
+
+            <div class="feedback error">
+
+                ✗ Todavía no cumple el reto.
+
+                <br>
+
+                Revisa la pista y vuelve a intentarlo.
+
+            </div>
+
+        `;
+
+    }
+
+}
+
+
+/* =========================================================
+   COMPLETAR LECCIÓN
+   ========================================================= */
+
+function completarLeccion() {
+
+    const id =
+        leccionActual.leccion.id;
+
+
+    if (estado.leccionesCompletadas.includes(id)) {
+        return;
+    }
+
+
+    estado.leccionesCompletadas.push(id);
+
+    estado.xp += XP_POR_LECCION + XP_POR_RETO;
+
+    estado.monedas +=
+        MONEDAS_POR_LECCION +
+        MONEDAS_POR_RETO;
+
+
+    registrarActividad();
+
+    comprobarLogros();
+
+    guardarEstado();
+
+    actualizarTodo();
+
+
+    mostrarToast(
+        `🎉 +${XP_POR_LECCION + XP_POR_RETO} EXP`
+    );
+
+}
+
+
+function terminarLeccion() {
+
+    mostrarPagina("niveles");
+
+    renderizarNiveles();
+
+}
+
+
+/* =========================================================
+   CONTINUAR APRENDIENDO
+   ========================================================= */
+
+function continuarAprendiendo() {
+
+    for (
+        let nivelIndex = 0;
+        nivelIndex < niveles.length;
+        nivelIndex++
+    ) {
+
+        for (
+            let leccionIndex = 0;
+            leccionIndex <
+            niveles[nivelIndex].lecciones.length;
+            leccionIndex++
+        ) {
+
+            const leccion =
+                niveles[nivelIndex].lecciones[
+                    leccionIndex
+                ];
+
+
+            if (
+                !estado.leccionesCompletadas.includes(
+                    leccion.id
+                ) &&
+                leccionDesbloqueada(
+                    nivelIndex,
+                    leccionIndex
+                )
+            ) {
+
+                abrirLeccion(
+                    nivelIndex,
+                    leccionIndex
+                );
+
+                return;
+
+            }
+
+        }
+
+    }
+
+
+    mostrarPagina("niveles");
+
+}
+
+
+/* =========================================================
+   PRÁCTICA
+   ========================================================= */
+
+const ejerciciosPractica = [
+
+    {
+        pregunta: "¿Qué palabra crea una variable local?",
+        respuesta: "local"
+    },
+
+    {
+        pregunta: "¿Qué función muestra texto?",
+        respuesta: "print"
+    },
+
+    {
+        pregunta: "¿Qué palabra termina un if?",
+        respuesta: "end"
+    },
+
+    {
+        pregunta: "¿Qué palabra devuelve un resultado?",
+        respuesta: "return"
+    },
+
+    {
+        pregunta: "¿Qué biblioteca trabaja con strings?",
+        respuesta: "string"
+    },
+
+    {
+        pregunta: "¿Qué biblioteca contiene funciones matemáticas?",
+        respuesta: "math"
+    },
+
+    {
+        pregunta: "¿Qué función carga módulos?",
+        respuesta: "require"
+    },
+
+    {
+        pregunta: "¿Qué biblioteca contiene las coroutines?",
+        respuesta: "coroutine"
+    }
+
+];
+
+
+let practicaActual = null;
+
+
+function renderizarPractica() {
+
+    const container =
+        document.getElementById(
+            "practiceContainer"
+        );
+
+
+    practicaActual =
+        ejerciciosPractica[
+            Math.floor(
+                Math.random() *
+                ejerciciosPractica.length
+            )
+        ];
+
+
+    container.innerHTML = `
+
+        <div class="lesson-card">
+
+            <h3>🎯 Reto rápido</h3>
+
+            <p>
+                ${practicaActual.pregunta}
+            </p>
 
             <input
-                id="nombreCuenta"
-                type="text"
-                maxlength="30"
-                placeholder="Tu nombre"
-                required
-            >
-
-            <label for="correoCuenta">
-                Correo electrónico
-            </label>
-
-            <input
-                id="correoCuenta"
-                type="email"
-                placeholder="tu@correo.com"
-                required
+                id="practiceAnswer"
+                class="search-input"
+                placeholder="Escribe tu respuesta..."
             >
 
             <button
-                class="cuenta-boton"
-                type="submit"
+                class="primary-button"
+                onclick="comprobarPractica()"
             >
-                Crear perfil
+                Comprobar
             </button>
 
-        </form>
+            <div id="practiceFeedback"></div>
 
-        <div
-            id="mensajeCuenta"
-            class="cuenta-mensaje"
-        >
-            Por ahora el perfil es local.
         </div>
 
     `;
@@ -2339,273 +2126,1806 @@ function mostrarPantallaCuenta() {
 }
 
 
-function crearCuentaLocal(evento) {
+function comprobarPractica() {
 
-    evento.preventDefault();
-
-
-    const nombre =
+    const respuesta =
         document.getElementById(
-            "nombreCuenta"
-        ).value.trim();
+            "practiceAnswer"
+        ).value
+        .trim()
+        .toLowerCase();
 
 
-    const correo =
+    const feedback =
         document.getElementById(
-            "correoCuenta"
-        ).value.trim();
-
-
-    if (!nombre || !correo) {
-        return;
-    }
-
-
-    const perfil = {
-
-        nombre: nombre,
-
-        correo: correo,
-
-        creado:
-            new Date().toISOString()
-
-    };
-
-
-    guardarPerfilLocal(
-        perfil
-    );
-
-
-    mostrarPantallaCuenta();
-
-    actualizarBotonCuenta();
-
-}
-
-
-function cerrarSesionLocal() {
-
-    localStorage.removeItem(
-        "luaDrixPerfil"
-    );
-
-
-    mostrarPantallaCuenta();
-
-    actualizarBotonCuenta();
-
-}
-
-
-function actualizarBotonCuenta() {
-
-    const boton =
-        document.getElementById(
-            "botonCuenta"
+            "practiceFeedback"
         );
 
 
-    if (!boton) {
+    if (!gastarBateria(1)) {
         return;
     }
 
 
-    const perfil =
-        obtenerPerfilLocal();
+    if (
+        respuesta ===
+        practicaActual.respuesta.toLowerCase()
+    ) {
 
+        estado.xp += 15;
+        estado.monedas += 3;
 
-    if (perfil) {
+        registrarActividad();
 
-        boton.textContent =
-            `👤 ${perfil.nombre}`;
+        comprobarLogros();
+
+        guardarEstado();
+
+        actualizarTodo();
+
+        feedback.innerHTML = `
+
+            <div class="feedback success">
+                ✓ Correcto. +15 EXP
+            </div>
+
+        `;
 
     } else {
 
-        boton.textContent =
-            "👤 Cuenta";
+        feedback.innerHTML = `
+
+            <div class="feedback error">
+                ✗ Incorrecto. Inténtalo otra vez.
+            </div>
+
+        `;
 
     }
 
 }
 
 
-/* ==================== OAUTH ==================== */
+/* =========================================================
+   LABORATORIO SIMULADO
+   ========================================================= */
 
-function iniciarOAuth(proveedor) {
+const ejemplosLab = {
 
-    /*
-        Todavía no está conectado el backend.
+    variables:
+`local nombre = "Angel"
+print(nombre)`,
 
-        Cuando configuremos Supabase, esta función utilizará:
+    tipos:
+`local numero = 25
+local texto = "Lua"
+local activo = true
 
-        supabase.auth.signInWithOAuth({
-            provider: proveedor
-        });
-    */
+print(type(numero))
+print(type(texto))
+print(type(activo))`,
+
+    operadores:
+`local resultado = 10 + 5 * 2
+print(resultado)`,
+
+    condicionales:
+`local edad = 13
+
+if edad >= 18 then
+    print("Adulto")
+else
+    print("Menor")
+end`,
+
+    bucles:
+`for i = 1, 5 do
+    print(i)
+end`,
+
+    funciones:
+`function saludar(nombre)
+    return "Hola " .. nombre
+end
+
+print(saludar("Angel"))`,
+
+    tablas:
+`local frutas = {
+    "manzana",
+    "pera",
+    "banana"
+}
+
+print(frutas[1])`,
+
+    strings:
+`local texto = "LuaDrix"
+
+print(string.upper(texto))
+print(string.len(texto))`,
+
+    errores:
+`local ok, resultado = pcall(function()
+    return 10
+end)
+
+print(ok)`,
+
+    metatables:
+`local persona = {}
+
+setmetatable(persona, {})
+
+print(type(persona))`,
+
+    coroutines:
+`local co = coroutine.create(function()
+    print("Hola desde una coroutine")
+end)
+
+coroutine.resume(co)`,
+
+    modulos:
+`local modulo = require("miModulo")
+print(modulo)`
+
+};
 
 
-    const contenedor =
+function insertarEjemplo(tipo) {
+
+    document.getElementById(
+        "luaEditor"
+    ).value =
+        ejemplosLab[tipo] || "";
+
+}
+
+
+function limpiarEditor() {
+
+    document.getElementById(
+        "luaEditor"
+    ).value = "";
+
+    document.getElementById(
+        "labOutput"
+    ).textContent =
+        "Aquí aparecerá la salida simulada...";
+
+}
+
+
+function ejecutarLaboratorio() {
+
+    const codigo =
         document.getElementById(
-            "mensajeCuenta"
+            "luaEditor"
+        ).value;
+
+
+    const output =
+        document.getElementById(
+            "labOutput"
         );
 
 
-    if (!contenedor) {
+    if (!codigo.trim()) {
+
+        output.textContent =
+            "No hay código para ejecutar.";
+
         return;
+
     }
 
 
-    contenedor.className =
-        "cuenta-mensaje cuenta-error";
+    registrarActividad();
 
 
-    contenedor.textContent =
-        `El inicio con ${proveedor} todavía necesita configurar el servicio de autenticación.`;
+    const lineas =
+        codigo.split("\n");
+
+    const salida = [];
+
+
+    /*
+        SIMULACIÓN:
+
+        No ejecutamos Lua real.
+        Detectamos instrucciones comunes
+        y simulamos su resultado.
+    */
+
+
+    lineas.forEach(linea => {
+
+        const limpia =
+            linea.trim();
+
+
+        const printMatch =
+            limpia.match(
+                /^print\s*\(\s*["'](.*?)["']\s*\)/
+            );
+
+
+        if (printMatch) {
+
+            salida.push(
+                printMatch[1]
+            );
+
+            return;
+
+        }
+
+
+        const variablePrint =
+            limpia.match(
+                /^print\s*\(\s*([a-zA-Z_][a-zA-Z0-9_]*)\s*\)/
+            );
+
+
+        if (variablePrint) {
+
+            const variable =
+                variablePrint[1];
+
+            const regex =
+                new RegExp(
+                    `local\\s+${variable}\\s*=\\s*["'](.*?)["']`
+                );
+
+            const encontrada =
+                codigo.match(regex);
+
+            if (encontrada) {
+
+                salida.push(
+                    encontrada[1]
+                );
+
+            } else {
+
+                salida.push(
+                    `[simulación] ${variable}`
+                );
+
+            }
+
+            return;
+
+        }
+
+
+        const mathPrint =
+            limpia.match(
+                /^print\s*\(\s*(\d+)\s*([+\-*\/])\s*(\d+)\s*\)/
+            );
+
+
+        if (mathPrint) {
+
+            const a =
+                Number(mathPrint[1]);
+
+            const operador =
+                mathPrint[2];
+
+            const b =
+                Number(mathPrint[3]);
+
+            let resultado;
+
+
+            if (operador === "+") {
+                resultado = a + b;
+            }
+
+            if (operador === "-") {
+                resultado = a - b;
+            }
+
+            if (operador === "*") {
+                resultado = a * b;
+            }
+
+            if (operador === "/") {
+                resultado = a / b;
+            }
+
+
+            salida.push(
+                String(resultado)
+            );
+
+        }
+
+    });
+
+
+    if (salida.length === 0) {
+
+        salida.push(
+            "[simulación] Código procesado correctamente."
+        );
+
+        salida.push(
+            "LuaDrix no ejecuta Lua real en el navegador."
+        );
+
+    }
+
+
+    output.textContent =
+        salida.join("\n");
+
+
+    estado.monedas += 1;
+
+    guardarEstado();
+
+    actualizarMonedas();
 
 }
 
 
-/* ==================== SUPABASE PREPARADO ==================== */
+/* =========================================================
+   BIBLIOTECA
+   ========================================================= */
 
-let supabaseClient = null;
+const biblioteca = [
 
+    {
+        nombre: "print()",
+        categoria: "Básico",
+        descripcion: "Muestra valores o texto en la salida."
+    },
 
-function prepararSupabase() {
+    {
+        nombre: "local",
+        categoria: "Variables",
+        descripcion: "Declara una variable local."
+    },
 
-    /*
-        No hacemos nada mientras las credenciales estén vacías.
+    {
+        nombre: "type()",
+        categoria: "Básico",
+        descripcion: "Devuelve el tipo de un valor."
+    },
 
-        Esto permite que LuaDrix siga funcionando normalmente
-        desde GitHub Pages.
-    */
+    {
+        nombre: "string.find()",
+        categoria: "String",
+        descripcion: "Busca un patrón o texto dentro de un string."
+    },
 
+    {
+        nombre: "string.len()",
+        categoria: "String",
+        descripcion: "Obtiene la longitud de un string."
+    },
 
-    if (
-        SUPABASE_URL === "" ||
-        SUPABASE_ANON_KEY === ""
-    ) {
+    {
+        nombre: "string.upper()",
+        categoria: "String",
+        descripcion: "Convierte un string a mayúsculas."
+    },
 
-        return;
+    {
+        nombre: "table.insert()",
+        categoria: "Table",
+        descripcion: "Inserta un elemento en una tabla."
+    },
 
+    {
+        nombre: "table.remove()",
+        categoria: "Table",
+        descripcion: "Elimina un elemento de una tabla."
+    },
+
+    {
+        nombre: "math.floor()",
+        categoria: "Math",
+        descripcion: "Redondea un número hacia abajo."
+    },
+
+    {
+        nombre: "math.ceil()",
+        categoria: "Math",
+        descripcion: "Redondea un número hacia arriba."
+    },
+
+    {
+        nombre: "io.open()",
+        categoria: "IO",
+        descripcion: "Abre un archivo."
+    },
+
+    {
+        nombre: "os.date()",
+        categoria: "OS",
+        descripcion: "Obtiene información relacionada con fechas y horas."
+    },
+
+    {
+        nombre: "require()",
+        categoria: "Package",
+        descripcion: "Carga un módulo."
+    },
+
+    {
+        nombre: "pcall()",
+        categoria: "Errores",
+        descripcion: "Ejecuta una función protegida contra errores."
+    },
+
+    {
+        nombre: "xpcall()",
+        categoria: "Errores",
+        descripcion: "Ejecuta una función protegida utilizando un manejador de errores."
+    },
+
+    {
+        nombre: "setmetatable()",
+        categoria: "Metatables",
+        descripcion: "Asigna una metatable a una tabla."
+    },
+
+    {
+        nombre: "getmetatable()",
+        categoria: "Metatables",
+        descripcion: "Obtiene la metatable de un valor."
+    },
+
+    {
+        nombre: "coroutine.create()",
+        categoria: "Coroutines",
+        descripcion: "Crea una coroutine."
+    },
+
+    {
+        nombre: "coroutine.resume()",
+        categoria: "Coroutines",
+        descripcion: "Continúa una coroutine."
+    },
+
+    {
+        nombre: "coroutine.yield()",
+        categoria: "Coroutines",
+        descripcion: "Suspende una coroutine."
+    },
+
+    {
+        nombre: "collectgarbage()",
+        categoria: "Garbage Collector",
+        descripcion: "Permite controlar o consultar el recolector de basura."
+    },
+
+    {
+        nombre: "debug.traceback()",
+        categoria: "Debug",
+        descripcion: "Construye información de seguimiento para depuración."
     }
 
+];
 
-    if (
-        typeof window.supabase ===
-        "undefined"
-    ) {
 
-        console.warn(
-            "Supabase no está cargado."
+function renderizarBiblioteca() {
+
+    const container =
+        document.getElementById(
+            "libraryContainer"
         );
 
-        return;
-    }
-
-
-    supabaseClient =
-        window.supabase.createClient(
-            SUPABASE_URL,
-            SUPABASE_ANON_KEY
-        );
-
-
-    console.log(
-        "Supabase preparado."
+    renderizarResultadosBiblioteca(
+        biblioteca,
+        container
     );
 
 }
 
 
-/* ==================== CERRAR MODAL AL HACER CLICK FUERA ==================== */
+function renderizarResultadosBiblioteca(
+    datos,
+    container
+) {
 
-document.addEventListener(
-    "click",
-    function(evento) {
+    container.innerHTML = "";
 
-        const modal =
+
+    if (datos.length === 0) {
+
+        container.innerHTML = `
+            <div class="library-item">
+                <h3>No encontrado</h3>
+                <p>No encontramos ese concepto.</p>
+            </div>
+        `;
+
+        return;
+
+    }
+
+
+    datos.forEach(item => {
+
+        const div =
+            document.createElement("div");
+
+        div.className =
+            "library-item";
+
+        div.innerHTML = `
+
+            <small>
+                ${item.categoria}
+            </small>
+
+            <h3>
+                ${item.nombre}
+            </h3>
+
+            <p>
+                ${item.descripcion}
+            </p>
+
+        `;
+
+        container.appendChild(div);
+
+    });
+
+}
+
+
+function buscarBiblioteca() {
+
+    const texto =
+        document.getElementById(
+            "librarySearch"
+        ).value
+        .toLowerCase()
+        .trim();
+
+
+    const resultados =
+        biblioteca.filter(item =>
+
+            item.nombre
+                .toLowerCase()
+                .includes(texto)
+
+            ||
+
+            item.categoria
+                .toLowerCase()
+                .includes(texto)
+
+            ||
+
+            item.descripcion
+                .toLowerCase()
+                .includes(texto)
+
+        );
+
+
+    renderizarResultadosBiblioteca(
+        resultados,
+        document.getElementById(
+            "libraryContainer"
+        )
+    );
+
+}
+
+
+/* =========================================================
+   LOGROS
+   ========================================================= */
+
+const logros = [
+
+    ["🌱", "Primer paso", "Completa tu primera lección."],
+    ["📚", "Estudiante", "Completa 3 lecciones."],
+    ["📖", "Aprendiz", "Completa 5 lecciones."],
+    ["🎓", "Conocedor", "Completa 10 lecciones."],
+    ["🏆", "Maestro del camino", "Completa 20 lecciones."],
+
+    ["⭐", "100 EXP", "Consigue 100 EXP."],
+    ["⭐", "250 EXP", "Consigue 250 EXP."],
+    ["⭐", "500 EXP", "Consigue 500 EXP."],
+    ["⭐", "1000 EXP", "Consigue 1000 EXP."],
+    ["⭐", "2500 EXP", "Consigue 2500 EXP."],
+
+    ["🔥", "Racha de 2", "Mantén una racha de 2 días."],
+    ["🔥", "Racha de 3", "Mantén una racha de 3 días."],
+    ["🔥", "Racha de 7", "Mantén una racha de 7 días."],
+    ["🔥", "Racha de 14", "Mantén una racha de 14 días."],
+    ["🔥", "Racha de 30", "Mantén una racha de 30 días."],
+
+    ["💻", "Primer código", "Completa un reto de código."],
+    ["💻", "Código en progreso", "Completa 5 retos."],
+    ["💻", "Constructor", "Completa 10 retos."],
+    ["💻", "Programador", "Completa 20 retos."],
+    ["💻", "Código maestro", "Completa 30 retos."],
+
+    ["🧠", "Variables", "Aprende variables."],
+    ["🧠", "Condiciones", "Aprende if."],
+    ["🧠", "Bucles", "Aprende while."],
+    ["🧠", "Funciones", "Aprende funciones."],
+    ["🧠", "Tablas", "Aprende tablas."],
+
+    ["🧪", "Primer experimento", "Usa el laboratorio."],
+    ["🧪", "Experimentador", "Usa el laboratorio 5 veces."],
+    ["🧪", "Científico Lua", "Usa el laboratorio 15 veces."],
+
+    ["📈", "Nivel 2", "Alcanza el nivel 2."],
+    ["📈", "Nivel 3", "Alcanza el nivel 3."],
+    ["📈", "Nivel 5", "Alcanza el nivel 5."],
+    ["📈", "Nivel 10", "Alcanza el nivel 10."],
+    ["📈", "Nivel 15", "Alcanza el nivel 15."],
+
+    ["🪙", "Ahorrador", "Consigue 100 monedas."],
+    ["🪙", "Coleccionista", "Consigue 500 monedas."],
+    ["🪙", "Magnate", "Consigue 1000 monedas."],
+
+    ["🔋", "Superviviente", "Completa un reto con poca batería."],
+    ["🛡️", "Protegido", "Usa un protector de racha."],
+    ["🎯", "Práctica", "Completa un ejercicio de práctica."],
+    ["📖", "Bibliotecario", "Consulta la biblioteca."],
+    ["🔬", "Explorador", "Prueba 5 áreas del laboratorio."],
+    ["🎨", "Personalizador", "Compra un tema."],
+    ["👤", "Perfil", "Configura tu perfil."],
+    ["🚀", "Despegue", "Completa el Nivel 1."],
+    ["🔥", "Constante", "Haz actividades durante varios días."],
+    ["🧩", "Resolutor", "Supera 10 retos."],
+    ["🧑‍💻", "Desarrollador", "Llega al Nivel 6."],
+    ["👑", "Leyenda", "Llega al Nivel 20."],
+    ["💡", "Curioso", "Envía una sugerencia."],
+    ["🏁", "LuaDrix completo", "Explora todo el camino disponible."]
+];
+
+
+function renderizarLogros() {
+
+    const container =
+        document.getElementById(
+            "achievementsContainer"
+        );
+
+    container.innerHTML = "";
+
+
+    logros.forEach((logro, index) => {
+
+        const desbloqueado =
+            estado.logros.includes(index);
+
+
+        const div =
+            document.createElement("div");
+
+        div.className =
+            "achievement" +
+            (desbloqueado ? "" : " locked");
+
+
+        div.innerHTML = `
+
+            <div class="achievement-icon">
+                ${logro[0]}
+            </div>
+
+            <h3>
+                ${logro[1]}
+            </h3>
+
+            <p>
+                ${logro[2]}
+            </p>
+
+            <small>
+                ${desbloqueado ? "✓ Desbloqueado" : "🔒 Bloqueado"}
+            </small>
+
+        `;
+
+
+        container.appendChild(div);
+
+    });
+
+}
+
+
+function comprobarLogros() {
+
+    const completadas =
+        estado.leccionesCompletadas.length;
+
+
+    const checks = [
+
+        completadas >= 1,
+        completadas >= 3,
+        completadas >= 5,
+        completadas >= 10,
+        completadas >= 20,
+
+        estado.xp >= 100,
+        estado.xp >= 250,
+        estado.xp >= 500,
+        estado.xp >= 1000,
+        estado.xp >= 2500,
+
+        estado.racha >= 2,
+        estado.racha >= 3,
+        estado.racha >= 7,
+        estado.racha >= 14,
+        estado.racha >= 30,
+
+        completadas >= 1,
+        completadas >= 5,
+        completadas >= 10,
+        completadas >= 20,
+        completadas >= 30,
+
+        estado.conceptosAprendidos.variables >= 80,
+        estado.conceptosAprendidos.if >= 80,
+        estado.conceptosAprendidos.while >= 80,
+        estado.conceptosAprendidos.funciones >= 80,
+        estado.conceptosAprendidos.tablas >= 80,
+
+        (estado.labUsos || 0) >= 1,
+        (estado.labUsos || 0) >= 5,
+        (estado.labUsos || 0) >= 15,
+
+        obtenerNivel() >= 2,
+        obtenerNivel() >= 3,
+        obtenerNivel() >= 5,
+        obtenerNivel() >= 10,
+        obtenerNivel() >= 15,
+
+        estado.monedas >= 100,
+        estado.monedas >= 500,
+        estado.monedas >= 1000,
+
+        estado.bateria <= 5 && completadas > 0,
+        estado.protectores < 2,
+        (estado.practicas || 0) >= 1,
+        estado.bibliotecaVisitada === true,
+        (estado.labUsos || 0) >= 5,
+        estado.tema === "azul",
+        estado.cuenta === true,
+        completadas >= 4,
+        estado.racha >= 3,
+        completadas >= 10,
+        obtenerNivel() >= 6,
+        obtenerNivel() >= 20,
+        estado.sugerenciasEnviadas > 0,
+        completadas >= 24
+    ];
+
+
+    checks.forEach(
+        (cumplido, index) => {
+
+            if (
+                cumplido &&
+                !estado.logros.includes(index)
+            ) {
+
+                estado.logros.push(index);
+
+                mostrarToast(
+                    `🏆 Logro desbloqueado: ${logros[index][1]}`
+                );
+
+            }
+
+        }
+    );
+
+
+    guardarEstado();
+
+}
+
+
+/* =========================================================
+   TIENDA
+   ========================================================= */
+
+function comprar(tipo, precio) {
+
+    if (estado.monedas < precio) {
+
+        mostrarToast(
+            "No tienes suficientes monedas."
+        );
+
+        return;
+
+    }
+
+
+    if (tipo === "bateria") {
+
+        if (estado.bateria >= MAX_BATERIA) {
+
+            mostrarToast(
+                "Tu batería ya está completa."
+            );
+
+            return;
+
+        }
+
+        estado.monedas -= precio;
+
+        estado.bateria =
+            Math.min(
+                MAX_BATERIA,
+                estado.bateria + 5
+            );
+
+        estado.ultimaRecarga =
+            Date.now();
+
+    }
+
+
+    if (tipo === "pista") {
+
+        if (estado.pistaUsadaHoy) {
+
+            mostrarToast(
+                "Ya utilizaste una pista extra hoy."
+            );
+
+            return;
+
+        }
+
+        estado.monedas -= precio;
+
+        estado.pistaUsadaHoy = true;
+
+        mostrarToast(
+            "💡 Pista extra desbloqueada por hoy."
+        );
+
+    }
+
+
+    if (tipo === "practica") {
+
+        if (estado.practicaUsadaHoy) {
+
+            mostrarToast(
+                "Ya compraste la práctica extra de hoy."
+            );
+
+            return;
+
+        }
+
+        estado.monedas -= precio;
+
+        estado.practicaUsadaHoy = true;
+
+        mostrarToast(
+            "🎯 Práctica extra desbloqueada."
+        );
+
+    }
+
+
+    guardarEstado();
+
+    actualizarTodo();
+
+}
+
+
+function comprarTema(tema, precio) {
+
+    if (estado.tema === tema) {
+
+        mostrarToast(
+            "Ya estás usando este tema."
+        );
+
+        return;
+
+    }
+
+
+    if (estado.monedas < precio) {
+
+        mostrarToast(
+            "No tienes suficientes monedas."
+        );
+
+        return;
+
+    }
+
+
+    estado.monedas -= precio;
+
+    estado.tema = tema;
+
+    aplicarTema();
+
+    guardarEstado();
+
+    actualizarTodo();
+
+    mostrarToast(
+        "🎨 Tema comprado."
+    );
+
+}
+
+
+function aplicarTema() {
+
+    document.body.classList.toggle(
+        "blue-theme",
+        estado.tema === "azul"
+    );
+
+}
+
+
+/* =========================================================
+   PERFIL
+   ========================================================= */
+
+function actualizarPerfil() {
+
+    document.getElementById(
+        "profileName"
+    ).textContent =
+        estado.nombre;
+
+    actualizarXP();
+
+}
+
+
+function simularCuenta() {
+
+    estado.cuenta = true;
+
+    guardarEstado();
+
+    comprobarLogros();
+
+    actualizarTodo();
+
+    mostrarToast(
+        "👤 Cuenta simulada activada."
+    );
+
+}
+
+
+/* =========================================================
+   SUGERENCIAS
+   ========================================================= */
+
+function enviarSugerencia() {
+
+    const categoria =
+        document.getElementById(
+            "suggestionCategory"
+        ).value;
+
+
+    const texto =
+        document.getElementById(
+            "suggestionText"
+        ).value.trim();
+
+
+    if (!texto) {
+
+        mostrarToast(
+            "Escribe una sugerencia primero."
+        );
+
+        return;
+
+    }
+
+
+    /*
+        Por ahora se guarda localmente.
+        Cuando conectemos Supabase,
+        esta función enviará los datos al backend.
+    */
+
+    const sugerencias =
+        JSON.parse(
+            localStorage.getItem(
+                "luaDrixSugerencias"
+            ) || "[]"
+        );
+
+
+    sugerencias.push({
+
+        categoria,
+        texto,
+
+        fecha:
+            new Date().toISOString()
+
+    });
+
+
+    localStorage.setItem(
+        "luaDrixSugerencias",
+        JSON.stringify(sugerencias)
+    );
+
+
+    estado.sugerenciasEnviadas =
+        (estado.sugerenciasEnviadas || 0) + 1;
+
+
+    guardarEstado();
+
+    comprobarLogros();
+
+
+    document.getElementById(
+        "suggestionText"
+    ).value = "";
+
+
+    mostrarToast(
+        "💡 Sugerencia guardada."
+    );
+
+}
+
+
+/* =========================================================
+   ENCUESTA / DIAGNÓSTICO
+   ========================================================= */
+
+const encuesta = [
+
+    {
+        pregunta: "¿Cómo conociste LuaDrix?",
+        opciones: [
+            "YouTube",
+            "Google",
+            "Un amigo",
+            "Redes sociales",
+            "Otro"
+        ]
+    },
+
+    {
+        pregunta: "¿Por qué quieres aprender programación?",
+        opciones: [
+            "Crear juegos",
+            "Curiosidad",
+            "Colegio",
+            "Crear aplicaciones",
+            "Aprender algo nuevo"
+        ]
+    },
+
+    {
+        pregunta: "¿Qué te gustaría crear?",
+        opciones: [
+            "Juegos",
+            "Aplicaciones",
+            "Páginas web",
+            "Herramientas",
+            "Todavía no sé"
+        ]
+    },
+
+    {
+        pregunta: "¿Cuánta programación conoces?",
+        opciones: [
+            "Nada",
+            "Un poco",
+            "Nivel básico",
+            "Nivel intermedio",
+            "Bastante"
+        ]
+    },
+
+    {
+        pregunta: "¿Qué esperas de LuaDrix?",
+        opciones: [
+            "Aprender desde cero",
+            "Practicar",
+            "Aprender Lua avanzado",
+            "Crear proyectos",
+            "Todo lo anterior"
+        ]
+    }
+
+];
+
+
+let encuestaRespuestas = {};
+
+let encuestaPaso = 0;
+
+
+function iniciarOnboarding() {
+
+    if (
+        estado.encuestaTerminada &&
+        estado.diagnosticoTerminado
+    ) {
+
+        return;
+
+    }
+
+
+    if (!estado.encuestaTerminada) {
+
+        mostrarPagina("diagnostico");
+
+        renderizarEncuesta();
+
+    }
+
+}
+
+
+function renderizarEncuesta() {
+
+    const container =
+        document.getElementById(
+            "surveyContainer"
+        );
+
+
+    if (
+        encuestaPaso >=
+        encuesta.length
+    ) {
+
+        renderizarDiagnosticoLua();
+
+        return;
+
+    }
+
+
+    const pregunta =
+        encuesta[encuestaPaso];
+
+
+    container.innerHTML = `
+
+        <div class="survey-card">
+
+            <h3>
+                Pregunta ${encuestaPaso + 1}
+                de ${encuesta.length}
+            </h3>
+
+            <p>
+                ${pregunta.pregunta}
+            </p>
+
+            <div id="surveyOptions"></div>
+
+        </div>
+
+    `;
+
+
+    const opciones =
+        document.getElementById(
+            "surveyOptions"
+        );
+
+
+    pregunta.opciones.forEach(
+        (opcion, index) => {
+
+            const boton =
+                document.createElement(
+                    "button"
+                );
+
+            boton.className =
+                "survey-option";
+
+            boton.textContent =
+                opcion;
+
+            boton.onclick = () => {
+
+                encuestaRespuestas[
+                    encuestaPaso
+                ] = opcion;
+
+
+                encuestaPaso++;
+
+
+                renderizarEncuesta();
+
+            };
+
+
+            opciones.appendChild(
+                boton
+            );
+
+        }
+    );
+
+}
+
+
+function renderizarDiagnosticoLua() {
+
+    const container =
+        document.getElementById(
+            "surveyContainer"
+        );
+
+
+    container.innerHTML = `
+
+        <div class="survey-card">
+
+            <h3>
+                Parte 2 — Diagnóstico de Lua
+            </h3>
+
+            <p>
+                Ahora comprobaremos qué conceptos
+                ya conoces. No ganas ni pierdes XP.
+            </p>
+
+            <button
+                class="primary-button"
+                onclick="comenzarDiagnostico()"
+            >
+                Comenzar diagnóstico
+            </button>
+
+        </div>
+
+    `;
+
+}
+
+
+function comenzarDiagnostico() {
+
+    const preguntas = [
+
+        {
+            skill: "print",
+            pregunta: "¿Cuál muestra texto?",
+            opciones: [
+                "print()",
+                "show()",
+                "display()"
+            ],
+            correcta: 0
+        },
+
+        {
+            skill: "variables",
+            pregunta: "¿Cuál crea una variable local?",
+            opciones: [
+                "local nombre = Angel",
+                "var nombre = Angel",
+                "let nombre = Angel"
+            ],
+            correcta: 0
+        },
+
+        {
+            skill: "if",
+            pregunta: "¿Qué estructura sirve para tomar decisiones?",
+            opciones: [
+                "if",
+                "loop",
+                "table"
+            ],
+            correcta: 0
+        },
+
+        {
+            skill: "while",
+            pregunta: "¿Qué estructura repite mientras una condición sea verdadera?",
+            opciones: [
+                "while",
+                "if",
+                "function"
+            ],
+            correcta: 0
+        },
+
+        {
+            skill: "funciones",
+            pregunta: "¿Qué palabra declara una función?",
+            opciones: [
+                "function",
+                "method",
+                "func"
+            ],
+            correcta: 0
+        }
+
+    ];
+
+
+    let puntuacion = {};
+
+    let actual = 0;
+
+
+    function siguiente() {
+
+        if (
+            actual >=
+            preguntas.length
+        ) {
+
+            finalizar();
+
+            return;
+
+        }
+
+
+        const p =
+            preguntas[actual];
+
+
+        container.innerHTML = `
+
+            <div class="survey-card">
+
+                <h3>
+                    Diagnóstico ${actual + 1}/${preguntas.length}
+                </h3>
+
+                <p>
+                    ${p.pregunta}
+                </p>
+
+                <div id="diagOptions"></div>
+
+            </div>
+
+        `;
+
+
+        const opciones =
             document.getElementById(
-                "modalCuenta"
+                "diagOptions"
             );
 
 
-        if (
-            modal &&
-            evento.target === modal
-        ) {
+        p.opciones.forEach(
+            (opcion, index) => {
 
-            cerrarCuenta();
+                const boton =
+                    document.createElement(
+                        "button"
+                    );
 
-        }
+                boton.className =
+                    "survey-option";
 
-    }
-);
-
-
-/* ==================== ESCAPE PARA MODAL ==================== */
-
-document.addEventListener(
-    "keydown",
-    function(evento) {
-
-        if (
-            evento.key === "Escape"
-        ) {
-
-            cerrarCuenta();
-
-        }
-
-    }
-);
+                boton.textContent =
+                    opcion;
 
 
-/* ==================== INICIO ==================== */
+                boton.onclick = () => {
 
-document.addEventListener(
-    "DOMContentLoaded",
-    function() {
+                    puntuacion[p.skill] =
+                        index === p.correcta
+                            ? 100
+                            : 0;
 
-        cargarModoOscuro();
+                    actual++;
 
-        generarDiccionario();
+                    siguiente();
 
-        actualizarRacha();
-
-        actualizarProgreso();
-
-        actualizarEstadisticas();
-
-        actualizarBotonCuenta();
-
-        prepararSupabase();
+                };
 
 
-        const inicio =
-            document.getElementById(
-                "inicio"
-            );
-
-
-        if (inicio) {
-            inicio.style.display =
-                "block";
-        }
-
-
-        document.querySelectorAll(
-            ".pagina"
-        ).forEach(
-            function(pagina) {
-
-                pagina.style.display =
-                    "none";
+                opciones.appendChild(
+                    boton
+                );
 
             }
         );
 
     }
+
+
+    function finalizar() {
+
+        estado.encuestaTerminada =
+            true;
+
+        estado.diagnosticoTerminado =
+            true;
+
+        estado.diagnosticoSkills =
+            puntuacion;
+
+        estado.conceptosAprendidos =
+            {
+                ...estado.conceptosAprendidos,
+                ...puntuacion
+            };
+
+
+        localStorage.setItem(
+            "luaDrixEncuesta",
+            JSON.stringify(
+                encuestaRespuestas
+            )
+        );
+
+
+        guardarEstado();
+
+        mostrarToast(
+            "✓ Diagnóstico terminado."
+        );
+
+
+        mostrarPagina("inicio");
+
+        actualizarTodo();
+
+    }
+
+
+    siguiente();
+
+}
+
+
+/* =========================================================
+   TEMA
+   ========================================================= */
+
+function alternarTema() {
+
+    document.body.classList.toggle(
+        "dark"
+    );
+
+
+    const oscuro =
+        document.body.classList.contains(
+            "dark"
+        );
+
+
+    estado.modoOscuro =
+        oscuro;
+
+
+    guardarEstado();
+
+}
+
+
+function aplicarTemaInicial() {
+
+    if (estado.modoOscuro) {
+
+        document.body.classList.add(
+            "dark"
+        );
+
+    }
+
+    aplicarTema();
+
+}
+
+
+/* =========================================================
+   TOASTS
+   ========================================================= */
+
+function mostrarToast(mensaje) {
+
+    const container =
+        document.getElementById(
+            "toastContainer"
+        );
+
+
+    const toast =
+        document.createElement(
+            "div"
+        );
+
+    toast.className =
+        "toast";
+
+    toast.textContent =
+        mensaje;
+
+
+    container.appendChild(
+        toast
+    );
+
+
+    setTimeout(() => {
+
+        toast.remove();
+
+    }, 3000);
+
+}
+
+
+/* =========================================================
+   ACTUALIZACIÓN GENERAL
+   ========================================================= */
+
+function actualizarTodo() {
+
+    actualizarXP();
+
+    actualizarBateria();
+
+    actualizarMonedas();
+
+    actualizarRacha();
+
+    actualizarPerfil();
+
+    document.getElementById(
+        "continueLesson"
+    ).innerHTML = `
+
+        <div>
+
+            <small>
+                TU SIGUIENTE PASO
+            </small>
+
+            <h3>
+                ${obtenerSiguienteLeccion()?.titulo || "Has completado todo"}
+            </h3>
+
+            <p>
+                ${obtenerSiguienteLeccion()?.descripcion || "Explora el laboratorio y la biblioteca."}
+            </p>
+
+        </div>
+
+        <button onclick="continuarAprendiendo()">
+            Continuar
+        </button>
+
+    `;
+
+}
+
+
+function obtenerSiguienteLeccion() {
+
+    for (
+        let nivelIndex = 0;
+        nivelIndex < niveles.length;
+        nivelIndex++
+    ) {
+
+        for (
+            let leccionIndex = 0;
+            leccionIndex <
+            niveles[nivelIndex].lecciones.length;
+            leccionIndex++
+        ) {
+
+            const leccion =
+                niveles[nivelIndex].lecciones[
+                    leccionIndex
+                ];
+
+
+            if (
+                !estado.leccionesCompletadas.includes(
+                    leccion.id
+                ) &&
+                leccionDesbloqueada(
+                    nivelIndex,
+                    leccionIndex
+                )
+            ) {
+
+                return {
+
+                    titulo:
+                        leccion.titulo,
+
+                    descripcion:
+                        `Nivel ${niveles[nivelIndex].id} · ${niveles[nivelIndex].nombre}`
+
+                };
+
+            }
+
+        }
+
+    }
+
+
+    return null;
+
+}
+
+
+/* =========================================================
+   CONTADORES EXTRA
+   ========================================================= */
+
+function actualizarContadores() {
+
+    if (!estado.labUsos) {
+        estado.labUsos = 0;
+    }
+
+    if (!estado.practicas) {
+        estado.practicas = 0;
+    }
+
+}
+
+
+/* =========================================================
+   ARRANQUE
+   ========================================================= */
+
+document.addEventListener(
+    "DOMContentLoaded",
+    () => {
+
+        actualizarContadores();
+
+        aplicarTemaInicial();
+
+        actualizarTodo();
+
+        renderizarNiveles();
+
+        renderizarBiblioteca();
+
+        comprobarLogros();
+
+
+        /*
+            Si es la primera vez,
+            comienza el onboarding.
+        */
+
+        if (
+            !estado.encuestaTerminada ||
+            !estado.diagnosticoTerminado
+        ) {
+
+            setTimeout(
+                iniciarOnboarding,
+                300
+            );
+
+        }
+
+        /*
+            Actualizamos la batería
+            periódicamente.
+        */
+
+        setInterval(
+            actualizarBateria,
+            30000
+        );
+
+        /*
+            Guardamos periódicamente.
+        */
+
+        setInterval(
+            guardarEstado,
+            10000
+        );
+
+    }
 );
-```
+
+
+/* =========================================================
+   CONTADOR DE LABORATORIO
+   ========================================================= */
+
+const ejecutarLabOriginal =
+    ejecutarLaboratorio;
+
+
+ejecutarLaboratorio =
+function () {
+
+    estado.labUsos =
+        (estado.labUsos || 0) + 1;
+
+    guardarEstado();
+
+    ejecutarLabOriginal();
+
+    comprobarLogros();
+
+};
+
+
+/* =========================================================
+   CONTADOR DE PRÁCTICA
+   ========================================================= */
+
+const comprobarPracticaOriginal =
+    comprobarPractica;
+
+
+comprobarPractica =
+function () {
+
+    const antes =
+        estado.practicas || 0;
+
+    comprobarPracticaOriginal();
+
+    /*
+        Solo contamos si la respuesta
+        fue correcta comprobándolo
+        después mediante el estado.
+    */
+
+    const respuesta =
+        document.getElementById(
+            "practiceAnswer"
+        );
+
+
+    if (
+        respuesta &&
+        respuesta.value.trim().toLowerCase() ===
+        practicaActual.respuesta.toLowerCase()
+    ) {
+
+        estado.practicas =
+            antes + 1;
+
+        guardarEstado();
+
+        comprobarLogros();
+
+    }
+
+};
