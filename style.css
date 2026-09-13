@@ -29,6 +29,7 @@
 
 body {
     margin: 0;
+
     background: var(--bg);
     color: var(--text);
 
@@ -51,6 +52,10 @@ button {
 }
 
 
+/* =========================================================
+   TOPBAR
+   ========================================================= */
+
 .topbar {
     height: 76px;
 
@@ -65,6 +70,7 @@ button {
 
     position: sticky;
     top: 0;
+
     z-index: 20;
 }
 
@@ -72,6 +78,7 @@ button {
 .brand {
     display: flex;
     align-items: center;
+
     gap: 12px;
 
     cursor: pointer;
@@ -105,6 +112,7 @@ button {
 
 .brand span {
     color: var(--muted);
+
     font-size: 11px;
     font-weight: 700;
 }
@@ -113,18 +121,26 @@ button {
 .top-stats {
     display: flex;
     align-items: center;
+
     gap: 12px;
+}
+
+
+body.onboarding-active .top-stats {
+    display: none;
 }
 
 
 .stat {
     display: flex;
     align-items: center;
+
     gap: 5px;
 
     background: var(--surface-2);
 
     padding: 8px 11px;
+
     border-radius: 12px;
 
     font-size: 14px;
@@ -138,6 +154,7 @@ button {
 
 .icon-button {
     border: 0;
+
     background: var(--surface-2);
 
     width: 40px;
@@ -149,9 +166,15 @@ button {
 }
 
 
+/* =========================================================
+   GENERAL
+   ========================================================= */
+
 main {
     width: min(1150px, 92%);
+
     margin: auto;
+
     padding: 40px 0 70px;
 }
 
@@ -168,6 +191,7 @@ main {
 
 .hero {
     display: grid;
+
     grid-template-columns: 1fr 0.9fr;
 
     gap: 40px;
@@ -212,9 +236,14 @@ main {
     color: var(--muted);
 
     font-size: 17px;
+
     line-height: 1.6;
 }
 
+
+/* =========================================================
+   BOTONES
+   ========================================================= */
 
 .primary-button,
 .secondary-button {
@@ -238,6 +267,7 @@ main {
 
 .primary-button:hover {
     background: var(--primary-dark);
+
     transform: translateY(-2px);
 }
 
@@ -248,8 +278,18 @@ main {
 }
 
 
+.secondary-button:hover {
+    transform: translateY(-2px);
+}
+
+
+/* =========================================================
+   HERO CODE
+   ========================================================= */
+
 .hero-code {
     background: #202331;
+
     color: #e8eaff;
 
     border-radius: 20px;
@@ -279,6 +319,7 @@ main {
     height: 9px;
 
     background: #666;
+
     border-radius: 50%;
 }
 
@@ -295,6 +336,10 @@ main {
     overflow: auto;
 }
 
+
+/* =========================================================
+   DASHBOARD
+   ========================================================= */
 
 .dashboard-grid {
     display: grid;
@@ -375,6 +420,7 @@ main {
 .mini-progress div,
 .big-progress div {
     width: 0;
+
     height: 100%;
 
     background: var(--primary);
@@ -395,6 +441,10 @@ main {
     margin-top: 7px;
 }
 
+
+/* =========================================================
+   SECCIONES
+   ========================================================= */
 
 .section-heading {
     margin: 35px 0 18px;
@@ -428,6 +478,7 @@ main {
 
 .continue-card h3 {
     margin: 5px 0;
+
     font-size: 23px;
 }
 
@@ -441,6 +492,7 @@ main {
 
 .continue-card button {
     background: white;
+
     color: var(--primary);
 
     border: 0;
@@ -507,6 +559,10 @@ main {
 }
 
 
+/* =========================================================
+   HEADERS
+   ========================================================= */
+
 .page-header {
     margin-bottom: 30px;
 }
@@ -540,6 +596,10 @@ main {
     margin: 0;
 }
 
+
+/* =========================================================
+   NIVELES
+   ========================================================= */
 
 .level-block {
     margin-bottom: 35px;
@@ -650,12 +710,14 @@ main {
 
 .lesson-item.completed .lesson-number {
     background: var(--green);
+
     color: white;
 }
 
 
 .lesson-item.locked {
     opacity: 0.45;
+
     cursor: not-allowed;
 }
 
@@ -671,6 +733,10 @@ main {
     color: var(--muted);
 }
 
+
+/* =========================================================
+   LECCIONES
+   ========================================================= */
 
 .lesson-header {
     margin-bottom: 30px;
@@ -700,6 +766,7 @@ main {
 
 .lesson-progress {
     width: 100%;
+
     height: 8px;
 
     background: var(--surface-2);
@@ -716,6 +783,8 @@ main {
     width: 0;
 
     background: var(--primary);
+
+    transition: width 0.3s;
 }
 
 
@@ -743,6 +812,17 @@ main {
 
 .lesson-card p {
     line-height: 1.7;
+}
+
+
+.lesson-card > small {
+    display: block;
+
+    color: var(--primary);
+
+    font-weight: 900;
+
+    margin-bottom: 10px;
 }
 
 
@@ -779,6 +859,8 @@ main {
     margin: 10px 0;
 
     font-weight: 700;
+
+    transition: 0.15s;
 }
 
 
@@ -854,15 +936,21 @@ main {
 
 .feedback.success {
     background: #eaf9f1;
+
     color: #187a47;
 }
 
 
 .feedback.error {
     background: #fff0f0;
+
     color: #a93131;
 }
 
+
+/* =========================================================
+   LABORATORIO
+   ========================================================= */
 
 .lab-layout {
     display: grid;
@@ -1011,12 +1099,18 @@ main {
 }
 
 
+/* =========================================================
+   BUSCADOR / BIBLIOTECA
+   ========================================================= */
+
 .search-input {
     width: 100%;
 
     border: 1px solid var(--border);
 
     background: var(--surface);
+
+    color: var(--text);
 
     border-radius: 13px;
 
@@ -1071,6 +1165,216 @@ main {
 }
 
 
+/* =========================================================
+   AMIGOS
+   ========================================================= */
+
+.social-search-card {
+    background: var(--surface);
+
+    border: 1px solid var(--border);
+
+    border-radius: 20px;
+
+    padding: 25px;
+
+    box-shadow: var(--shadow);
+}
+
+
+.social-search-card h3 {
+    margin-top: 0;
+}
+
+
+.social-search-row {
+    display: grid;
+
+    grid-template-columns: 1fr auto;
+
+    gap: 10px;
+}
+
+
+.social-search-row .search-input {
+    margin: 0;
+}
+
+
+.social-section {
+    margin-top: 25px;
+}
+
+
+.social-section-heading {
+    display: flex;
+
+    justify-content: space-between;
+    align-items: center;
+
+    margin-bottom: 12px;
+}
+
+
+.social-section-heading h3 {
+    margin: 0;
+}
+
+
+.social-section-heading > span {
+    min-width: 28px;
+
+    padding: 4px 9px;
+
+    text-align: center;
+
+    border-radius: 20px;
+
+    background: var(--primary-light);
+
+    color: var(--primary);
+
+    font-size: 12px;
+
+    font-weight: 900;
+}
+
+
+.social-list {
+    display: grid;
+
+    gap: 10px;
+}
+
+
+.social-card {
+    background: var(--surface);
+
+    border: 1px solid var(--border);
+
+    border-radius: 16px;
+
+    padding: 17px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    gap: 15px;
+}
+
+
+.social-user {
+    display: flex;
+
+    align-items: center;
+
+    gap: 12px;
+
+    min-width: 0;
+}
+
+
+.social-avatar {
+    width: 45px;
+    height: 45px;
+
+    flex-shrink: 0;
+
+    border-radius: 50%;
+
+    background: var(--primary-light);
+
+    display: grid;
+    place-items: center;
+
+    font-size: 21px;
+}
+
+
+.social-user-info strong {
+    display: block;
+
+    font-size: 16px;
+}
+
+
+.social-user-info small {
+    color: var(--muted);
+}
+
+
+.social-actions {
+    display: flex;
+
+    gap: 8px;
+
+    flex-wrap: wrap;
+
+    justify-content: flex-end;
+}
+
+
+.social-actions button {
+    border: 0;
+
+    border-radius: 9px;
+
+    padding: 9px 12px;
+
+    font-weight: 800;
+}
+
+
+.social-add {
+    background: var(--primary);
+
+    color: white;
+}
+
+
+.social-accept {
+    background: var(--green);
+
+    color: white;
+}
+
+
+.social-reject {
+    background: #fff0f0;
+
+    color: var(--red);
+}
+
+
+.social-remove {
+    background: var(--surface-2);
+
+    color: var(--muted);
+}
+
+
+.empty-social {
+    background: var(--surface);
+
+    border: 1px dashed var(--border);
+
+    border-radius: 15px;
+
+    padding: 22px;
+
+    color: var(--muted);
+
+    text-align: center;
+}
+
+
+/* =========================================================
+   LOGROS
+   ========================================================= */
+
 .achievements-grid {
     display: grid;
 
@@ -1118,6 +1422,10 @@ main {
     font-size: 13px;
 }
 
+
+/* =========================================================
+   TIENDA
+   ========================================================= */
 
 .shop-grid {
     display: grid;
@@ -1176,6 +1484,10 @@ main {
     font-weight: 900;
 }
 
+
+/* =========================================================
+   PERFIL
+   ========================================================= */
 
 .profile-card {
     background: var(--surface);
@@ -1265,6 +1577,8 @@ main {
     display: flex;
 
     justify-content: space-between;
+
+    gap: 10px;
 }
 
 
@@ -1284,6 +1598,34 @@ main {
     color: var(--muted);
 }
 
+
+.account-form {
+    margin-top: 20px;
+}
+
+
+.account-form .search-input {
+    margin-bottom: 10px;
+}
+
+
+.account-buttons {
+    display: flex;
+
+    gap: 10px;
+
+    flex-wrap: wrap;
+}
+
+
+.hidden {
+    display: none !important;
+}
+
+
+/* =========================================================
+   SUGERENCIAS
+   ========================================================= */
 
 .suggestion-card {
     max-width: 700px;
@@ -1307,6 +1649,8 @@ main {
 
     background: var(--surface);
 
+    color: var(--text);
+
     border-radius: 11px;
 
     padding: 13px;
@@ -1321,6 +1665,10 @@ main {
     resize: vertical;
 }
 
+
+/* =========================================================
+   DIAGNÓSTICO
+   ========================================================= */
 
 .diagnostic-container {
     width: min(700px, 100%);
@@ -1362,6 +1710,8 @@ main {
 
     background: var(--surface);
 
+    color: var(--text);
+
     border-radius: 12px;
 
     padding: 13px;
@@ -1371,6 +1721,13 @@ main {
     text-align: left;
 
     font-weight: 700;
+
+    transition: 0.15s;
+}
+
+
+.survey-option:hover {
+    border-color: var(--primary);
 }
 
 
@@ -1380,6 +1737,10 @@ main {
     background: var(--primary-light);
 }
 
+
+/* =========================================================
+   FOOTER
+   ========================================================= */
 
 footer {
     border-top: 1px solid var(--border);
@@ -1413,6 +1774,10 @@ footer button {
 }
 
 
+/* =========================================================
+   TOAST
+   ========================================================= */
+
 #toastContainer {
     position: fixed;
 
@@ -1444,23 +1809,32 @@ footer button {
 
     from {
         opacity: 0;
+
         transform: translateY(15px);
     }
 
     to {
         opacity: 1;
+
         transform: translateY(0);
     }
 
 }
 
 
+/* =========================================================
+   TEMAS
+   ========================================================= */
+
 body.dark {
     --bg: #11131b;
+
     --surface: #191c26;
+
     --surface-2: #232734;
 
     --text: #f0f1f7;
+
     --muted: #969bad;
 
     --border: #2c3040;
@@ -1471,10 +1845,16 @@ body.dark {
 
 body.blue-theme {
     --primary: #3288e8;
+
     --primary-dark: #216fc6;
+
     --primary-light: #e6f2ff;
 }
 
+
+/* =========================================================
+   RESPONSIVE
+   ========================================================= */
 
 @media (max-width: 900px) {
 
@@ -1482,21 +1862,26 @@ body.blue-theme {
         grid-template-columns: repeat(2, 1fr);
     }
 
+
     .hero {
         grid-template-columns: 1fr;
     }
+
 
     .menu-grid {
         grid-template-columns: repeat(2, 1fr);
     }
 
+
     .shop-grid {
         grid-template-columns: repeat(2, 1fr);
     }
 
+
     .achievements-grid {
         grid-template-columns: repeat(2, 1fr);
     }
+
 
     .lab-layout {
         grid-template-columns: 1fr;
@@ -1517,6 +1902,7 @@ body.blue-theme {
         flex-direction: column;
     }
 
+
     .top-stats {
         width: 100%;
 
@@ -1525,11 +1911,13 @@ body.blue-theme {
         flex-wrap: wrap;
     }
 
+
     main {
         width: 94%;
 
         padding-top: 25px;
     }
+
 
     .dashboard-grid,
     .menu-grid,
@@ -1539,11 +1927,13 @@ body.blue-theme {
         grid-template-columns: 1fr;
     }
 
+
     .profile-card {
         flex-direction: column;
 
         text-align: center;
     }
+
 
     .profile-stats {
         justify-content: center;
@@ -1551,9 +1941,40 @@ body.blue-theme {
         flex-wrap: wrap;
     }
 
+
     .lab-topic-grid {
         grid-template-columns: repeat(2, 1fr);
     }
+
+
+    .social-search-row {
+        grid-template-columns: 1fr;
+    }
+
+
+    .social-card {
+        align-items: flex-start;
+
+        flex-direction: column;
+    }
+
+
+    .social-actions {
+        width: 100%;
+
+        justify-content: flex-start;
+    }
+
+
+    .account-buttons {
+        flex-direction: column;
+    }
+
+
+    .account-buttons button {
+        width: 100%;
+    }
+
 
     footer {
         flex-direction: column;
