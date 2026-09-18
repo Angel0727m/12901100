@@ -1485,6 +1485,42 @@ main {
 }
 
 
+/* ---- Estado de los temas comprados/equipados ---- */
+
+.shop-item.equipped {
+    border: 2px solid var(--primary);
+}
+
+
+.shop-item .swatch {
+    display: block;
+
+    width: 100%;
+
+    height: 8px;
+
+    border-radius: 6px;
+
+    margin-bottom: 10px;
+}
+
+
+.shop-item button.owned-button {
+    background: var(--surface-2);
+
+    color: var(--text);
+
+    border: 1px solid var(--border);
+}
+
+
+.shop-item button.equipped-button {
+    background: var(--green);
+
+    cursor: default;
+}
+
+
 /* =========================================================
    PERFIL
    ========================================================= */
@@ -1604,6 +1640,131 @@ main {
 }
 
 
+/* ---- Login social (Google / Apple) ---- */
+
+.social-login-container {
+    display: flex;
+
+    flex-direction: column;
+
+    align-items: center;
+
+    gap: 12px;
+
+    margin-top: 20px;
+}
+
+
+.social-btn {
+    width: 100%;
+
+    max-width: 320px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    gap: 10px;
+
+    padding: 12px 18px;
+
+    border-radius: 12px;
+
+    border: 1px solid var(--border);
+
+    background: var(--surface);
+
+    color: var(--text);
+
+    font-weight: 700;
+
+    font-size: 14px;
+
+    transition: transform 0.15s ease, box-shadow 0.15s ease, background 0.15s ease;
+}
+
+
+.social-btn:hover {
+    transform: translateY(-2px);
+
+    box-shadow: var(--shadow);
+}
+
+
+.social-btn i {
+    font-size: 17px;
+}
+
+
+.google-btn i {
+    color: #ea4335;
+}
+
+
+.apple-btn {
+    background: #000;
+
+    border-color: #000;
+
+    color: #fff;
+}
+
+
+.apple-btn i {
+    color: #fff;
+}
+
+
+.apple-btn:hover {
+    background: #1a1a1a;
+}
+
+
+.divider-text {
+    text-align: center;
+
+    color: var(--muted);
+
+    font-size: 12px;
+
+    font-weight: 700;
+
+    text-transform: uppercase;
+
+    margin: 18px 0;
+
+    position: relative;
+}
+
+
+.divider-text::before,
+.divider-text::after {
+    content: "";
+
+    position: absolute;
+
+    top: 50%;
+
+    width: 35%;
+
+    height: 1px;
+
+    background: var(--border);
+}
+
+
+.divider-text::before {
+    left: 0;
+}
+
+
+.divider-text::after {
+    right: 0;
+}
+
+
 .account-form .search-input {
     margin-bottom: 10px;
 }
@@ -1620,6 +1781,78 @@ main {
 
 .hidden {
     display: none !important;
+}
+
+
+/* ---- Tutorial de bienvenida ---- */
+
+.tutorial-overlay {
+    position: fixed;
+
+    inset: 0;
+
+    background: rgba(0, 0, 0, 0.6);
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    z-index: 999;
+
+    padding: 20px;
+}
+
+
+.tutorial-card {
+    background: var(--surface);
+
+    border-radius: 18px;
+
+    padding: 30px;
+
+    max-width: 420px;
+
+    width: 100%;
+
+    box-shadow: var(--shadow);
+
+    text-align: center;
+}
+
+
+.tutorial-icon {
+    font-size: 42px;
+
+    margin-bottom: 10px;
+}
+
+
+.tutorial-card ul {
+    list-style: none;
+
+    padding: 0;
+
+    margin: 20px 0;
+
+    text-align: left;
+}
+
+
+.tutorial-card li {
+    margin-bottom: 14px;
+
+    line-height: 1.4;
+
+    color: var(--text);
+
+    font-size: 14px;
+}
+
+
+.tutorial-card button {
+    width: 100%;
 }
 
 
@@ -1843,12 +2076,110 @@ body.dark {
 }
 
 
-body.blue-theme {
+/* ---- Tema Azul clásico de LuaDrix ---- */
+
+body.theme-azul {
     --primary: #3288e8;
 
     --primary-dark: #216fc6;
 
     --primary-light: #e6f2ff;
+}
+
+body.dark.theme-azul {
+    --primary-light: #1b2b3d;
+}
+
+
+/* ---- Tema Esmeralda estilo hacker ---- */
+
+body.theme-esmeralda {
+    --primary: #25b86a;
+
+    --primary-dark: #1c9456;
+
+    --primary-light: #e3faed;
+}
+
+body.dark.theme-esmeralda {
+    --primary-light: #16291f;
+
+    --bg: #0d1712;
+
+    --surface: #14201a;
+
+    --surface-2: #1a2a22;
+
+    --border: #24382c;
+}
+
+
+/* ---- Tema Cyberpunk neón morado/fucsia ---- */
+
+body.theme-cyberpunk {
+    --primary: #d946ef;
+
+    --primary-dark: #b026cc;
+
+    --primary-light: #fbe8fe;
+}
+
+body.dark.theme-cyberpunk {
+    --primary-light: #2c1230;
+
+    --bg: #120a1a;
+
+    --surface: #1c1024;
+
+    --surface-2: #241530;
+
+    --border: #3a1f45;
+}
+
+
+/* ---- Tema Ámbar otoñal relajante ---- */
+
+body.theme-ambar {
+    --primary: #f59e0b;
+
+    --primary-dark: #c97e08;
+
+    --primary-light: #fff3e0;
+}
+
+body.dark.theme-ambar {
+    --primary-light: #2c2013;
+
+    --bg: #171310;
+
+    --surface: #201a15;
+
+    --surface-2: #28211a;
+
+    --border: #3a2f24;
+}
+
+
+/* ---- Tema Rubí premium gamer carmesí ---- */
+
+body.theme-rubi {
+    --primary: #ef4444;
+
+    --primary-dark: #c23434;
+
+    --primary-light: #fde8e8;
+}
+
+body.dark.theme-rubi {
+    --primary-light: #2c1414;
+
+    --bg: #150c0c;
+
+    --surface: #1f1414;
+
+    --surface-2: #271818;
+
+    --border: #3a2020;
 }
 
 

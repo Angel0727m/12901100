@@ -6,6 +6,32 @@
 
     <title>LuaDrix — Aprende Lua jugando</title>
 
+    <meta
+        name="description"
+        content="LuaDrix es una wiki y app gamificada para aprender el lenguaje de programación Lua: lecciones, retos de código, un laboratorio interactivo y una biblioteca de referencia."
+    >
+
+    <link rel="canonical" href="https://angel0727m.github.io/12901100/">
+
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="LuaDrix — Aprende Lua jugando">
+    <meta
+        property="og:description"
+        content="Lecciones, retos de código y una biblioteca de referencia para aprender Lua de forma gamificada."
+    >
+    <meta property="og:url" content="https://angel0727m.github.io/12901100/">
+    <meta property="og:image" content="https://angel0727m.github.io/12901100/og-image.png">
+
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="LuaDrix — Aprende Lua jugando">
+    <meta
+        name="twitter:description"
+        content="Lecciones, retos de código y una biblioteca de referencia para aprender Lua de forma gamificada."
+    >
+    <meta name="twitter:image" content="https://angel0727m.github.io/12901100/og-image.png">
+
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
+
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
@@ -15,6 +41,11 @@
     >
 
     <link rel="stylesheet" href="style.css">
+
+    <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+    >
 </head>
 
 <body>
@@ -50,10 +81,10 @@
             <strong id="monedasTop">50</strong>
         </div>
 
-        <div class="stat battery">
-            <span>🔋</span>
-            <strong id="bateriaTop">10</strong>
-            <small>/10</small>
+        <div class="stat llaves">
+            <span>🔑</span>
+            <strong id="llavesTop">3</strong>
+            <small>/3</small>
         </div>
 
         <button
@@ -186,18 +217,18 @@ print(nombre)
 
             <div class="dashboard-card">
 
-                <div class="card-icon">🔋</div>
+                <div class="card-icon">🔑</div>
 
                 <div class="card-info">
 
-                    <span>Batería</span>
+                    <span>Llaves</span>
 
                     <h3>
-                        <span id="bateriaInicio">10</span>/10
+                        <span id="llavesInicio">3</span>/3
                     </h3>
 
                     <p id="recargaTexto">
-                        Batería completa
+                        Llaves completas
                     </p>
 
                 </div>
@@ -621,7 +652,7 @@ print(nombre)</textarea>
 
             <p>
                 Consulta conceptos y funciones de Lua
-                sin gastar batería.
+                sin gastar llaves.
             </p>
 
         </div>
@@ -861,21 +892,21 @@ print(nombre)</textarea>
             <div class="shop-item">
 
                 <span class="shop-icon">
-                    🔋
+                    🔑
                 </span>
 
                 <h3>
-                    Recarga de batería
+                    Recarga de llave
                 </h3>
 
                 <p>
-                    Recupera 5 puntos de batería.
+                    Recupera 1 llave al instante.
                 </p>
 
                 <button
-                    onclick="comprar('bateria', 20)"
+                    onclick="comprar('llave', 15)"
                 >
-                    20 🪙
+                    15 🪙
                 </button>
 
             </div>
@@ -927,24 +958,136 @@ print(nombre)</textarea>
             </div>
 
 
-            <div class="shop-item">
+            <div class="shop-item" id="temaTarjeta-azul">
+
+                <span class="swatch" style="background:#3288e8"></span>
 
                 <span class="shop-icon">
                     🎨
                 </span>
 
                 <h3>
-                    Tema azul
+                    Azul clásico
                 </h3>
 
                 <p>
-                    Una apariencia alternativa.
+                    El tono insignia de LuaDrix.
                 </p>
 
                 <button
+                    id="temaBoton-azul"
+                    data-precio="100"
                     onclick="comprarTema('azul', 100)"
                 >
                     100 🪙
+                </button>
+
+            </div>
+
+
+            <div class="shop-item" id="temaTarjeta-esmeralda">
+
+                <span class="swatch" style="background:#25b86a"></span>
+
+                <span class="shop-icon">
+                    💻
+                </span>
+
+                <h3>
+                    Esmeralda hacker
+                </h3>
+
+                <p>
+                    Verde terminal, para sentirte pro.
+                </p>
+
+                <button
+                    id="temaBoton-esmeralda"
+                    data-precio="100"
+                    onclick="comprarTema('esmeralda', 100)"
+                >
+                    100 🪙
+                </button>
+
+            </div>
+
+
+            <div class="shop-item" id="temaTarjeta-cyberpunk">
+
+                <span class="swatch" style="background:#d946ef"></span>
+
+                <span class="shop-icon">
+                    🌆
+                </span>
+
+                <h3>
+                    Cyberpunk
+                </h3>
+
+                <p>
+                    Neón morado y fucsia futurista.
+                </p>
+
+                <button
+                    id="temaBoton-cyberpunk"
+                    data-precio="150"
+                    onclick="comprarTema('cyberpunk', 150)"
+                >
+                    150 🪙
+                </button>
+
+            </div>
+
+
+            <div class="shop-item" id="temaTarjeta-ambar">
+
+                <span class="swatch" style="background:#f59e0b"></span>
+
+                <span class="shop-icon">
+                    🍂
+                </span>
+
+                <h3>
+                    Ámbar otoñal
+                </h3>
+
+                <p>
+                    Tonos cálidos y relajantes.
+                </p>
+
+                <button
+                    id="temaBoton-ambar"
+                    data-precio="100"
+                    onclick="comprarTema('ambar', 100)"
+                >
+                    100 🪙
+                </button>
+
+            </div>
+
+
+            <div class="shop-item" id="temaTarjeta-rubi">
+
+                <span class="swatch" style="background:#ef4444"></span>
+
+                <span class="shop-icon">
+                    💎
+                </span>
+
+                <h3>
+                    Rubí premium
+                </h3>
+
+                <p>
+                    Carmesí intenso, estilo gamer.
+                </p>
+
+                <button
+                    id="temaBoton-rubi"
+                    data-precio="200"
+                    onclick="comprarTema('rubi', 200)"
+                >
+                    200 🪙
                 </button>
 
             </div>
@@ -1068,6 +1211,32 @@ print(nombre)</textarea>
             <p id="accountStatus">
                 Inicia sesión para poder buscar y agregar amigos.
             </p>
+
+
+            <div class="social-login-container">
+
+                <button
+                    class="social-btn google-btn"
+                    onclick="iniciarSesionConProveedor('google')"
+                >
+                    <i class="fa-brands fa-google"></i>
+                    Continuar con Google
+                </button>
+
+                <button
+                    class="social-btn apple-btn"
+                    onclick="iniciarSesionConProveedor('apple')"
+                >
+                    <i class="fa-brands fa-apple"></i>
+                    Continuar con Apple
+                </button>
+
+            </div>
+
+
+            <div class="divider-text">
+                o con tu correo
+            </div>
 
 
             <div class="account-form">
@@ -1272,6 +1441,54 @@ print(nombre)</textarea>
 
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+    <div class="tutorial-overlay hidden" id="tutorialOverlay">
+
+        <div class="tutorial-card">
+
+            <div class="tutorial-icon">🌙</div>
+
+            <h2>¡Bienvenido a LuaDrix!</h2>
+
+            <p>
+                Así funciona todo, en pocas palabras:
+            </p>
+
+            <ul>
+
+                <li>
+                    <strong>🔑 Llaves:</strong> las gastas al responder
+                    preguntas y retos. Se recargan solas con el tiempo.
+                </li>
+
+                <li>
+                    <strong>🪙 Monedas:</strong> las ganas al terminar
+                    Lecciones y Retos por primera vez. Sirven para la tienda.
+                </li>
+
+                <li>
+                    <strong>📖 Biblioteca:</strong> consulta conceptos de Lua
+                    sin gastar llaves, cuando quieras repasar.
+                </li>
+
+                <li>
+                    <strong>🧪 Laboratorio:</strong> practica escribiendo
+                    código libremente, sin presión.
+                </li>
+
+            </ul>
+
+            <button
+                class="primary-button"
+                onclick="cerrarTutorial()"
+            >
+                ¡Entendido, vamos! →
+            </button>
+
+        </div>
+
+    </div>
+
 
 <script src="script.js"></script>
 
