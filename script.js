@@ -68,6 +68,8 @@ const esRegresoDeVerificacion =
 
 const MAX_LLAVES = 3;
 
+const MAX_PROTECTORES = 2;
+
 const LLAVE_REGEN_MS =
     30 * 60 * 1000;
 
@@ -2417,9 +2419,9 @@ function estadoInicial() {
 
         diagnosticoSkills: {},
 
-        tema: "normal",
+        tema: "verde",
 
-        temasComprados: ["normal"],
+        temasComprados: ["verde"],
 
         cuenta: false,
 
@@ -2501,6 +2503,41 @@ function cargarEstado() {
 
             nuevoEstado.temasComprados.push(
                 nuevoEstado.tema
+            );
+
+        }
+
+
+        // Compatibilidad: "normal" (el morado viejo por defecto)
+        // ahora se llama "amatista", y "esmeralda" (el verde que
+        // se compraba) ahora es el tema base "verde".
+
+        const renombres = {
+            normal: "amatista",
+            esmeralda: "verde"
+        };
+
+
+        nuevoEstado.temasComprados =
+            nuevoEstado.temasComprados.map(
+                t => renombres[t] || t
+            );
+
+
+        if (renombres[nuevoEstado.tema]) {
+
+            nuevoEstado.tema =
+                renombres[nuevoEstado.tema];
+
+        }
+
+
+        if (
+            !nuevoEstado.temasComprados.includes("verde")
+        ) {
+
+            nuevoEstado.temasComprados.push(
+                "verde"
             );
 
         }
@@ -2812,6 +2849,23 @@ function actualizarMonedas() {
                 el.textContent =
                     estado.monedas
         );
+
+}
+
+
+function actualizarProtectores() {
+
+    const el =
+        document.getElementById(
+            "protectoresInicio"
+        );
+
+
+    if (!el) return;
+
+
+    el.textContent =
+        estado.protectores;
 
 }
 
@@ -4159,16 +4213,16 @@ function comprobarReto() {
         );
 
 
-    if (
-        !gastarLlaves(1)
-    ) {
-
-        return;
-
-    }
-
-
     if (cumple) {
+
+        if (
+            !gastarLlaves(1)
+        ) {
+
+            return;
+
+        }
+
 
         completarLeccion();
 
@@ -5532,7 +5586,7 @@ function comprobarLogros() {
 
         (estado.labUsos || 0) >= 5,
 
-        estado.tema !== "normal",
+        estado.tema !== "verde",
 
         estado.cuenta === true,
 
@@ -5645,6 +5699,34 @@ function comprar(
 
 
     if (
+        tipo === "protector"
+    ) {
+
+        if (
+            estado.protectores >=
+            MAX_PROTECTORES
+        ) {
+
+            mostrarToast(
+                "Tus protectores ya están completos."
+            );
+
+            return;
+
+        }
+
+
+        estado.monedas -=
+            precio;
+
+
+        estado.protectores =
+            MAX_PROTECTORES;
+
+    }
+
+
+    if (
         tipo === "pista"
     ) {
 
@@ -5716,8 +5798,9 @@ function comprar(
 
 
 const TEMAS_COLOR = [
+    "verde",
     "azul",
-    "esmeralda",
+    "amatista",
     "cyberpunk",
     "ambar",
     "rubi"
@@ -5815,7 +5898,7 @@ function aplicarTema() {
 
 
     if (
-        estado.tema !== "normal" &&
+        estado.tema !== "verde" &&
         TEMAS_COLOR.includes(estado.tema)
     ) {
 
@@ -6190,7 +6273,7 @@ async function iniciarSesionConProveedor(proveedor) {
 
     }
 
-    // Si no hay error, el navegador redirige a Google/Apple
+    // Si no hay error, el navegador redirige a Google
     // y luego vuelve automáticamente a esta página ya con sesión.
 
 }
@@ -7923,6 +8006,8 @@ function actualizarTodo() {
     actualizarPerfil();
 
     actualizarBotonesTema();
+
+    actualizarProtectores();
 
 
     const continueLesson =

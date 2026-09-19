@@ -254,6 +254,27 @@ print(nombre)
 
             </div>
 
+
+            <div class="dashboard-card">
+
+                <div class="card-icon">🛡️</div>
+
+                <div class="card-info">
+
+                    <span>Protectores de racha</span>
+
+                    <h3>
+                        <span id="protectoresInicio">2</span>/2
+                    </h3>
+
+                    <p>
+                        Salvan tu racha si faltas un día
+                    </p>
+
+                </div>
+
+            </div>
+
         </div>
 
 
@@ -915,6 +936,29 @@ print(nombre)</textarea>
             <div class="shop-item">
 
                 <span class="shop-icon">
+                    🛡️
+                </span>
+
+                <h3>
+                    Recarga de protectores
+                </h3>
+
+                <p>
+                    Rellena tus protectores de racha al máximo.
+                </p>
+
+                <button
+                    onclick="comprar('protector', 100)"
+                >
+                    100 🪙
+                </button>
+
+            </div>
+
+
+            <div class="shop-item">
+
+                <span class="shop-icon">
                     💡
                 </span>
 
@@ -958,6 +1002,33 @@ print(nombre)</textarea>
             </div>
 
 
+            <div class="shop-item" id="temaTarjeta-verde">
+
+                <span class="swatch" style="background:#25b86a"></span>
+
+                <span class="shop-icon">
+                    🌿
+                </span>
+
+                <h3>
+                    Verde LuaDrix
+                </h3>
+
+                <p>
+                    El color por defecto de LuaDrix.
+                </p>
+
+                <button
+                    id="temaBoton-verde"
+                    data-precio="Incluido"
+                    onclick="comprarTema('verde', 0)"
+                >
+                    Incluido
+                </button>
+
+            </div>
+
+
             <div class="shop-item" id="temaTarjeta-azul">
 
                 <span class="swatch" style="background:#3288e8"></span>
@@ -985,26 +1056,26 @@ print(nombre)</textarea>
             </div>
 
 
-            <div class="shop-item" id="temaTarjeta-esmeralda">
+            <div class="shop-item" id="temaTarjeta-amatista">
 
-                <span class="swatch" style="background:#25b86a"></span>
+                <span class="swatch" style="background:#6c5ce7"></span>
 
                 <span class="shop-icon">
-                    💻
+                    💜
                 </span>
 
                 <h3>
-                    Esmeralda hacker
+                    Amatista
                 </h3>
 
                 <p>
-                    Verde terminal, para sentirte pro.
+                    El morado clásico, ahora de colección.
                 </p>
 
                 <button
-                    id="temaBoton-esmeralda"
+                    id="temaBoton-amatista"
                     data-precio="100"
-                    onclick="comprarTema('esmeralda', 100)"
+                    onclick="comprarTema('amatista', 100)"
                 >
                     100 🪙
                 </button>
@@ -1221,14 +1292,6 @@ print(nombre)</textarea>
                 >
                     <i class="fa-brands fa-google"></i>
                     Continuar con Google
-                </button>
-
-                <button
-                    class="social-btn apple-btn"
-                    onclick="iniciarSesionConProveedor('apple')"
-                >
-                    <i class="fa-brands fa-apple"></i>
-                    Continuar con Apple
                 </button>
 
             </div>

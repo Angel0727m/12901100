@@ -6,9 +6,9 @@
     --text: #202331;
     --muted: #72778a;
 
-    --primary: #6c5ce7;
-    --primary-dark: #5646d5;
-    --primary-light: #eeeaff;
+    --primary: #25b86a;
+    --primary-dark: #1c9456;
+    --primary-light: #e3faed;
 
     --green: #25b86a;
     --yellow: #f5b82e;
@@ -1703,25 +1703,6 @@ main {
 }
 
 
-.apple-btn {
-    background: #000;
-
-    border-color: #000;
-
-    color: #fff;
-}
-
-
-.apple-btn i {
-    color: #fff;
-}
-
-
-.apple-btn:hover {
-    background: #1a1a1a;
-}
-
-
 .divider-text {
     text-align: center;
 
@@ -2072,7 +2053,7 @@ body.dark {
 
     --border: #2c3040;
 
-    --primary-light: #282441;
+    --primary-light: #16291f;
 }
 
 
@@ -2091,26 +2072,26 @@ body.dark.theme-azul {
 }
 
 
-/* ---- Tema Esmeralda estilo hacker ---- */
+/* ---- Tema Amatista (antes el morado por defecto) ---- */
 
-body.theme-esmeralda {
-    --primary: #25b86a;
+body.theme-amatista {
+    --primary: #6c5ce7;
 
-    --primary-dark: #1c9456;
+    --primary-dark: #5646d5;
 
-    --primary-light: #e3faed;
+    --primary-light: #eeeaff;
 }
 
-body.dark.theme-esmeralda {
-    --primary-light: #16291f;
+body.dark.theme-amatista {
+    --primary-light: #282441;
 
-    --bg: #0d1712;
+    --bg: #14121f;
 
-    --surface: #14201a;
+    --surface: #1c1930;
 
-    --surface-2: #1a2a22;
+    --surface-2: #24203c;
 
-    --border: #24382c;
+    --border: #322c4d;
 }
 
 
