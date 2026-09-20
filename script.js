@@ -5908,6 +5908,71 @@ function aplicarTema() {
 
     }
 
+
+    actualizarFavicon();
+
+}
+
+
+function actualizarFavicon() {
+
+    const color =
+        getComputedStyle(document.body)
+            .getPropertyValue("--primary")
+            .trim();
+
+
+    if (!color) return;
+
+
+    const svg = `
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+            <circle cx="50" cy="50" r="46" fill="${color}"/>
+            <path
+                d="M30 28 L30 64 L42 64"
+                fill="none" stroke="#ffffff" stroke-width="7"
+                stroke-linecap="round" stroke-linejoin="round"
+            />
+            <path
+                d="M48 28 L48 64"
+                fill="none" stroke="#ffffff" stroke-width="7"
+                stroke-linecap="round" stroke-linejoin="round"
+            />
+            <path
+                d="M48 28 C70 28 74 40 74 46 C74 52 70 64 48 64"
+                fill="none" stroke="#ffffff" stroke-width="7"
+                stroke-linecap="round" stroke-linejoin="round"
+            />
+        </svg>
+    `;
+
+
+    let link =
+        document.querySelector(
+            "link[rel='icon']"
+        );
+
+
+    if (!link) {
+
+        link =
+            document.createElement(
+                "link"
+            );
+
+        link.rel = "icon";
+
+        document.head.appendChild(
+            link
+        );
+
+    }
+
+
+    link.href =
+        "data:image/svg+xml," +
+        encodeURIComponent(svg);
+
 }
 
 
