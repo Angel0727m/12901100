@@ -4878,6 +4878,177 @@ function limpiarEditor() {
 }
 
 
+/* =========================================================
+   MOTOR DE LUA REAL (Fengari)
+   ========================================================= */
+
+function ejecutarLuaReal(
+    codigo
+) {
+
+    if (
+        typeof fengari === "undefined"
+    ) {
+
+        return {
+            ok: false,
+            salida: [],
+            error:
+                "El motor de Lua todavía no cargó. Espera un segundo e inténtalo de nuevo."
+        };
+
+    }
+
+
+    const {
+        lua,
+        lauxlib,
+        lualib,
+        to_luastring
+    } = fengari;
+
+
+    const L =
+        lauxlib.luaL_newstate();
+
+
+    lualib.luaL_openlibs(L);
+
+
+    const salida = [];
+
+
+    // Reemplazamos print() de Lua para capturar lo que imprime
+    // en vez de que se pierda en la consola del navegador.
+
+    lua.lua_pushjsfunction(
+        L,
+        L => {
+
+            const n =
+                lua.lua_gettop(L);
+
+
+            const partes = [];
+
+
+            for (
+                let i = 1;
+                i <= n;
+                i++
+            ) {
+
+                const tipo =
+                    lua.lua_type(L, i);
+
+
+                if (tipo === lua.LUA_TNIL) {
+
+                    partes.push("nil");
+
+                } else if (tipo === lua.LUA_TBOOLEAN) {
+
+                    partes.push(
+                        lua.lua_toboolean(L, i)
+                            ? "true"
+                            : "false"
+                    );
+
+                } else {
+
+                    partes.push(
+                        lua.lua_tojsstring(L, i) ??
+                        "[valor]"
+                    );
+
+                }
+
+            }
+
+
+            salida.push(
+                partes.join("\t")
+            );
+
+
+            return 0;
+
+        }
+    );
+
+    lua.lua_setglobal(
+        L,
+        to_luastring("print")
+    );
+
+
+    // Protección contra bucles infinitos: si el código pasa de
+    // 5 millones de "pasos", lo cancelamos solos.
+
+    let pasos = 0;
+
+    lua.lua_sethook(
+        L,
+        L => {
+
+            pasos++;
+
+
+            if (pasos > 5000) {
+
+                lauxlib.luaL_error(
+                    L,
+                    to_luastring(
+                        "Se canceló: el código tardó demasiado (¿bucle infinito?)"
+                    )
+                );
+
+            }
+
+        },
+        lua.LUA_MASKCOUNT,
+        1000
+    );
+
+
+    let error = null;
+
+
+    try {
+
+        const status =
+            lauxlib.luaL_dostring(
+                L,
+                to_luastring(codigo)
+            );
+
+
+        if (status !== lua.LUA_OK) {
+
+            error =
+                lua.lua_tojsstring(L, -1) ||
+                "Error desconocido al ejecutar el código.";
+
+        }
+
+    } catch (e) {
+
+        error =
+            e.message ||
+            String(e);
+
+    }
+
+
+    return {
+        ok: !error,
+        salida,
+        error
+    };
+
+}
+
+
 function ejecutarLaboratorio() {
 
     const codigo =
@@ -4909,160 +5080,28 @@ function ejecutarLaboratorio() {
         (estado.labUsos || 0) + 1;
 
 
-    const lineas =
-        codigo.split("\n");
+    const resultado =
+        ejecutarLuaReal(codigo);
 
 
-    const salida = [];
+    if (!resultado.ok) {
 
+        output.textContent =
+            "❌ Error: " + resultado.error;
 
-    lineas.forEach(
-        linea => {
-
-            const limpia =
-                linea.trim();
-
-
-            const printMatch =
-                limpia.match(
-                    /^print\s*\(\s*["'](.*?)["']\s*\)/
-                );
-
-
-            if (printMatch) {
-
-                salida.push(
-                    printMatch[1]
-                );
-
-                return;
-
-            }
-
-
-            const variablePrint =
-                limpia.match(
-                    /^print\s*\(\s*([a-zA-Z_][a-zA-Z0-9_]*)\s*\)/
-                );
-
-
-            if (variablePrint) {
-
-                const variable =
-                    variablePrint[1];
-
-
-                const regex =
-                    new RegExp(
-                        `local\\s+${variable}\\s*=\\s*["'](.*?)["']`
-                    );
-
-
-                const encontrada =
-                    codigo.match(regex);
-
-
-                if (encontrada) {
-
-                    salida.push(
-                        encontrada[1]
-                    );
-
-                } else {
-
-                    salida.push(
-                        `[simulación] ${variable}`
-                    );
-
-                }
-
-                return;
-
-            }
-
-
-            const mathPrint =
-                limpia.match(
-                    /^print\s*\(\s*(\d+)\s*([+\-*\/])\s*(\d+)\s*\)/
-                );
-
-
-            if (mathPrint) {
-
-                const a =
-                    Number(
-                        mathPrint[1]
-                    );
-
-
-                const operador =
-                    mathPrint[2];
-
-
-                const b =
-                    Number(
-                        mathPrint[3]
-                    );
-
-
-                let resultado;
-
-
-                if (
-                    operador === "+"
-                )
-                    resultado =
-                        a + b;
-
-
-                if (
-                    operador === "-"
-                )
-                    resultado =
-                        a - b;
-
-
-                if (
-                    operador === "*"
-                )
-                    resultado =
-                        a * b;
-
-
-                if (
-                    operador === "/"
-                )
-                    resultado =
-                        a / b;
-
-
-                salida.push(
-                    String(resultado)
-                );
-
-            }
-
-        }
-    );
-
-
-    if (
-        salida.length === 0
+    } else if (
+        resultado.salida.length === 0
     ) {
 
-        salida.push(
-            "[simulación] Código procesado correctamente."
-        );
+        output.textContent =
+            "(el código corrió bien, pero no imprimió nada — usa print() para mostrar algo)";
 
-        salida.push(
-            "LuaDrix no ejecuta Lua real en el navegador."
-        );
+    } else {
+
+        output.textContent =
+            resultado.salida.join("\n");
 
     }
-
-
-    output.textContent =
-        salida.join("\n");
 
 
     guardarEstado();
