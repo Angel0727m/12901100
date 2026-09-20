@@ -6543,7 +6543,7 @@ async function cerrarSesion() {
    SUGERENCIAS
    ========================================================= */
 
-function enviarSugerencia() {
+async function enviarSugerencia() {
 
     const categoria =
         document.getElementById(
@@ -6568,33 +6568,42 @@ function enviarSugerencia() {
     }
 
 
-    const sugerencias =
-        JSON.parse(
-            localStorage.getItem(
-                "luaDrixSugerencias"
-            ) ||
-            "[]"
-        );
+    if (supabaseClient) {
+
+        const user =
+            await obtenerUsuarioActual();
 
 
-    sugerencias.push({
+        const {
+            error
+        } =
+            await supabaseClient
+                .from("suggestions")
+                .insert({
 
-        categoria,
+                    user_id:
+                        user ? user.id : null,
 
-        texto,
+                    category:
+                        categoria,
 
-        fecha:
-            new Date().toISOString()
+                    text:
+                        texto
 
-    });
+                });
 
 
-    localStorage.setItem(
-        "luaDrixSugerencias",
-        JSON.stringify(
-            sugerencias
-        )
-    );
+        if (error) {
+
+            mostrarToast(
+                "No se pudo enviar: " + error.message
+            );
+
+            return;
+
+        }
+
+    }
 
 
     estado.sugerenciasEnviadas =
@@ -6615,7 +6624,7 @@ function enviarSugerencia() {
 
 
     mostrarToast(
-        "Sugerencia guardada."
+        "Sugerencia enviada."
     );
 
 }
@@ -7122,7 +7131,7 @@ function comenzarDiagnostico() {
     }
 
 
-    function finalizar() {
+    async function finalizar() {
 
         estado.encuestaTerminada =
             true;
@@ -7146,12 +7155,36 @@ function comenzarDiagnostico() {
             };
 
 
-        localStorage.setItem(
-            "luaDrixEncuesta",
-            JSON.stringify(
-                encuestaRespuestas
-            )
-        );
+        if (supabaseClient) {
+
+            const user =
+                await obtenerUsuarioActual();
+
+
+            const filas =
+                Object.keys(
+                    encuestaRespuestas
+                ).map(
+                    indice => ({
+
+                        user_id:
+                            user ? user.id : null,
+
+                        question_index:
+                            Number(indice),
+
+                        selected_option:
+                            encuestaRespuestas[indice]
+
+                    })
+                );
+
+
+            await supabaseClient
+                .from("onboarding_answers")
+                .insert(filas);
+
+        }
 
 
         guardarEstado();
