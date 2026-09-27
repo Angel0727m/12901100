@@ -242,13 +242,13 @@ const niveles = [
                 ],
 
                 reto:
-                    "Crea una variable local llamada nombre con el valor Angel.",
+                    "Crea una variable local llamada nombre con el valor LuaDrix.",
 
                 validacion: [
                     "local",
                     "nombre",
                     "=",
-                    "Angel"
+                    "LuaDrix"
                 ]
             },
 
@@ -276,7 +276,7 @@ const niveles = [
                     </ul>
 
                     <pre class="example-code">local edad = 13
-local nombre = "Angel"
+local nombre = "LuaDrix"
 local activo = true</pre>
                 `,
 
@@ -326,7 +326,7 @@ local activo = true</pre>
 
                     {
                         pregunta:
-                            "¿Qué tipo representa 25?",
+                            "¿Qué tipo es 25?",
 
                         opciones: [
                             "string",
@@ -371,7 +371,7 @@ local activo = true</pre>
 print(resultado)</pre>
 
                     <p>
-                        Algunos operadores son +, -, *, / y %.
+                        Algunos operadores son + (para la suma), - (para la resta), * (para la multiplicación).
                     </p>
                 `,
 
@@ -393,20 +393,6 @@ print(resultado)</pre>
 
                     {
                         pregunta:
-                            "¿Qué operador representa la división?",
-
-                        opciones: [
-                            "/",
-                            ":",
-                            "//",
-                            "\\"
-                        ],
-
-                        correcta: 0
-                    },
-
-                    {
-                        pregunta:
                             "¿Qué resultado produce 5 + 4?",
 
                         opciones: [
@@ -421,12 +407,12 @@ print(resultado)</pre>
 
                     {
                         pregunta:
-                            "¿Qué operador calcula el resto de una división?",
+                            "¿Qué operador sirve para restar??",
 
                         opciones: [
-                            "%",
-                            "&",
-                            "#",
+                            "-",
+                            "+",
+                            "/",
                             "$"
                         ],
 
@@ -436,7 +422,7 @@ print(resultado)</pre>
                 ],
 
                 reto:
-                    "Crea una variable resultado que contenga 5 multiplicado por 4.",
+                    "Crea una variable local llamada resultado que contenga la operación 5 multiplicado por 4.",
 
                 validacion: [
                     "local",
@@ -472,8 +458,9 @@ print(resultado)</pre>
                     <h3>Tomar decisiones</h3>
 
                     <p>
-                        <code>if</code> permite ejecutar código
-                        solamente cuando una condición es verdadera.
+                        <code>if</code> significa "si pasa esto . . ." y permite ejecutar código
+                        solamente cuando una condición es verdadera,
+                        al terminar de escribir un codigo con if siempre debe escribirse "end" que significa "ya termine de escribir el codigo".
                     </p>
 
                     <pre class="example-code">if edad >= 18 then
@@ -540,19 +527,6 @@ end</pre>
                     }
 
                 ],
-
-                reto:
-                    "Crea un if que compruebe si edad es mayor que 10.",
-
-                validacion: [
-                    "if",
-                    "edad",
-                    ">",
-                    "10",
-                    "then",
-                    "end"
-                ]
-            },
 
 
             {
@@ -623,7 +597,7 @@ end</pre>
 
                     {
                         pregunta:
-                            "¿Qué permite elseif?",
+                            "¿Qué permite else?",
 
                         opciones: [
                             "Comprobar otra condición",
