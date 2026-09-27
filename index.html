@@ -3,12 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+     <meta name="keywords" content="lua, aprender, aprender lua, programacion, programacion en lua, aprender programacion en lua, como programar, programar, luadrix, luarix, lurix, ladrix, lidrix, quarix, LuaDrix">
 
     <title>LuaDrix — Aprende Lua jugando</title>
 
     <meta
         name="description"
-        content="LuaDrix es una wiki y app gamificada para aprender el lenguaje de programación Lua: lecciones, retos de código, un laboratorio interactivo y una biblioteca de referencia."
+        content="LuaDrix es el mejor sitio web gamificado para aprender el lenguaje de programación Lua: lecciones, retos de código, un laboratorio interactivo y una biblioteca de referencia."
     >
 
     <link rel="canonical" href="https://angel0727m.github.io/12901100/">
@@ -153,7 +154,7 @@
                     <span></span>
                 </div>
 
-                <pre><code>local nombre = "Angel"
+                <pre><code>local nombre = "LuaDrix"
 
 print(nombre)
 
@@ -332,16 +333,6 @@ print(nombre)
 
             <button
                 class="menu-card"
-                onclick="mostrarPagina('practica')"
-            >
-                <span>🎯</span>
-                <strong>Practicar</strong>
-                <small>Refuerza lo aprendido</small>
-            </button>
-
-
-            <button
-                class="menu-card"
                 onclick="mostrarPagina('laboratorio')"
             >
                 <span>💻</span>
@@ -357,16 +348,6 @@ print(nombre)
                 <span>📖</span>
                 <strong>Biblioteca</strong>
                 <small>Consulta Lua</small>
-            </button>
-
-
-            <button
-                class="menu-card"
-                onclick="mostrarPagina('amigos')"
-            >
-                <span>👥</span>
-                <strong>Amigos</strong>
-                <small>Aprende con otras personas</small>
             </button>
 
 
@@ -471,41 +452,6 @@ print(nombre)
 
 
     <!-- =====================================================
-         PRÁCTICA
-         ===================================================== -->
-
-    <section id="practica" class="pagina">
-
-        <div class="page-header">
-
-            <button
-                class="back-button"
-                onclick="mostrarPagina('inicio')"
-            >
-                ← Inicio
-            </button>
-
-            <p class="eyebrow">
-                ENTRENAMIENTO
-            </p>
-
-            <h2>
-                Práctica
-            </h2>
-
-            <p>
-                Ejercicios rápidos para reforzar conceptos
-                que ya conoces.
-            </p>
-
-        </div>
-
-        <div id="practiceContainer"></div>
-
-    </section>
-
-
-    <!-- =====================================================
          LABORATORIO
          ===================================================== -->
 
@@ -554,7 +500,7 @@ print(nombre)
                 <textarea
                     id="luaEditor"
                     spellcheck="false"
-                >local nombre = "Angel"
+                >local nombre = "LuaDrix"
 print(nombre)</textarea>
 
 
@@ -695,148 +641,6 @@ print(nombre)</textarea>
 
     </section>
 
-
-    <!-- =====================================================
-         AMIGOS
-         ===================================================== -->
-
-    <section id="amigos" class="pagina">
-
-        <div class="page-header">
-
-            <button
-                class="back-button"
-                onclick="mostrarPagina('inicio')"
-            >
-                ← Inicio
-            </button>
-
-            <p class="eyebrow">
-                COMUNIDAD
-            </p>
-
-            <h2>
-                Amigos
-            </h2>
-
-            <p>
-                Busca personas, envía solicitudes y
-                aprende junto a ellas.
-            </p>
-
-        </div>
-
-
-        <div class="social-search-card">
-
-            <h3>
-                Buscar usuarios
-            </h3>
-
-            <div class="social-search-row">
-
-                <input
-                    id="userSearch"
-                    class="search-input"
-                    type="search"
-                    placeholder="Escribe un nombre de usuario..."
-                    onkeydown="if(event.key === 'Enter') buscarUsuarios()"
-                >
-
-                <button
-                    class="primary-button"
-                    onclick="buscarUsuarios()"
-                >
-                    Buscar
-                </button>
-
-            </div>
-
-        </div>
-
-
-        <div class="social-section">
-
-            <div class="social-section-heading">
-
-                <h3>
-                    Resultados
-                </h3>
-
-            </div>
-
-            <div
-                id="socialSearchResults"
-                class="social-list"
-            >
-
-                <div class="empty-social">
-                    Busca un usuario para comenzar.
-                </div>
-
-            </div>
-
-        </div>
-
-
-        <div class="social-section">
-
-            <div class="social-section-heading">
-
-                <h3>
-                    Solicitudes recibidas
-                </h3>
-
-                <span id="requestCount">
-                    0
-                </span>
-
-            </div>
-
-            <div
-                id="friendRequests"
-                class="social-list"
-            >
-
-                <div class="empty-social">
-                    No tienes solicitudes pendientes.
-                </div>
-
-            </div>
-
-        </div>
-
-
-        <div class="social-section">
-
-            <div class="social-section-heading">
-
-                <h3>
-                    Mis amigos
-                </h3>
-
-                <span id="friendCount">
-                    0
-                </span>
-
-            </div>
-
-            <div
-                id="friendsList"
-                class="social-list"
-            >
-
-                <div class="empty-social">
-                    Todavía no tienes amigos.
-                </div>
-
-            </div>
-
-        </div>
-
-    </section>
-
-
     <!-- =====================================================
          LOGROS
          ===================================================== -->
@@ -944,36 +748,13 @@ print(nombre)</textarea>
                 </h3>
 
                 <p>
-                    Rellena tus protectores de racha al máximo.
+                    Recupera tus protectores y no pierdas tu racha.
                 </p>
 
                 <button
                     onclick="comprar('protector', 100)"
                 >
                     100 🪙
-                </button>
-
-            </div>
-
-
-            <div class="shop-item">
-
-                <span class="shop-icon">
-                    💡
-                </span>
-
-                <h3>
-                    Pista extra
-                </h3>
-
-                <p>
-                    Consigue una pista adicional hoy.
-                </p>
-
-                <button
-                    onclick="comprar('pista', 30)"
-                >
-                    30 🪙
                 </button>
 
             </div>
@@ -1042,7 +823,7 @@ print(nombre)</textarea>
                 </h3>
 
                 <p>
-                    El tono insignia de LuaDrix.
+                    Un tema muy cool para navegar por LuaDrix.
                 </p>
 
                 <button
@@ -1069,7 +850,7 @@ print(nombre)</textarea>
                 </h3>
 
                 <p>
-                    El morado clásico, ahora de colección.
+                    Morado pero con un tono tranquilo y bonito.
                 </p>
 
                 <button
@@ -1490,7 +1271,7 @@ print(nombre)</textarea>
     </strong>
 
     <span>
-        Aprende Lua en lenguaje humano.
+        Aprende Lua jugando.
     </span>
 
     <button onclick="mostrarPagina('sugerencias')">
@@ -1528,7 +1309,7 @@ print(nombre)</textarea>
 
                 <li>
                     <strong>🪙 Monedas:</strong> las ganas al terminar
-                    Lecciones y Retos por primera vez. Sirven para la tienda.
+                    Lecciones y Retos. Sirven para la tienda.
                 </li>
 
                 <li>
