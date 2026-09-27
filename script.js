@@ -31,42 +31,10 @@ if (
 
 
 /* =========================================================
-   REGRESO DESDE EL ENLACE DE VERIFICACIÓN DE CORREO
-
-   Supabase manda de vuelta a la persona a esta misma página
-   con datos extra en la URL (en el "hash" o en los parámetros
-   de la URL). Los guardamos apenas carga el archivo, antes de
-   que se pierdan o se limpien.
-   ========================================================= */
-
-const hashAuth =
-    new URLSearchParams(
-        window.location.hash.replace("#", "")
-    );
-
-const queryAuth =
-    new URLSearchParams(
-        window.location.search
-    );
-
-const errorVerificacion =
-    hashAuth.get("error_description") ||
-    queryAuth.get("error_description");
-
-const esRegresoDeVerificacion =
-    !errorVerificacion &&
-    (
-        hashAuth.get("type") === "signup" ||
-        queryAuth.get("type") === "signup" ||
-        queryAuth.has("code")
-    );
-
-
-/* =========================================================
    CONFIGURACIÓN
    ========================================================= */
 
-const MAX_LLAVES = 3;
+const MAX_LLAVES = 5;
 
 const MAX_PROTECTORES = 2;
 
@@ -167,13 +135,13 @@ const niveles = [
 
                     {
                         pregunta:
-                            "¿Qué representan las comillas en print(\"Hola\")?",
+                            "¿Qué hace un texto sin comillas como por ejemplo:  print(\Hola\)?",
 
                         opciones: [
-                            "Un string",
-                            "Una variable",
-                            "Una función",
-                            "Un bucle"
+                            "Mostrar un error",
+                            "Mostrar el texto hola",
+                            "Mostrar print",
+                            "Mostrar las parentesis"
                         ],
 
                         correcta: 0
@@ -205,7 +173,7 @@ const niveles = [
                         Una variable sirve para guardar un valor.
                     </p>
 
-                    <pre class="example-code">local nombre = "Angel"</pre>
+                    <pre class="example-code">local nombre = "LuaDrix"</pre>
 
                     <p>
                         <code>local</code> crea una variable local
@@ -231,10 +199,10 @@ const niveles = [
 
                     {
                         pregunta:
-                            "¿Qué guarda nombre en este ejemplo?\n\nlocal nombre = \"Angel\"",
+                            "¿Qué guarda nombre en este ejemplo?\n\nlocal nombre = \"LuaDrix\"",
 
                         opciones: [
-                            "El texto Angel",
+                            "El texto LuaDrix",
                             "Una función",
                             "Un número",
                             "Nada"
