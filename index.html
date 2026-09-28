@@ -3,136 +3,382 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+
 <meta name="description" content="LuaDrix es una plataforma gratuita para aprender Lua 5.5 y programación desde cero con lecciones paso a paso, preguntas, retos de código, biblioteca y laboratorio interactivo.">
 <meta name="keywords" content="aprender Lua, Lua 5.5, programación en Lua, aprender programación, curso de Lua, tutorial Lua, Lua para principiantes, programación para principiantes, LuaDrix">
 <meta name="robots" content="index,follow">
+
 <link rel="canonical" href="https://angel0727m.github.io/12901100/">
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+
 <meta property="og:type" content="website">
 <meta property="og:title" content="LuaDrix — Aprende Lua 5.5 y programación">
-<meta property="og:description" content="Aprende Lua 5.5 paso a paso con lecciones, preguntas, retos de código, biblioteca y laboratorio.">
+<meta property="og:description" content="Aprende Lua 5.5 paso a paso jugando.">
 <meta property="og:url" content="https://angel0727m.github.io/12901100/">
-<meta name="twitter:card" content="summary">
-<title>LuaDrix — Aprende Lua 5.5 y programación</title>
+
+<title>LuaDrix — Aprende Lua 5.5 jugando</title>
+
+<!-- Información SEO: permanece disponible para buscadores,
+     pero no ocupa espacio visual en la página. -->
+<section class="seo-hidden" aria-hidden="true">
+<h1>APRENDER PROGRAMACIÓN</h1>
+<h2>Aprende Lua 5.5 desde cero</h2>
+<p>
+LuaDrix explica programación en Lua con lenguaje sencillo y una ruta progresiva.
+Empiezas con print, variables y tipos de datos, y avanzas hacia condicionales,
+bucles, funciones, tablas, strings, módulos, errores, metatables y coroutines.
+</p>
+<p>
+Curso de Lua. Lua para principiantes. Programación en Lua. Lua 5.5.
+Aprender programación.
+</p>
+</section>
+
 <script type="application/ld+json">
 {
-  "@context":"https://schema.org",
-  "@type":"EducationalOrganization",
-  "name":"LuaDrix",
-  "url":"https://angel0727m.github.io/12901100/",
-  "description":"Plataforma educativa para aprender Lua 5.5 y programación desde cero mediante lecciones paso a paso, preguntas y retos de código.",
-  "sameAs":[]
+ "@context":"https://schema.org",
+ "@type":"EducationalOrganization",
+ "name":"LuaDrix",
+ "url":"https://angel0727m.github.io/12901100/",
+ "description":"Plataforma educativa para aprender Lua 5.5 y programación desde cero mediante lecciones, repasos y retos."
 }
 </script>
+
 <link rel="stylesheet" href="style.css">
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 </head>
+
 <body>
+
 <header class="topbar">
-  <button class="brand" onclick="volverInicio()"><span>Lua</span>Drix</button>
-  <div class="top-actions">
-    <button onclick="alternarModo()" aria-label="Cambiar tema">◐</button>
-    <button onclick="abrirCuenta()">👤 Cuenta</button>
-  </div>
+    <button class="brand" onclick="volverInicio()">
+        <span>Lua</span>Drix
+    </button>
+
+    <nav class="top-actions">
+        <button onclick="mostrarPantalla('tienda')">🛒 Tienda</button>
+        <button onclick="alternarModo()">◐</button>
+        <button onclick="mostrarPantalla('perfil')">👤</button>
+    </nav>
 </header>
 
-<main id="app">
+<main>
+
 <section id="inicio" class="pantalla activa">
-  <div class="hero">
-    <div>
-      <p class="eyebrow">APRENDE LUA 5.5</p>
-      <h1>Aprende Lua y programación paso a paso.</h1>
-      <p>LuaDrix es una plataforma gratuita para aprender Lua 5.5 desde cero con lecciones cortas, preguntas, retos de código, una biblioteca de referencia y un laboratorio para experimentar.</p>
+
+    <div class="hero">
+        <div>
+            <p class="eyebrow">APRENDE LUA 5.5 JUGANDO</p>
+            <h1>Aprende programación paso a paso.</h1>
+            <p>
+                Aprende Lua desde cero con explicaciones sencillas,
+                ejercicios, repasos y retos prácticos.
+            </p>
+        </div>
+
+        <div class="hero-actions">
+            <button class="primary" onclick="continuarAprendiendo()">
+                Continuar aprendiendo
+            </button>
+            <button onclick="mostrarPantalla('niveles')">
+                Ver niveles
+            </button>
+        </div>
     </div>
-    <div class="hero-actions"><button class="primary" onclick="continuarAprendiendo()">Continuar aprendiendo</button><button onclick="mostrarPantalla('niveles')">Ver niveles</button></div>
-  </div>
 
-  <div class="dashboard-grid">
-    <div class="stat-card"><span>⭐</span><b id="nivelTexto">Nivel 1</b><small id="xpTexto">0 / 100 EXP</small><div class="mini-bar"><i id="xpBarra"></i></div></div>
-    <div class="stat-card"><span>🔥</span><b id="rachaTexto">0 días</b><small>Racha</small></div>
-    <div class="stat-card"><span>❤️</span><b id="energiaTexto">5 / 5</b><small>Vidas</small></div>
-    <div class="stat-card"><span>🪙</span><b id="monedasTexto">0</b><small>Monedas</small></div>
-  </div>
+    <div class="dashboard-grid">
 
-  <div class="continue-card" id="continuarCard"></div>
+        <div class="stat-card">
+            <span>⭐</span>
+            <b id="nivelTexto">Nivel 1</b>
+            <small id="xpTexto">0 / 100 EXP</small>
+            <div class="mini-bar">
+                <i id="xpBarra"></i>
+            </div>
+        </div>
 
-  <div class="section-title"><h2>Tu ruta</h2><p>Completa las lecciones en orden para desbloquear las siguientes.</p></div>
-  <div id="homeLevels" class="levels-list"></div>
+        <div class="stat-card">
+            <span>🔥</span>
+            <b id="rachaTexto">0 días</b>
+            <small>Racha</small>
+        </div>
 
-  <div class="quick-grid">
-    <button class="feature-card" onclick="mostrarPantalla('biblioteca')"><span>📚</span><b>Biblioteca</b><small>Referencia de Lua 5.5</small></button>
-    <button class="feature-card" onclick="mostrarPantalla('laboratorio')"><span>🧪</span><b>Laboratorio</b><small>Experimenta con código</small></button>
-    <button class="feature-card" onclick="mostrarPantalla('logros')"><span>🏆</span><b>Logros</b><small>Completa objetivos y colecciona logros</small></button>
-    <button class="feature-card" onclick="mostrarPantalla('perfil')"><span>👤</span><b>Perfil</b><small>Configura tu perfil y progreso</small></button>
-  </div>
+        <div class="stat-card">
+            <span>❤️</span>
+            <b id="energiaTexto">5 / 5</b>
+            <small>Vidas</small>
+        </div>
 
-  <section class="seo-intro" aria-labelledby="que-es-luadrix">
-    <p class="eyebrow">APRENDER PROGRAMACIÓN</p>
-    <h2 id="que-es-luadrix">Aprende Lua 5.5 desde cero</h2>
-    <p>LuaDrix explica programación en Lua con lenguaje sencillo y una ruta progresiva. Empiezas con <strong>print, variables y tipos de datos</strong>, y avanzas hacia <strong>condicionales, bucles, funciones, tablas, strings, módulos, errores, metatables y coroutines</strong>.</p>
-    <div class="seo-topics">
-      <span>Curso de Lua</span><span>Lua para principiantes</span><span>Programación en Lua</span><span>Lua 5.5</span><span>Aprender programación</span>
+        <div class="stat-card">
+            <span>🪙</span>
+            <b id="monedasTexto">0</b>
+            <small>Monedas</small>
+        </div>
+
     </div>
-  </section>
+
+    <div class="continue-card" id="continuarCard"></div>
+
+    <div class="section-title">
+        <h2>Tu ruta</h2>
+        <p>Aprende poco a poco. Los repasos aparecen durante el curso.</p>
+    </div>
+
+    <div id="homeLevels" class="levels-list"></div>
+
+    <div class="quick-grid">
+
+        <button class="feature-card" onclick="mostrarPantalla('niveles')">
+            <span>📚</span>
+            <b>Curso</b>
+            <small>Aprende Lua paso a paso</small>
+        </button>
+
+        <button class="feature-card" onclick="mostrarPantalla('tienda')">
+            <span>🛒</span>
+            <b>Tienda</b>
+            <small>Compra vidas y protectores</small>
+        </button>
+
+        <button class="feature-card" onclick="mostrarPantalla('biblioteca')">
+            <span>📖</span>
+            <b>Biblioteca</b>
+            <small>Consulta Lua 5.5</small>
+        </button>
+
+        <button class="feature-card" onclick="mostrarPantalla('logros')">
+            <span>🏆</span>
+            <b>Logros</b>
+            <small>Completa objetivos</small>
+        </button>
+
+    </div>
+
 </section>
+
 
 <section id="niveles" class="pantalla">
-  <div class="page-head"><button onclick="volverInicio()">← Inicio</button><div><p class="eyebrow">RUTA</p><h2>Niveles de LuaDrix</h2></div></div>
-  <div id="levelsPage" class="levels-list"></div>
+
+    <div class="page-head">
+        <button onclick="volverInicio()">← Inicio</button>
+        <div>
+            <p class="eyebrow">RUTA DE APRENDIZAJE</p>
+            <h2>Niveles de LuaDrix</h2>
+        </div>
+    </div>
+
+    <div id="levelsPage" class="levels-list"></div>
+
 </section>
+
 
 <section id="leccion" class="pantalla">
-  <div class="lesson-head"><button onclick="mostrarPantalla('niveles')">← Volver</button><div><span id="lessonLevel" class="pill"></span><h2 id="lessonTitle"></h2><p id="lessonProgress"></p></div></div>
-  <div id="lessonBody" class="lesson-layout"></div>
+
+    <div class="lesson-head">
+        <button onclick="mostrarPantalla('niveles')">← Volver</button>
+
+        <div>
+            <span id="lessonLevel" class="pill"></span>
+            <h2 id="lessonTitle"></h2>
+            <p id="lessonProgress"></p>
+        </div>
+    </div>
+
+    <div id="lessonBody" class="lesson-layout"></div>
+
 </section>
 
+
+<section id="tienda" class="pantalla">
+
+    <div class="page-head">
+        <button onclick="volverInicio()">← Inicio</button>
+
+        <div>
+            <p class="eyebrow">LUDRIX SHOP</p>
+            <h2>Tienda</h2>
+        </div>
+    </div>
+
+    <div class="shop-balance">
+        🪙 <b id="shopCoins">0</b> monedas
+    </div>
+
+    <div class="shop-grid">
+
+        <article class="shop-item">
+            <div class="shop-icon">🔥</div>
+            <h3>Protector de racha</h3>
+            <p>
+                Protege tu racha si un día no completas una lección.
+                Puedes tener como máximo 2.
+            </p>
+            <strong>100 🪙</strong>
+            <button class="primary" onclick="comprarProtector()">
+                Comprar
+            </button>
+            <small id="protectoresTexto"></small>
+        </article>
+
+        <article class="shop-item">
+            <div class="shop-icon">❤️</div>
+            <h3>Vida</h3>
+            <p>
+                Recupera una vida para continuar aprendiendo.
+                Puedes tener hasta 5.
+            </p>
+            <strong>50 🪙</strong>
+            <button class="primary" onclick="comprarVida()">
+                Comprar
+            </button>
+            <small id="vidasTienda"></small>
+        </article>
+
+    </div>
+
+    <h2 class="shop-title">🎨 Temas</h2>
+
+    <div class="theme-grid">
+
+        <article class="theme-card green-theme">
+            <div class="theme-preview"></div>
+            <h3>Verde LuaDrix</h3>
+            <p>El color original de LuaDrix.</p>
+            <button onclick="equiparTema('verde')">
+                Equipar
+            </button>
+        </article>
+
+        <article class="theme-card blue-theme">
+            <div class="theme-preview"></div>
+            <h3>Océano</h3>
+            <p>Un azul tranquilo para estudiar.</p>
+            <button onclick="equiparTema('azul')">
+                Equipar
+            </button>
+        </article>
+
+        <article class="theme-card orange-theme">
+            <div class="theme-preview"></div>
+            <h3>Fuego</h3>
+            <p>Un naranja energético.</p>
+            <button onclick="equiparTema('naranja')">
+                Equipar
+            </button>
+        </article>
+
+        <article class="theme-card pink-theme">
+            <div class="theme-preview"></div>
+            <h3>Rosa</h3>
+            <p>Un estilo diferente para LuaDrix.</p>
+            <button onclick="equiparTema('rosa')">
+                Equipar
+            </button>
+        </article>
+
+    </div>
+
+</section>
+
+
 <section id="biblioteca" class="pantalla">
-  <div class="page-head"><button onclick="volverInicio()">← Inicio</button><div><p class="eyebrow">REFERENCIA</p><h2>Biblioteca de Lua 5.5</h2></div></div>
-  <input id="librarySearch" class="search" oninput="buscarBiblioteca()" placeholder="Buscar print, tablas, strings, math...">
-  <div id="libraryResults" class="library-grid"></div>
+
+    <div class="page-head">
+        <button onclick="volverInicio()">← Inicio</button>
+        <div>
+            <p class="eyebrow">REFERENCIA</p>
+            <h2>Biblioteca de Lua 5.5</h2>
+        </div>
+    </div>
+
+    <input
+        id="librarySearch"
+        class="search"
+        oninput="buscarBiblioteca()"
+        placeholder="Buscar print, tablas, strings, math..."
+    >
+
+    <div id="libraryResults" class="library-grid"></div>
+
 </section>
 
 
 <section id="laboratorio" class="pantalla">
-  <div class="page-head"><button onclick="volverInicio()">← Inicio</button><div><p class="eyebrow">EXPERIMENTA</p><h2>Laboratorio</h2></div></div>
-  <p class="muted">Escribe Lua y prueba ideas. El laboratorio es para experimentar; la ruta principal es la que desbloquea niveles.</p>
-  <div class="lab-toolbar"><select id="labTopic" onchange="cargarEjemploLab()"></select><button class="primary" onclick="ejecutarLaboratorio()">▶ Ejecutar</button><button onclick="limpiarLab()">Limpiar</button></div>
-  <textarea id="labCode" class="code-editor" spellcheck="false"></textarea>
-  <pre id="labOutput" class="output">La salida aparecerá aquí.</pre>
-  <div id="labNotes" class="lab-notes"></div>
+
+    <div class="page-head">
+        <button onclick="volverInicio()">← Inicio</button>
+        <div>
+            <p class="eyebrow">EXPERIMENTA</p>
+            <h2>Laboratorio</h2>
+        </div>
+    </div>
+
+    <p class="muted">
+        Escribe Lua y experimenta con tus propias ideas.
+    </p>
+
+    <textarea
+        id="labCode"
+        class="code-editor"
+        spellcheck="false"
+    >print("Hola LuaDrix!")</textarea>
+
+    <div class="lab-toolbar">
+        <button class="primary" onclick="ejecutarLaboratorio()">
+            ▶ Ejecutar
+        </button>
+
+        <button onclick="limpiarLab()">
+            Limpiar
+        </button>
+    </div>
+
+    <pre id="labOutput" class="output">
+La salida aparecerá aquí.
+    </pre>
+
 </section>
+
 
 <section id="logros" class="pantalla">
-  <div class="page-head"><button onclick="volverInicio()">← Inicio</button><div><p class="eyebrow">RECOMPENSAS</p><h2>Logros</h2></div></div>
-  <div id="achievementsGrid" class="achievement-grid"></div>
+
+    <div class="page-head">
+        <button onclick="volverInicio()">← Inicio</button>
+        <div>
+            <p class="eyebrow">RECOMPENSAS</p>
+            <h2>Logros</h2>
+        </div>
+    </div>
+
+    <div id="achievementsGrid" class="achievement-grid"></div>
+
 </section>
+
 
 <section id="perfil" class="pantalla">
-  <div class="page-head"><button onclick="volverInicio()">← Inicio</button><div><p class="eyebrow">TU CUENTA</p><h2>Perfil</h2></div></div>
-  <div id="profileBody"></div>
+
+    <div class="page-head">
+        <button onclick="volverInicio()">← Inicio</button>
+
+        <div>
+            <p class="eyebrow">TU PROGRESO</p>
+            <h2>Perfil</h2>
+        </div>
+    </div>
+
+    <div id="profileBody"></div>
+
 </section>
 
-<section id="sugerencias" class="pantalla">
-  <div class="page-head"><button onclick="volverInicio()">← Inicio</button><div><p class="eyebrow">MEJOREMOS LUDRIX</p><h2>Sugerencias</h2></div></div>
-  <form id="suggestionForm" class="form-card" onsubmit="enviarSugerencia(event)">
-    <label>Categoría<select id="suggestionCategory"><option>Lecciones</option><option>Ejercicios</option><option>Laboratorio</option><option>Diseño</option><option>Problemas/errores</option><option>Nuevas funciones</option><option>Otro</option></select></label>
-    <label>Sugerencia<textarea id="suggestionText" maxlength="1000" required placeholder="¿Qué cambiarías o añadirías?"></textarea></label>
-    <button class="primary" type="submit">Enviar sugerencia</button><p id="suggestionStatus" class="form-status"></p>
-  </form>
-</section>
-
-<section id="diagnostico" class="pantalla">
-  <div class="onboarding"><p class="eyebrow">ANTES DE EMPEZAR</p><h2 id="onboardingTitle">Conozcamos cómo quieres aprender</h2><div id="onboardingBody"></div></div>
-</section>
 </main>
 
-<div id="accountModal" class="modal" aria-hidden="true">
-  <div class="modal-box">
-    <button class="modal-close" onclick="cerrarCuenta()">×</button>
-    <div id="accountBody"></div>
-  </div>
-</div>
 
-<footer><b>LuaDrix</b><span>Aprende Lua 5.5 en lenguaje humano.</span><button onclick="mostrarPantalla('sugerencias')">💡 Sugerencias</button></footer>
+<footer>
+    <b>LuaDrix</b>
+    <span>Aprende Lua 5.5 jugando.</span>
+</footer>
+
+
 <script src="script.js"></script>
+
 </body>
 </html>
